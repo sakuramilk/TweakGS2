@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+
+    <!-- Common -->
+    <string name="current_value">設定値:</string>
+    <string name="go_back">戻る</string>
+    <string name="internal_sdcard">内部SDカード</string>
+    <string name="external_sdcard">外部SDカード</string>
+    <string name="path">パス</string>
+    <string name="directory">ディレクトリ</string>
+    <string name="file">ファイル</string>
+    <string name="set_on_boot">起動時に設定</string>
+
+    <string name="rom_manager_title">ROMマネージャ</string>
+        <string name="dual_boot_category">デュアルブート</string>
+            <string name="boot_rom">ブートROM</string>
+        <string name="reboot_category">再起動</string>
+            <string name="reboot">再起動</string>
+            <string name="reboot_summary">OSを再起動します</string>
+            <string name="recovery">リカバリ</string>
+            <string name="recovery_summary">再起動してリカバリモードにします</string>
+            <string name="download">ダウンロード</string>
+            <string name="download_summary">再起動してダウンロードモードにします</string>
+        <string name="nandroid_category">バックアップ/リストア</string>
+            <string name="backup">バックアップ</string>
+            <string name="backup_summary">現在のROMをバックアップします</string>
+            <string name="restore">リストア</string>
+            <string name="restore_summary">バックアップからリストアします</string>
+			<string name="manage">管理</string>
+            <string name="manage_summary">バックアップを管理します</string>
+        <string name="flash_category">フラッシュ</string>
+            <string name="install_zip">zipインストール</string>
+            <string name="install_zip_summary">zipファイルをインストールします</string>
+    <string name="backup_name">バックアップ名</string>
+    <string name="select_zip_title">zipファイルを選択</string>
+    <string name="select_backup_title">バックアップを選択</string>
+    <string name="do_install_zip">zipファイルをinstallします</string>
+    <string name="do_restore">リストアします</string>
+    <string name="backup_manage_rename">名前を変更</string>
+    <string name="backup_manage_rename_message">新しいバックアップ名を入力</string>
+	<string name="backup_manage_delete">削除</string>
+	<string name="backup_manage_delete_confirm">バックアップを削除しますか?</string>
+
+    <!-- CPU Control preference -->
+    <string name="cpu_control_title">CPUコントロール</string>
+        <string name="cpu_governor_category">ガバナ</string>
+            <string name="cpu_governor_select">ガバナ選択</string>
+            <string name="cpu_governor_setting">ガバナ設定</string>
+        <string name="cpu_freq_category">周波数</string>
+            <string name="cpu_max_freq">最大</string>
+            <string name="cpu_min_freq">最小</string>
+        <string name="cpu_voltage_category">電圧</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/rom_manager_title" >
+
+    <PreferenceCategory
+        android:key="dual_boot_category"
+        android:title="@string/dual_boot_category">
+        <ListPreference
+            android:key="dual_boot_boot_rom"
+            android:title="@string/boot_rom"
+            android:entries="@array/boot_rom_entries"
+            android:entryValues="@array/boot_rom_values" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="reboot_category"
+        android:title="@string/reboot_category">
+        <PreferenceScreen
+            android:key="reboot_normal"
+            android:title="@string/reboot"
+            android:summary="@string/reboot_summary" />
+        <PreferenceScreen
+            android:key="reboot_recovery"
+            android:title="@string/recovery"
+            android:summary="@string/recovery_summary" />
+        <PreferenceScreen
+            android:key="reboot_download"
+            android:title="@string/download"
+            android:summary="@string/download_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="nandroid_category"
+        android:title="@string/nandroid_category">
+        <ListPreference
+            android:key="nandroid_backup"
+            android:title="@string/backup"
+            android:summary="@string/backup_summary"
+            android:entries="@array/sdcard_entries"
+            android:entryValues="@array/sdcard_values" />
+        <ListPreference
+            android:key="nandroid_restore"
+            android:title="@string/restore"
+            android:summary="@string/restore_summary"
+            android:entries="@array/sdcard_entries"
+            android:entryValues="@array/sdcard_values" />
+        <ListPreference
+            android:key="nandroid_manage"
+            android:title="@string/manage"
+            android:summary="@string/manage_summary"
+            android:entries="@array/sdcard_entries"
+            android:entryValues="@array/sdcard_values" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="flash_category"
+        android:title="@string/flash_category">
+        <PreferenceScreen
+            android:key="flash_install_zip"
+            android:title="@string/install_zip"
+            android:summary="@string/install_zip_summary" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
