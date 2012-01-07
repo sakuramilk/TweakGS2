@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="sound_category"
+        android:title="@string/sound_category">
+        <PreferenceScreen
+            android:key="hw_volumes"
+            android:title="@string/hw_volumes">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="net.sakuramilk.TweakGS2"
+                android:targetClass="net.sakuramilk.TweakGS2.SoundAndVib.HwVolumePreferenceActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="vib_category"
+        android:title="@string/vib_category">
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="vib_level"
+            android:title="@string/vib_level"
+            android:dialogTitle="@string/vib_level"
+            android:enabled="false" />
+        <CheckBoxPreference   
+            android:key="vib_increase_on_incoming"  
+            android:title="@string/vib_increase_on_incoming"
+            android:summaryOn="@string/vib_increase_on_incoming_summary_on"
+            android:summaryOff="@string/vib_increase_on_incoming_summary_off"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

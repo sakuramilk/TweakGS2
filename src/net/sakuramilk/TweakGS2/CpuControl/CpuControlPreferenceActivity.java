@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.sakuramilk.TweakGS2.CpuControl;
 
 import net.sakuramilk.TweakGS2.R;
@@ -27,11 +43,11 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mFreqSetOnBoot;
     
     private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq"; 
-    private SysFs mAvailableGovernors = new SysFs(CRTL_PATH + "/scaling_available_governors");
-    private SysFs mScalingGovernor = new SysFs(CRTL_PATH + "/scaling_governor");
-    private SysFs mCpuFreqTable = new SysFs("/sys/power/cpufreq_table");
-    private SysFs mScalingMaxFreq = new SysFs(CRTL_PATH + "/scaling_max_freq");
-    private SysFs mScalingMinFreq = new SysFs(CRTL_PATH + "/scaling_min_freq");
+    private SysFs mSysFsAvailableGovernors = new SysFs(CRTL_PATH + "/scaling_available_governors");
+    private SysFs mSysFsScalingGovernor = new SysFs(CRTL_PATH + "/scaling_governor");
+    private SysFs mSysFsCpuFreqTable = new SysFs("/sys/power/cpufreq_table");
+    private SysFs mSysFsScalingMaxFreq = new SysFs(CRTL_PATH + "/scaling_max_freq");
+    private SysFs mSysFsScalingMinFreq = new SysFs(CRTL_PATH + "/scaling_min_freq");
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +57,12 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
         
         // governor
         mGovernorList = (ListPreference)findPreference("cpu_governor_list");
-        String[] availableGovernors = mAvailableGovernors.read();
+        String[] availableGovernors = mSysFsAvailableGovernors.read();
         String[] values = availableGovernors[0].split(" ");
         
         mGovernorList.setEntries(values);
         mGovernorList.setEntryValues(values);
-        String[] scalingGovernor = mScalingGovernor.read();
+        String[] scalingGovernor = mSysFsScalingGovernor.read();
         mGovernorList.setSummary(Misc.getCurrentValueText(this, scalingGovernor[0]));
         mGovernorList.setValue(scalingGovernor[0]);
         mGovernorList.setOnPreferenceChangeListener(this);
@@ -58,10 +74,10 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
         mGorvenorSetOnBoot.setOnPreferenceChangeListener(this);
         
         // cpu freq
-        String[] freqTable = mCpuFreqTable.read();
+        String[] freqTable = mSysFsCpuFreqTable.read();
         values = freqTable[0].split(" ");
-        String[] maxFreqValue = mScalingMaxFreq.read();
-        String[] minFreqValue = mScalingMinFreq.read();
+        String[] maxFreqValue = mSysFsScalingMaxFreq.read();
+        String[] minFreqValue = mSysFsScalingMinFreq.read();
         
         mFreqMax = (ListPreference)findPreference("cpu_max_freq");
         mFreqMax.setEntries(values);
@@ -91,7 +107,7 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mGovernorList) {
-            mScalingGovernor.write(newValue.toString());
+            mSysFsScalingGovernor.write(newValue.toString());
             mGovernorList.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
             
@@ -99,12 +115,12 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
             return true;
             
         } else if (preference == mFreqMax) {
-            mScalingMaxFreq.write(newValue.toString());
+            mSysFsScalingMaxFreq.write(newValue.toString());
             mFreqMax.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
             
         } else if (preference == mFreqMin) {
-            mScalingMinFreq.write(newValue.toString());
+            mSysFsScalingMinFreq.write(newValue.toString());
             mFreqMin.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
             

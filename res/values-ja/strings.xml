@@ -68,7 +68,15 @@
             <string name="cpu_min_freq">最小</string>
         <string name="cpu_voltage_category">電圧</string>
 
-
+    <!-- Sound and Vibration preference -->
+    <string name="sound_and_vib_title">サウンド/バイブレータ</string>
+        <string name="sound_category">サウンド</string>
+            <string name="hw_volumes">HWボリューム</string>
+        <string name="vib_category">バイブレータ</string>
+        <string name="vib_level">バイブレータの強さ</string>
+        <string name="vib_increase_on_incoming">着信時に強くする</string>
+        <string name="vib_increase_on_incoming_summary_on">バイブレータを強くします</string>
+        <string name="vib_increase_on_incoming_summary_off">バイブレータを強くしません</string>
 
 
 

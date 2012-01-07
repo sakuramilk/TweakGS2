@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.4.0b3"
-    android:versionCode="396">
+    android:versionName="1.0.0a1"
+    android:versionCode="1001">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15" />
@@ -43,14 +43,17 @@
         <activity android:name=".Parts.SeekBarPreference" />
 
         <!-- RomManager -->
-        <activity android:name=".RomManager.RomManagerPreferenceActivity"
-                  android:label="ROM Manager" />
+        <activity android:name=".RomManager.RomManagerPreferenceActivity" />
         <activity android:name=".RomManager.ZipFilePickerActivity" />
         <activity android:name=".RomManager.RestoreDirPickerActivity" />
 
 		<!-- CpuControl -->
 		<activity android:name=".CpuControl.CpuControlPreferenceActivity" />
 		<activity android:name=".CpuControl.GovernorOndemandControlActivity" />
+
+		<!-- Sound and Vibrator -->
+		<activity android:name=".SoundAndVib.SoundAndVibPreferenceActivity" />
+		<activity android:name=".SoundAndVib.HwVolumePreferenceActivity" />
 
     </application>
 

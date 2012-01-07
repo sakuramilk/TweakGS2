@@ -70,19 +70,23 @@
             <string name="cpu_min_freq">Min</string>
         <string name="cpu_voltage_category">Voltage</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Sound and Vibration preference -->
+    <string name="sound_and_vib_title">Sound and Vibration</string>
+        <string name="sound_category">Sound</string>
+            <string name="hw_volumes">HW Volumes</string>
+        <string name="vib_category">Vibrator</string>
+        <string name="vib_level">Vibrator level</string>
+        <string name="vib_increase_on_incoming">Increase on incoming</string>
+        <string name="vib_increase_on_incoming_summary_on">Increase on</string>
+        <string name="vib_increase_on_incoming_summary_off">Increase off</string>
+        <string name="avol_hp_title">(A) Headphone</string>
+        <string name="avol_hp_gain_title">(A) Headphone Gain</string>
+        <string name="avol_rc_title">(A) Receiver Value</string>
+        <string name="avol_sp_title">(A) Speaker Value</string>
+        <string name="dvol_dac_master_title">(D) DAC Master</string>
+        <string name="dvol_dac_att_title">(D) DAC ATT</string>
+        <string name="dvol_dir0_title">(D) DIR0</string>
+        <string name="dvol_dir0_att_title">(D) DIR0 ATT</string>
 
 
 

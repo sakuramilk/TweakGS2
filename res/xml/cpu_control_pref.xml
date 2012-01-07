@@ -19,7 +19,7 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="cpu_control_root"
-    android:title="@string/cpu_control_title" >
+    android:title="@string/cpu_control_title">
 
     <PreferenceCategory
         android:key="cpu_governor_category"
