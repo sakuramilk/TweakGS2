@@ -68,7 +68,7 @@ public class SeekBarPreference extends DialogPreference
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
     }
-    
+
     public void setValue(int max, int min, int value) {
         mMax = max;
         mMin = min;
@@ -77,18 +77,18 @@ public class SeekBarPreference extends DialogPreference
         }
         mValue = value;
     }
-    
+
     public void setValue(int max, int min, int step, int value) {
         mMax = max;
         mMin = min;
         mStep = step;
         mValue = value;
     }
-    
+
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        
+
         mSeekBar = getSeekBar(view);
         mSeekBar.setKeyProgressIncrement(mStep);
         mSeekBar.setMax(mMax - mMin);
@@ -96,13 +96,13 @@ public class SeekBarPreference extends DialogPreference
         mSeekBar.setOnSeekBarChangeListener(this);
         mTextView = getTextView(view);
         mTextView.setText(String.valueOf(mValue));
-        
+
         if (mSeekBar.getMax() > 300) {
             mValueScale = 50;
         } else {
             mValueScale = 5;
         }
-        
+
         mButtonUp1 = (Button)view.findViewById(R.id.buttonUp1);
         mButtonUp1.setOnClickListener(this);
         mButtonUp50 = (Button)view.findViewById(R.id.buttonUp50);
@@ -118,11 +118,11 @@ public class SeekBarPreference extends DialogPreference
     protected static SeekBar getSeekBar(View dialogView) {
         return (SeekBar)dialogView.findViewById(R.id.seekbar);
     }
-    
+
     protected static TextView getTextView(View dialogView) {
         return (TextView)dialogView.findViewById(R.id.textView);
     }
-    
+
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
@@ -137,7 +137,7 @@ public class SeekBarPreference extends DialogPreference
             }
         }
     }
-    
+
     public void onStartTrackingTouch(SeekBar seekBar) {
         // noop
     }

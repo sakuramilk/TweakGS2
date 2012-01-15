@@ -18,7 +18,6 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="cpu_control_root"
     android:title="@string/cpu_control_title">
 
     <PreferenceCategory
@@ -52,6 +51,14 @@
     <PreferenceCategory
         android:key="cpu_voltage_category"
         android:title="@string/cpu_voltage_category">
+        <PreferenceScreen
+            android:key="hw_volumes"
+            android:title="@string/cpu_voltage_title">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="net.sakuramilk.TweakGS2"
+                android:targetClass="net.sakuramilk.TweakGS2.CpuControl.CpuControlVoltagePreferenceActivity" />
+        </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>

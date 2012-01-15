@@ -22,11 +22,10 @@ import java.io.IOException;
 import org.apache.http.protocol.HTTP;
 
 public class RuntimeExec {
-    
-    public static String[] execute(String command, boolean needResponce) {
+
+    public static String[] execute(String[] commands, boolean needResponce) {
         try {
-            String[] cmd = { "/sbin/sh", "-c", command };
-            Process process = Runtime.getRuntime().exec(cmd);
+            Process process = Runtime.getRuntime().exec(commands);
             if (needResponce) {
                 DataInputStream inputStream = new DataInputStream(process.getInputStream());
                 if (inputStream != null) {
@@ -49,5 +48,14 @@ public class RuntimeExec {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String[] execute(String shell, String command, boolean needResponce) {
+        String[] commands = { shell, "-c", command };
+        return execute(commands, needResponce);
+    }
+
+    public static String[] execute(String command, boolean needResponce) {
+        return execute("/sbin/sh", command, needResponce);
     }
 }

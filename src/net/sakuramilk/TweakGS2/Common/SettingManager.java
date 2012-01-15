@@ -16,6 +16,39 @@
 
 package net.sakuramilk.TweakGS2.Common;
 
-public class SettingManager {
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
+public abstract class SettingManager {
+
+    private SharedPreferences mSharedPref;
+
+    public SettingManager(Context context) {
+        mSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public String getStringValue(String key) {
+        return mSharedPref.getString(key, null);
+    }
+
+    public boolean getBoolValue(String key) {
+        return mSharedPref.getBoolean(key, false);
+    }
+
+    public void setValue(String key, String value) {
+        Editor ed = mSharedPref.edit();
+        ed.putString(key, value);
+        ed.commit();
+    }
+
+    public void setValue(String key, boolean value) {
+        Editor ed = mSharedPref.edit();
+        ed.putBoolean(key, value);
+        ed.commit();
+    }
+
+    public abstract void setOnBoot();
+    public abstract void reset();
 }

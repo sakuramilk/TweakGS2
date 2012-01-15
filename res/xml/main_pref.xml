@@ -31,6 +31,14 @@
             android:targetClass="net.sakuramilk.TweakGS2.RomManager.RomManagerPreferenceActivity" />
     </PreferenceScreen>
 
+    <PreferenceScreen
+        android:title="@string/general_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.General.GeneralPreferenceActivity" />
+    </PreferenceScreen>
+
     <!-- CpuControl -->
     <PreferenceScreen
         android:title="@string/cpu_control_title">
@@ -40,6 +48,15 @@
             android:targetClass="net.sakuramilk.TweakGS2.CpuControl.CpuControlPreferenceActivity" />
     </PreferenceScreen>
 
+    <!-- GpuControl -->
+    <PreferenceScreen
+        android:title="@string/gpu_control_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.GpuControl.GpuControlPreferenceActivity" />
+    </PreferenceScreen>
+
     <!-- Sound and Vibrator -->
     <PreferenceScreen
         android:title="@string/sound_and_vib_title">
@@ -47,6 +64,24 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibPreferenceActivity" />
+    </PreferenceScreen>
+    <!-- Dock -->
+
+    <PreferenceScreen
+        android:title="@string/display_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.Display.DisplayPreferenceActivity" />
+    </PreferenceScreen>
+
+    <!-- Dock -->
+    <PreferenceScreen
+        android:title="@string/dock_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.Dock.DockPreferenceActivity" />
     </PreferenceScreen>
 
 </PreferenceScreen>

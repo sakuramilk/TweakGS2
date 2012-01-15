@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<CheckBoxPreference
+		android:key="sysprop_boot_sound"  
+		android:title="Boot sound"
+		android:summaryOn="起動時のサウンドは有効です"
+		android:summaryOff="起動時のサウンドは無効です" />
+		
+	<CheckBoxPreference   
+		android:key="sysprop_camera_sound"
+		android:title="Force camera sound"
+		android:summaryOn="カメラ音の強制は有効です"
+		android:summaryOff="カメラ音の強制は無効です" />
+
+	<CheckBoxPreference   
+		android:key="sysprop_crt_effect"
+		android:title="CRT Animation"
+		android:summaryOn="CRTアニメーションは有効です"
+		android:summaryOff="CRTアニメーションは無効です" />
+			
+	<CheckBoxPreference
+		android:key="sysprop_android_logger"
+		android:title="Android Logger"
+		android:summaryOn="logcatは有効です"
+		android:summaryOff="logcatは無効です" />
+		
+	<CheckBoxPreference
+		android:key="sysprop_cifs"
+		android:title="CIFS Support"
+		android:summaryOn="CIFSは有効です"
+		android:summaryOff="CIFSは無効です" />
+		
+	<CheckBoxPreference
+		android:key="sysprop_ntfs"
+		android:title="NTFS Support"
+		android:summaryOn="NTFSは有効です"
+		android:summaryOff="NTFSは無効です" />
+        
+</PreferenceScreen>

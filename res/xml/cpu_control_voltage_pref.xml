@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 /*
  * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
  *
@@ -13,24 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="root_pref"
+    android:title="@string/cpu_voltage_title">
 
-package net.sakuramilk.TweakGS2.Common;
+    <PreferenceCategory
+        android:key="cpu_voltage_option_category"
+        android:title="@string/option">
+        <CheckBoxPreference   
+            android:key="cpu_voltage_set_on_boot"  
+            android:title="@string/set_on_boot"
+            android:enabled="false" />
+    </PreferenceCategory>
 
-public class BootProperty extends PropertyManager {
-
-    public BootProperty() {
-        this("/xdata/boot.conf");
-    }
-
-    protected BootProperty(String filePath) {
-        super(filePath);
-    }
-
-    public void setBootRomValue(String value) {
-        setValue("ro.boot.rom", value);
-    }
-
-    public String getBootRomValue() {
-        return getValue("ro.boot.rom");
-    }
-}
+</PreferenceScreen>

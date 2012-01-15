@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/display_title">
+    
+    <PreferenceCategory
+        android:key="disp_lcd_category"
+        android:title="@string/lcd_category">
+        <ListPreference
+            android:key="disp_lcd_type"
+            android:title="@string/lcd_type"
+            android:entries="@array/ldctype_entries"
+            android:entryValues="@array/lcdtype_values"
+            android:enabled="false" />
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="disp_lcd_gamma"
+            android:title="@string/gamma_adjust"
+            android:dialogTitle="@string/gamma_adjust"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="disp_mdnie_category"
+        android:title="@string/mdnie_category">
+        <CheckBoxPreference   
+            android:key="disp_mdnie_force_disable"  
+            android:title="@string/mdnie_function"
+            android:summaryOn="@string/mdnie_function_on"
+            android:summaryOff="@string/mdnie_function_off"
+            android:enabled="false" />
+        <CheckBoxPreference   
+            android:key="disp_mdnie_mode"  
+            android:title="@string/mdnie_mode"
+            android:summaryOn="@string/mdnie_mode_on"
+            android:summaryOff="@string/mdnie_mode_off"
+            android:enabled="false" />
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="disp_mdnie_color_cb"
+            android:title="@string/mdnie_color_cb"
+            android:dialogTitle="@string/mdnie_color_cb"
+            android:enabled="false" />
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="disp_mdnie_color_cr"
+            android:title="@string/mdnie_color_cr"
+            android:dialogTitle="@string/mdnie_color_cr"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

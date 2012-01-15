@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+* Copyright 2011 sakuramilk <c.sakuramilk@gmail.com>
+* 
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as
+* published by the Free Software Foundation; either version 2 of 
+* the License, or (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/gpu_control_title">
+
+    <PreferenceCategory
+        android:key="gpu_high_state_category"
+        android:title="@string/gpu_high_state_category">
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="gpu_high_freq"
+            android:title="@string/frequency"
+            android:summary=""
+            android:dialogTitle="@string/frequency"
+            android:enabled="false" />
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="gpu_high_volt"
+            android:title="@string/voltage"
+            android:summary=""
+            android:dialogTitle="@string/voltage"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="gpu_low_state_category"
+        android:title="@string/gpu_low_state_category">
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="gpu_low_freq"
+            android:title="@string/frequency"
+            android:summary=""
+            android:dialogTitle="@string/frequency"
+            android:enabled="false" />
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="gpu_low_volt"
+            android:title="@string/voltage"
+            android:summary=""
+            android:dialogTitle="@string/voltage"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="gpu_option_category"
+        android:title="@string/option">
+        <CheckBoxPreference   
+            android:key="gpu_set_on_boot"  
+            android:title="@string/set_on_boot"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

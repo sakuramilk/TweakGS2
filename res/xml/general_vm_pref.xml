@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+                android:key="vm_swappiness"
+                android:title="Swappiness"
+                android:dialogTitle="Swappiness" />
+
+	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+                android:key="vm_vfs_cache_pressure"
+                android:title="VFS Cache Pressure"
+                android:dialogTitle="VFS Cache Pressure" />
+
+    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+                android:key="vm_dirty_expire_centisecs"
+                android:title="Dirty expire centisecs"
+                android:dialogTitle="Dirty expire centisecs" />
+
+    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+                android:key="vm_dirty_writeback_centisecs"
+                android:title="Dirty writeback centisecs"
+                android:dialogTitle="Dirty writeback centisecs" />
+
+	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+                android:key="vm_dirty_ratio"
+                android:title="Dirty ratio"
+                android:dialogTitle="Dirty ratio" />
+
+	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+                android:key="vm_dirty_background_ratio"
+                android:title="Dirty background ratio"
+                android:dialogTitle="Dirty background ratio" />
+
+</PreferenceScreen>

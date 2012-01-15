@@ -46,12 +46,12 @@ public abstract class FilePickerActivity extends PreferenceActivity
     private String mRootPath = Constant.MNT_ROOT;
     private String mCurPath = "";
     private String mFilter = null;
-    
+
     public abstract void onFilePicked(String path, String mode);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         Intent intent = getIntent();
         setTitle(intent.getStringExtra("title"));
         String path = intent.getStringExtra("path");
@@ -60,7 +60,7 @@ public abstract class FilePickerActivity extends PreferenceActivity
         if ("dir".equals(intent.getStringExtra("select"))) {
             mDirMode = true;
         }
-        
+
         if (Misc.isNullOfEmpty(path)) {
             File file = new File("/dev/block/mmcblk1");
             if (file.exists()) {
@@ -85,7 +85,7 @@ public abstract class FilePickerActivity extends PreferenceActivity
         PreferenceScreen rootPref = prefManager.createPreferenceScreen(this);
 
         mCurPath = Constant.MNT_ROOT;
-        
+
         // get sdcard path
         String internalSdcardPath = Misc.getSdcardPath(true);
         String externalSdcardPath = Misc.getSdcardPath(false);
@@ -110,15 +110,15 @@ public abstract class FilePickerActivity extends PreferenceActivity
         // Root
         PreferenceManager prefManager = getPreferenceManager();
         PreferenceScreen rootPref = prefManager.createPreferenceScreen(this);
-        
+
         mCurPath = path;
-        
+
         PreferenceCategory categoryPref;
         PreferenceScreen pref = prefManager.createPreferenceScreen(this);
         pref.setTitle(R.string.path);
         pref.setSummary(mCurPath);
         rootPref.addPreference(pref);
-        
+
         File[] directories = new File(path).listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
@@ -192,13 +192,12 @@ public abstract class FilePickerActivity extends PreferenceActivity
                 }
             }
         }
-        
+
         return rootPref;
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        
         if (mFileMode) {
             final File file = new File(preference.getKey());
             if (Constant.MNT_ROOT.equals(file.getPath())) {
@@ -222,10 +221,9 @@ public abstract class FilePickerActivity extends PreferenceActivity
             mFileMode = true;
             setPreferenceScreen(createFileList(preference.getKey()));
         }
-        
         return false;
     }
-    
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.KEYCODE_BACK) {
@@ -247,7 +245,7 @@ public abstract class FilePickerActivity extends PreferenceActivity
         }
         return super.dispatchKeyEvent(e);
     }
-    
+
     public void reload() {
         setPreferenceScreen(createFileList(mCurPath));
     }

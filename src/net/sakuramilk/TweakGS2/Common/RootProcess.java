@@ -54,7 +54,6 @@ public class RootProcess {
             } catch (IOException e) {
             }
         }
-        
         if (mOutputStream != null) {
             try {
                 if (mProcess != null) {
@@ -69,11 +68,9 @@ public class RootProcess {
             } catch (IOException e) {
             }
         }
-
         if(mProcess != null){
             mProcess.destroy();
         }
-
         mOutputStream = null;
         mInputStream = null;
         mProcess = null;

@@ -2,7 +2,6 @@ package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SysFs;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.preference.PreferenceActivity;
 public class HwVolumePreferenceActivity extends PreferenceActivity
     implements OnSeekBarPreferenceDoneListener {
 
+    private HwVolumeSetting mSetting;
     private SeekBarPreference mAvolHp;
     private SeekBarPreference mAvolHpGain;
     private SeekBarPreference mAvolRc;
@@ -21,92 +21,83 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
     private SeekBarPreference mDvolDir0;
     private SeekBarPreference mDvolDir0Att;
 
-    private static final String CTRL_PATH = "/sys/devices/virtual/sound/sound_mc1n2";
-    private final SysFs mSysFsAvolHp = new SysFs(CTRL_PATH + "/AVOL_HP");
-    private final SysFs mSysFsAvolHpGain = new SysFs(CTRL_PATH + "/AVOL_HP_GAIN");
-    private final SysFs mSysFsAvolRc = new SysFs(CTRL_PATH + "/AVOL_RC");
-    private final SysFs mSysFsAvolSp = new SysFs(CTRL_PATH + "/AVOL_SP");
-    private final SysFs mSysFsDvolDacMaster = new SysFs(CTRL_PATH + "/DVOL_DAC_MASTER");
-    private final SysFs mSysFsDvolDacAtt = new SysFs(CTRL_PATH + "/DVOL_DAC_ATT");
-    private final SysFs mSysFsDvolDir0 = new SysFs(CTRL_PATH + "/DVOL_DIR0");
-    private final SysFs mSysFsDvolDir0Att = new SysFs(CTRL_PATH + "/DVOL_DIR0_ATT");
-    private final SysFs mSysFsUpdateVolume = new SysFs(CTRL_PATH + "/update_volume");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.hw_volume_pref);
 
-        mAvolHp = (SeekBarPreference)findPreference("avol_hp");
-        if (mSysFsAvolHp.exists()) {
+        mSetting = new HwVolumeSetting(this);
+
+        mAvolHp = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_AVOL_HP);
+        if (mSetting.isEnableAvolHp()) {
             mAvolHp.setEnabled(true);
-            String[] curValue = mSysFsAvolHp.read();
-            mAvolHp.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mAvolHp.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.loadAvolHp();
+            mAvolHp.setSummary(Misc.getCurrentValueText(this, curValue));
+            mAvolHp.setValue(20, -20, Integer.parseInt(curValue));
             mAvolHp.setOnPreferenceDoneListener(this);
         }
 
-        mAvolHpGain = (SeekBarPreference)findPreference("avol_hp_gain");
-        if (mSysFsAvolHpGain.exists()) {
+        mAvolHpGain = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_AVOL_HP_GAIN);
+        if (mSetting.isEnableAvolHpGain()) {
             mAvolHpGain.setEnabled(true);
-            String[] curValue = mSysFsAvolHpGain.read();
-            mAvolHpGain.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mAvolHpGain.setValue(3, -3, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.loadAvolHpGain();
+            mAvolHpGain.setSummary(Misc.getCurrentValueText(this, curValue));
+            mAvolHpGain.setValue(3, -3, Integer.parseInt(curValue));
             mAvolHpGain.setOnPreferenceDoneListener(this);
         }
 
-        mAvolRc = (SeekBarPreference)findPreference("avol_rc");
-        if (mSysFsAvolRc.exists()) {
+        mAvolRc = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_AVOL_RC);
+        if (mSetting.isEnableAvolRc()) {
             mAvolRc.setEnabled(true);
-            String[] curValue = mSysFsAvolRc.read();
-            mAvolRc.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mAvolRc.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.getAvolRc();
+            mAvolRc.setSummary(Misc.getCurrentValueText(this, curValue));
+            mAvolRc.setValue(20, -20, Integer.parseInt(curValue));
             mAvolRc.setOnPreferenceDoneListener(this);
         }
 
-        mAvolSp = (SeekBarPreference)findPreference("avol_sp");
-        if (mSysFsAvolSp.exists()) {
+        mAvolSp = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_AVOL_SP);
+        if (mSetting.isEnableAvolSp()) {
             mAvolSp.setEnabled(true);
-            String[] curValue = mSysFsAvolSp.read();
-            mAvolSp.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mAvolSp.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.getAvolSp();
+            mAvolSp.setSummary(Misc.getCurrentValueText(this, curValue));
+            mAvolSp.setValue(20, -20, Integer.parseInt(curValue));
             mAvolSp.setOnPreferenceDoneListener(this);
         }
 
-        mDvolDacMaster = (SeekBarPreference)findPreference("dvol_dac_master");
-        if (mSysFsDvolDacMaster.exists()) {
+        mDvolDacMaster = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_DVOL_DAC_MASTER);
+        if (mSetting.isEnableDvolDacMaster()) {
             mDvolDacMaster.setEnabled(true);
-            String[] curValue = mSysFsDvolDacMaster.read();
-            mDvolDacMaster.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mDvolDacMaster.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.getDvolDacMaster();
+            mDvolDacMaster.setSummary(Misc.getCurrentValueText(this, curValue));
+            mDvolDacMaster.setValue(20, -20, Integer.parseInt(curValue));
             mDvolDacMaster.setOnPreferenceDoneListener(this);
         }
 
-        mDvolDacAtt = (SeekBarPreference)findPreference("dvol_dac_att");
-        if (mSysFsDvolDacAtt.exists()) {
+        mDvolDacAtt = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_DVOL_DAC_ATT);
+        if (mSetting.isEnableDvolDacAtt()) {
             mDvolDacAtt.setEnabled(true);
-            String[] curValue = mSysFsDvolDacAtt.read();
-            mDvolDacAtt.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mDvolDacAtt.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.getDvolDacAtt();
+            mDvolDacAtt.setSummary(Misc.getCurrentValueText(this, curValue));
+            mDvolDacAtt.setValue(20, -20, Integer.parseInt(curValue));
             mDvolDacAtt.setOnPreferenceDoneListener(this);
         }
 
-        mDvolDir0 = (SeekBarPreference)findPreference("dvol_dir0");
-        if (mSysFsDvolDir0.exists()) {
+        mDvolDir0 = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_DVOL_DIR0);
+        if (mSetting.isEnableDvolDir0()) {
             mDvolDir0.setEnabled(true);
-            String[] curValue = mSysFsDvolDir0.read();
-            mDvolDir0.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mDvolDir0.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.getDvolDir0();
+            mDvolDir0.setSummary(Misc.getCurrentValueText(this, curValue));
+            mDvolDir0.setValue(20, -20, Integer.parseInt(curValue));
             mDvolDir0.setOnPreferenceDoneListener(this);
         }
 
-        mDvolDir0Att = (SeekBarPreference)findPreference("dvol_dir0_att");
-        if (mSysFsDvolDir0Att.exists()) {
+        mDvolDir0Att = (SeekBarPreference)findPreference(HwVolumeSetting.KEY_DVOL_DIR0_ATT);
+        if (mSetting.isEnableDvolDir0Att()) {
             mDvolDir0Att.setEnabled(true);
-            String[] curValue = mSysFsDvolDir0Att.read();
-            mDvolDir0Att.setSummary(Misc.getCurrentValueText(this, curValue[0]));
-            mDvolDir0Att.setValue(20, -20, Integer.parseInt(curValue[0]));
+            String curValue = mSetting.getDvolDir0Att();
+            mDvolDir0Att.setSummary(Misc.getCurrentValueText(this, curValue));
+            mDvolDir0Att.setValue(20, -20, Integer.parseInt(curValue));
             mDvolDir0Att.setOnPreferenceDoneListener(this);
         }
     }
@@ -114,51 +105,51 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
         if (mAvolHp == preference) {
-            mSysFsAvolHp.write(newValue);
+            mSetting.setAvolHp(newValue);
             mAvolHp.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mAvolHpGain == preference) {
-            mSysFsAvolHpGain.write(newValue);
+            mSetting.setAvolHpGain(newValue);
             mAvolHpGain.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mAvolRc == preference) {
-            mSysFsAvolRc.write(newValue);
+            mSetting.setAvolRc(newValue);
             mAvolRc.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mAvolSp == preference) {
-            mSysFsAvolSp.write(newValue);
+            mSetting.setAvolSp(newValue);
             mAvolSp.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mDvolDacMaster == preference) {
-            mSysFsDvolDacMaster.write(newValue);
+            mSetting.setDvolDacMaster(newValue);
             mDvolDacMaster.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mDvolDacAtt == preference) {
-            mSysFsDvolDacAtt.write(newValue);
+            mSetting.setDvolDacAtt(newValue);
             mDvolDacAtt.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mDvolDir0 == preference) {
-            mSysFsDvolDir0.write(newValue);
+            mSetting.setDvolDir0(newValue);
             mDvolDir0.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         } else if (mDvolDir0Att == preference) {
-            mSysFsDvolDir0Att.write(newValue);
+            mSetting.setDvolDir0Att(newValue);
             mDvolDir0Att.setSummary(Misc.getCurrentValueText(this, newValue));
-            mSysFsUpdateVolume.write("1");
+            mSetting.updateVolume();
             return true;
 
         }

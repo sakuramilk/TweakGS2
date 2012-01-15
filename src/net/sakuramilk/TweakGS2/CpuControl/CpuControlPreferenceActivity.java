@@ -16,10 +16,10 @@
 
 package net.sakuramilk.TweakGS2.CpuControl;
 
+import java.util.ArrayList;
+
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.BootProperty;
 import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SysFs;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -27,113 +27,99 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class CpuControlPreferenceActivity extends PreferenceActivity
     implements OnPreferenceChangeListener, OnPreferenceClickListener {
 
-    private static final String TAG = "CpuControlPreferenceActivity";
-    
+    private CpuControlSetting mSetting;
     private ListPreference mGovernorList;
     private PreferenceScreen mGovernorSetting;
     private CheckBoxPreference mGorvenorSetOnBoot;
     private ListPreference mFreqMax;
     private ListPreference mFreqMin;
     private CheckBoxPreference mFreqSetOnBoot;
-    
-    private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq"; 
-    private SysFs mSysFsAvailableGovernors = new SysFs(CRTL_PATH + "/scaling_available_governors");
-    private SysFs mSysFsScalingGovernor = new SysFs(CRTL_PATH + "/scaling_governor");
-    private SysFs mSysFsCpuFreqTable = new SysFs("/sys/power/cpufreq_table");
-    private SysFs mSysFsScalingMaxFreq = new SysFs(CRTL_PATH + "/scaling_max_freq");
-    private SysFs mSysFsScalingMinFreq = new SysFs(CRTL_PATH + "/scaling_min_freq");
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.cpu_control_pref);
-        
+        mSetting = new CpuControlSetting(this);
+
         // governor
-        mGovernorList = (ListPreference)findPreference("cpu_governor_list");
-        String[] availableGovernors = mSysFsAvailableGovernors.read();
-        String[] values = availableGovernors[0].split(" ");
-        
-        mGovernorList.setEntries(values);
-        mGovernorList.setEntryValues(values);
-        String[] scalingGovernor = mSysFsScalingGovernor.read();
-        mGovernorList.setSummary(Misc.getCurrentValueText(this, scalingGovernor[0]));
-        mGovernorList.setValue(scalingGovernor[0]);
+        mGovernorList = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_GOV_LIST);
+        String[] availableGovernors = mSetting.getAvailableGovernors();
+        mGovernorList.setEntries(availableGovernors);
+        mGovernorList.setEntryValues(availableGovernors);
+        String scalingGovernor = mSetting.getScalingGovernor();
+        mGovernorList.setSummary(Misc.getCurrentValueText(this, scalingGovernor));
+        mGovernorList.setValue(scalingGovernor);
         mGovernorList.setOnPreferenceChangeListener(this);
-        
-        mGovernorSetting = (PreferenceScreen)findPreference("cpu_governor_setting");
+
+        mGovernorSetting = (PreferenceScreen)findPreference(CpuControlSetting.KEY_CPU_GOV_SETTING);
         mGovernorSetting.setOnPreferenceClickListener(this);
-        
-        mGorvenorSetOnBoot = (CheckBoxPreference)findPreference("cpu_governor_set_on_boot");
+
+        mGorvenorSetOnBoot = (CheckBoxPreference)findPreference(CpuControlSetting.KEY_CPU_GOV_SET_ON_BOOT);
         mGorvenorSetOnBoot.setOnPreferenceChangeListener(this);
-        
+
         // cpu freq
-        String[] freqTable = mSysFsCpuFreqTable.read();
-        values = freqTable[0].split(" ");
-        String[] maxFreqValue = mSysFsScalingMaxFreq.read();
-        String[] minFreqValue = mSysFsScalingMinFreq.read();
-        
-        mFreqMax = (ListPreference)findPreference("cpu_max_freq");
-        mFreqMax.setEntries(values);
-        mFreqMax.setEntryValues(values);
-        mFreqMax.setValue(maxFreqValue[0]);
+        String[] availableFrequencies = mSetting.getAvailableFrequencies();
+        String maxFreqValue = mSetting.getScalingMaxFreq();
+        String minFreqValue = mSetting.getScalingMinFreq();
+        ArrayList<String> list = new ArrayList<String>();
+        for (String freq : availableFrequencies) {
+            list.add(String.valueOf(Integer.parseInt(freq) / 1000) + "MHz");
+        }
+        String[] availableFreqEntries = list.toArray(new String[0]);
+
+        mFreqMax = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MAX_FREQ);
+        mFreqMax.setEntries(availableFreqEntries);
+        mFreqMax.setEntryValues(availableFrequencies);
+        mFreqMax.setValue(maxFreqValue);
         mFreqMax.setOnPreferenceChangeListener(this);
-        mFreqMax.setSummary(Misc.getCurrentValueText(this, maxFreqValue[0]));
-        
-        mFreqMin = (ListPreference)findPreference("cpu_min_freq");
-        mFreqMin.setEntries(values);
-        mFreqMin.setEntryValues(values);
-        mFreqMin.setValue(minFreqValue[0]);
+        mFreqMax.setSummary(Misc.getCurrentValueText(this, maxFreqValue));
+
+        mFreqMin = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MIN_FREQ);
+        mFreqMin.setEntries(availableFreqEntries);
+        mFreqMin.setEntryValues(availableFrequencies);
+        mFreqMin.setValue(minFreqValue);
         mFreqMin.setOnPreferenceChangeListener(this);
-        mFreqMin.setSummary(Misc.getCurrentValueText(this, minFreqValue[0]));
-        
-        mFreqSetOnBoot = (CheckBoxPreference)findPreference("cpu_freq_set_on_boot");
+        mFreqMin.setSummary(Misc.getCurrentValueText(this, minFreqValue));
+
+        mFreqSetOnBoot = (CheckBoxPreference)findPreference(CpuControlSetting.KEY_CPU_FREQ_SET_ON_BOOT);
         mFreqSetOnBoot.setOnPreferenceChangeListener(this);
-        
-        // voltage
-        PreferenceManager prefManager = getPreferenceManager();
-        PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference("cpu_control_root");
-        PreferenceScreen pref = prefManager.createPreferenceScreen(this);
-        pref.setTitle("voltage level1");
-        rootPref.addPreference(pref);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mGovernorList) {
-            mSysFsScalingGovernor.write(newValue.toString());
+            mSetting.setScalingGovernor(newValue.toString());
             mGovernorList.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
-            
+
         } else if (preference == mGorvenorSetOnBoot) {
             return true;
-            
+
         } else if (preference == mFreqMax) {
-            mSysFsScalingMaxFreq.write(newValue.toString());
+            mSetting.setScalingMaxFreq(newValue.toString());
             mFreqMax.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
-            
+
         } else if (preference == mFreqMin) {
-            mSysFsScalingMinFreq.write(newValue.toString());
+            mSetting.setScalingMinFreq(newValue.toString());
             mFreqMin.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
-            
+
         } else if (preference == mFreqSetOnBoot) {
             return true;
-            
+
         }
         return false;
     }
 
     @Override
     public boolean onPreferenceClick(Preference arg0) {
-        // TODO 自動生成されたメソッド・スタブ
         return false;
     }
 }

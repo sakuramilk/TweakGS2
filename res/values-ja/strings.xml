@@ -20,6 +20,7 @@
 
     <!-- Common -->
     <string name="current_value">設定値:</string>
+    <string name="saved_value">保存値:</string>
     <string name="go_back">戻る</string>
     <string name="internal_sdcard">内部SDカード</string>
     <string name="external_sdcard">外部SDカード</string>
@@ -27,6 +28,12 @@
     <string name="directory">ディレクトリ</string>
     <string name="file">ファイル</string>
     <string name="set_on_boot">起動時に設定</string>
+    <string name="not_support">サポートされていません</string>
+    <string name="none">なし</string>
+    <string name="option">Option</string>
+    <string name="frequency">周波数</string>
+    <string name="voltage">電圧</string>
+    <string name="apply">適用</string>
 
     <string name="rom_manager_title">ROMマネージャ</string>
         <string name="dual_boot_category">デュアルブート</string>
@@ -54,9 +61,19 @@
     <string name="do_install_zip">zipファイルをinstallします</string>
     <string name="do_restore">リストアします</string>
     <string name="backup_manage_rename">名前を変更</string>
-    <string name="backup_manage_rename_message">新しいバックアップ名を入力</string>
+    <string name="backup_manage_rename_message">新しいバックアップChange low memory task killer settings名を入力</string>
 	<string name="backup_manage_delete">削除</string>
 	<string name="backup_manage_delete_confirm">バックアップを削除しますか?</string>
+
+    <!-- General preference -->
+    <string name="general_title">全般</string>
+        <string name="low_memory_killer_title">低メモリ時のタスクキル</string>
+        <string name="low_memory_killer_summary">低メモリ時のタスクキル設定を変更します</string>
+        <string name="virtual_memory_title">仮想メモリ</string>
+        <string name="virtual_memory_summary">仮想メモリ設定を変更します</string>
+        <string name="system_property_title">システムプロパティ</string>
+        <string name="system_property_summary">システムプロパティを変更します\n注意: この項目は再起動後に反映されます</string>
+        <string name="io_scheduler_tite">I/Oスケジューラ</string>
 
     <!-- CPU Control preference -->
     <string name="cpu_control_title">CPUコントロール</string>
@@ -67,9 +84,31 @@
             <string name="cpu_max_freq">最大</string>
             <string name="cpu_min_freq">最小</string>
         <string name="cpu_voltage_category">電圧</string>
+    <string name="cpu_voltage_title">電圧調整</string>
+
+    <!-- GPU Control preference -->
+    <string name="gpu_control_title">GPUコントロール</string>
+        <string name="gpu_high_state_category">高パフォーマンス</string>
+        <string name="gpu_low_state_category">低パフォーマンス</string>
+        <string name="gpu_freq_category">Governor</string>
+
+    <!-- Display preference -->
+    <string name="display_title">画面設定</string>
+    <string name="lcd_category">LCD</string>
+        <string name="lcd_type">LCDタイプ</string>
+        <string name="gamma_adjust">ガンマ調整</string>
+    <string name="mdnie_category">mDNie</string>
+        <string name="mdnie_function">mDNie機能</string>
+        <string name="mdnie_function_on">mDNie機能は有効</string>
+        <string name="mdnie_function_off">mDNie機能は無効</string>
+        <string name="mdnie_mode">色合い調整</string>
+        <string name="mdnie_mode_on">色合い調整は有効</string>
+        <string name="mdnie_mode_off">色合い調整は無効</string>
+        <string name="mdnie_color_cb">色合い(青成分)</string>
+        <string name="mdnie_color_cr">色合い(赤成分)</string>
 
     <!-- Sound and Vibration preference -->
-    <string name="sound_and_vib_title">サウンド/バイブレータ</string>
+    <string name="sound_and_vib_title">サウンド/バイブ設定</string>
         <string name="sound_category">サウンド</string>
             <string name="hw_volumes">HWボリューム</string>
         <string name="vib_category">バイブレータ</string>
@@ -78,26 +117,16 @@
         <string name="vib_increase_on_incoming_summary_on">バイブレータを強くします</string>
         <string name="vib_increase_on_incoming_summary_off">バイブレータを強くしません</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Dock preference -->
+    <string name="dock_title">ドック設定</string>
+        <string name="dock_emulate">ドックエミュレート</string>
+            <string name="dock_start">ドック開始</string>
+            <string name="dock_emu_hw">HWエミュレート</string>
+            <string name="dock_emu_sw">SWエミュレート</string>
+            <string name="dock_emu_disable">無効</string>
+        <string name="dock_manual">手動</string>
+            <string name="dock_manual_start">Dockモードを開始します</string>
+            <string name="dock_manual_stop">Dockモードを終了します</string>
 
 
 </resources>

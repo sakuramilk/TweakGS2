@@ -29,11 +29,11 @@ import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
 public class TextInputDialog extends AlertDialog {
-	
-	private TextView mInputPrompt;
+
+    private TextView mInputPrompt;
     private EditText mInputField;
     private FinishTextInputListener mListener = null;
-	
+
     public interface FinishTextInputListener {
         public void onFinishTextInput(CharSequence input);
     }
@@ -75,7 +75,7 @@ public class TextInputDialog extends AlertDialog {
         lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(20, 20, 20, 10);
         view.addView(mInputPrompt, lp);
-        
+
         mInputField = new EditText(parent);
         mInputField.setHorizontallyScrolling(true);
         mInputField.setGravity(Gravity.FILL_HORIZONTAL);
@@ -84,7 +84,7 @@ public class TextInputDialog extends AlertDialog {
         lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(20, 10, 20, 20);
         view.addView(mInputField, lp);
-        
+
         return view;
     }
 
@@ -113,7 +113,7 @@ public class TextInputDialog extends AlertDialog {
         mInputField.setText(dflt);
         show();
     }
-    
+
     void okButtonPressed() {
         dismiss();
         if (mListener != null)

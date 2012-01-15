@@ -32,20 +32,20 @@ import net.sakuramilk.TweakGS2.Parts.TextInputDialog;
 public class RestoreDirPickerActivity extends FilePickerActivity {
 
     private static final String TAG = "DirPickerActivity";
-    
+
     private final int ACTION_RENAME = 0;
     private final int ACTION_DELETE = 1;
     private File mSelectedDir;
     private Context mContext;
     private final FilePickerActivity mActivity = this;
     private boolean mNeedReload = false;
-    
+
     @Override
     public void onFilePicked(String path, String mode) {
         Log.i(TAG, "selected dir path = " + path);
-        
+
         mContext = this;
-        
+
         if ("restore".equals(mode)) {
             final File file = new File(path);
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -63,21 +63,21 @@ public class RestoreDirPickerActivity extends FilePickerActivity {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             final CharSequence[] actions = { getText(R.string.backup_manage_rename),
                                               getText(R.string.backup_manage_delete) };
-            
+
             mSelectedDir = new File(path);
             alertDialogBuilder.setTitle(mSelectedDir.getName());
             alertDialogBuilder.setItems(actions, mOnClickListener);
             alertDialogBuilder.create().show();
         }
     }
-    
+
     private final DialogInterface.OnClickListener mOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             final String dirName = mSelectedDir.getName();
             final String dirPath = mSelectedDir.getPath();
             final String dirParent = mSelectedDir.getParent();
-                
+
             switch (which) {
                 case ACTION_RENAME:
                     {

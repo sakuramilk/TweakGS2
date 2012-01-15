@@ -18,7 +18,6 @@ package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SysFs;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
@@ -30,43 +29,46 @@ import android.preference.PreferenceActivity;
 
 public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
     OnPreferenceChangeListener, OnSeekBarPreferenceDoneListener {
-    
-    SeekBarPreference mVibLevel;
-    CheckBoxPreference mIncreaseOnIncoming;
-    String mCurVibLevel;
-    
-    SysFs mSysFsVibLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level");
-    SysFs mSysFsVibMaxLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level_max");
+
+    private VibSetting mVibSetting;
+
+    private SeekBarPreference mVibLevel;
+    private CheckBoxPreference mIncreaseOnIncoming;
+    private String mCurVibLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.sound_and_vib_pref);
-
-        mVibLevel = (SeekBarPreference)findPreference("vib_level");
-        if (mSysFsVibLevel.exists()) {
-            mVibLevel.setEnabled(true);
-            String[] maxLevel = mSysFsVibMaxLevel.read();
-            String[] curLevel = mSysFsVibLevel.read();
-            mCurVibLevel = curLevel[0];
-            mVibLevel.setValue(Integer.parseInt(maxLevel[0]), 0, 1, Integer.parseInt(curLevel[0]));
-            mVibLevel.setOnPreferenceChangeListener(this);
-            mVibLevel.setOnPreferenceDoneListener(this);
-            mVibLevel.setSummary(Misc.getCurrentValueText(this, curLevel[0]));
-        }
         
-        mIncreaseOnIncoming = (CheckBoxPreference)findPreference("vib_increase_on_incoming");
-        if (mSysFsVibLevel.exists()) {
-            mIncreaseOnIncoming.setEnabled(true);
+        mVibSetting = new VibSetting(this);
+
+        if (Misc.isAospRom()) {
+            mVibLevel = (SeekBarPreference)findPreference("vib_level");
+            if (mVibSetting.isEnableVibLevel()) {
+                mVibLevel.setEnabled(true);
+                String maxLevel = mVibSetting.getVibMaxLevel();
+                String curLevel = mVibSetting.getVibLevel();
+                mCurVibLevel = curLevel;
+                mVibLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
+                mVibLevel.setOnPreferenceChangeListener(this);
+                mVibLevel.setOnPreferenceDoneListener(this);
+                mVibLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
+            }
+            
+            mIncreaseOnIncoming = (CheckBoxPreference)findPreference("vib_increase_on_incoming");
+            if (mVibSetting.isEnableVibLevel()) {
+                mIncreaseOnIncoming.setEnabled(true);
+            }
         }
     }
 
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
         if (mVibLevel == preference) {
-            mSysFsVibLevel.write(newValue.toString());
-            mVibLevel.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
+            mVibSetting.setVibLevel(newValue);
+            mVibLevel.setSummary(Misc.getCurrentValueText(this, newValue));
             return true;
         }
         return false;
@@ -75,14 +77,12 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (mVibLevel == preference) {
-            mSysFsVibLevel.write((String)objValue);
+            mVibSetting.setVibLevel(objValue.toString());
             Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vib.vibrate(60);
             Misc.sleep(60);
-            mSysFsVibLevel.write(mCurVibLevel);
+            mVibSetting.setVibLevel(mCurVibLevel);
         }
         return false;
     }
-    
-    
 }

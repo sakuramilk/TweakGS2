@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceScreen
+        android:key="low_memory_killer_settings"
+        android:title="@string/low_memory_killer_title"
+        android:summary="@string/low_memory_killer_summary">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.General.LowMemKillerPreferenceActivity" />
+	</PreferenceScreen>
+	
+	<PreferenceScreen
+        android:key="vm_settings"
+        android:title="@string/virtual_memory_title"
+        android:summary="@string/virtual_memory_summary">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.General.VirtualMemoryPreferenceActivity" />
+	</PreferenceScreen>
+    
+	<PreferenceScreen
+        android:key="sysprop_settings"
+        android:title="@string/system_property_title"
+        android:summary="@string/system_property_summary">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.General.SystemPropertyPreferenceActivity" />
+	</PreferenceScreen>
+	
+	<ListPreference
+        android:key="iosched_type"
+        android:title="@string/io_scheduler_tite" />
+
+</PreferenceScreen>

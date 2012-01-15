@@ -24,7 +24,10 @@ import android.content.Context;
 import net.sakuramilk.TweakGS2.R;
 
 public class Misc {
-    
+
+    static final SysFs sSysFsAospRom = new SysFs("proc/sys/kernel/aosp_rom_mode");
+    static int sAospRomMode = -1;
+
     public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
             // internal sdcard path is fixed /mnt/sdcard
@@ -43,7 +46,7 @@ public class Misc {
             return "/mnt/sdcard/external_sd"; // samsung gb/ics
         }
     }
-    
+
     public static String getDateString() {
         final Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -54,11 +57,11 @@ public class Misc {
         final int second = calendar.get(Calendar.SECOND);
         return String.format("%04d-%02d-%02d-%02d.%02d.%02d", year, month, day, hour, minute, second); 
     }
-    
+
     public static boolean isNullOfEmpty(String value) {
         return (value == null || "".equals(value));
     }
-    
+
     public static boolean deleteDir(File dir) {
         if (dir.isDirectory()) {
             String[] children = dir.list();
@@ -71,16 +74,33 @@ public class Misc {
         }
         return dir.delete();
     }
-    
+
     public static String getCurrentValueText(Context context, String value) {
         return context.getText(R.string.current_value) + " " + value;
     }
-    
+
+    public static String getCurrentValueText(Context context, int resId) {
+        return context.getText(R.string.current_value) + " " + context.getText(resId);
+    }
+
+    public static String getCurrentAndSavedValueText(Context context, String curValue, String savedValue) {
+        return context.getText(R.string.current_value) + " " + curValue + " " +
+                context.getText(R.string.saved_value) + " " + ((savedValue == null) ? context.getText(R.string.none): savedValue);
+    }
+
     public static void sleep(long msec) {
         try {
             Thread.sleep(60);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isAospRom() {
+        if (sAospRomMode == -1) {
+            String value = sSysFsAospRom.read();
+            sAospRomMode = ("1".equals(value)) ? 1 : 0;
+        }
+        return (sAospRomMode == 1) ? true : false;
     }
 }

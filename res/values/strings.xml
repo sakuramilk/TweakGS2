@@ -21,6 +21,7 @@
     <!-- Common -->
     <string name="app_name">TweakGS2</string>
     <string name="current_value">Current:</string>
+    <string name="saved_value">Saved:</string>
     <string name="go_back">Go back</string>
     <string name="internal_sdcard">Internal sdcard</string>
     <string name="external_sdcard">External sdcard</string>
@@ -28,6 +29,12 @@
     <string name="directory">Directory</string>
     <string name="file">Files</string>
     <string name="set_on_boot">Set on boot</string>
+    <string name="not_support">Not support</string>
+    <string name="none">none</string>
+    <string name="option">Option</string>
+    <string name="frequency">Frequency</string>
+    <string name="voltage">Voltage</string>
+    <string name="apply">Apply</string>
 
     <!-- ROM Manager preference -->
     <string name="rom_manager_title">ROM Manager</string>
@@ -60,6 +67,16 @@
 	<string name="backup_manage_delete">Delete</string>
 	<string name="backup_manage_delete_confirm">Do you want to delete the backup?</string>
 
+    <!-- General preference -->
+    <string name="general_title">General</string>
+        <string name="low_memory_killer_title">Low memory killer</string>
+        <string name="low_memory_killer_summary">Change low memory task killer settings</string>
+        <string name="virtual_memory_title">Virtual memory</string>
+        <string name="virtual_memory_summary">Change virtual memory settings</string>
+        <string name="system_property_title">System property</string>
+        <string name="system_property_summary">Change system property\nNotice: Take effect after reboot</string>
+        <string name="io_scheduler_tite">I/O scheduler</string>
+
     <!-- CPU Control preference -->
     <string name="cpu_control_title">CPU Control</string>
         <string name="cpu_governor_category">Governor</string>
@@ -69,9 +86,31 @@
             <string name="cpu_max_freq">Max</string>
             <string name="cpu_min_freq">Min</string>
         <string name="cpu_voltage_category">Voltage</string>
+    <string name="cpu_voltage_title">Voltage control</string>
+
+    <!-- GPU Control preference -->
+    <string name="gpu_control_title">GPU Control</string>
+        <string name="gpu_high_state_category">High performance state</string>
+        <string name="gpu_low_state_category">Low performance state</string>
+        <string name="gpu_freq_category">Governor</string>
+
+    <!-- Display preference -->
+    <string name="display_title">Display setting</string>
+    <string name="lcd_category">LCD</string>
+        <string name="lcd_type">LCD type</string>
+        <string name="gamma_adjust">Gammma adjust</string>
+    <string name="mdnie_category">mDNie</string>
+        <string name="mdnie_function">mDNie function</string>
+        <string name="mdnie_function_on">mDNie enabled</string>
+        <string name="mdnie_function_off">mDNie disabled</string>
+        <string name="mdnie_mode">Color adjust</string>
+        <string name="mdnie_mode_on">Color adjust enabled</string>
+        <string name="mdnie_mode_off">Color adjust disabled</string>
+        <string name="mdnie_color_cb">Color (Blue element)</string>
+        <string name="mdnie_color_cr">Color (Red element)</string>
 
     <!-- Sound and Vibration preference -->
-    <string name="sound_and_vib_title">Sound and Vibration</string>
+    <string name="sound_and_vib_title">Sound and Vib setting</string>
         <string name="sound_category">Sound</string>
             <string name="hw_volumes">HW Volumes</string>
         <string name="vib_category">Vibrator</string>
@@ -88,6 +127,16 @@
         <string name="dvol_dir0_title">(D) DIR0</string>
         <string name="dvol_dir0_att_title">(D) DIR0 ATT</string>
 
+    <!-- Dock preference -->
+    <string name="dock_title">Dock setting</string>
+        <string name="dock_emulate">Dock emulate</string>
+            <string name="dock_start">Dock start</string>
+            <string name="dock_emu_hw">HW emulate</string>
+            <string name="dock_emu_sw">SW emulate</string>
+            <string name="dock_emu_disable">Disable</string>
+        <string name="dock_manual">Manual</string>
+            <string name="dock_manual_start">Start dock mode</string>
+            <string name="dock_manual_stop">Stop dock mode</string>
 
 
 

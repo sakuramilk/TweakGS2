@@ -38,7 +38,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     implements OnPreferenceClickListener, OnPreferenceChangeListener {
 
     private static final String TAG = "RomManagerPreferenceActivity";
-    
+
     private ListPreference mDualBootBootRom;
     private PreferenceScreen mRebootNormal;
     private PreferenceScreen mRebootRecovery;
@@ -47,9 +47,9 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     private ListPreference mNandroidRestore;
     private ListPreference mNandroidManage;
     private PreferenceScreen mFlashInstallZip;
-    
+
     private BootProperty mBootProperty = new BootProperty();
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +91,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             });
             alertDialogBuilder.setNegativeButton(android.R.string.no, null);
             alertDialogBuilder.create().show();
-            
+
         } else if (preference == mRebootRecovery) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.reboot);
@@ -103,7 +103,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             });
             alertDialogBuilder.setNegativeButton(android.R.string.no, null);
             alertDialogBuilder.create().show();
-            
+
         } else if (preference == mRebootDownload) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.reboot);
@@ -115,7 +115,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             });
             alertDialogBuilder.setNegativeButton(android.R.string.no, null);
             alertDialogBuilder.create().show();
-            
+
         } else if (preference == mFlashInstallZip) {
             Intent intent = new Intent(getApplicationContext(), ZipFilePickerActivity.class);
             intent.putExtra("title", getText(R.string.select_zip_title));
@@ -132,7 +132,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             Log.v(TAG, "select boot rom = " + newValue);
             mBootProperty.setBootRomValue(newValue.toString());
             mDualBootBootRom.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
-            
+
         } else if (preference == mNandroidBackup) {
             final String sdcardPath = Misc.getSdcardPath("internal".equals(newValue));
             TextInputDialog dlg = new TextInputDialog(this, android.R.string.ok, android.R.string.cancel);
@@ -146,7 +146,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
                 }
             });
             dlg.show(R.string.backup, R.string.backup_name, Misc.getDateString());
-        
+
         } else if (preference == mNandroidRestore) {
             final String sdcardPath = Misc.getSdcardPath("internal".equals(newValue));
             Intent intent = new Intent(getApplicationContext(), RestoreDirPickerActivity.class);
@@ -155,7 +155,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             intent.putExtra("mode", "restore");
             intent.putExtra("path", sdcardPath + Constant.CWM_BACKUP_DIR);
             this.startActivity(intent);
-        
+
         } else if (preference == mNandroidManage) {
             final String sdcardPath = Misc.getSdcardPath("internal".equals(newValue));
             Intent intent = new Intent(getApplicationContext(), RestoreDirPickerActivity.class);
