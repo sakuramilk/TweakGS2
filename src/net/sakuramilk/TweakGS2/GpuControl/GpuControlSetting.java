@@ -8,10 +8,8 @@ import net.sakuramilk.TweakGS2.Common.SysFs;
 
 public class GpuControlSetting extends SettingManager {
 
-    public static final String KEY_GPU_HIGH_FREQ = "gpu_high_freq";
-    public static final String KEY_GPU_HIGH_VOLT = "gpu_high_volt";
-    public static final String KEY_GPU_LOW_FREQ = "gpu_low_freq";
-    public static final String KEY_GPU_LOW_VOLT = "gpu_low_volt";
+    public static final String KEY_GPU_FREQ_BASE = "gpu_freq_step";
+    public static final String KEY_GPU_VOLT_BASE = "gpu_volt_step";
     public static final String KEY_GPU_SET_ON_BOOT = "gpu_set_on_boot";
 
     private final SysFs mSysFsClkCtrl = new SysFs("/sys/devices/virtual/misc/gpu_clock_control/gpu_control");
@@ -28,20 +26,41 @@ public class GpuControlSetting extends SettingManager {
     public Integer[] getFreq() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
         String[] values = mSysFsClkCtrl.readMuitiLine();
-        String[] lowValue = values[0].split(" ");
-        String[] highValue = values[1].split(" ");
-        ret.add(Integer.parseInt(highValue[1]));
-        ret.add(Integer.parseInt(lowValue[1]));
+        for (String value : values) {
+            String[] v = value.split(" ");
+            ret.add(Integer.parseInt(v[1]));
+        }
         return ret.toArray(new Integer[0]);
     }
 
-    public void setFreq(int highFreq, int lowFreq) {
-        mSysFsClkCtrl.write(String.format("%d %d", lowFreq, highFreq));
+    public void setFreq(Integer[] freqs) {
+        String values = String.valueOf(freqs[0]);
+        for (int i = 1; i < values.length() ; i++) {
+            values += " " + String.valueOf(freqs[i]);
+        }
+        mSysFsClkCtrl.write(values);
     }
 
-    public void saveFreq(int highFreq, int lowFreq) {
-        setValue(KEY_GPU_HIGH_FREQ, String.valueOf(highFreq));
-        setValue(KEY_GPU_LOW_FREQ, String.valueOf(lowFreq));
+    public Integer[] loadFreq() {
+        String value = null;
+        int i = 0;
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+
+        while (true) {
+            value = getStringValue(KEY_GPU_FREQ_BASE + i, null);
+            if (value == null) {
+                break;
+            }
+            ret.add(Integer.parseInt(value));
+            i++;
+        }
+        return ret.toArray(new Integer[0]);
+    }
+
+    public void saveFreq(Integer[] freqs) {
+        for (int i = 0; i < freqs.length ; i++) {
+            setValue(KEY_GPU_FREQ_BASE + i, String.valueOf(freqs[i]));
+        }
     }
 
     public boolean isEnableVoltageCtrl() {
@@ -51,24 +70,45 @@ public class GpuControlSetting extends SettingManager {
     public Integer[] getVolt() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
         String[] values = mSysFsVoltCtrl.readMuitiLine();
-        String[] lowValue = values[0].split(" ");
-        String[] highValue = values[1].split(" ");
-        ret.add(Integer.parseInt(highValue[1]) / 1000);
-        ret.add(Integer.parseInt(lowValue[1]) / 1000);
+        for (String value : values) {
+            String[] v = value.split(" ");
+            ret.add(Integer.parseInt(v[1]) / 1000);
+        }
         return ret.toArray(new Integer[0]);
     }
 
-    public void setVolt(int highVolt, int lowVolt) {
-        mSysFsVoltCtrl.write(String.format("%d %d", lowVolt, highVolt));
+    public void setVolt(Integer[] volts) {
+        String values = String.valueOf(volts[0]);
+        for (int i = 1; i < values.length() ; i++) {
+            values += " " + String.valueOf(volts[i] * 1000);
+        }
+        mSysFsVoltCtrl.write(values);
     }
 
-    public void saveVolt(int highVolt, int lowVolt) {
-        setValue(KEY_GPU_HIGH_VOLT, String.valueOf(highVolt * 1000));
-        setValue(KEY_GPU_LOW_VOLT, String.valueOf(lowVolt * 1000));
+    public Integer[] loadVolt() {
+        String value = null;
+        int i = 0;
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+
+        while (true) {
+            value = getStringValue(KEY_GPU_VOLT_BASE + i, null);
+            if (value == null) {
+                break;
+            }
+            ret.add(Integer.parseInt(value));
+            i++;
+        }
+        return ret.toArray(new Integer[0]);
+    }
+
+    public void saveVolt(Integer[] volts) {
+        for (int i = 0; i < volts.length ; i++) {
+            setValue(KEY_GPU_VOLT_BASE + i, String.valueOf(volts[i]));
+        }
     }
 
     public boolean loadSetOnBoot() {
-        return getBoolValue(KEY_GPU_SET_ON_BOOT);
+        return getBooleanValue(KEY_GPU_SET_ON_BOOT);
     }
 
     public void saveSetOnBoot(boolean setOnBoot) {
@@ -77,11 +117,40 @@ public class GpuControlSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-        // TODO 自動生成されたメソッド・スタブ
+        Integer[] volts = loadVolt();
+        if (volts != null) {
+            saveVolt(volts);
+        }
+        Integer[] freqs = loadFreq();
+        if (freqs != null) {
+            saveFreq(freqs);
+        }
+    }
+
+    @Override
+    public void setRecommend() {
+        // noop
     }
 
     @Override
     public void reset() {
-        // TODO 自動生成されたメソッド・スタブ
+        int i = 0;
+        while (true) {
+            String value = getStringValue(KEY_GPU_FREQ_BASE + i, null);
+            if (value == null) {
+                break;
+            }
+            clearValue(KEY_GPU_FREQ_BASE + i);
+            i++;
+        }
+        i = 0;
+        while (true) {
+            String value = getStringValue(KEY_GPU_VOLT_BASE + i, null);
+            if (value == null) {
+                break;
+            }
+            clearValue(KEY_GPU_VOLT_BASE + i);
+            i++;
+        }
     }
 }

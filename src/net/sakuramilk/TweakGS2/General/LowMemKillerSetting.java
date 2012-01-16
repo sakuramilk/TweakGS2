@@ -62,6 +62,13 @@ public class LowMemKillerSetting extends SettingManager {
     }
 
     @Override
+    public void setRecommend() {
+        String[] values = { "2560", "4096", "6144", "12288", "14336", "18432" };
+        setLowMemKillerMinFree(values);
+        saveLowMemKillerMinFree(values);
+    }
+
+    @Override
     public void reset() {
         // TODO 自動生成されたメソッド・スタブ
     }

@@ -68,6 +68,11 @@ public class DockSetting extends SettingManager {
     }
 
     @Override
+    public void setRecommend() {
+        // TODO 自動生成されたメソッド・スタブ
+    }
+
+    @Override
     public void reset() {
         // TODO 自動生成されたメソッド・スタブ
     }

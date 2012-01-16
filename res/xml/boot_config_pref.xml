@@ -19,11 +19,20 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="root_pref"
-    android:title="@string/cpu_voltage_title">
+    android:title="@string/boot_config_title">
 
     <PreferenceCategory
-        android:key="cpu_voltage_option_category"
-        android:title="@string/option">
+        android:key="boot_conf_boot_rom_category"
+        android:title="@string/boot_conf_boot_rom_category">
+        <ListPreference
+            android:key="boot_conf_boot_rom"
+            android:title="@string/boot_conf_boot_rom_title"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="boot_conf_rom_setting_category"
+        android:title="@string/boot_conf_rom_setting">
     </PreferenceCategory>
 
 </PreferenceScreen>

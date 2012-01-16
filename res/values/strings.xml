@@ -36,7 +36,7 @@
     <string name="voltage">Voltage</string>
     <string name="apply">Apply</string>
 
-    <!-- ROM Manager preference -->
+    <!-- ROM Manager -->
     <string name="rom_manager_title">ROM Manager</string>
         <string name="dual_boot_category">Dual boot</string>
             <string name="boot_rom">Boot ROM</string>
@@ -67,7 +67,7 @@
 	<string name="backup_manage_delete">Delete</string>
 	<string name="backup_manage_delete_confirm">Do you want to delete the backup?</string>
 
-    <!-- General preference -->
+    <!-- General -->
     <string name="general_title">General</string>
         <string name="low_memory_killer_title">Low memory killer</string>
         <string name="low_memory_killer_summary">Change low memory task killer settings</string>
@@ -76,9 +76,23 @@
         <string name="system_property_title">System property</string>
         <string name="system_property_summary">Change system property\nNotice: Take effect after reboot</string>
         <string name="io_scheduler_tite">I/O scheduler</string>
+        <string name="gsm_network_tweak_title">3G network tweak</string>
+        <string name="gsm_network_tweak_summary_on">3G network tweak enabled</string>
+        <string name="gsm_network_tweak_summary_off">3G network tweak disabled</string>
 
-    <!-- CPU Control preference -->
-    <string name="cpu_control_title">CPU Control</string>
+    <!-- Boot config -->
+    <string name="boot_config_title">Boot config</string>
+        <string name="boot_conf_boot_rom_category">Boot ROM selection</string>
+        <string name="boot_conf_boot_rom_title">Boot ROM</string>
+        <string name="boot_conf_rom_setting">ROM setting</string>
+        <string name="rom_system_category">System area</string>
+        <string name="rom_data_category">Data area</string>
+        <string name="rom_partition">Partition</string>
+        <string name="rom_image">Image</string>
+        <string name="rom_path">Path</string>
+
+    <!-- CPU Control -->
+    <string name="cpu_control_title">CPU control</string>
         <string name="cpu_governor_category">Governor</string>
             <string name="cpu_governor_select">Governor select</string>
             <string name="cpu_governor_setting">Governor setting</string>
@@ -88,13 +102,13 @@
         <string name="cpu_voltage_category">Voltage</string>
     <string name="cpu_voltage_title">Voltage control</string>
 
-    <!-- GPU Control preference -->
-    <string name="gpu_control_title">GPU Control</string>
+    <!-- GPU Control -->
+    <string name="gpu_control_title">GPU control</string>
         <string name="gpu_high_state_category">High performance state</string>
         <string name="gpu_low_state_category">Low performance state</string>
         <string name="gpu_freq_category">Governor</string>
 
-    <!-- Display preference -->
+    <!-- Display -->
     <string name="display_title">Display setting</string>
     <string name="lcd_category">LCD</string>
         <string name="lcd_type">LCD type</string>
@@ -109,10 +123,13 @@
         <string name="mdnie_color_cb">Color (Blue element)</string>
         <string name="mdnie_color_cr">Color (Red element)</string>
 
-    <!-- Sound and Vibration preference -->
+    <!-- Sound and Vibration -->
     <string name="sound_and_vib_title">Sound and Vib setting</string>
         <string name="sound_category">Sound</string>
             <string name="hw_volumes">HW Volumes</string>
+            <string name="sound_play_freq_lock_title">CPU freq lock during music play</string>
+            <string name="sound_play_freq_lock_summary_on">CPU freq lock enabled</string>
+            <string name="sound_play_freq_lock_summary_off">CPU freq lock disabled</string>
         <string name="vib_category">Vibrator</string>
         <string name="vib_level">Vibrator level</string>
         <string name="vib_increase_on_incoming">Increase on incoming</string>
@@ -127,7 +144,13 @@
         <string name="dvol_dir0_title">(D) DIR0</string>
         <string name="dvol_dir0_att_title">(D) DIR0 ATT</string>
 
-    <!-- Dock preference -->
+    <!-- Notification -->
+    <string name="notification_title">Notification setting</string>
+        <string name="notification_bln_on_incoming_title">BLN on incoming</string>
+        <string name="notification_bln_on_incoming_summary_on">BLN on incoming enabled</string>
+        <string name="notification_bln_on_incoming_summary_off">BLN on incoming disabled</string>
+
+    <!-- Dock -->
     <string name="dock_title">Dock setting</string>
         <string name="dock_emulate">Dock emulate</string>
             <string name="dock_start">Dock start</string>
@@ -138,9 +161,11 @@
             <string name="dock_manual_start">Start dock mode</string>
             <string name="dock_manual_stop">Stop dock mode</string>
 
+    <!-- About -->
+    <string name="about_title">About TweakGS2</string>
 
-
-
-
+    <!-- Menu -->
+    <string name="menu_reset">Reset</string>
+    <string name="menu_recommend">Recommend</string>
 
 </resources>

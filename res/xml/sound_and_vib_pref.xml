@@ -14,6 +14,12 @@
                 android:targetPackage="net.sakuramilk.TweakGS2"
                 android:targetClass="net.sakuramilk.TweakGS2.SoundAndVib.HwVolumePreferenceActivity" />
         </PreferenceScreen>
+        <CheckBoxPreference   
+            android:key="sound_play_freq_lock"  
+            android:title="@string/sound_play_freq_lock_title"
+            android:summaryOn="@string/sound_play_freq_lock_summary_on"
+            android:summaryOff="@string/sound_play_freq_lock_summary_off"
+            android:enabled="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

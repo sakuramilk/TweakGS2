@@ -13,8 +13,6 @@ public class CpuControlSetting extends SettingManager {
     public static final String KEY_CPU_MAX_FREQ = "cpu_max_freq";
     public static final String KEY_CPU_MIN_FREQ = "cpu_min_freq";
     public static final String KEY_CPU_FREQ_SET_ON_BOOT = "cpu_freq_set_on_boot";
-    public static final String KEY_CPU_VOLT_CTRL_BASE = "cpu_vc_";
-    public static final String KEY_CPU_VOLT_CTRL_SET_ON_BOOT = "vc_set_on_boot";
 
     private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq";
     private final SysFs mSysFsAvailableGovernors = new SysFs(CRTL_PATH + "/scaling_available_governors");
@@ -75,6 +73,11 @@ public class CpuControlSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
+        // TODO 自動生成されたメソッド・スタブ
+    }
+
+    @Override
+    public void setRecommend() {
         // TODO 自動生成されたメソッド・スタブ
     }
 

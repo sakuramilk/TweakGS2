@@ -1,6 +1,7 @@
 package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -236,11 +237,56 @@ public class HwVolumeSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
+        String value;
         
+        value = loadAvolHp();
+        if (!Misc.isNullOfEmpty(value)) {
+            setAvolHp(value);
+        }
+        value = loadAvolHpGain();
+        if (!Misc.isNullOfEmpty(value)) {
+            setAvolHpGain(value);
+        }
+        value = loadAvolRc();
+        if (!Misc.isNullOfEmpty(value)) {
+            setAvolRc(value);
+        }
+        value = loadAvolSp();
+        if (!Misc.isNullOfEmpty(value)) {
+            setAvolSp(value);
+        }
+        value = loadDvolDacMaster();
+        if (!Misc.isNullOfEmpty(value)) {
+            setDvolDacMaster(value);
+        }
+        value = loadDvolDacAtt();
+        if (!Misc.isNullOfEmpty(value)) {
+            setDvolDacAtt(value);
+        }
+        value = loadDvolDir0();
+        if (!Misc.isNullOfEmpty(value)) {
+            setDvolDir0(value);
+        }
+        value = loadDvolDir0Att();
+        if (!Misc.isNullOfEmpty(value)) {
+            setDvolDir0Att(value);
+        }
+    }
+
+    @Override
+    public void setRecommend() {
+        // noop
     }
 
     @Override
     public void reset() {
-        
+        clearValue(KEY_AVOL_HP);
+        clearValue(KEY_AVOL_HP_GAIN);
+        clearValue(KEY_AVOL_RC);
+        clearValue(KEY_AVOL_SP);
+        clearValue(KEY_DVOL_DAC_MASTER);
+        clearValue(KEY_DVOL_DAC_ATT);
+        clearValue(KEY_DVOL_DIR0);
+        clearValue(KEY_DVOL_DIR0_ATT);
     }
 }

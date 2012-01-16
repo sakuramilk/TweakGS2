@@ -1,6 +1,7 @@
 package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -122,11 +123,60 @@ public class VirtualMemorySetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-        // TODO 自動生成されたメソッド・スタブ
+        String value = loadVmSwappiness();
+        if (!Misc.isNullOfEmpty(value)) {
+            setVmSwappiness(value);
+        }
+        value = loadVmVfsCachePressure();
+        if (!Misc.isNullOfEmpty(value)) {
+            setVmVfsCachePressure(value);
+        }
+        value = loadVmDirtyExpireCentisecs();
+        if (!Misc.isNullOfEmpty(value)) {
+            setVmDirtyExpireCentisecs(value);
+        }
+        value = loadVmDirtyWritebackCentisecs();
+        if (!Misc.isNullOfEmpty(value)) {
+            setVmDirtyWritebackCentisecs(value);
+        }
+        value = loadVmDirtyRatio();
+        if (!Misc.isNullOfEmpty(value)) {
+            setVmDirtyRatio(value);
+        }
+        value = loadVmDirtyBackgroundRatio();
+        if (!Misc.isNullOfEmpty(value)) {
+            setVmDirtyBackgroundRatio(value);
+        }
+    }
+
+    @Override
+    public void setRecommend() {
+        setVmSwappiness("10");
+        saveVmSwappiness("10");
+
+        setVmVfsCachePressure("50");
+        saveVmVfsCachePressure("50");
+
+        setVmDirtyExpireCentisecs("3000");
+        saveVmDirtyExpireCentisecs("3000");
+
+        setVmDirtyWritebackCentisecs("500");
+        saveVmDirtyWritebackCentisecs("500");
+
+        setVmDirtyRatio("22");
+        saveVmDirtyRatio("22");
+
+        setVmDirtyBackgroundRatio("4");
+        saveVmDirtyBackgroundRatio("4");
     }
 
     @Override
     public void reset() {
-        // TODO 自動生成されたメソッド・スタブ
+        clearValue(KEY_VM_SWAPPINESS);
+        clearValue(KEY_VM_VFS_CACHE_PRESSURE);
+        clearValue(KEY_VM_DIRTY_EXPIRE_CENTISECS);
+        clearValue(KEY_VM_DIRTY_RATIO);
+        clearValue(KEY_VM_DIRTY_WRITEBACK_CENTISECS);
+        clearValue(KEY_VM_DIRTY_BACKGROUND_RATIO);
     }
 }

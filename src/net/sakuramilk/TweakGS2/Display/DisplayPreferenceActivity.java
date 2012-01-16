@@ -77,14 +77,14 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
 
         boolean isMdnieMcmEnable = false;
         if (mSetting.isEnableMdnieMode()) {
-            mMdnieMode.setEnabled(isMdnieForceDisable ? false : true);
+            mMdnieMode.setEnabled(!isMdnieForceDisable);
             mMdnieMode.setOnPreferenceChangeListener(this);
             String value = mSetting.getMdnieMode();
             isMdnieMcmEnable = DisplaySetting.MDNIE_MCM_ENABLE.equals(value) ? true : false;
         }
 
         if (mSetting.isEnableMdnieMcmCb()) {
-            mMdnieColorCb.setEnabled((isMdnieForceDisable && isMdnieMcmEnable) ? false : true);
+            mMdnieColorCb.setEnabled(isMdnieForceDisable & isMdnieMcmEnable);
             mMdnieColorCb.setOnPreferenceDoneListener(this);
             String value = mSetting.getMdnieMcmCb();
             mMdnieColorCb.setSummary(Misc.getCurrentValueText(this, value));
@@ -92,7 +92,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
         }
 
         if (mSetting.isEnableMdnieMcmCr()) {
-            mMdnieColorCr.setEnabled((isMdnieForceDisable && isMdnieMcmEnable) ? false : true);
+            mMdnieColorCr.setEnabled(isMdnieForceDisable & isMdnieMcmEnable);
             mMdnieColorCr.setOnPreferenceDoneListener(this);
             String value = mSetting.getMdnieMcmCr();
             mMdnieColorCr.setSummary(Misc.getCurrentValueText(this, value));

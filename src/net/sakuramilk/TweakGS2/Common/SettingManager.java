@@ -33,8 +33,16 @@ public abstract class SettingManager {
         return mSharedPref.getString(key, null);
     }
 
-    public boolean getBoolValue(String key) {
+    public String getStringValue(String key, String defaultValue) {
+        return mSharedPref.getString(key, defaultValue);
+    }
+
+    public boolean getBooleanValue(String key) {
         return mSharedPref.getBoolean(key, false);
+    }
+
+    public boolean getBooleanValue(String key, boolean defaultValue) {
+        return mSharedPref.getBoolean(key, defaultValue);
     }
 
     public void setValue(String key, String value) {
@@ -49,6 +57,13 @@ public abstract class SettingManager {
         ed.commit();
     }
 
+    public void clearValue(String key) {
+        Editor ed = mSharedPref.edit();
+        ed.remove(key);
+        ed.commit();
+    }
+
     public abstract void setOnBoot();
+    public abstract void setRecommend();
     public abstract void reset();
 }

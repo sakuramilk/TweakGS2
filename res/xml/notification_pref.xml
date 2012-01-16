@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:key="notify_backlight_flash_on_incoming"
+        android:title="@string/notification_bln_on_incoming_title"
+        android:summaryOn="@string/notification_bln_on_incoming_summary_on"
+        android:summaryOff="@string/notification_bln_on_incoming_summary_off"
+        android:enabled="false" />
+
+</PreferenceScreen>

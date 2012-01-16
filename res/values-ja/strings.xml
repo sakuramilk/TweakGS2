@@ -35,6 +35,7 @@
     <string name="voltage">電圧</string>
     <string name="apply">適用</string>
 
+    <!-- ROM Manager -->
     <string name="rom_manager_title">ROMマネージャ</string>
         <string name="dual_boot_category">デュアルブート</string>
             <string name="boot_rom">ブートROM</string>
@@ -65,7 +66,7 @@
 	<string name="backup_manage_delete">削除</string>
 	<string name="backup_manage_delete_confirm">バックアップを削除しますか?</string>
 
-    <!-- General preference -->
+    <!-- General -->
     <string name="general_title">全般</string>
         <string name="low_memory_killer_title">低メモリ時のタスクキル</string>
         <string name="low_memory_killer_summary">低メモリ時のタスクキル設定を変更します</string>
@@ -74,8 +75,22 @@
         <string name="system_property_title">システムプロパティ</string>
         <string name="system_property_summary">システムプロパティを変更します\n注意: この項目は再起動後に反映されます</string>
         <string name="io_scheduler_tite">I/Oスケジューラ</string>
+        <string name="gsm_network_tweak_title">3G通信の最適化</string>
+        <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効</string>
+        <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効</string>
 
-    <!-- CPU Control preference -->
+    <!-- Boot config -->
+    <string name="boot_config_title">起動設定</string>
+        <string name="boot_conf_boot_rom_category">起動ROM選択</string>
+        <string name="boot_conf_boot_rom_title">起動ROM</string>
+        <string name="boot_conf_rom_setting">ROM設定</string>
+        <string name="rom_system_category">システム領域</string>
+        <string name="rom_data_category">データ領域</string>
+        <string name="rom_partition">パーティション</string>
+        <string name="rom_image">イメージ</string>
+        <string name="rom_path">パス</string>
+
+    <!-- CPU Control -->
     <string name="cpu_control_title">CPUコントロール</string>
         <string name="cpu_governor_category">ガバナ</string>
             <string name="cpu_governor_select">ガバナ選択</string>
@@ -86,13 +101,13 @@
         <string name="cpu_voltage_category">電圧</string>
     <string name="cpu_voltage_title">電圧調整</string>
 
-    <!-- GPU Control preference -->
+    <!-- GPU Control -->
     <string name="gpu_control_title">GPUコントロール</string>
         <string name="gpu_high_state_category">高パフォーマンス</string>
         <string name="gpu_low_state_category">低パフォーマンス</string>
         <string name="gpu_freq_category">Governor</string>
 
-    <!-- Display preference -->
+    <!-- Display -->
     <string name="display_title">画面設定</string>
     <string name="lcd_category">LCD</string>
         <string name="lcd_type">LCDタイプ</string>
@@ -107,17 +122,26 @@
         <string name="mdnie_color_cb">色合い(青成分)</string>
         <string name="mdnie_color_cr">色合い(赤成分)</string>
 
-    <!-- Sound and Vibration preference -->
+    <!-- Sound and Vibration -->
     <string name="sound_and_vib_title">サウンド/バイブ設定</string>
         <string name="sound_category">サウンド</string>
             <string name="hw_volumes">HWボリューム</string>
+            <string name="sound_play_freq_lock_title">CPU下限ロック</string>
+            <string name="sound_play_freq_lock_summary_on">音楽再生中のCPU下限ロックは有効</string>
+            <string name="sound_play_freq_lock_summary_off">音楽再生中のCPU下限ロックは無効</string>
         <string name="vib_category">バイブレータ</string>
         <string name="vib_level">バイブレータの強さ</string>
         <string name="vib_increase_on_incoming">着信時に強くする</string>
         <string name="vib_increase_on_incoming_summary_on">バイブレータを強くします</string>
         <string name="vib_increase_on_incoming_summary_off">バイブレータを強くしません</string>
 
-    <!-- Dock preference -->
+    <!-- Notification -->
+    <string name="notification_title">通知設定</string>
+        <string name="notification_bln_on_incoming_title">着信時のBLN</string>
+        <string name="notification_bln_on_incoming_summary_on">着信時にBLNで通知する</string>
+        <string name="notification_bln_on_incoming_summary_off">着信時にBLNで通知しない</string>
+
+    <!-- Dock -->
     <string name="dock_title">ドック設定</string>
         <string name="dock_emulate">ドックエミュレート</string>
             <string name="dock_start">ドック開始</string>
@@ -128,5 +152,11 @@
             <string name="dock_manual_start">Dockモードを開始します</string>
             <string name="dock_manual_stop">Dockモードを終了します</string>
 
+    <!-- About -->
+    <string name="about_title">TweakGS2について</string>
+
+    <!-- Menu -->
+    <string name="menu_reset">リセット</string>
+    <string name="menu_recommend">お勧め設定</string>
 
 </resources>

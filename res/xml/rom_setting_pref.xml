@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="rom_system_category"
+        android:title="@string/rom_system_category">
+        <ListPreference
+            android:key="rom_system_part_list"
+            android:title="@string/rom_partition" />
+        <ListPreference
+            android:key="rom_system_img_list"
+            android:title="@string/rom_image" />
+        <ListPreference
+            android:key="rom_system_path_list"
+            android:title="@string/rom_path" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="rom_data_category"
+        android:title="@string/rom_data_category">
+        <ListPreference
+            android:key="rom_data_part_list"
+            android:title="@string/rom_partition" />
+        <ListPreference
+            android:key="rom_data_img_list"
+            android:title="@string/rom_image" />
+        <ListPreference
+            android:key="rom_data_path_list"
+            android:title="@string/rom_path" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

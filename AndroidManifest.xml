@@ -63,16 +63,19 @@
         <activity android:name=".Parts.FilePickerActivity" />
         <activity android:name=".Parts.SeekBarPreference" />
 
-        <!-- RomManager -->
-        <activity android:name=".RomManager.RomManagerPreferenceActivity" />
-        <activity android:name=".RomManager.ZipFilePickerActivity" />
-        <activity android:name=".RomManager.RestoreDirPickerActivity" />
-
         <!-- General -->
         <activity android:name=".General.GeneralPreferenceActivity" />
         <activity android:name=".General.LowMemKillerPreferenceActivity" />
         <activity android:name=".General.SystemPropertyPreferenceActivity" />
         <activity android:name=".General.VirtualMemoryPreferenceActivity" />
+
+        <!-- RomManager -->
+        <activity android:name=".RomManager.RomManagerPreferenceActivity" />
+        <activity android:name=".RomManager.ZipFilePickerActivity" />
+        <activity android:name=".RomManager.RestoreDirPickerActivity" />
+
+        <!-- BootConfig -->
+        <activity android:name=".BootConfig.BootConfigPreferenceActivity" />
 
         <!-- CpuControl -->
         <activity android:name=".CpuControl.CpuControlPreferenceActivity" />
@@ -89,8 +92,14 @@
         <!-- Display -->
         <activity android:name=".Display.DisplayPreferenceActivity" />
 
+        <!-- Notification -->
+        <activity android:name=".Notification.NotificationPreferenceActivity" />
+
         <!-- Dock -->
         <activity android:name=".Dock.DockPreferenceActivity" />
+
+        <!-- About -->
+        <activity android:name=".About.AboutPreferenceActivity" />
 
     </application>
 

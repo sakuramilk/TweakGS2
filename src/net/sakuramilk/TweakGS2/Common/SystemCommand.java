@@ -104,4 +104,27 @@ public class SystemCommand {
             "umount " + mountPoint + "\n" };
         RuntimeExec.execute(commands, false);
     }
+
+    public static void gsm_network_tweak() {
+        Log.d(TAG, "execute gsm_network_tweak");
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("echo 0 > /proc/sys/net/ipv4/tcp_ecn");
+        process.write("echo 1 > /proc/sys/net/ipv4/route/flush");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_rfc1337");
+        process.write("echo 0 > /proc/sys/net/ipv4/ip_no_pmtu_disc");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_sack");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_fack");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_window_scaling");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_timestamps");
+        process.write("echo 4096 39000 187000 > /proc/sys/net/ipv4/tcp_rmem");
+        process.write("echo 4096 39000 187000 > /proc/sys/net/ipv4/tcp_wmem");
+        process.write("echo 187000 187000 187000 > /proc/sys/net/ipv4/tcp_mem");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_no_metrics_save");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_moderate_rcvbuf");
+        process.term();
+    }
 }

@@ -19,7 +19,7 @@ package net.sakuramilk.TweakGS2.Receiver;
 import net.sakuramilk.TweakGS2.CpuControl.CpuControlSetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
-import net.sakuramilk.TweakGS2.SoundAndVib.VibSetting;
+import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +46,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             HwVolumeSetting hwVolumeSetting = new HwVolumeSetting(context);
             hwVolumeSetting.setOnBoot();
 
-            VibSetting vibSetting = new VibSetting(context);
+            SoundAndVibSetting vibSetting = new SoundAndVibSetting(context);
             vibSetting.setOnBoot();
 
             DockSetting dockSetting = new DockSetting(context);

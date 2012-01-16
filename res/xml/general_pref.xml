@@ -36,4 +36,10 @@
         android:key="iosched_type"
         android:title="@string/io_scheduler_tite" />
 
+    <CheckBoxPreference   
+        android:key="gsm_network_tweak"
+        android:title="@string/gsm_network_tweak_title"
+        android:summaryOn="@string/gsm_network_tweak_summary_on"
+        android:summaryOff="@string/gsm_network_tweak_summary_off" />
+
 </PreferenceScreen>

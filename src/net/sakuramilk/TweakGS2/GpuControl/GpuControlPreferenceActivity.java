@@ -60,10 +60,12 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         addPreferencesFromResource(R.xml.gpu_control_pref);
 
         mSetting = new GpuControlSetting(this);
+        /*
         mHighFreq = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_HIGH_FREQ);
         mHighVolt = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_HIGH_VOLT);
         mLowFreq = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_LOW_FREQ);
         mLowVolt = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_LOW_VOLT);
+        */
         mSetOnBoot = (CheckBoxPreference)findPreference(GpuControlSetting.KEY_GPU_SET_ON_BOOT);
 
         if (mSetting.isEnableFreqCtrl()) {
@@ -152,10 +154,12 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         mApplyButton.setEnabled(false);
         mSetOnBootChecked = mSetOnBoot.isChecked();
         mSetting.saveSetOnBoot(mSetOnBootChecked);
+        /*
         mSetting.saveFreq(mHighFreqValue, mLowFreqValue);
         mSetting.saveVolt(mHighVoltValue, mLowVoltValue);
         mSetting.setFreq(mHighFreqValue, mLowFreqValue);
         mSetting.setVolt(mHighVoltValue, mLowVoltValue);
+        */
     }
 
     @Override

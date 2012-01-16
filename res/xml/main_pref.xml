@@ -21,7 +21,16 @@
     xmlns:tweakgs2="http://schemas.android.com/apk/res/net.sakuramilk.TweakGS2"
     android:title="Tweak Galaxy S2"
     android:key="parent">
-    
+
+    <!-- General -->
+    <PreferenceScreen
+        android:title="@string/general_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.General.GeneralPreferenceActivity" />
+    </PreferenceScreen>
+
     <!-- RomManager -->
     <PreferenceScreen
         android:title="@string/rom_manager_title">
@@ -31,12 +40,13 @@
             android:targetClass="net.sakuramilk.TweakGS2.RomManager.RomManagerPreferenceActivity" />
     </PreferenceScreen>
 
+    <!-- BootConfig -->
     <PreferenceScreen
-        android:title="@string/general_title">
+        android:title="@string/boot_config_title">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
-            android:targetClass="net.sakuramilk.TweakGS2.General.GeneralPreferenceActivity" />
+            android:targetClass="net.sakuramilk.TweakGS2.BootConfig.BootConfigPreferenceActivity" />
     </PreferenceScreen>
 
     <!-- CpuControl -->
@@ -65,14 +75,23 @@
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibPreferenceActivity" />
     </PreferenceScreen>
-    <!-- Dock -->
 
+    <!-- Display -->
     <PreferenceScreen
         android:title="@string/display_title">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.Display.DisplayPreferenceActivity" />
+    </PreferenceScreen>
+
+    <!-- Notification -->
+    <PreferenceScreen
+        android:title="@string/notification_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.Notification.NotificationPreferenceActivity" />
     </PreferenceScreen>
 
     <!-- Dock -->
@@ -82,6 +101,15 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.Dock.DockPreferenceActivity" />
+    </PreferenceScreen>
+
+    <!-- About -->
+    <PreferenceScreen
+        android:title="@string/about_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="net.sakuramilk.TweakGS2"
+            android:targetClass="net.sakuramilk.TweakGS2.About.AboutPreferenceActivity" />
     </PreferenceScreen>
 
 </PreferenceScreen>

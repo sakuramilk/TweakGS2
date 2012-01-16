@@ -7,6 +7,8 @@ import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneLi
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class HwVolumePreferenceActivity extends PreferenceActivity
     implements OnSeekBarPreferenceDoneListener {
@@ -154,5 +156,26 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
 
         }
         return false;
-    }    
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.setting_menu, menu);
+        return ret;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.itemReset:
+            
+            return true;
+        case R.id.itemRecommend:
+            return true;
+        default:
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

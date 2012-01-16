@@ -30,8 +30,8 @@ import android.preference.PreferenceActivity;
 public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
     OnPreferenceChangeListener, OnSeekBarPreferenceDoneListener {
 
-    private VibSetting mVibSetting;
-
+    private SoundAndVibSetting mSetting;
+    private CheckBoxPreference mSoundPlayFreqLock;
     private SeekBarPreference mVibLevel;
     private CheckBoxPreference mIncreaseOnIncoming;
     private String mCurVibLevel;
@@ -41,15 +41,19 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.sound_and_vib_pref);
-        
-        mVibSetting = new VibSetting(this);
+
+        mSetting = new SoundAndVibSetting(this);
+        mSoundPlayFreqLock = (CheckBoxPreference)findPreference(SoundAndVibSetting.KEY_SND_PLAY_CPU_LOCK);
+        if (mSetting.isEnableSoundPlayFreqLock()) {
+            mSoundPlayFreqLock.setEnabled(true);
+        }
 
         if (Misc.isAospRom()) {
-            mVibLevel = (SeekBarPreference)findPreference("vib_level");
-            if (mVibSetting.isEnableVibLevel()) {
+            mVibLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_LEVEL);
+            if (mSetting.isEnableVibLevel()) {
                 mVibLevel.setEnabled(true);
-                String maxLevel = mVibSetting.getVibMaxLevel();
-                String curLevel = mVibSetting.getVibLevel();
+                String maxLevel = mSetting.getVibMaxLevel();
+                String curLevel = mSetting.getVibLevel();
                 mCurVibLevel = curLevel;
                 mVibLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
                 mVibLevel.setOnPreferenceChangeListener(this);
@@ -57,8 +61,8 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
                 mVibLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
             }
             
-            mIncreaseOnIncoming = (CheckBoxPreference)findPreference("vib_increase_on_incoming");
-            if (mVibSetting.isEnableVibLevel()) {
+            mIncreaseOnIncoming = (CheckBoxPreference)findPreference(SoundAndVibSetting.KEY_VIB_INCREASE_ON_INCOMING);
+            if (mSetting.isEnableVibLevel()) {
                 mIncreaseOnIncoming.setEnabled(true);
             }
         }
@@ -67,7 +71,7 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
         if (mVibLevel == preference) {
-            mVibSetting.setVibLevel(newValue);
+            mSetting.setVibLevel(newValue);
             mVibLevel.setSummary(Misc.getCurrentValueText(this, newValue));
             return true;
         }
@@ -77,11 +81,11 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (mVibLevel == preference) {
-            mVibSetting.setVibLevel(objValue.toString());
+            mSetting.setVibLevel(objValue.toString());
             Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vib.vibrate(60);
             Misc.sleep(60);
-            mVibSetting.setVibLevel(mCurVibLevel);
+            mSetting.setVibLevel(mCurVibLevel);
         }
         return false;
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceScreen
+        android:key="about_version"
+        android:title="Version">
+	</PreferenceScreen>
+	<PreferenceScreen
+    	android:key="about_recommended"
+        android:title="Recommended tweaks"
+        android:summary="お勧めの設定をします">
+    </PreferenceScreen>
+    <PreferenceScreen
+    	android:key="about_reset"
+        android:title="Reset tweaks"
+        android:summary="現在の設定値を初期化します">
+    </PreferenceScreen>
+        
+</PreferenceScreen>

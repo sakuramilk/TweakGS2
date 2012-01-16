@@ -118,7 +118,7 @@ public class DisplaySetting extends SettingManager {
     }
 
     public boolean loadMdnieForceDisable() {
-        return getBoolValue(KEY_MDNIE_FORCE_DISABLE);
+        return getBooleanValue(KEY_MDNIE_FORCE_DISABLE);
     }
 
     public void saveMdnieForceDisable(boolean value) {
@@ -270,7 +270,18 @@ public class DisplaySetting extends SettingManager {
     }
 
     @Override
+    public void setRecommend() {
+        // noop
+    }
+
+    @Override
     public void reset() {
-        // TODO 自動生成されたメソッド・スタブ
+        clearValue(KEY_LCD_TYPE);
+        clearValue(KEY_LCD_GAMMA);
+        clearValue(KEY_MDNIE_POWER);
+        clearValue(KEY_MDNIE_FORCE_DISABLE);
+        clearValue(KEY_MDNIE_MODE);
+        clearValue(KEY_MDNIE_MCM_CB);
+        clearValue(KEY_MDNIE_MCM_CR);
     }
 }
