@@ -1,0 +1,71 @@
+
+General
+  LowMemKiller       : 動作確認待ち
+  VirtualMemory      : 動作確認待ち
+  SystemProp         : 未実装
+  IOSched            : 動作確認待ち
+  GsmNetwork         : 動作確認待ち
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+RomManager
+  Reboot             : 動作確認待ち
+  Recovery           : 動作確認待ち
+  Download           : 動作確認待ち
+  Backup             : 動作確認待ち
+  Restore            : 動作確認待ち
+  Manage             : 動作確認待ち
+  ZipInstall         : 動作確認待ち
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+MultiBoot
+  RomSelect          : 未実装
+  RomSetting         : 未実装
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+CpuControl
+  GovernorSelect     : 動作確認待ち
+  GovernorSetting    : 未実装
+  Frequency          : 動作確認待ち
+  VoltageControl     : 未実装
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+GpuControl
+  未実装
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+SoundAndVib
+  HwVolume           : 動作確認待ち
+  FreqLock           : 動作確認待ち
+  VibForce           : 動作確認待ち
+  ForceIncoming      : 動作確認待ち
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+Display
+  LCDType            : 動作確認待ち
+  GammaAdjust        : 動作確認待ち
+  mDNieFunc          : 動作確認待ち
+  mDNieMode          : 動作確認待ち
+  CrAdjust           : 動作確認待ち
+  CbAdjust           : 動作確認待ち
+  再起動時の反映      : 動作確認待ち
+  リセット時の反映    : 動作確認待ち
+
+Notification
+  BLN on Incoming    : 動作確認待ち
+
+Dock
+  Emulate            : OK
+  Manual             : OK
+  再起動時の反映      : OK
+  リセット時の反映    : OK
+
+About
+  未実装
+
+

@@ -25,39 +25,39 @@ public abstract class SettingManager {
 
     private SharedPreferences mSharedPref;
 
-    public SettingManager(Context context) {
+    protected SettingManager(Context context) {
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public String getStringValue(String key) {
+    protected String getStringValue(String key) {
         return mSharedPref.getString(key, null);
     }
 
-    public String getStringValue(String key, String defaultValue) {
+    protected String getStringValue(String key, String defaultValue) {
         return mSharedPref.getString(key, defaultValue);
     }
 
-    public boolean getBooleanValue(String key) {
+    protected boolean getBooleanValue(String key) {
         return mSharedPref.getBoolean(key, false);
     }
 
-    public boolean getBooleanValue(String key, boolean defaultValue) {
+    protected boolean getBooleanValue(String key, boolean defaultValue) {
         return mSharedPref.getBoolean(key, defaultValue);
     }
 
-    public void setValue(String key, String value) {
+    protected void setValue(String key, String value) {
         Editor ed = mSharedPref.edit();
         ed.putString(key, value);
         ed.commit();
     }
 
-    public void setValue(String key, boolean value) {
+    protected void setValue(String key, boolean value) {
         Editor ed = mSharedPref.edit();
         ed.putBoolean(key, value);
         ed.commit();
     }
 
-    public void clearValue(String key) {
+    protected void clearValue(String key) {
         Editor ed = mSharedPref.edit();
         ed.remove(key);
         ed.commit();

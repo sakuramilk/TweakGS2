@@ -17,7 +17,6 @@
 package net.sakuramilk.TweakGS2.RomManager;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.BootProperty;
 import net.sakuramilk.TweakGS2.Common.Constant;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
@@ -32,14 +31,10 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 
 public class RomManagerPreferenceActivity extends PreferenceActivity
     implements OnPreferenceClickListener, OnPreferenceChangeListener {
 
-    private static final String TAG = "RomManagerPreferenceActivity";
-
-    private ListPreference mDualBootBootRom;
     private PreferenceScreen mRebootNormal;
     private PreferenceScreen mRebootRecovery;
     private PreferenceScreen mRebootDownload;
@@ -48,17 +43,10 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     private ListPreference mNandroidManage;
     private PreferenceScreen mFlashInstallZip;
 
-    private BootProperty mBootProperty = new BootProperty();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.rom_manager_pref);
-
-        mDualBootBootRom = (ListPreference)findPreference("dual_boot_boot_rom");
-        mDualBootBootRom.setOnPreferenceChangeListener(this);
-        mDualBootBootRom.setEnabled(mBootProperty.exists());
-        mDualBootBootRom.setSummary(Misc.getCurrentValueText(this, mBootProperty.getBootRomValue()));
 
         mRebootNormal = (PreferenceScreen)findPreference("reboot_normal");
         mRebootNormal.setOnPreferenceClickListener(this);
@@ -128,12 +116,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mDualBootBootRom) {
-            Log.v(TAG, "select boot rom = " + newValue);
-            mBootProperty.setBootRomValue(newValue.toString());
-            mDualBootBootRom.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
-
-        } else if (preference == mNandroidBackup) {
+        if (preference == mNandroidBackup) {
             final String sdcardPath = Misc.getSdcardPath("internal".equals(newValue));
             TextInputDialog dlg = new TextInputDialog(this, android.R.string.ok, android.R.string.cancel);
             dlg.setFinishTextInputListener(new TextInputDialog.FinishTextInputListener() {

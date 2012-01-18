@@ -21,16 +21,6 @@
     android:title="@string/rom_manager_title" >
 
     <PreferenceCategory
-        android:key="dual_boot_category"
-        android:title="@string/dual_boot_category">
-        <ListPreference
-            android:key="dual_boot_boot_rom"
-            android:title="@string/boot_rom"
-            android:entries="@array/boot_rom_entries"
-            android:entryValues="@array/boot_rom_values" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="reboot_category"
         android:title="@string/reboot_category">
         <PreferenceScreen

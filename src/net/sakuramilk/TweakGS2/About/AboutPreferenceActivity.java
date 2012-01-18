@@ -69,8 +69,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
     {
         if (preference == mReset) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Reset Tweaks");
-            alertDialogBuilder.setMessage("すべての設定を初期化します");
+            alertDialogBuilder.setTitle(R.string.all_reset_title);
+            alertDialogBuilder.setMessage(R.string.all_reset_summary);
             alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -79,8 +79,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     ed.commit();
                     //GeneralSetting generalSetting new = (mContext);
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-                    alertDialogBuilder.setTitle("Reset Tweaks");
-                    alertDialogBuilder.setMessage("初期化しました、設定を反映するために今すぐ再起動しますか？");
+                    alertDialogBuilder.setTitle(R.string.all_reset_title);
+                    alertDialogBuilder.setMessage(R.string.reboot_reflect_comfirm);
                     alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SystemCommand.reboot(null);
@@ -94,8 +94,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
             alertDialogBuilder.create().show();
         } else if (preference == mRecommended) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Recommended Tweaks");
-            alertDialogBuilder.setMessage("おすすめの設定をします");
+            alertDialogBuilder.setTitle(R.string.all_recommend_title);
+            alertDialogBuilder.setMessage(R.string.all_recommend_summary);
             alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     GeneralSetting generalSetting = new GeneralSetting(mContext);
@@ -108,8 +108,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     displaySetting.setRecommend();
 
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-                    alertDialogBuilder.setTitle("Recommended Tweaks");
-                    alertDialogBuilder.setMessage("設定しました、設定を反映するために今すぐ再起動しますか？");
+                    alertDialogBuilder.setTitle(R.string.all_recommend_title);
+                    alertDialogBuilder.setMessage(R.string.reboot_reflect_comfirm);
                     alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SystemCommand.reboot(null);

@@ -80,11 +80,11 @@
         <string name="gsm_network_tweak_summary_on">3G network tweak enabled</string>
         <string name="gsm_network_tweak_summary_off">3G network tweak disabled</string>
 
-    <!-- Boot config -->
-    <string name="boot_config_title">Boot config</string>
-        <string name="boot_conf_boot_rom_category">Boot ROM selection</string>
-        <string name="boot_conf_boot_rom_title">Boot ROM</string>
-        <string name="boot_conf_rom_setting">ROM setting</string>
+    <!-- Multi Boot -->
+    <string name="multi_boot_title">Multi boot setting</string>
+        <string name="multi_boot_rom_select_category">Boot ROM selection</string>
+        <string name="multi_boot_rom_select_title">Boot ROM</string>
+        <string name="multi_boot_rom_setting">ROM setting</string>
         <string name="rom_system_category">System area</string>
         <string name="rom_data_category">Data area</string>
         <string name="rom_partition">Partition</string>
@@ -163,7 +163,11 @@
 
     <!-- About -->
     <string name="about_title">About TweakGS2</string>
-
+    <string name="all_recommend_title">Recommended Settings</string>
+    <string name="all_recommend_summary">Recommended to set the value of all items</string>
+    <string name="all_reset_title">Reset Settings</string>
+    <string name="all_reset_summary">Initialize the set of all items</string>
+    <string name="reboot_reflect_comfirm">Do you want to reboot now reflect the settings?</string>
     <!-- Menu -->
     <string name="menu_reset">Reset</string>
     <string name="menu_recommend">Recommend</string>

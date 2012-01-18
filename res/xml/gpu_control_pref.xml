@@ -19,7 +19,7 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="root_pref">
+    android:key="root_pref"
     android:title="@string/gpu_control_title">
 
     <PreferenceCategory

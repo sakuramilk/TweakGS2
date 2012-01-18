@@ -38,6 +38,18 @@ public class DockSetting extends SettingManager {
         super(context);
     }
 
+    public String getEmuIndexFromEmuValue(String value) {
+        if (DOCK_EMU_DISABLE_VALUE.equals(value)) {
+            return DOCK_EMU_DISABLE_INDEX;
+        } else if (DOCK_EMU_SW_VALUE.equals(value)) {
+            return DOCK_EMU_SW_INDEX;
+        } else if (DOCK_EMU_HW_VALUE.equals(value)) {
+            return DOCK_EMU_HW_INDEX; 
+        } else {
+            return DOCK_EMU_DISABLE_INDEX;
+        }
+    }
+
     public boolean isEnableDockEmulate() {
         return mDockEmulate.exists();
     }
@@ -64,16 +76,16 @@ public class DockSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-        // TODO 自動生成されたメソッド・スタブ
+        setDockEmulate(loadDockEmulate());
     }
 
     @Override
     public void setRecommend() {
-        // TODO 自動生成されたメソッド・スタブ
+        // noop
     }
 
     @Override
     public void reset() {
-        // TODO 自動生成されたメソッド・スタブ
+        clearValue(KEY_DOCK_EMULATE);
     }
 }

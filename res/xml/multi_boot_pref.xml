@@ -19,20 +19,19 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="root_pref"
-    android:title="@string/boot_config_title">
+    android:title="@string/multi_boot_title">
 
     <PreferenceCategory
-        android:key="boot_conf_boot_rom_category"
-        android:title="@string/boot_conf_boot_rom_category">
+        android:key="multi_boot_boot_rom_category"
+        android:title="@string/multi_boot_rom_select_category">
         <ListPreference
-            android:key="boot_conf_boot_rom"
-            android:title="@string/boot_conf_boot_rom_title"
+            android:key="multi_boot_rom_select"
+            android:title="@string/multi_boot_rom_select_title"
             android:enabled="false" />
     </PreferenceCategory>
-
     <PreferenceCategory
-        android:key="boot_conf_rom_setting_category"
-        android:title="@string/boot_conf_rom_setting">
+        android:key="multi_boot_rom_setting_category"
+        android:title="@string/multi_boot_rom_setting">
     </PreferenceCategory>
 
 </PreferenceScreen>

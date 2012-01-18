@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
 <PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceScreen
         android:key="low_memory_killer_settings"
@@ -11,7 +28,6 @@
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.LowMemKillerPreferenceActivity" />
 	</PreferenceScreen>
-	
 	<PreferenceScreen
         android:key="vm_settings"
         android:title="@string/virtual_memory_title"
@@ -21,7 +37,6 @@
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.VirtualMemoryPreferenceActivity" />
 	</PreferenceScreen>
-    
 	<PreferenceScreen
         android:key="sysprop_settings"
         android:title="@string/system_property_title"
@@ -31,11 +46,9 @@
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.SystemPropertyPreferenceActivity" />
 	</PreferenceScreen>
-	
 	<ListPreference
         android:key="iosched_type"
         android:title="@string/io_scheduler_tite" />
-
     <CheckBoxPreference   
         android:key="gsm_network_tweak"
         android:title="@string/gsm_network_tweak_title"

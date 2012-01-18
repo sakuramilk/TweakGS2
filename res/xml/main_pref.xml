@@ -40,13 +40,13 @@
             android:targetClass="net.sakuramilk.TweakGS2.RomManager.RomManagerPreferenceActivity" />
     </PreferenceScreen>
 
-    <!-- BootConfig -->
+    <!-- MultiBoot -->
     <PreferenceScreen
-        android:title="@string/boot_config_title">
+        android:title="@string/multi_boot_title">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
-            android:targetClass="net.sakuramilk.TweakGS2.BootConfig.BootConfigPreferenceActivity" />
+            android:targetClass="net.sakuramilk.TweakGS2.MultiBoot.MultiBootPreferenceActivity" />
     </PreferenceScreen>
 
     <!-- CpuControl -->

@@ -28,6 +28,9 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class DockPreferenceActivity extends PreferenceActivity implements
     Preference.OnPreferenceChangeListener, OnPreferenceClickListener {
@@ -59,7 +62,7 @@ public class DockPreferenceActivity extends PreferenceActivity implements
                 savedDockEmulate = "0";
             }
         }
-        mDockEmulate.setValue(savedDockEmulate);
+        mDockEmulate.setValue(mSetting.getEmuIndexFromEmuValue(savedDockEmulate));
         mDockEmulate.setOnPreferenceChangeListener(this);
         updateDockEmulate(savedDockEmulate);
 
@@ -106,6 +109,26 @@ public class DockPreferenceActivity extends PreferenceActivity implements
         } else {
             mSetting.setDockEmulate(DockSetting.DOCK_EMU_DISABLE_VALUE);
             mDockEmulate.setSummary(Misc.getCurrentValueText(this, R.string.dock_emu_disable));
+        }
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.reset_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_reset:
+                mSetting.reset();
+                mDockEmulate.setSummary(Misc.getCurrentValueText(this, R.string.dock_emu_disable));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -1,13 +1,15 @@
-package net.sakuramilk.TweakGS2.BootConfig;
+package net.sakuramilk.TweakGS2.MultiBoot;
 
 import net.sakuramilk.TweakGS2.Common.PropertyManager;
 
-public class BootConf extends PropertyManager {
+public class MbsConf extends PropertyManager {
 
-    public BootConf(String filePath) {
-        super(filePath);
+    public static final int MAX_ROM_ID = 8;
+
+    public MbsConf() {
+        super("/xdata/mbs.conf");
     }
-    
+
     public class Partision {
         public static final String mmcblk0p9 = "/dev/block/mmcblk0p9";
         public static final String mmcblk0p10 = "/dev/block/mmcblk0p10";
@@ -16,15 +18,24 @@ public class BootConf extends PropertyManager {
         public static final String mmcblk1p2 = "/dev/block/mmcblk1p2";
         public static final String mmcblk1p3 = "/dev/block/mmcblk1p3";
     }
-    
-    private static final String CONF_KEY_LABEL = "mbs.rom%d.label";
-    private static final String CONF_KEY_SYSTEM_PART = "mbs.rom%d.system.part";
-    private static final String CONF_KEY_SYSTEM_IMG = "mbs.rom%d.system.img";
-    private static final String CONF_KEY_SYSTEM_PATH = "mbs.rom%d.system.path";
-    private static final String CONF_KEY_DATA_PART = "mbs.rom%d.data.part";
-    private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data.img";
-    private static final String CONF_KEY_DATA_PATH = "mbs.rom%d.data.path";
-    
+
+    private static final String CONF_KEY_BOOT_ROM = "mbs.boot_rom";
+    private static final String CONF_KEY_LABEL = "mbs.rom%d_label";
+    private static final String CONF_KEY_SYSTEM_PART = "mbs.rom%d.system_part";
+    private static final String CONF_KEY_SYSTEM_IMG = "mbs.rom%d.system_img";
+    private static final String CONF_KEY_SYSTEM_PATH = "mbs.rom%d.system_path";
+    private static final String CONF_KEY_DATA_PART = "mbs.rom%d.data_part";
+    private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data_img";
+    private static final String CONF_KEY_DATA_PATH = "mbs.rom%d.data_path";
+
+    public int getBootRom() {
+        return Integer.valueOf(getValue(CONF_KEY_BOOT_ROM));
+    }
+
+    public void setBootRom(int romId) {
+        setValue(CONF_KEY_BOOT_ROM, String.valueOf(romId));        
+    }
+
     public String getLabel(int romId) {
         return getValue(String.format(CONF_KEY_LABEL, romId));
     }

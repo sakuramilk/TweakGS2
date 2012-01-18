@@ -58,7 +58,10 @@ public class LowMemKillerSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-        // TODO 自動生成されたメソッド・スタブ
+        String[] values = loadLowMemKillerMinFree();
+        if (values != null) {
+            setLowMemKillerMinFree(values);
+        }
     }
 
     @Override
@@ -70,6 +73,6 @@ public class LowMemKillerSetting extends SettingManager {
 
     @Override
     public void reset() {
-        // TODO 自動生成されたメソッド・スタブ
+        clearValue(KEY_LOWMEM);
     }
 }

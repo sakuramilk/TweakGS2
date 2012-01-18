@@ -24,12 +24,12 @@ public class SoundAndVibSetting extends SettingManager {
     }
 
     public boolean getSoundPlayFreqLock() {
-        String value = mSysFsVibLevel.read();
+        String value = mSysFsSoundPlayFreqLock.read();
         return "0".equals(value) ? false : true;
     }
 
     public void setSoundPlayFreqLock(boolean value) {
-        mSysFsVibLevel.write(value ? "1" : "0");
+        mSysFsSoundPlayFreqLock.write(value ? "1" : "0");
     }
 
     public boolean loadSoundPlayFreqLock() {

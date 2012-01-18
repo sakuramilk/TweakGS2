@@ -161,21 +161,26 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean ret = super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.setting_menu, menu);
+        getMenuInflater().inflate(R.menu.reset_menu, menu);
         return ret;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.itemReset:
-            
-            return true;
-        case R.id.itemRecommend:
+        case R.id.menu_reset:
+            mSetting.reset();
+            mAvolHp.setSummary(Misc.getCurrentValueText(this, "0"));
+            mAvolHpGain.setSummary(Misc.getCurrentValueText(this, "0"));
+            mAvolRc.setSummary(Misc.getCurrentValueText(this, "0"));
+            mAvolSp.setSummary(Misc.getCurrentValueText(this, "0"));
+            mDvolDacMaster.setSummary(Misc.getCurrentValueText(this, "0"));
+            mDvolDacAtt.setSummary(Misc.getCurrentValueText(this, "0"));
+            mDvolDir0.setSummary(Misc.getCurrentValueText(this, "0"));
+            mDvolDir0Att.setSummary(Misc.getCurrentValueText(this, "0"));
             return true;
         default:
-            break;
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

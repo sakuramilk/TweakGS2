@@ -79,11 +79,11 @@
         <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効</string>
         <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効</string>
 
-    <!-- Boot config -->
-    <string name="boot_config_title">起動設定</string>
-        <string name="boot_conf_boot_rom_category">起動ROM選択</string>
-        <string name="boot_conf_boot_rom_title">起動ROM</string>
-        <string name="boot_conf_rom_setting">ROM設定</string>
+    <!-- Multi boot -->
+    <string name="multi_boot_title">マルチブート設定</string>
+        <string name="multi_boot_rom_select_category">起動ROM選択</string>
+        <string name="multi_boot_rom_select_title">起動ROM</string>
+        <string name="multi_boot_rom_setting">ROM設定</string>
         <string name="rom_system_category">システム領域</string>
         <string name="rom_data_category">データ領域</string>
         <string name="rom_partition">パーティション</string>
@@ -154,9 +154,14 @@
 
     <!-- About -->
     <string name="about_title">TweakGS2について</string>
+    <string name="all_recommend_title">おすすめ設定</string>
+    <string name="all_recommend_summary">全ての項目におすすめの値を設定します</string>
+    <string name="all_reset_title">初期化</string>
+    <string name="all_reset_summary">全ての項目の値を初期化します</string>
+    <string name="reboot_reflect_comfirm">設定を反映するために今すぐ再起動しますか？</string>
 
     <!-- Menu -->
-    <string name="menu_reset">リセット</string>
-    <string name="menu_recommend">お勧め設定</string>
+    <string name="menu_reset">初期値に戻す</string>
+    <string name="menu_recommend">おすすめ設定</string>
 
 </resources>

@@ -28,113 +28,95 @@
         android:dialogTitle="AVOL AD0"
         android:enabled="false" />
     -->
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_hp"
         android:title="@string/avol_hp_title"
         android:dialogTitle="@string/avol_hp_title"
         android:enabled="false" />                
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_hp_gain"
         android:title="@string/avol_hp_gain_title"
         android:dialogTitle="@string/avol_hp_gain_title"
         android:enabled="false" />
-
     <!--
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_lin1"
         android:title="@string/avol_lin1_title"
         android:dialogTitle="@string/avol_lin1_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_lout1"
         android:title="@string/avol_lout1_title"
         android:dialogTitle="@string/avol_lout1_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_lout2"
         android:title="@string/avol_lout2_title"
         android:dialogTitle="@string/avol_lout2_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_mic1"
         android:title="@string/avol_mic1_title"
         android:dialogTitle="@string/avol_mic1_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_mic1_gain"
         android:title="@string/avol_mic1_gain_title"
         android:dialogTitle="@string/avol_mic1_gain_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_mic2"
         android:title="@string/avol_mic2_title"
         android:dialogTitle="@string/avol_mic2_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_mic2_gain"
         android:title="@string/avol_mic2_gain_title"
         android:dialogTitle="@string/avol_mic2_gain_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_mic3"
         android:title="@string/avol_mic3_title"
         android:dialogTitle="@string/avol_mic3_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_mic3_gain"
         android:title="@string/avol_mic3_gain_title"
         android:dialogTitle="@string/avol_mic3_gain_title"
         android:enabled="false" />
     -->
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_rc"
         android:title="@string/avol_rc_title"
         android:dialogTitle="@string/avol_rc_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="avol_sp"
         android:title="@string/avol_sp_title"
         android:dialogTitle="@string/avol_sp_title"
         android:enabled="false" />
-
     <!--
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_ad0"
         android:title="@string/dvol_ad0_title"
         android:dialogTitle="@string/dvol_ad0_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_ad0_att"
         android:title="@string/dvol_ad0_att_title"
         android:dialogTitle="@string/dvol_ad0_att_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_aeng6"
         android:title="@string/dvol_aeng6_title"
         android:dialogTitle="@string/dvol_aeng6_title"
         android:enabled="false" />
     -->
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dac_master"
         android:title="@string/dvol_dac_master_title"
         android:dialogTitle="@string/dvol_dac_master_title"
         android:enabled="false" />
-
     <!--
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dac_voice"
@@ -142,74 +124,62 @@
         android:dialogTitle="@string/dvol_dac_voice_title"
         android:enabled="false" />
     -->
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dac_att"
         android:title="@string/dvol_dac_att_title"
         android:dialogTitle="@string/dvol_dac_att_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dir0"
         android:title="@string/dvol_dir0_title"
         android:dialogTitle="@string/dvol_dir0_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dir0_att"
         android:title="@string/dvol_dir0_att_title"
         android:dialogTitle="@string/dvol_dir0_att_title"
         android:enabled="false" />
-
     <!--
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dir1"
         android:title="@string/dvol_dir1_title"
         android:dialogTitle="@string/dvol_dir1_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dir1_att"
         android:title="@string/dvol_dir1_att_title"
         android:dialogTitle="@string/dvol_dir1_att_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dir2"
         android:title="@string/dvol_dir2_title"
         android:dialogTitle="@string/dvol_dir2_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dir2_att"
         android:title="@string/dvol_dir2_att_title"
         android:dialogTitle="@string/dvol_dir2_att_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dit0"
         android:title="@string/dvol_dit0_title"
         android:dialogTitle="@string/dvol_dit0_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dit1"
         android:title="@string/dvol_dit1_title"
         android:dialogTitle="@string/dvol_dit1_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_dit2"
         android:title="@string/dvol_dit2_title"
         android:dialogTitle="@string/dvol_dit2_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_pdm"
         android:title="@string/dvol_pdm_title"
         android:dialogTitle="@string/dvol_pdm_title"
         android:enabled="false" />
-
     <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="dvol_sidetone"
         android:title="@string/dvol_sidetone_title"

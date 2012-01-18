@@ -74,8 +74,8 @@
         <activity android:name=".RomManager.ZipFilePickerActivity" />
         <activity android:name=".RomManager.RestoreDirPickerActivity" />
 
-        <!-- BootConfig -->
-        <activity android:name=".BootConfig.BootConfigPreferenceActivity" />
+        <!-- MultiBoot -->
+        <activity android:name=".MultiBoot.MultiBootPreferenceActivity" />
 
         <!-- CpuControl -->
         <activity android:name=".CpuControl.CpuControlPreferenceActivity" />

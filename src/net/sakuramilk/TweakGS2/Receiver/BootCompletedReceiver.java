@@ -17,7 +17,12 @@
 package net.sakuramilk.TweakGS2.Receiver;
 
 import net.sakuramilk.TweakGS2.CpuControl.CpuControlSetting;
+import net.sakuramilk.TweakGS2.Display.DisplaySetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
+import net.sakuramilk.TweakGS2.General.GeneralSetting;
+import net.sakuramilk.TweakGS2.General.LowMemKillerSetting;
+import net.sakuramilk.TweakGS2.General.VirtualMemorySetting;
+import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
 import android.content.BroadcastReceiver;
@@ -33,26 +38,39 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {  
         Log.d(TAG, "onReceive");
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            //GeneralSetting.setOnBoot(sharedPreferences);
+            // General
+            GeneralSetting generalSetting = new GeneralSetting(context);
+            generalSetting.setOnBoot();
+            LowMemKillerSetting lowMemKillerSetting = new LowMemKillerSetting(context);
+            lowMemKillerSetting.setOnBoot();
+            VirtualMemorySetting vmSetting = new VirtualMemorySetting(context);
+            vmSetting.setOnBoot();
 
+            // CpuControl
             CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
             cpuControlSetting.setOnBoot();
 
+            // GpuControl
             CpuControlSetting gpuControlSetting = new CpuControlSetting(context);
             gpuControlSetting.setOnBoot();
 
-            //DisplaySettingManager.setOnBoot(sharedPreferences);
-
+            // SoundAndVib
+            SoundAndVibSetting vibSetting = new SoundAndVibSetting(context);
+            vibSetting.setOnBoot();
             HwVolumeSetting hwVolumeSetting = new HwVolumeSetting(context);
             hwVolumeSetting.setOnBoot();
 
-            SoundAndVibSetting vibSetting = new SoundAndVibSetting(context);
-            vibSetting.setOnBoot();
+            // Display
+            DisplaySetting displaySetting = new DisplaySetting(context);
+            displaySetting.setOnBoot();
 
+            // Notification
+            NotificationSetting notifySetting = new NotificationSetting(context);
+            notifySetting.setOnBoot();
+
+            // Dock
             DockSetting dockSetting = new DockSetting(context);
             dockSetting.setOnBoot();
-
-            //NotificationSettingManager.setOnBoot();
         }
     }
 }

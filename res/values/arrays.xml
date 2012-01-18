@@ -19,13 +19,25 @@
 <resources>
 
     <string-array name="boot_rom_entries">
-        <item>Primary</item>
-        <item>Secondary</item>
+        <item>ROM0</item>
+        <item>ROM1</item>
+        <item>ROM2</item>
+        <item>ROM3</item>
+        <item>ROM4</item>
+        <item>ROM5</item>
+        <item>ROM6</item>
+        <item>ROM7</item>
     </string-array>
 
     <string-array name="boot_rom_values">
-        <item>primary</item>
-        <item>secondary</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
     </string-array>
 
     <string-array name="sdcard_entries">
