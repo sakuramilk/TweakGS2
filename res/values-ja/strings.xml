@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,28 +34,29 @@
     <string name="frequency">周波数</string>
     <string name="voltage">電圧</string>
     <string name="apply">適用</string>
+    <string name="version">バージョン</string>
 
     <!-- ROM Manager -->
     <string name="rom_manager_title">ROMマネージャ</string>
-        <string name="dual_boot_category">デュアルブート</string>
-            <string name="boot_rom">ブートROM</string>
-        <string name="reboot_category">再起動</string>
-            <string name="reboot">再起動</string>
-            <string name="reboot_summary">OSを再起動します</string>
-            <string name="recovery">リカバリ</string>
-            <string name="recovery_summary">再起動してリカバリモードにします</string>
-            <string name="download">ダウンロード</string>
-            <string name="download_summary">再起動してダウンロードモードにします</string>
-        <string name="nandroid_category">バックアップ/リストア</string>
-            <string name="backup">バックアップ</string>
-            <string name="backup_summary">現在のROMをバックアップします</string>
-            <string name="restore">リストア</string>
-            <string name="restore_summary">バックアップからリストアします</string>
+    <string name="dual_boot_category">デュアルブート</string>
+    <string name="boot_rom">ブートROM</string>
+    <string name="reboot_category">再起動</string>
+    <string name="reboot">再起動</string>
+    <string name="reboot_summary">OSを再起動します</string>
+    <string name="recovery">リカバリ</string>
+    <string name="recovery_summary">再起動してリカバリモードにします</string>
+    <string name="download">ダウンロード</string>
+    <string name="download_summary">再起動してダウンロードモードにします</string>
+    <string name="nandroid_category">バックアップ/リストア</string>
+    <string name="backup">バックアップ</string>
+    <string name="backup_summary">現在のROMをバックアップします</string>
+    <string name="restore">リストア</string>
+    <string name="restore_summary">バックアップからリストアします</string>
 			<string name="manage">管理</string>
-            <string name="manage_summary">バックアップを管理します</string>
-        <string name="flash_category">フラッシュ</string>
-            <string name="install_zip">zipインストール</string>
-            <string name="install_zip_summary">zipファイルをインストールします</string>
+    <string name="manage_summary">バックアップを管理します</string>
+    <string name="flash_category">フラッシュ</string>
+    <string name="install_zip">zipインストール</string>
+    <string name="install_zip_summary">zipファイルをインストールします</string>
     <string name="backup_name">バックアップ名</string>
     <string name="select_zip_title">zipファイルを選択</string>
     <string name="select_backup_title">バックアップを選択</string>
@@ -68,89 +69,87 @@
 
     <!-- General -->
     <string name="general_title">全般</string>
-        <string name="low_memory_killer_title">低メモリ時のタスクキル</string>
-        <string name="low_memory_killer_summary">低メモリ時のタスクキル設定を変更します</string>
-        <string name="virtual_memory_title">仮想メモリ</string>
-        <string name="virtual_memory_summary">仮想メモリ設定を変更します</string>
-        <string name="system_property_title">システムプロパティ</string>
-        <string name="system_property_summary">システムプロパティを変更します\n注意: この項目は再起動後に反映されます</string>
-        <string name="io_scheduler_tite">I/Oスケジューラ</string>
-        <string name="gsm_network_tweak_title">3G通信の最適化</string>
-        <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効</string>
-        <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効</string>
+    <string name="low_memory_killer_title">低メモリ時のタスクキル</string>
+    <string name="low_memory_killer_summary">低メモリ時のタスクキル設定を変更します</string>
+    <string name="virtual_memory_title">仮想メモリ</string>
+    <string name="virtual_memory_summary">仮想メモリ設定を変更します</string>
+    <string name="system_property_title">システムプロパティ</string>
+    <string name="system_property_summary">システムプロパティを変更します\n注意: この項目は再起動後に反映されます</string>
+    <string name="io_scheduler_tite">I/Oスケジューラ</string>
+    <string name="gsm_network_tweak_title">3G通信の最適化</string>
+    <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効</string>
+    <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効</string>
 
     <!-- Multi boot -->
     <string name="multi_boot_title">マルチブート設定</string>
-        <string name="multi_boot_rom_select_category">起動ROM選択</string>
-        <string name="multi_boot_rom_select_title">起動ROM</string>
-        <string name="multi_boot_rom_setting">ROM設定</string>
-        <string name="rom_system_category">システム領域</string>
-        <string name="rom_data_category">データ領域</string>
-        <string name="rom_partition">パーティション</string>
-        <string name="rom_image">イメージ</string>
-        <string name="rom_path">パス</string>
+    <string name="multi_boot_rom_select_category">起動ROM選択</string>
+    <string name="multi_boot_rom_select_title">起動ROM</string>
+    <string name="multi_boot_rom_setting">ROM設定</string>
+    <string name="rom_system_category">システム領域</string>
+    <string name="rom_data_category">データ領域</string>
+    <string name="rom_partition">パーティション</string>
+    <string name="rom_image">イメージ</string>
+    <string name="rom_path">パス</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPUコントロール</string>
-        <string name="cpu_governor_category">ガバナ</string>
-            <string name="cpu_governor_select">ガバナ選択</string>
-            <string name="cpu_governor_setting">ガバナ設定</string>
-        <string name="cpu_freq_category">周波数</string>
-            <string name="cpu_max_freq">最大</string>
-            <string name="cpu_min_freq">最小</string>
-        <string name="cpu_voltage_category">電圧</string>
+    <string name="cpu_governor_category">ガバナ</string>
+    <string name="cpu_governor_select">ガバナ選択</string>
+    <string name="cpu_governor_setting">ガバナ設定</string>
+    <string name="cpu_freq_category">周波数</string>
+    <string name="cpu_max_freq">最大</string>
+    <string name="cpu_min_freq">最小</string>
+    <string name="cpu_voltage_category">電圧</string>
     <string name="cpu_voltage_title">電圧調整</string>
 
     <!-- GPU Control -->
     <string name="gpu_control_title">GPUコントロール</string>
-        <string name="gpu_high_state_category">高パフォーマンス</string>
-        <string name="gpu_low_state_category">低パフォーマンス</string>
-        <string name="gpu_freq_category">Governor</string>
+    <string name="gpu_high_state_category">高パフォーマンス</string>
+    <string name="gpu_low_state_category">低パフォーマンス</string>
+    <string name="gpu_freq_category">Governor</string>
 
     <!-- Display -->
     <string name="display_title">画面設定</string>
     <string name="lcd_category">LCD</string>
-        <string name="lcd_type">LCDタイプ</string>
-        <string name="gamma_adjust">ガンマ調整</string>
+    <string name="lcd_type">LCDタイプ</string>
+    <string name="gamma_adjust">ガンマ調整</string>
     <string name="mdnie_category">mDNie</string>
-        <string name="mdnie_function">mDNie機能</string>
-        <string name="mdnie_function_on">mDNie機能は有効</string>
-        <string name="mdnie_function_off">mDNie機能は無効</string>
-        <string name="mdnie_mode">色合い調整</string>
-        <string name="mdnie_mode_on">色合い調整は有効</string>
-        <string name="mdnie_mode_off">色合い調整は無効</string>
-        <string name="mdnie_color_cb">色合い(青成分)</string>
-        <string name="mdnie_color_cr">色合い(赤成分)</string>
+    <string name="mdnie_function">mDNie機能</string>
+    <string name="mdnie_function_on">mDNie機能は有効</string>
+    <string name="mdnie_function_off">mDNie機能は無効</string>
+    <string name="mdnie_mode">色合い調整</string>
+    <string name="mdnie_mode_on">色合い調整は有効</string>
+    <string name="mdnie_mode_off">色合い調整は無効</string>
+    <string name="mdnie_color_cb">色合い(青成分)</string>
+    <string name="mdnie_color_cr">色合い(赤成分)</string>
 
     <!-- Sound and Vibration -->
     <string name="sound_and_vib_title">サウンド/バイブ設定</string>
-        <string name="sound_category">サウンド</string>
-            <string name="hw_volumes">HWボリューム</string>
-            <string name="sound_play_freq_lock_title">CPU下限ロック</string>
-            <string name="sound_play_freq_lock_summary_on">音楽再生中のCPU下限ロックは有効</string>
-            <string name="sound_play_freq_lock_summary_off">音楽再生中のCPU下限ロックは無効</string>
-        <string name="vib_category">バイブレータ</string>
-        <string name="vib_level">バイブレータの強さ</string>
-        <string name="vib_increase_on_incoming">着信時に強くする</string>
-        <string name="vib_increase_on_incoming_summary_on">バイブレータを強くします</string>
-        <string name="vib_increase_on_incoming_summary_off">バイブレータを強くしません</string>
+    <string name="sound_category">サウンド</string>
+    <string name="hw_volumes">HWボリューム</string>
+    <string name="sound_play_freq_lock_title">CPU下限ロック</string>
+    <string name="sound_play_freq_lock_summary_on">音楽再生中のCPU下限ロックは有効</string>
+    <string name="sound_play_freq_lock_summary_off">音楽再生中のCPU下限ロックは無効</string>
+    <string name="vib_category">バイブレータ</string>
+    <string name="vib_normal_level">バイブの強さ（通常時）</string>
+    <string name="vib_incoming_level">バイブの強さ（着信時）</string>
 
     <!-- Notification -->
     <string name="notification_title">通知設定</string>
-        <string name="notification_bln_on_incoming_title">着信時のBLN</string>
-        <string name="notification_bln_on_incoming_summary_on">着信時にBLNで通知する</string>
-        <string name="notification_bln_on_incoming_summary_off">着信時にBLNで通知しない</string>
+    <string name="notification_bln_on_incoming_title">着信時のBLN</string>
+    <string name="notification_bln_on_incoming_summary_on">着信時にBLNで通知する</string>
+    <string name="notification_bln_on_incoming_summary_off">着信時にBLNで通知しない</string>
 
     <!-- Dock -->
     <string name="dock_title">ドック設定</string>
-        <string name="dock_emulate">ドックエミュレート</string>
-            <string name="dock_start">ドック開始</string>
-            <string name="dock_emu_hw">HWエミュレート</string>
-            <string name="dock_emu_sw">SWエミュレート</string>
-            <string name="dock_emu_disable">無効</string>
-        <string name="dock_manual">手動</string>
-            <string name="dock_manual_start">Dockモードを開始します</string>
-            <string name="dock_manual_stop">Dockモードを終了します</string>
+    <string name="dock_emulate">ドックエミュレート</string>
+    <string name="dock_start">ドック開始</string>
+    <string name="dock_emu_hw">HWエミュレート</string>
+    <string name="dock_emu_sw">SWエミュレート</string>
+    <string name="dock_emu_disable">無効</string>
+    <string name="dock_manual">手動</string>
+    <string name="dock_manual_start">Dockモードを開始します</string>
+    <string name="dock_manual_stop">Dockモードを終了します</string>
 
     <!-- About -->
     <string name="about_title">TweakGS2について</string>

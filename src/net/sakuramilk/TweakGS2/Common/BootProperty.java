@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,7 @@ package net.sakuramilk.TweakGS2.Common;
 public class BootProperty extends PropertyManager {
 
     public BootProperty() {
-        this("/xdata/boot.conf");
-    }
-
-    protected BootProperty(String filePath) {
-        super(filePath);
+        super("/xdata/boot.conf");
     }
 
     public void setBootRomValue(String value) {

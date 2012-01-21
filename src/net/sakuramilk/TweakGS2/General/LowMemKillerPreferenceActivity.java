@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,8 @@ import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneLi
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class LowMemKillerPreferenceActivity extends PreferenceActivity
     implements OnSeekBarPreferenceDoneListener {
@@ -79,5 +81,29 @@ public class LowMemKillerPreferenceActivity extends PreferenceActivity
             // don't return true
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.default_menu, menu);
+        return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_reset:
+            mSetting.reset();
+            Misc.confirmReboot(this, R.string.reboot_reflect_comfirm);
+            return true;
+        case R.id.menu_recommend:
+            mSetting.setRecommend();
+            mValues = mSetting.loadLowMemKillerMinFree();
+            setMaxMinValue();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

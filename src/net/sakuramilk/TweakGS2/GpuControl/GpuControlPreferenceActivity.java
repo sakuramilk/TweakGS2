@@ -1,21 +1,22 @@
 /*
-* Copyright 2011 sakuramilk <c.sakuramilk@gmail.com>
-* 
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License as
-* published by the Free Software Foundation; either version 2 of 
-* the License, or (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package net.sakuramilk.TweakGS2.GpuControl;
+
+import java.util.ArrayList;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
@@ -25,7 +26,12 @@ import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneLi
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -34,23 +40,12 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
 
     private GpuControlSetting mSetting;
 
-    private SeekBarPreference mHighFreq;
-    private SeekBarPreference mHighVolt;
-    private SeekBarPreference mLowFreq;
-    private SeekBarPreference mLowVolt;
+    private Integer mFreqs[] = null;
+    private Integer mVolts[] = null;
+    private int mStep;
+    private ArrayList<SeekBarPreference> mFreqPrefList;
+    private ArrayList<SeekBarPreference> mVoltPrefList;
     private CheckBoxPreference mSetOnBoot;
-
-    private static final int MIN_CLOCK_GPU = 10;
-    private static final int MAX_CLOCK_GPU = 450;
-    private static final int MIN_VOLTAGE_GPU = 800000 / 1000;
-    private static final int MAX_VOLTAGE_GPU = 1200000 / 1000;
-    private static final int CLOCK_STEP = 1;
-    private static final int VOLTATE_STEP = 1;
-
-    private int mLowFreqValue;
-    private int mHighFreqValue;
-    private int mLowVoltValue;
-    private int mHighVoltValue;
     private boolean mSetOnBootChecked;
 
     @Override
@@ -59,91 +54,116 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
 
         addPreferencesFromResource(R.xml.gpu_control_pref);
 
-        mSetting = new GpuControlSetting(this);
-        /*
-        mHighFreq = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_HIGH_FREQ);
-        mHighVolt = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_HIGH_VOLT);
-        mLowFreq = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_LOW_FREQ);
-        mLowVolt = (SeekBarPreference)findPreference(GpuControlSetting.KEY_GPU_LOW_VOLT);
-        */
-        mSetOnBoot = (CheckBoxPreference)findPreference(GpuControlSetting.KEY_GPU_SET_ON_BOOT);
+        PreferenceManager prefManager = getPreferenceManager();
+        PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(GpuControlSetting.KEY_ROOT_PREF);
 
+        mSetting = new GpuControlSetting(this);
         if (mSetting.isEnableFreqCtrl()) {
-            mHighFreq.setEnabled(true);
-            mLowFreq.setEnabled(true);
-            Integer[] values = mSetting.getFreq();
-            mHighFreqValue = values[0];
-            mLowFreqValue = values[1];
-            mLowFreq.setSummary(Misc.getCurrentValueText(this, mLowFreqValue + "MHz"));
-            mHighFreq.setSummary(Misc.getCurrentValueText(this, mHighFreqValue + "MHz"));
-            
-            mLowFreq.setValue(mHighFreqValue, MIN_CLOCK_GPU, CLOCK_STEP, mLowFreqValue);
-            mLowFreq.setOnPreferenceDoneListener(this);
-            mHighFreq.setValue(MAX_CLOCK_GPU, mLowFreqValue, CLOCK_STEP, mHighFreqValue);
-            mHighFreq.setOnPreferenceDoneListener(this);
+            mFreqs = mSetting.getFreqs();
+            mFreqPrefList = new ArrayList<SeekBarPreference>();
+            for (int i = 0; i < mFreqs.length; i++) {
+                SeekBarPreference pref = new SeekBarPreference(this, null);
+                pref.setKey(GpuControlSetting.KEY_GPU_FREQ_BASE + i);
+                pref.setTitle(R.string.frequency);
+                pref.setDialogTitle(R.string.frequency);
+                pref.setOnPreferenceDoneListener(this);
+                mFreqPrefList.add(pref);
+            }
+            mStep = mFreqs.length;
         }
         if (mSetting.isEnableVoltageCtrl()) {
-            mHighVolt.setEnabled(true);
-            mLowVolt.setEnabled(true);
-            Integer[] values = mSetting.getVolt();
-            mHighVoltValue = values[0];
-            mLowVoltValue = values[1];
-            mLowVolt.setSummary(Misc.getCurrentValueText(this, mLowVoltValue + "mV"));
-            mHighVolt.setSummary(Misc.getCurrentValueText(this, mHighVoltValue + "mV"));
-
-            mLowVolt.setValue(mHighVoltValue, MIN_VOLTAGE_GPU, VOLTATE_STEP, mLowVoltValue);
-            mLowVolt.setOnPreferenceDoneListener(this);
-            mHighVolt.setValue(MAX_VOLTAGE_GPU, mLowVoltValue, VOLTATE_STEP, mHighVoltValue);
-            mHighVolt.setOnPreferenceDoneListener(this);
+            mVolts = mSetting.getVolts();
+            mVoltPrefList = new ArrayList<SeekBarPreference>();
+            for (int i = 0; i < mVolts.length; i++) {
+                SeekBarPreference pref = new SeekBarPreference(this, null);
+                pref.setKey(GpuControlSetting.KEY_GPU_VOLT_BASE + i);
+                pref.setTitle(R.string.voltage);
+                pref.setDialogTitle(R.string.voltage);
+                pref.setOnPreferenceDoneListener(this);
+                mVoltPrefList.add(pref);
+            }
+            mStep = mVolts.length;
         }
 
-        mSetOnBootChecked = mSetting.loadSetOnBoot();
-        mSetOnBoot.setOnPreferenceChangeListener(this);
-        mSetOnBoot.setChecked(mSetOnBootChecked);
-
+        for (int i = 0; i < mStep; i++) {
+            PreferenceCategory categoryPref = new PreferenceCategory(this);
+            categoryPref.setTitle("Step" + i);
+            rootPref.addPreference(categoryPref);
+            if (mFreqPrefList != null) {
+                rootPref.addPreference(mFreqPrefList.get(i));
+            }
+            if (mVoltPrefList != null) {
+                rootPref.addPreference(mVoltPrefList.get(i));
+            }
+        }
+        if (mStep > 0) {
+            PreferenceCategory categoryPref = new PreferenceCategory(this);
+            categoryPref.setTitle(R.string.option);
+            mSetOnBoot = new CheckBoxPreference(this);
+            mSetOnBoot.setTitle(R.string.set_on_boot);
+            rootPref.addPreference(mSetOnBoot);
+            mSetOnBootChecked = mSetting.loadSetOnBoot();
+            mSetOnBoot.setOnPreferenceChangeListener(this);
+            mSetOnBoot.setChecked(mSetOnBootChecked);
+        }
         mApplyButton.setOnClickListener(this);
+        
+        setMaxMinValue();
+    }
+
+    private void setMaxMinValue() {
+        if (mFreqPrefList != null) {
+            for (int i = 0; i < mFreqPrefList.size(); i++) {
+                SeekBarPreference pref = mFreqPrefList.get(i);
+                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mFreqs[i])));
+                if (i == 0) {
+                    pref.setValue(mFreqs[i+1], GpuControlSetting.FREQ_MIN, mFreqs[i]);
+                } else if (i == (mFreqPrefList.size() - 1)) {
+                    pref.setValue(GpuControlSetting.FREQ_MAX, mFreqs[i-1], mFreqs[i]);
+                } else {
+                    pref.setValue(mFreqs[i+1], mFreqs[i-1], mFreqs[i]);
+                }
+            }
+        }
+        if (mVoltPrefList != null) {
+            for (int i = 0; i < mVoltPrefList.size(); i++) {
+                SeekBarPreference pref = mVoltPrefList.get(i);
+                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mVolts[i])));
+                if (i == 0) {
+                    pref.setValue(mFreqs[i+1], GpuControlSetting.VOLT_MIN, mVolts[i]);
+                } else if (i == (mVoltPrefList.size() - 1)) {
+                    pref.setValue(GpuControlSetting.VOLT_MAX, mVolts[i-1], mVolts[i]);
+                } else {
+                    pref.setValue(mVolts[i+1], mVolts[i-1], mVolts[i]);
+                }
+            }
+        }
     }
 
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
 
         int value = Integer.parseInt((String)newValue);
-
-        if (preference == mLowFreq) {
-            if (value != mLowFreqValue) {
-                mApplyButton.setEnabled(true);
-                mLowFreqValue = value;
-
-                mLowFreq.setSummary(Misc.getCurrentValueText(this, mLowFreqValue + "MHz"));
-                mLowFreq.setValue(mHighFreqValue, MIN_CLOCK_GPU,  mLowFreqValue);
-                mHighFreq.setValue(MAX_CLOCK_GPU, mLowFreqValue,  mHighFreqValue);
+        if (mFreqPrefList != null) {
+            int index = mFreqPrefList.indexOf(preference);
+            if (index != -1) {
+                if (mFreqs[index] != value) {
+                    mFreqs[index] = value;
+                    setMaxMinValue();
+                    mApplyButton.setEnabled(true);
+                }
+                return false; // don't return true
             }
-        } else if (preference == mHighFreq) {
-            if (value != mHighFreqValue) {
-                mApplyButton.setEnabled(true);
-                mHighFreqValue = value;
-
-                mHighFreq.setSummary(Misc.getCurrentValueText(this, mHighFreqValue + "MHz"));
-                mLowFreq.setValue(mHighFreqValue, MIN_CLOCK_GPU,  mLowFreqValue);
-                mHighFreq.setValue(MAX_CLOCK_GPU, mLowFreqValue,  mHighFreqValue);
-            }
-        } else if (preference == mLowVolt) {
-            if (value != mLowVoltValue) {
-                mApplyButton.setEnabled(true);
-                mLowVoltValue = value;
-
-                mLowVolt.setSummary(Misc.getCurrentValueText(this, mLowVoltValue + "mV"));
-                mLowVolt.setValue(mHighVoltValue, MIN_VOLTAGE_GPU, mLowVoltValue);
-                mHighVolt.setValue(MAX_VOLTAGE_GPU, mLowVoltValue, mHighVoltValue);
-            }
-        } else if (preference == mHighVolt) {
-            if (value != mHighVoltValue) {
-                mApplyButton.setEnabled(true);
-                mHighVoltValue = value;
-
-                mHighVolt.setSummary(Misc.getCurrentValueText(this, mHighVoltValue + "mV"));
-                mLowVolt.setValue(mHighVoltValue, MIN_VOLTAGE_GPU, mLowVoltValue);
-                mHighVolt.setValue(MAX_VOLTAGE_GPU, mLowVoltValue, mHighVoltValue);
+        }
+        if (mVoltPrefList != null) {
+            int index = mVoltPrefList.indexOf(preference);
+            if (index != -1) {
+                if (mVolts[index] != value) {
+                    mVolts[index] = value;
+                    setMaxMinValue();
+                    mApplyButton.setEnabled(true);
+                }
+                return false; // don't return true
             }
         }
         return false;
@@ -154,12 +174,16 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         mApplyButton.setEnabled(false);
         mSetOnBootChecked = mSetOnBoot.isChecked();
         mSetting.saveSetOnBoot(mSetOnBootChecked);
-        /*
-        mSetting.saveFreq(mHighFreqValue, mLowFreqValue);
-        mSetting.saveVolt(mHighVoltValue, mLowVoltValue);
-        mSetting.setFreq(mHighFreqValue, mLowFreqValue);
-        mSetting.setVolt(mHighVoltValue, mLowVoltValue);
-        */
+
+        // NOTICE: set first volt, next freq
+        if (mVolts != null) {
+            mSetting.saveVolts(mVolts);
+            mSetting.setVolts(mVolts);
+        }
+        if (mFreqs != null) {
+            mSetting.saveFreqs(mFreqs);
+            mSetting.setFreqs(mFreqs);
+        }
     }
 
     @Override
@@ -174,6 +198,25 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
 
         if (mApplyButton.isEnabled()) {
             mSetting.saveSetOnBoot(mSetOnBootChecked);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.reset_menu, menu);
+        return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_reset:
+            mSetting.reset();
+            Misc.confirmReboot(this, R.string.reboot_reflect_comfirm);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 }

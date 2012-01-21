@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import android.content.Context;
@@ -8,8 +24,8 @@ import net.sakuramilk.TweakGS2.Common.SysFs;
 public class SoundAndVibSetting extends SettingManager {
 
     public static final String KEY_SND_PLAY_CPU_LOCK = "sound_play_freq_lock";
-    public static final String KEY_VIB_LEVEL = "vib_level";
-    public static final String KEY_VIB_INCREASE_ON_INCOMING = "vib_increase_on_incoming";
+    public static final String KEY_VIB_NORMAL_LEVEL = "vib_normal_level";
+    public static final String KEY_VIB_INCOMING_LEVEL = "vib_incoming_level";
 
     private final SysFs mSysFsSoundPlayFreqLock = new SysFs("/sys/devices/virtual/sound/sound_mc1n2/freq_lock");
     private final SysFs mSysFsVibLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level");
@@ -52,12 +68,20 @@ public class SoundAndVibSetting extends SettingManager {
         mSysFsVibLevel.write(value);
     }
 
-    public String loadVibLevel() {
-        return getStringValue(KEY_VIB_LEVEL);
+    public String loadVibNormalLevel() {
+        return getStringValue(KEY_VIB_NORMAL_LEVEL);
     }
 
-    public void saveVibLevel(String value) {
-        setValue(KEY_VIB_LEVEL, value);
+    public void saveVibNormalLevel(String value) {
+        setValue(KEY_VIB_NORMAL_LEVEL, value);
+    }
+
+    public String loadVibIncomingLevel() {
+        return getStringValue(KEY_VIB_INCOMING_LEVEL);
+    }
+
+    public void saveVibIncomingLevel(String value) {
+        setValue(KEY_VIB_INCOMING_LEVEL, value);
     }
 
     public String getVibMaxLevel() {
@@ -69,7 +93,7 @@ public class SoundAndVibSetting extends SettingManager {
         boolean freqLock = loadSoundPlayFreqLock();
         setSoundPlayFreqLock(freqLock);
 
-        String vibLevel = loadVibLevel();
+        String vibLevel = loadVibNormalLevel();
         if (!Misc.isNullOfEmpty(vibLevel)) {
             setVibLevel(vibLevel);
         }
@@ -83,6 +107,7 @@ public class SoundAndVibSetting extends SettingManager {
     @Override
     public void reset() {
         clearValue(KEY_SND_PLAY_CPU_LOCK);
-        clearValue(KEY_VIB_LEVEL);
+        clearValue(KEY_VIB_NORMAL_LEVEL);
+        clearValue(KEY_VIB_INCOMING_LEVEL);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,10 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 public class MainPreferenceActivity extends PreferenceActivity {
-    /** Called when the activity is first created. */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.main_pref);
-        
     }
 }

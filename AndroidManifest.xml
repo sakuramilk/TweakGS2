@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,7 +80,7 @@
         <!-- CpuControl -->
         <activity android:name=".CpuControl.CpuControlPreferenceActivity" />
         <activity android:name=".CpuControl.CpuControlVoltagePreferenceActivity" />
-        <activity android:name=".CpuControl.GovernorOndemandControlActivity" />
+        <activity android:name=".CpuControl.CpuControlGovernorPreferenceActivity" />
 
         <!-- GpuControl -->
         <activity android:name=".GpuControl.GpuControlPreferenceActivity" />

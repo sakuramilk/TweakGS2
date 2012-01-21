@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ public class DisplaySetting extends SettingManager {
 
     public static final String KEY_LCD_TYPE = "disp_lcd_type";
     public static final String KEY_LCD_GAMMA = "disp_lcd_gamma";
-    public static final String KEY_MDNIE_POWER = "disp_mdnie_powor";
     public static final String KEY_MDNIE_FORCE_DISABLE = "disp_mdnie_force_disable";
     public static final String KEY_MDNIE_MODE = "disp_mdnie_mode";
     public static final String KEY_MDNIE_MCM_CB = "disp_mdnie_color_cb";
@@ -45,32 +44,24 @@ public class DisplaySetting extends SettingManager {
         super(context);
     }
 
-    public boolean isEnableMdniePower() {
-        return mSysFsMdniePower.exists();
-    }
-
-    public String getMdniePower() {
-        return mSysFsMdniePower.read();
-    }
-
-    public void setMdniePower(String value) {
-        mSysFsMdniePower.write(value);
-    }
-
-    public String loadMdniePower() {
-        return getStringValue(KEY_LCD_TYPE);
-    }
-
-    public void saveMdniePower(String value) {
-        setValue(KEY_LCD_TYPE, value);
-    }
-
     public boolean isEnableLcdType() {
         return mSysFsLcdType.exists();
     }
 
     public String getLcdType() {
         return mSysFsLcdType.read();
+    }
+
+    public String getLcdTypeText(String value) {
+        if ("0".equals(value)) {
+            return "SM2 (A1 line)";
+        } else if ("1".equals(value)) {
+            return "M2";
+        } else if ("2".equals(value)) {
+            return "SM2 (A2 line)";
+        } else {
+            return "Unknown";
+        }
     }
 
     public void setLcdType(String value) {
@@ -115,6 +106,7 @@ public class DisplaySetting extends SettingManager {
 
     public void setMdnieForceDisable(boolean value) {
         mSysFsMdnieForceDisable.write(value ? "0" : "1");
+        mSysFsMdniePower.write(value ? "1" : "0");
     }
 
     public boolean loadMdnieForceDisable() {
@@ -137,11 +129,11 @@ public class DisplaySetting extends SettingManager {
         mSysFsMdnieMode.write(value);
     }
 
-    public String loadMdnieMode() {
-        return getStringValue(KEY_MDNIE_MODE);
+    public boolean loadMdnieMode() {
+        return getBooleanValue(KEY_MDNIE_MODE);
     }
 
-    public void saveMdnieMode(String value) {
+    public void saveMdnieMode(boolean value) {
         setValue(KEY_MDNIE_MODE, value);
     }
 
@@ -256,10 +248,8 @@ public class DisplaySetting extends SettingManager {
             }
         }
         if (isEnableMdnieMode()) {
-            String value = loadMdnieMode();
-            if (value != null) {
-                setMdnieMode(value);
-            }
+            boolean value = loadMdnieMode();
+            setMdnieMode(value ? MDNIE_MCM_ENABLE : MDNIE_MCM_DISABLE);
         }
         if (isEnableMdnieForceDisable()) {
             boolean value = loadMdnieForceDisable();
@@ -278,7 +268,6 @@ public class DisplaySetting extends SettingManager {
     public void reset() {
         clearValue(KEY_LCD_TYPE);
         clearValue(KEY_LCD_GAMMA);
-        clearValue(KEY_MDNIE_POWER);
         clearValue(KEY_MDNIE_FORCE_DISABLE);
         clearValue(KEY_MDNIE_MODE);
         clearValue(KEY_MDNIE_MCM_CB);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,9 +84,19 @@ public abstract class PropertyManager {
         return mFile.exists();
     }
 
+    public void delete() {
+        if (exists()) {
+            mFile.delete();
+        }
+    }
+
     public String getValue(String key) {
-        if (!mFile.exists()) return null;
-        if (mFile.length() == 0) return null;
+        return getValue(key, null);
+    }
+
+    public String getValue(String key, String defaultValue) {
+        if (!mFile.exists()) return defaultValue;
+        if (mFile.length() == 0) return defaultValue;
 
         String propString[] = readText();
         if (propString != null) {
@@ -97,7 +107,7 @@ public abstract class PropertyManager {
                 }
             }
         }
-        return null;
+        return defaultValue;
     }
 
     public void setValue(String key, String value) {
@@ -109,18 +119,21 @@ public abstract class PropertyManager {
             return;
         }
 
-        String propString[] = readText();
+        String propStringArray[] = readText();
         HashMap<String, String> keyValuePair = new HashMap<String, String>();
 
         boolean isFindKey = false;
-        for (String prop : propString) {
-            String keyValue[] = prop.split("=");
-            if (keyValue.length > 1) {
-                if (key.equals(keyValue[0])) {
+        for (String propString : propStringArray) {
+            String prop = propString.trim();
+            int pos = prop.indexOf('=');
+            if (pos != -1 && prop.indexOf('#') != 0) {
+                String pairOfkey = prop.substring(0, pos);
+                String pairOfValue = prop.substring(pos + 1);
+                if (key.equals(pairOfkey)) {
                     isFindKey = true;
-                    keyValuePair.put(keyValue[0], value);
+                    keyValuePair.put(pairOfkey, value);
                 } else {
-                    keyValuePair.put(keyValue[0], keyValue[1]);
+                    keyValuePair.put(pairOfkey, pairOfValue);
                 }
             }
         }

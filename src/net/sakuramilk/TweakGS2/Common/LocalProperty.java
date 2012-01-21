@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,6 @@ package net.sakuramilk.TweakGS2.Common;
 public class LocalProperty extends PropertyManager {
 
     public LocalProperty() {
-        this("/data/local.prop");
-    }
-
-    protected LocalProperty(String filePath) {
-        super(filePath);
+        super("/data/local.prop");
     }
 }

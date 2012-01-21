@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,28 +35,29 @@
     <string name="frequency">Frequency</string>
     <string name="voltage">Voltage</string>
     <string name="apply">Apply</string>
+    <string name="version">Version</string>
 
     <!-- ROM Manager -->
     <string name="rom_manager_title">ROM Manager</string>
-        <string name="dual_boot_category">Dual boot</string>
-            <string name="boot_rom">Boot ROM</string>
-        <string name="reboot_category">Reboot</string>
-            <string name="reboot">Reboot</string>
-            <string name="reboot_summary">Normal Reboot</string>
-            <string name="recovery">Recovery</string>
-            <string name="recovery_summary">Reboot to recovery mode</string>
-            <string name="download">Download</string>
-            <string name="download_summary">Reboot to download mode</string>
-        <string name="nandroid_category">Backup/Restore</string>
-            <string name="backup">Backup</string>
-            <string name="backup_summary">Backup current ROM</string>
-            <string name="restore">Restore</string>
-            <string name="restore_summary">Restore from backup</string>
-			<string name="manage">Manage</string>
-            <string name="manage_summary">Manage backups</string>
-        <string name="flash_category">Flash</string>
-            <string name="install_zip">Install zip</string>
-            <string name="install_zip_summary">Install zip</string>
+    <string name="dual_boot_category">Dual boot</string>
+    <string name="boot_rom">Boot ROM</string>
+    <string name="reboot_category">Reboot</string>
+    <string name="reboot">Reboot</string>
+    <string name="reboot_summary">Normal Reboot</string>
+    <string name="recovery">Recovery</string>
+    <string name="recovery_summary">Reboot to recovery mode</string>
+    <string name="download">Download</string>
+    <string name="download_summary">Reboot to download mode</string>
+    <string name="nandroid_category">Backup/Restore</string>
+    <string name="backup">Backup</string>
+    <string name="backup_summary">Backup current ROM</string>
+    <string name="restore">Restore</string>
+    <string name="restore_summary">Restore from backup</string>
+    <string name="manage">Manage</string>
+    <string name="manage_summary">Manage backups</string>
+    <string name="flash_category">Flash</string>
+    <string name="install_zip">Install zip</string>
+    <string name="install_zip_summary">Install zip</string>
     <string name="backup_name">Backup name</string>
     <string name="select_zip_title">Select zip file</string>
     <string name="select_backup_title">Select backup</string>
@@ -69,97 +70,95 @@
 
     <!-- General -->
     <string name="general_title">General</string>
-        <string name="low_memory_killer_title">Low memory killer</string>
-        <string name="low_memory_killer_summary">Change low memory task killer settings</string>
-        <string name="virtual_memory_title">Virtual memory</string>
-        <string name="virtual_memory_summary">Change virtual memory settings</string>
-        <string name="system_property_title">System property</string>
-        <string name="system_property_summary">Change system property\nNotice: Take effect after reboot</string>
-        <string name="io_scheduler_tite">I/O scheduler</string>
-        <string name="gsm_network_tweak_title">3G network tweak</string>
-        <string name="gsm_network_tweak_summary_on">3G network tweak enabled</string>
-        <string name="gsm_network_tweak_summary_off">3G network tweak disabled</string>
+    <string name="low_memory_killer_title">Low memory killer</string>
+    <string name="low_memory_killer_summary">Change low memory task killer settings</string>
+    <string name="virtual_memory_title">Virtual memory</string>
+    <string name="virtual_memory_summary">Change virtual memory settings</string>
+    <string name="system_property_title">System property</string>
+    <string name="system_property_summary">Change system property\nNotice: Take effect after reboot</string>
+    <string name="io_scheduler_tite">I/O scheduler</string>
+    <string name="gsm_network_tweak_title">3G network tweak</string>
+    <string name="gsm_network_tweak_summary_on">3G network tweak enabled</string>
+    <string name="gsm_network_tweak_summary_off">3G network tweak disabled</string>
 
     <!-- Multi Boot -->
     <string name="multi_boot_title">Multi boot setting</string>
-        <string name="multi_boot_rom_select_category">Boot ROM selection</string>
-        <string name="multi_boot_rom_select_title">Boot ROM</string>
-        <string name="multi_boot_rom_setting">ROM setting</string>
-        <string name="rom_system_category">System area</string>
-        <string name="rom_data_category">Data area</string>
-        <string name="rom_partition">Partition</string>
-        <string name="rom_image">Image</string>
-        <string name="rom_path">Path</string>
+    <string name="multi_boot_rom_select_category">Boot ROM selection</string>
+    <string name="multi_boot_rom_select_title">Boot ROM</string>
+    <string name="multi_boot_rom_setting">ROM setting</string>
+    <string name="rom_system_category">System area</string>
+    <string name="rom_data_category">Data area</string>
+    <string name="rom_partition">Partition</string>
+    <string name="rom_image">Image</string>
+    <string name="rom_path">Path</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPU control</string>
-        <string name="cpu_governor_category">Governor</string>
-            <string name="cpu_governor_select">Governor select</string>
-            <string name="cpu_governor_setting">Governor setting</string>
-        <string name="cpu_freq_category">Frequency</string>
-            <string name="cpu_max_freq">Max</string>
-            <string name="cpu_min_freq">Min</string>
-        <string name="cpu_voltage_category">Voltage</string>
+    <string name="cpu_governor_category">Governor</string>
+    <string name="cpu_governor_select">Governor select</string>
+    <string name="cpu_governor_setting">Governor setting</string>
+    <string name="cpu_freq_category">Frequency</string>
+    <string name="cpu_max_freq">Max</string>
+    <string name="cpu_min_freq">Min</string>
+    <string name="cpu_voltage_category">Voltage</string>
     <string name="cpu_voltage_title">Voltage control</string>
 
     <!-- GPU Control -->
     <string name="gpu_control_title">GPU control</string>
-        <string name="gpu_high_state_category">High performance state</string>
-        <string name="gpu_low_state_category">Low performance state</string>
-        <string name="gpu_freq_category">Governor</string>
+    <string name="gpu_high_state_category">High performance state</string>
+    <string name="gpu_low_state_category">Low performance state</string>
+    <string name="gpu_freq_category">Governor</string>
 
     <!-- Display -->
     <string name="display_title">Display setting</string>
     <string name="lcd_category">LCD</string>
-        <string name="lcd_type">LCD type</string>
-        <string name="gamma_adjust">Gammma adjust</string>
+    <string name="lcd_type">LCD type</string>
+    <string name="gamma_adjust">Gammma adjust</string>
     <string name="mdnie_category">mDNie</string>
-        <string name="mdnie_function">mDNie function</string>
-        <string name="mdnie_function_on">mDNie enabled</string>
-        <string name="mdnie_function_off">mDNie disabled</string>
-        <string name="mdnie_mode">Color adjust</string>
-        <string name="mdnie_mode_on">Color adjust enabled</string>
-        <string name="mdnie_mode_off">Color adjust disabled</string>
-        <string name="mdnie_color_cb">Color (Blue element)</string>
-        <string name="mdnie_color_cr">Color (Red element)</string>
+    <string name="mdnie_function">mDNie function</string>
+    <string name="mdnie_function_on">mDNie enabled</string>
+    <string name="mdnie_function_off">mDNie disabled</string>
+    <string name="mdnie_mode">Color adjust</string>
+    <string name="mdnie_mode_on">Color adjust enabled</string>
+    <string name="mdnie_mode_off">Color adjust disabled</string>
+    <string name="mdnie_color_cb">Color (Blue element)</string>
+    <string name="mdnie_color_cr">Color (Red element)</string>
 
     <!-- Sound and Vibration -->
     <string name="sound_and_vib_title">Sound and Vib setting</string>
-        <string name="sound_category">Sound</string>
-            <string name="hw_volumes">HW Volumes</string>
-            <string name="sound_play_freq_lock_title">CPU freq lock during music play</string>
-            <string name="sound_play_freq_lock_summary_on">CPU freq lock enabled</string>
-            <string name="sound_play_freq_lock_summary_off">CPU freq lock disabled</string>
-        <string name="vib_category">Vibrator</string>
-        <string name="vib_level">Vibrator level</string>
-        <string name="vib_increase_on_incoming">Increase on incoming</string>
-        <string name="vib_increase_on_incoming_summary_on">Increase on</string>
-        <string name="vib_increase_on_incoming_summary_off">Increase off</string>
-        <string name="avol_hp_title">(A) Headphone</string>
-        <string name="avol_hp_gain_title">(A) Headphone Gain</string>
-        <string name="avol_rc_title">(A) Receiver Value</string>
-        <string name="avol_sp_title">(A) Speaker Value</string>
-        <string name="dvol_dac_master_title">(D) DAC Master</string>
-        <string name="dvol_dac_att_title">(D) DAC ATT</string>
-        <string name="dvol_dir0_title">(D) DIR0</string>
-        <string name="dvol_dir0_att_title">(D) DIR0 ATT</string>
+    <string name="sound_category">Sound</string>
+    <string name="hw_volumes">HW Volumes</string>
+    <string name="sound_play_freq_lock_title">CPU freq lock during music play</string>
+    <string name="sound_play_freq_lock_summary_on">CPU freq lock enabled</string>
+    <string name="sound_play_freq_lock_summary_off">CPU freq lock disabled</string>
+    <string name="vib_category">Vibrator</string>
+    <string name="vib_normal_level">Normal vib level</string>
+    <string name="vib_incoming_level">Incoming vib level</string>
+    <string name="avol_hp_title">(A) Headphone</string>
+    <string name="avol_hp_gain_title">(A) Headphone Gain</string>
+    <string name="avol_rc_title">(A) Receiver Value</string>
+    <string name="avol_sp_title">(A) Speaker Value</string>
+    <string name="dvol_dac_master_title">(D) DAC Master</string>
+    <string name="dvol_dac_att_title">(D) DAC ATT</string>
+    <string name="dvol_dir0_title">(D) DIR0</string>
+    <string name="dvol_dir0_att_title">(D) DIR0 ATT</string>
 
     <!-- Notification -->
     <string name="notification_title">Notification setting</string>
-        <string name="notification_bln_on_incoming_title">BLN on incoming</string>
-        <string name="notification_bln_on_incoming_summary_on">BLN on incoming enabled</string>
-        <string name="notification_bln_on_incoming_summary_off">BLN on incoming disabled</string>
+    <string name="notification_bln_on_incoming_title">BLN on incoming</string>
+    <string name="notification_bln_on_incoming_summary_on">BLN on incoming enabled</string>
+    <string name="notification_bln_on_incoming_summary_off">BLN on incoming disabled</string>
 
     <!-- Dock -->
     <string name="dock_title">Dock setting</string>
-        <string name="dock_emulate">Dock emulate</string>
-            <string name="dock_start">Dock start</string>
-            <string name="dock_emu_hw">HW emulate</string>
-            <string name="dock_emu_sw">SW emulate</string>
-            <string name="dock_emu_disable">Disable</string>
-        <string name="dock_manual">Manual</string>
-            <string name="dock_manual_start">Start dock mode</string>
-            <string name="dock_manual_stop">Stop dock mode</string>
+    <string name="dock_emulate">Dock emulate</string>
+    <string name="dock_start">Dock start</string>
+    <string name="dock_emu_hw">HW emulate</string>
+    <string name="dock_emu_sw">SW emulate</string>
+    <string name="dock_emu_disable">Disable</string>
+    <string name="dock_manual">Manual</string>
+    <string name="dock_manual_start">Start dock mode</string>
+    <string name="dock_manual_stop">Stop dock mode</string>
 
     <!-- About -->
     <string name="about_title">About TweakGS2</string>
@@ -168,6 +167,7 @@
     <string name="all_reset_title">Reset Settings</string>
     <string name="all_reset_summary">Initialize the set of all items</string>
     <string name="reboot_reflect_comfirm">Do you want to reboot now reflect the settings?</string>
+
     <!-- Menu -->
     <string name="menu_reset">Reset</string>
     <string name="menu_recommend">Recommend</string>

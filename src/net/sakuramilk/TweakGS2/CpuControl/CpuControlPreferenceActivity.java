@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -28,6 +29,8 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class CpuControlPreferenceActivity extends PreferenceActivity
     implements OnPreferenceChangeListener, OnPreferenceClickListener {
@@ -119,7 +122,31 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     }
 
     @Override
-    public boolean onPreferenceClick(Preference arg0) {
+    public boolean onPreferenceClick(Preference preference) {
+        if (preference == mGovernorSetting) {
+            Intent intent = new Intent(getApplicationContext(), CpuControlGovernorPreferenceActivity.class);
+            intent.putExtra("governor", mSetting.getScalingGovernor());
+            this.startActivity(intent);
+        }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.reset_menu, menu);
+        return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_reset:
+            mSetting.reset();
+            Misc.confirmReboot(this, R.string.reboot_reflect_comfirm);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

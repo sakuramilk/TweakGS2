@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,19 @@
 package net.sakuramilk.TweakGS2.About;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Display.DisplaySetting;
+import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import net.sakuramilk.TweakGS2.General.GeneralSetting;
+import net.sakuramilk.TweakGS2.General.LowMemKillerSetting;
+import net.sakuramilk.TweakGS2.General.VirtualMemorySetting;
+import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
+import net.sakuramilk.TweakGS2.Parts.ConfirmAlertDialog;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -38,7 +40,7 @@ public class AboutPreferenceActivity extends PreferenceActivity
     implements Preference.OnPreferenceClickListener {
 
     private PreferenceScreen mVersion;
-    private PreferenceScreen mRecommended;
+    private PreferenceScreen mRecommend;
     private PreferenceScreen mReset;
     private Context mContext;
 
@@ -48,18 +50,12 @@ public class AboutPreferenceActivity extends PreferenceActivity
 
         mContext = this;
         addPreferencesFromResource(R.xml.about_pref);
-        
-        String version;
-        try {
-            version = this.getPackageManager().getPackageInfo(this.getPackageName(), 1).versionName;
-        } catch (NameNotFoundException e) {
-            version = "";
-        }
-        mVersion = (PreferenceScreen)findPreference("about_version");
-        mVersion.setSummary(version);
 
-        mRecommended = (PreferenceScreen)findPreference("about_recommended");
-        mRecommended.setOnPreferenceClickListener(this);
+        mVersion = (PreferenceScreen)findPreference("about_version");
+        mVersion.setSummary(Misc.getVersionName(this));
+
+        mRecommend = (PreferenceScreen)findPreference("about_recommend");
+        mRecommend.setOnPreferenceClickListener(this);
 
         mReset = (PreferenceScreen)findPreference("about_reset");
         mReset.setOnPreferenceClickListener(this);
@@ -68,59 +64,56 @@ public class AboutPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceClick(Preference preference)
     {
         if (preference == mReset) {
-            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle(R.string.all_reset_title);
-            alertDialogBuilder.setMessage(R.string.all_reset_summary);
-            alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+            final ConfirmAlertDialog confirmDialog = new ConfirmAlertDialog(this);
+            confirmDialog.setResultListener(new ConfirmAlertDialog.ResultListener() {
+                @Override
+                public void onYes() {
+                    // clear shared preference
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
                     Editor ed = settings.edit();
                     ed.clear();
                     ed.commit();
-                    //GeneralSetting generalSetting new = (mContext);
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-                    alertDialogBuilder.setTitle(R.string.all_reset_title);
-                    alertDialogBuilder.setMessage(R.string.reboot_reflect_comfirm);
-                    alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            SystemCommand.reboot(null);
-                        }
-                    });
-                    alertDialogBuilder.setNegativeButton(android.R.string.no, null);
-                    alertDialogBuilder.create().show();
+
+                    Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
             });
-            alertDialogBuilder.setNegativeButton(android.R.string.no, null);
-            alertDialogBuilder.create().show();
-        } else if (preference == mRecommended) {
-            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle(R.string.all_recommend_title);
-            alertDialogBuilder.setMessage(R.string.all_recommend_summary);
-            alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+            confirmDialog.show(this, R.string.all_reset_title, R.string.all_reset_summary);
+
+        } else if (preference == mRecommend) {
+            final ConfirmAlertDialog confirmDialog = new ConfirmAlertDialog(this);
+            confirmDialog.setResultListener(new ConfirmAlertDialog.ResultListener() {
+                @Override
+                public void onYes() {
+                    // General
                     GeneralSetting generalSetting = new GeneralSetting(mContext);
                     generalSetting.setRecommend();
+                    LowMemKillerSetting lowMemKillerSetting = new LowMemKillerSetting(mContext);
+                    lowMemKillerSetting.setRecommend();
+                    VirtualMemorySetting vmSetting = new VirtualMemorySetting(mContext);
+                    vmSetting.setRecommend();
+
+                    // Sound and vib
                     HwVolumeSetting hwVolumeSetting = new HwVolumeSetting(mContext);
                     hwVolumeSetting.setRecommend();
                     SoundAndVibSetting vibSetting = new SoundAndVibSetting(mContext);
                     vibSetting.setRecommend();
+
+                    // Display
                     DisplaySetting displaySetting = new DisplaySetting(mContext);
                     displaySetting.setRecommend();
 
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-                    alertDialogBuilder.setTitle(R.string.all_recommend_title);
-                    alertDialogBuilder.setMessage(R.string.reboot_reflect_comfirm);
-                    alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            SystemCommand.reboot(null);
-                        }
-                    });
-                    alertDialogBuilder.setNegativeButton(android.R.string.no, null);
-                    alertDialogBuilder.create().show();
+                    // Notification
+                    NotificationSetting notifySetting = new NotificationSetting(mContext);
+                    notifySetting.setRecommend();
+
+                    // Dock
+                    DockSetting dockSetting = new DockSetting(mContext);
+                    dockSetting.setRecommend();
+
+                    Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
             });
-            alertDialogBuilder.setNegativeButton(android.R.string.no, null);
-            alertDialogBuilder.create().show();
+            confirmDialog.show(this, R.string.all_recommend_title, R.string.all_recommend_summary);
         }
         return false;
     }

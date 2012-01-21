@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,10 @@ import java.io.File;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 import net.sakuramilk.TweakGS2.R;
+import net.sakuramilk.TweakGS2.Parts.ConfirmAlertDialog;
 
 public class Misc {
 
@@ -102,5 +104,26 @@ public class Misc {
             sAospRomMode = ("1".equals(value)) ? 1 : 0;
         }
         return (sAospRomMode == 1) ? true : false;
+    }
+    
+    public static String getVersionName(Context context) {
+        String version;
+        try {
+            version = context.getPackageManager().getPackageInfo(context.getPackageName(), 1).versionName;
+        } catch (NameNotFoundException e) {
+            version = "";
+        }
+        return version;
+    }
+    
+    public static void confirmReboot(Context context, int message) {
+        final ConfirmAlertDialog dlg = new ConfirmAlertDialog(context);
+        dlg.setResultListener(new ConfirmAlertDialog.ResultListener() {
+            @Override
+            public void onYes() {
+                SystemCommand.reboot(null);
+            }
+        });
+        dlg.show(context, android.R.string.dialog_alert_title, message);
     }
 }

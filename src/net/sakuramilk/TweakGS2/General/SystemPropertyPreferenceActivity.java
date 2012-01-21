@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import android.preference.PreferenceActivity;
 public class SystemPropertyPreferenceActivity extends PreferenceActivity
     implements Preference.OnPreferenceChangeListener {
 
-    private final SystemPropertySetting mSetting = new SystemPropertySetting();
+    private SystemPropertySetting mSetting;
     private CheckBoxPreference mBootSound;
     private CheckBoxPreference mCameraSound;
     private CheckBoxPreference mCrtEffect;
@@ -38,6 +38,8 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.general_system_property_pref);
+
+        mSetting = new SystemPropertySetting(this);
 
         boolean value;
         value = mSetting.getBootSound();

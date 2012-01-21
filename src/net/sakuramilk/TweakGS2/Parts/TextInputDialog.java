@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,15 +38,15 @@ public class TextInputDialog extends AlertDialog {
         public void onFinishTextInput(CharSequence input);
     }
 
-    public TextInputDialog(Context parent, int okBut, int cancelBut) {
-    	this(parent, parent.getText(okBut), parent.getText(cancelBut));
+    public TextInputDialog(Context context, int okBut, int cancelBut) {
+    	this(context, context.getText(okBut), context.getText(cancelBut));
     }
 
-    public TextInputDialog(Context parent, CharSequence okBut, CharSequence cancelBut) {
-        super(parent);
+    public TextInputDialog(Context context, CharSequence okBut, CharSequence cancelBut) {
+        super(context);
 
         setIcon(android.R.drawable.ic_dialog_info);
-        setView(createInputView(parent));
+        setView(createInputView(context));
         setButton(BUTTON_POSITIVE, okBut, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -61,12 +61,12 @@ public class TextInputDialog extends AlertDialog {
         });
     }
 
-    private View createInputView(Context parent) {
-        LinearLayout view = new LinearLayout(parent);
+    private View createInputView(Context context) {
+        LinearLayout view = new LinearLayout(context);
         view.setOrientation(LinearLayout.VERTICAL);
         LayoutParams lp;
 
-        mInputPrompt = new TextView(parent);
+        mInputPrompt = new TextView(context);
         mInputPrompt.setGravity(Gravity.LEFT);
         mInputPrompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         mInputPrompt.setTextColor(Color.WHITE);
@@ -76,10 +76,10 @@ public class TextInputDialog extends AlertDialog {
         lp.setMargins(20, 20, 20, 10);
         view.addView(mInputPrompt, lp);
 
-        mInputField = new EditText(parent);
+        mInputField = new EditText(context);
         mInputField.setHorizontallyScrolling(true);
         mInputField.setGravity(Gravity.FILL_HORIZONTAL);
-        mInputField.setTextAppearance(parent, android.R.attr.textAppearanceMedium);
+        mInputField.setTextAppearance(context, android.R.attr.textAppearanceMedium);
 
         lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(20, 10, 20, 20);
@@ -114,9 +114,9 @@ public class TextInputDialog extends AlertDialog {
         show();
     }
 
-    void okButtonPressed() {
+    private void okButtonPressed() {
         dismiss();
         if (mListener != null)
-        	mListener.onFinishTextInput(mInputField.getText());
+            mListener.onFinishTextInput(mInputField.getText());
     }
 }

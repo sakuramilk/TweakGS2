@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.sakuramilk.TweakGS2.GpuControl;
 
 import java.util.ArrayList;
@@ -8,9 +24,17 @@ import net.sakuramilk.TweakGS2.Common.SysFs;
 
 public class GpuControlSetting extends SettingManager {
 
+    public static final String KEY_ROOT_PREF = "root_pref";
     public static final String KEY_GPU_FREQ_BASE = "gpu_freq_step";
     public static final String KEY_GPU_VOLT_BASE = "gpu_volt_step";
     public static final String KEY_GPU_SET_ON_BOOT = "gpu_set_on_boot";
+
+    public static final int FREQ_MIN = 10;
+    public static final int FREQ_MAX = 450;
+    public static final int VOLT_MIN = 800000 / 1000;
+    public static final int VOLT_MAX = 1200000 / 1000;
+    public static final int FREQ_STEP = 1;
+    public static final int VOLT_STEP = 1;
 
     private final SysFs mSysFsClkCtrl = new SysFs("/sys/devices/virtual/misc/gpu_clock_control/gpu_control");
     private final SysFs mSysFsVoltCtrl = new SysFs("/sys/devices/virtual/misc/gpu_voltage_control/gpu_control");
@@ -23,7 +47,7 @@ public class GpuControlSetting extends SettingManager {
         return mSysFsClkCtrl.exists();
     }
 
-    public Integer[] getFreq() {
+    public Integer[] getFreqs() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
         String[] values = mSysFsClkCtrl.readMuitiLine();
         for (String value : values) {
@@ -33,15 +57,15 @@ public class GpuControlSetting extends SettingManager {
         return ret.toArray(new Integer[0]);
     }
 
-    public void setFreq(Integer[] freqs) {
+    public void setFreqs(Integer[] freqs) {
         String values = String.valueOf(freqs[0]);
-        for (int i = 1; i < values.length() ; i++) {
+        for (int i = 1; i < freqs.length; i++) {
             values += " " + String.valueOf(freqs[i]);
         }
         mSysFsClkCtrl.write(values);
     }
 
-    public Integer[] loadFreq() {
+    public Integer[] loadFreqs() {
         String value = null;
         int i = 0;
         ArrayList<Integer> ret = new ArrayList<Integer>();
@@ -57,7 +81,7 @@ public class GpuControlSetting extends SettingManager {
         return ret.toArray(new Integer[0]);
     }
 
-    public void saveFreq(Integer[] freqs) {
+    public void saveFreqs(Integer[] freqs) {
         for (int i = 0; i < freqs.length ; i++) {
             setValue(KEY_GPU_FREQ_BASE + i, String.valueOf(freqs[i]));
         }
@@ -67,7 +91,7 @@ public class GpuControlSetting extends SettingManager {
         return mSysFsVoltCtrl.exists();
     }
 
-    public Integer[] getVolt() {
+    public Integer[] getVolts() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
         String[] values = mSysFsVoltCtrl.readMuitiLine();
         for (String value : values) {
@@ -77,15 +101,15 @@ public class GpuControlSetting extends SettingManager {
         return ret.toArray(new Integer[0]);
     }
 
-    public void setVolt(Integer[] volts) {
+    public void setVolts(Integer[] volts) {
         String values = String.valueOf(volts[0]);
-        for (int i = 1; i < values.length() ; i++) {
+        for (int i = 1; i < volts.length; i++) {
             values += " " + String.valueOf(volts[i] * 1000);
         }
         mSysFsVoltCtrl.write(values);
     }
 
-    public Integer[] loadVolt() {
+    public Integer[] loadVolts() {
         String value = null;
         int i = 0;
         ArrayList<Integer> ret = new ArrayList<Integer>();
@@ -101,7 +125,7 @@ public class GpuControlSetting extends SettingManager {
         return ret.toArray(new Integer[0]);
     }
 
-    public void saveVolt(Integer[] volts) {
+    public void saveVolts(Integer[] volts) {
         for (int i = 0; i < volts.length ; i++) {
             setValue(KEY_GPU_VOLT_BASE + i, String.valueOf(volts[i]));
         }
@@ -117,13 +141,13 @@ public class GpuControlSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-        Integer[] volts = loadVolt();
+        Integer[] volts = loadVolts();
         if (volts != null) {
-            saveVolt(volts);
+            setVolts(volts);
         }
-        Integer[] freqs = loadFreq();
+        Integer[] freqs = loadFreqs();
         if (freqs != null) {
-            saveFreq(freqs);
+            setFreqs(freqs);
         }
     }
 
@@ -152,5 +176,6 @@ public class GpuControlSetting extends SettingManager {
             clearValue(KEY_GPU_VOLT_BASE + i);
             i++;
         }
+        clearValue(KEY_GPU_SET_ON_BOOT);
     }
 }

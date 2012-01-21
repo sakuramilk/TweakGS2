@@ -66,6 +66,6 @@ Dock
   リセット時の反映    : OK
 
 About
-  未実装
-
+  All recomend       : 動作確認待ち
+  All reset          : 動作確認待ち     
 

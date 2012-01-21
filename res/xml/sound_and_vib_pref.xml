@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,15 +43,14 @@
         android:key="vib_category"
         android:title="@string/vib_category">
         <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
-            android:key="vib_level"
-            android:title="@string/vib_level"
-            android:dialogTitle="@string/vib_level"
+            android:key="vib_normal_level"
+            android:title="@string/vib_normal_level"
+            android:dialogTitle="@string/vib_normal_level"
             android:enabled="false" />
-        <CheckBoxPreference   
-            android:key="vib_increase_on_incoming"  
-            android:title="@string/vib_increase_on_incoming"
-            android:summaryOn="@string/vib_increase_on_incoming_summary_on"
-            android:summaryOff="@string/vib_increase_on_incoming_summary_off"
+        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+            android:key="vib_incoming_level"
+            android:title="@string/vib_incoming_level"
+            android:dialogTitle="@string/vib_incoming_level"
             android:enabled="false" />
     </PreferenceCategory>
 

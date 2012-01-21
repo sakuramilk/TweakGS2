@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
 
     private SoundAndVibSetting mSetting;
     private CheckBoxPreference mSoundPlayFreqLock;
-    private SeekBarPreference mVibLevel;
-    private CheckBoxPreference mIncreaseOnIncoming;
+    private SeekBarPreference mVibNormalLevel;
+    private SeekBarPreference mVibIncomingLevel;
     private String mCurVibLevel;
 
     @Override
@@ -49,30 +49,44 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
         }
 
         if (Misc.isAospRom()) {
-            mVibLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_LEVEL);
+            mVibNormalLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_NORMAL_LEVEL);
             if (mSetting.isEnableVibLevel()) {
-                mVibLevel.setEnabled(true);
+                mVibNormalLevel.setEnabled(true);
                 String maxLevel = mSetting.getVibMaxLevel();
                 String curLevel = mSetting.getVibLevel();
                 mCurVibLevel = curLevel;
-                mVibLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
-                mVibLevel.setOnPreferenceChangeListener(this);
-                mVibLevel.setOnPreferenceDoneListener(this);
-                mVibLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
+                mVibNormalLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
+                mVibNormalLevel.setOnPreferenceChangeListener(this);
+                mVibNormalLevel.setOnPreferenceDoneListener(this);
+                mVibNormalLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
             }
             
-            mIncreaseOnIncoming = (CheckBoxPreference)findPreference(SoundAndVibSetting.KEY_VIB_INCREASE_ON_INCOMING);
+            mVibIncomingLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_INCOMING_LEVEL);
             if (mSetting.isEnableVibLevel()) {
-                mIncreaseOnIncoming.setEnabled(true);
+                mVibIncomingLevel.setEnabled(true);
+                String maxLevel = mSetting.getVibMaxLevel();
+                String curLevel = mSetting.loadVibIncomingLevel();
+                if (Misc.isNullOfEmpty(curLevel)) {
+                    curLevel = maxLevel;
+                    mSetting.saveVibIncomingLevel(maxLevel);
+                }
+                mVibIncomingLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
+                mVibIncomingLevel.setOnPreferenceChangeListener(this);
+                mVibIncomingLevel.setOnPreferenceDoneListener(this);
+                mVibIncomingLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
             }
         }
     }
 
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
-        if (mVibLevel == preference) {
+        if (mVibNormalLevel == preference) {
             mSetting.setVibLevel(newValue);
-            mVibLevel.setSummary(Misc.getCurrentValueText(this, newValue));
+            mVibNormalLevel.setSummary(Misc.getCurrentValueText(this, newValue));
+            return true;
+
+        } else if (mVibIncomingLevel == preference) {
+            mVibIncomingLevel.setSummary(Misc.getCurrentValueText(this, newValue));
             return true;
         }
         return false;
@@ -80,7 +94,7 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (mVibLevel == preference) {
+        if (mVibNormalLevel == preference) {
             mSetting.setVibLevel(objValue.toString());
             Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vib.vibrate(60);

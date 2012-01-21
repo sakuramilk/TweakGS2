@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,6 +81,28 @@ public class SystemCommand {
         process.term();
     }
 
+    public static void copy(String src, String dst) {
+        Log.d(TAG, "execute copy src=" + src + " dst=" + dst);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("cp " + src + " " + dst + "\n");
+        process.term();
+    }
+
+    public static void move(String src, String dst) {
+        Log.d(TAG, "execute move src=" + src + " dst=" + dst);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("mv " + src + " " + dst + "\n");
+        process.term();
+    }
+
     public static void start_dock() {
         String[] commands = { "su", "-c",
                 "am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 1\n" };
@@ -90,18 +112,6 @@ public class SystemCommand {
     public static void stop_dock() {
         String[] commands = { "su", "-c",
                 "am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 0\n" };
-        RuntimeExec.execute(commands, false);
-    }
-
-    public static void mount(String format, String device, String mountPoint) {
-        String[] commands = { "su", "-c",
-                "mount -t " + format + " -o rw " + device + " " + mountPoint + "\n" };
-        RuntimeExec.execute(commands, false);
-    }
-
-    public static void umount(String mountPoint) {
-        String[] commands = { "su", "-c",
-            "umount " + mountPoint + "\n" };
         RuntimeExec.execute(commands, false);
     }
 
@@ -125,6 +135,40 @@ public class SystemCommand {
         process.write("echo 187000 187000 187000 > /proc/sys/net/ipv4/tcp_mem");
         process.write("echo 1 > /proc/sys/net/ipv4/tcp_no_metrics_save");
         process.write("echo 1 > /proc/sys/net/ipv4/tcp_moderate_rcvbuf");
+        process.term();
+    }
+
+    public static void mount(String format, String device, String mountPoint) {
+        String[] commands = { "su", "-c",
+                "mount -t " + format + " -o rw " + device + " " + mountPoint + "\n" };
+        RuntimeExec.execute(commands, false);
+    }
+
+    public static void umount(String mountPoint) {
+        String[] commands = { "su", "-c",
+            "umount " + mountPoint + "\n" };
+        RuntimeExec.execute(commands, false);
+    }
+
+    public static void remount_system_rw() {
+        Log.d(TAG, "execute remount_system_rw");
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("mount -o rw,remount /system\n");
+        process.term();
+    }
+
+    public static void remount_system_ro() {
+        Log.d(TAG, "execute remount_system_ro");
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("mount -o ro,remount /system\n");
         process.term();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneLi
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class VirtualMemoryPreferenceActivity extends PreferenceActivity implements OnSeekBarPreferenceDoneListener {
 
@@ -35,6 +37,32 @@ public class VirtualMemoryPreferenceActivity extends PreferenceActivity implemen
     private SeekBarPreference mDirtyRatio;
     private SeekBarPreference mDirtyBackgroundRatio;
 
+    private void updateValues() {
+        String curValue = mSetting.getVmSwappiness();
+        mSwappiness.setSummary(Misc.getCurrentValueText(this, curValue));
+        mSwappiness.setValue(100, 0, Integer.parseInt(curValue));
+
+        curValue = mSetting.getVmVfsCachePressure();
+        mVfsCachePressure.setSummary(Misc.getCurrentValueText(this, curValue));
+        mVfsCachePressure.setValue(100, 1, Integer.parseInt(curValue));
+
+        curValue = mSetting.getVmDirtyExpireCentisecs();
+        mDirtyExpireCentisecs.setSummary(Misc.getCurrentValueText(this, curValue));
+        mDirtyExpireCentisecs.setValue(6000, 100, 100, Integer.parseInt(curValue));
+
+        curValue = mSetting.getVmDirtyWritebackCentisecs();
+        mDirtyWritebackCentisecs.setSummary(Misc.getCurrentValueText(this, curValue));
+        mDirtyWritebackCentisecs.setValue(6000, 100, 100, Integer.parseInt(curValue));
+
+        curValue = mSetting.getVmDirtyRatio();
+        mDirtyRatio.setSummary(Misc.getCurrentValueText(this, curValue));
+        mDirtyRatio.setValue(100, 0, Integer.parseInt(curValue));
+
+        curValue = mSetting.getVmDirtyBackgroundRatio();
+        mDirtyBackgroundRatio.setSummary(Misc.getCurrentValueText(this, curValue));
+        mDirtyBackgroundRatio.setValue(100, 0, Integer.parseInt(curValue));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,42 +70,20 @@ public class VirtualMemoryPreferenceActivity extends PreferenceActivity implemen
         addPreferencesFromResource(R.xml.general_vm_pref);
 
         mSetting = new VirtualMemorySetting(this);
-
-        String curValue = mSetting.getVmSwappiness();
         mSwappiness = (SeekBarPreference)findPreference(VirtualMemorySetting.KEY_VM_SWAPPINESS);
-        mSwappiness.setSummary(Misc.getCurrentValueText(this, curValue));
-        mSwappiness.setValue(100, 0, Integer.parseInt(curValue));
         mSwappiness.setOnPreferenceDoneListener(this);
-
-        curValue = mSetting.getVmVfsCachePressure();
         mVfsCachePressure = (SeekBarPreference)findPreference(VirtualMemorySetting.KEY_VM_VFS_CACHE_PRESSURE);
-        mVfsCachePressure.setSummary(Misc.getCurrentValueText(this, curValue));
-        mVfsCachePressure.setValue(100, 1, Integer.parseInt(curValue));
         mVfsCachePressure.setOnPreferenceDoneListener(this);
-
-        curValue = mSetting.getVmDirtyExpireCentisecs();
         mDirtyExpireCentisecs = (SeekBarPreference)findPreference(VirtualMemorySetting.KEY_VM_DIRTY_EXPIRE_CENTISECS);
-        mDirtyExpireCentisecs.setSummary(Misc.getCurrentValueText(this, curValue));
-        mDirtyExpireCentisecs.setValue(6000, 100, 100, Integer.parseInt(curValue));
         mDirtyExpireCentisecs.setOnPreferenceDoneListener(this);
-
-        curValue = mSetting.getVmDirtyWritebackCentisecs();
         mDirtyWritebackCentisecs = (SeekBarPreference)findPreference(VirtualMemorySetting.KEY_VM_DIRTY_WRITEBACK_CENTISECS);
-        mDirtyWritebackCentisecs.setSummary(Misc.getCurrentValueText(this, curValue));
-        mDirtyWritebackCentisecs.setValue(6000, 100, 100, Integer.parseInt(curValue));
         mDirtyWritebackCentisecs.setOnPreferenceDoneListener(this);
-
-        curValue = mSetting.getVmDirtyRatio();
         mDirtyRatio = (SeekBarPreference)findPreference(VirtualMemorySetting.KEY_VM_DIRTY_RATIO);
-        mDirtyRatio.setSummary(Misc.getCurrentValueText(this, curValue));
-        mDirtyRatio.setValue(100, 0, Integer.parseInt(curValue));
         mDirtyRatio.setOnPreferenceDoneListener(this);
-
-        curValue = mSetting.getVmDirtyBackgroundRatio();
         mDirtyBackgroundRatio = (SeekBarPreference)findPreference(VirtualMemorySetting.KEY_VM_DIRTY_BACKGROUND_RATIO);
-        mDirtyBackgroundRatio.setSummary(Misc.getCurrentValueText(this, curValue));
-        mDirtyBackgroundRatio.setValue(100, 0, Integer.parseInt(curValue));
         mDirtyBackgroundRatio.setOnPreferenceDoneListener(this);
+
+        updateValues();
     }
 
     @Override
@@ -108,5 +114,28 @@ public class VirtualMemoryPreferenceActivity extends PreferenceActivity implemen
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.default_menu, menu);
+        return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_reset:
+            mSetting.reset();
+            Misc.confirmReboot(this, R.string.reboot_reflect_comfirm);
+            return true;
+        case R.id.menu_recommend:
+            mSetting.setRecommend();
+            updateValues();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import net.sakuramilk.TweakGS2.R;
@@ -36,7 +52,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mAvolHp.setEnabled(true);
             String curValue = mSetting.loadAvolHp();
             mAvolHp.setSummary(Misc.getCurrentValueText(this, curValue));
-            mAvolHp.setValue(20, -20, Integer.parseInt(curValue));
+            mAvolHp.setValue(HwVolumeSetting.AVOL_HP_MAX, HwVolumeSetting.AVOL_HP_MIN, Integer.parseInt(curValue));
             mAvolHp.setOnPreferenceDoneListener(this);
         }
 
@@ -45,7 +61,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mAvolHpGain.setEnabled(true);
             String curValue = mSetting.loadAvolHpGain();
             mAvolHpGain.setSummary(Misc.getCurrentValueText(this, curValue));
-            mAvolHpGain.setValue(3, -3, Integer.parseInt(curValue));
+            mAvolHpGain.setValue(HwVolumeSetting.AVOL_HP_GAIN_MAX, HwVolumeSetting.AVOL_HP_MIN, Integer.parseInt(curValue));
             mAvolHpGain.setOnPreferenceDoneListener(this);
         }
 
@@ -54,7 +70,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mAvolRc.setEnabled(true);
             String curValue = mSetting.getAvolRc();
             mAvolRc.setSummary(Misc.getCurrentValueText(this, curValue));
-            mAvolRc.setValue(20, -20, Integer.parseInt(curValue));
+            mAvolRc.setValue(HwVolumeSetting.AVOL_RC_MAX, HwVolumeSetting.AVOL_RC_MIN, Integer.parseInt(curValue));
             mAvolRc.setOnPreferenceDoneListener(this);
         }
 
@@ -63,7 +79,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mAvolSp.setEnabled(true);
             String curValue = mSetting.getAvolSp();
             mAvolSp.setSummary(Misc.getCurrentValueText(this, curValue));
-            mAvolSp.setValue(20, -20, Integer.parseInt(curValue));
+            mAvolSp.setValue(HwVolumeSetting.AVOL_SP_MAX, HwVolumeSetting.AVOL_SP_MIN, Integer.parseInt(curValue));
             mAvolSp.setOnPreferenceDoneListener(this);
         }
 
@@ -72,7 +88,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mDvolDacMaster.setEnabled(true);
             String curValue = mSetting.getDvolDacMaster();
             mDvolDacMaster.setSummary(Misc.getCurrentValueText(this, curValue));
-            mDvolDacMaster.setValue(20, -20, Integer.parseInt(curValue));
+            mDvolDacMaster.setValue(HwVolumeSetting.DVOL_DAC_MASTER_MAX, HwVolumeSetting.DVOL_DAC_MASTER_MIN, Integer.parseInt(curValue));
             mDvolDacMaster.setOnPreferenceDoneListener(this);
         }
 
@@ -81,7 +97,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mDvolDacAtt.setEnabled(true);
             String curValue = mSetting.getDvolDacAtt();
             mDvolDacAtt.setSummary(Misc.getCurrentValueText(this, curValue));
-            mDvolDacAtt.setValue(20, -20, Integer.parseInt(curValue));
+            mDvolDacAtt.setValue(HwVolumeSetting.DVOL_DAC_ATT_MAX, HwVolumeSetting.DVOL_DAC_ATT_MIN, Integer.parseInt(curValue));
             mDvolDacAtt.setOnPreferenceDoneListener(this);
         }
 
@@ -90,7 +106,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mDvolDir0.setEnabled(true);
             String curValue = mSetting.getDvolDir0();
             mDvolDir0.setSummary(Misc.getCurrentValueText(this, curValue));
-            mDvolDir0.setValue(20, -20, Integer.parseInt(curValue));
+            mDvolDir0.setValue(HwVolumeSetting.DVOL_DIR0_MAX, HwVolumeSetting.DVOL_DIR0_MIN, Integer.parseInt(curValue));
             mDvolDir0.setOnPreferenceDoneListener(this);
         }
 
@@ -99,7 +115,7 @@ public class HwVolumePreferenceActivity extends PreferenceActivity
             mDvolDir0Att.setEnabled(true);
             String curValue = mSetting.getDvolDir0Att();
             mDvolDir0Att.setSummary(Misc.getCurrentValueText(this, curValue));
-            mDvolDir0Att.setValue(20, -20, Integer.parseInt(curValue));
+            mDvolDir0Att.setValue(HwVolumeSetting.DVOL_DIR0_ATT_MAX, HwVolumeSetting.DVOL_DIR0_ATT_MIN, Integer.parseInt(curValue));
             mDvolDir0Att.setOnPreferenceDoneListener(this);
         }
     }

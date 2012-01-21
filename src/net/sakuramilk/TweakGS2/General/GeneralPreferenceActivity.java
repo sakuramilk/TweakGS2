@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 sakuramilk
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class GeneralPreferenceActivity extends PreferenceActivity implements OnPreferenceChangeListener {
 
@@ -53,5 +55,27 @@ public class GeneralPreferenceActivity extends PreferenceActivity implements OnP
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.default_menu, menu);
+        return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_reset:
+            mSetting.reset();
+            Misc.confirmReboot(this, R.string.reboot_reflect_comfirm);
+            return true;
+        case R.id.menu_recommend:
+            mSetting.setRecommend();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
