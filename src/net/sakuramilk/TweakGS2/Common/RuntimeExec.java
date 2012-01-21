@@ -56,6 +56,6 @@ public class RuntimeExec {
     }
 
     public static String[] execute(String command, boolean needResponce) {
-        return execute("/sbin/sh", command, needResponce);
+        return execute("/system/bin/sh", command, needResponce);
     }
 }

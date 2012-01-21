@@ -82,7 +82,10 @@ public class LowMemKillerSetting extends SettingManager {
 
     @Override
     public void setRecommend() {
+        // for GB
         String[] values = { "2560", "4096", "6144", "12288", "14336", "18432" };
+        // for ICS
+        // String[] values = { "8192", "10240", "12288", "14336", "16384", "20480" };
         setLowMemKillerMinFree(values);
         saveLowMemKillerMinFree(values);
     }

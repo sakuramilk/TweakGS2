@@ -17,7 +17,6 @@
 package net.sakuramilk.TweakGS2.CpuControl;
 
 import android.content.Context;
-import android.os.Build;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
@@ -32,15 +31,22 @@ public class CpuControlSetting extends SettingManager {
     public static final String KEY_CPU_FREQ_SET_ON_BOOT = "cpu_freq_set_on_boot";
 
     private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq";
+    private static final String PATH_SCALING_AVAILABLE_FREQS_KERNEL_3_0 = "/sys/power/cpufreq_table";
+    private static final String PATH_SCALING_AVAILABLE_FREQS_KERNEL_2_6 = CRTL_PATH + "/scaling_available_frequencies";
+    
     private final SysFs mSysFsAvailableGovernors = new SysFs(CRTL_PATH + "/scaling_available_governors");
     private final SysFs mSysFsScalingGovernor = new SysFs(CRTL_PATH + "/scaling_governor");
-    private final SysFs mSysFsCpuAvailableFrequenciesGB = new SysFs(CRTL_PATH + "/scaling_available_frequencies");
-    private final SysFs mSysFsCpuAvailableFrequenciesICS = new SysFs("/sys/power/cpufreq_table");
+    private final SysFs mSysFsCpuAvailableFrequencies;
     private final SysFs mSysFsScalingMaxFreq = new SysFs(CRTL_PATH + "/scaling_max_freq");
     private final SysFs mSysFsScalingMinFreq = new SysFs(CRTL_PATH + "/scaling_min_freq");
 
     public CpuControlSetting(Context context) {
         super(context);
+        if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
+            mSysFsCpuAvailableFrequencies = new SysFs(PATH_SCALING_AVAILABLE_FREQS_KERNEL_3_0);
+        } else {
+            mSysFsCpuAvailableFrequencies = new SysFs(PATH_SCALING_AVAILABLE_FREQS_KERNEL_2_6);
+        }
     }
 
     public String[] getAvailableGovernors() {
@@ -69,11 +75,7 @@ public class CpuControlSetting extends SettingManager {
 
     public String[] getAvailableFrequencies() {
         String values;
-        if (Build.VERSION.SDK_INT >= 14) {
-            values = mSysFsCpuAvailableFrequenciesICS.read();
-        } else {
-            values = mSysFsCpuAvailableFrequenciesGB.read();
-        }
+        values = mSysFsCpuAvailableFrequencies.read();
         if (values != null) {
             return values.split(" ");
         }

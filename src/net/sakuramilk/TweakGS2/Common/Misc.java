@@ -126,4 +126,15 @@ public class Misc {
         });
         dlg.show(context, android.R.string.dialog_alert_title, message);
     }
+
+    public static final int KERNEL_VER_3_0_0 = 3000;
+    public static final int KERNEL_VER_2_6_0 = 2600;
+
+    public static int getKernelVersion() {
+        String ret = SystemCommand.uname("-r");
+        String[] ver = ret.substring(0, ret.indexOf('-')).split("\\.");
+        return (Integer.valueOf(ver[0]) * 1000 +
+                 Integer.valueOf(ver[1]) * 100 +
+                 Integer.valueOf(ver[2]));
+    }
 }

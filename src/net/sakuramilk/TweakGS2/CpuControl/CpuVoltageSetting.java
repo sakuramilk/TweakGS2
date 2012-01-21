@@ -22,7 +22,7 @@ import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 import android.content.Context;
 
-public class CpuControlVoltageSetting extends SettingManager {
+public class CpuVoltageSetting extends SettingManager {
 
     public static final String KEY_CPU_VOLT_ROOT_PREF = "root_pref";
     public static final String KEY_CPU_VOLT_CTRL_BASE = "cpu_vc_";
@@ -31,7 +31,7 @@ public class CpuControlVoltageSetting extends SettingManager {
     private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq";
     private final SysFs mSysFsUV_mV_table = new SysFs(CRTL_PATH + "/UV_mV_table");
 
-    public CpuControlVoltageSetting(Context context) {
+    public CpuVoltageSetting(Context context) {
         super(context);
     }
 

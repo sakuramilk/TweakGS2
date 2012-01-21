@@ -18,7 +18,7 @@ package net.sakuramilk.TweakGS2.CpuControl;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.CpuControl.GovernorSetting;
+import net.sakuramilk.TweakGS2.CpuControl.CpuGovernorSetting;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.content.Intent;
@@ -28,10 +28,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
-public class CpuControlGovernorPreferenceActivity extends PreferenceActivity
+public class CpuGovernorPreferenceActivity extends PreferenceActivity
     implements OnSeekBarPreferenceDoneListener {
     
-    private GovernorSetting mSetting;
+    private CpuGovernorSetting mSetting;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +41,13 @@ public class CpuControlGovernorPreferenceActivity extends PreferenceActivity
         
         
         Intent intent = this.getIntent();
-        mSetting = new GovernorSetting(this, intent.getStringExtra("governor"));
+        mSetting = new CpuGovernorSetting(this, intent.getStringExtra("governor"));
         
         PreferenceManager prefManager = getPreferenceManager();
         PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference("root_pref");
         
-        GovernorSetting.Parameter[] params = mSetting.getParameters();
-        for (GovernorSetting.Parameter param : params) {
+        CpuGovernorSetting.Parameter[] params = mSetting.getParameters();
+        for (CpuGovernorSetting.Parameter param : params) {
             SeekBarPreference pref = new SeekBarPreference(this, null);
             pref.setTitle(param.name);
             pref.setDialogTitle(param.name);

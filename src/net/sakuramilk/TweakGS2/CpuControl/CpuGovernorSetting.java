@@ -22,7 +22,7 @@ import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
-public class GovernorSetting extends SettingManager {
+public class CpuGovernorSetting extends SettingManager {
 
     public class Parameter {
         Parameter(String name, int max, int min) {
@@ -39,14 +39,14 @@ public class GovernorSetting extends SettingManager {
     private String mGovernor;
     private static final String CTRL_PATH = "/sys/devices/system/cpu/cpufreq";
 
-    protected GovernorSetting(Context context, String governor) {
+    protected CpuGovernorSetting(Context context, String governor) {
         super(context);
         
         mGovernor = governor;
-
+        mParams = new ArrayList<Parameter>();
+        
         // setup governor parameter list
         if ("sakuractive".equals(governor)) {
-            mParams = new ArrayList<Parameter>();
             mParams.add(new Parameter("sampling_rate", 0, 0));
             mParams.add(new Parameter("up_threshold", 0, 0));
             mParams.add(new Parameter("down_differential", 0, 0));
@@ -115,7 +115,6 @@ public class GovernorSetting extends SettingManager {
             mParams.add(new Parameter("io_is_busy", 0, 0));
             mParams.add(new Parameter("powersave_bias", 0, 0));
             mParams.add(new Parameter("sampling_rate", 0, 0));
-            mParams.add(new Parameter("sampling_rate_max", 0, 0));
             mParams.add(new Parameter("sampling_rate_min", 0, 0));
             mParams.add(new Parameter("up_threshold", 0, 0));
 

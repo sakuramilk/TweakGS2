@@ -171,4 +171,9 @@ public class SystemCommand {
         process.write("mount -o ro,remount /system\n");
         process.term();
     }
+
+    public static String uname(String option) {
+        String[] ret = RuntimeExec.execute("uname " + option + "\n", true);
+        return ret[0];
+    }
 }

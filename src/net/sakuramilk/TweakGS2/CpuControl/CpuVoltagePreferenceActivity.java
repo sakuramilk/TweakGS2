@@ -32,10 +32,10 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class CpuControlVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
+public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     implements OnSeekBarPreferenceDoneListener, OnClickListener, OnPreferenceChangeListener {
 
-    private CpuControlVoltageSetting mSetting;
+    private CpuVoltageSetting mSetting;
     private CheckBoxPreference mSetOnBoot;
     private ArrayList<SeekBarPreference> mFreqPrefList;
     private boolean mSetOnBootChecked;
@@ -45,7 +45,7 @@ public class CpuControlVoltagePreferenceActivity extends ApplyButtonPreferenceAc
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.cpu_control_voltage_pref);
-        mSetting = new CpuControlVoltageSetting(this);
+        mSetting = new CpuVoltageSetting(this);
 
         CpuControlSetting cpuSetting = new CpuControlSetting(this);
         String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
@@ -56,10 +56,10 @@ public class CpuControlVoltagePreferenceActivity extends ApplyButtonPreferenceAc
         String[] availableFreqEntries = list.toArray(new String[0]);
 
         PreferenceManager prefManager = getPreferenceManager();
-        PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(CpuControlVoltageSetting.KEY_CPU_VOLT_ROOT_PREF);
+        PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(CpuVoltageSetting.KEY_CPU_VOLT_ROOT_PREF);
         if (mSetting.isEnableVoltageControl()) {
             CheckBoxPreference mSetOnBoot = new CheckBoxPreference(this);
-            mSetOnBoot.setKey(CpuControlVoltageSetting.KEY_CPU_VOLT_CTRL_SET_ON_BOOT);
+            mSetOnBoot.setKey(CpuVoltageSetting.KEY_CPU_VOLT_CTRL_SET_ON_BOOT);
             mSetOnBoot.setTitle(R.string.set_on_boot);
             rootPref.addPreference(mSetOnBoot);
             mSetOnBootChecked = mSetting.loadSetOnBoot();
@@ -71,7 +71,7 @@ public class CpuControlVoltagePreferenceActivity extends ApplyButtonPreferenceAc
                 //PreferenceScreen pref = prefManager.createPreferenceScreen(this);
                 SeekBarPreference pref = new SeekBarPreference(this, null);
                 String freq = String.valueOf(Integer.parseInt(availableFrequencies[i]) / 1000);
-                String key = CpuControlVoltageSetting.KEY_CPU_VOLT_CTRL_BASE + freq;
+                String key = CpuVoltageSetting.KEY_CPU_VOLT_CTRL_BASE + freq;
                 String savedVolt = mSetting.loadVoltage(key);
                 pref.setKey(key);
                 pref.setTitle(availableFreqEntries[i]);

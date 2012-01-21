@@ -79,8 +79,8 @@
 
         <!-- CpuControl -->
         <activity android:name=".CpuControl.CpuControlPreferenceActivity" />
-        <activity android:name=".CpuControl.CpuControlVoltagePreferenceActivity" />
-        <activity android:name=".CpuControl.CpuControlGovernorPreferenceActivity" />
+        <activity android:name=".CpuControl.CpuVoltagePreferenceActivity" />
+        <activity android:name=".CpuControl.CpuGovernorPreferenceActivity" />
 
         <!-- GpuControl -->
         <activity android:name=".GpuControl.GpuControlPreferenceActivity" />

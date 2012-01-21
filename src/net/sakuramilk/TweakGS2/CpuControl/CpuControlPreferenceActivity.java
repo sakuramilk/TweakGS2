@@ -124,7 +124,7 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference == mGovernorSetting) {
-            Intent intent = new Intent(getApplicationContext(), CpuControlGovernorPreferenceActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CpuGovernorPreferenceActivity.class);
             intent.putExtra("governor", mSetting.getScalingGovernor());
             this.startActivity(intent);
         }
