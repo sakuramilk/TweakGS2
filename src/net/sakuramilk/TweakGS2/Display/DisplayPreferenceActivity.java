@@ -82,6 +82,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
             mMdnieForceDisable.setOnPreferenceChangeListener(this);
             String value = mSetting.getMdnieForceDisable();
             isMdnieForceDisable = "0".equals(value) ? false : true;
+            mMdnieForceDisable.setChecked(!isMdnieForceDisable);
         }
 
         mIsEnableMdnieMode = mSetting.isEnableMdnieMode();
@@ -91,6 +92,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
             mMdnieMode.setOnPreferenceChangeListener(this);
             String value = mSetting.getMdnieMode();
             isMdnieMcmEnable = DisplaySetting.MDNIE_MCM_ENABLE.equals(value) ? true : false;
+            mMdnieMode.setChecked(isMdnieMcmEnable);
         }
 
         mIsEnableMdnieMcmCb = mSetting.isEnableMdnieMcmCb();

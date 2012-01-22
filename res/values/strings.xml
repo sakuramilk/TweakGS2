@@ -80,6 +80,24 @@
     <string name="gsm_network_tweak_title">3G network tweak</string>
     <string name="gsm_network_tweak_summary_on">3G network tweak enabled</string>
     <string name="gsm_network_tweak_summary_off">3G network tweak disabled</string>
+    <string name="sysprop_boot_sound_title">Boot sound</string>
+    <string name="sysprop_boot_sound_summary_on">Boot sound enabled</string>
+    <string name="sysprop_boot_sound_summary_off">Boot sound disabled</string>
+    <string name="sysprop_camera_sound_title">Force shutter sound</string>
+    <string name="sysprop_camera_sound_summary_on">Force shutter sound enabled</string>
+    <string name="sysprop_camera_sound_summary_off">Force shutter sound disabled</string>
+    <string name="sysprop_crt_effect_title">CRT effect</string>
+    <string name="sysprop_crt_effect_summary_on">CRT effect enabled</string>
+    <string name="sysprop_crt_effect_summary_off">CRT effect disabled</string>
+    <string name="sysprop_android_logger_title">Android logger</string>
+    <string name="sysprop_android_logger_summary_on">Android logger enabled</string>
+    <string name="sysprop_android_logger_summary_off">Android logger disabled</string>
+    <string name="sysprop_cifs_title">CIFS support</string>
+    <string name="sysprop_cifs_summary_on">CIFS support enabled</string>
+    <string name="sysprop_cifs_summary_off">CIFS support disabled</string>
+    <string name="sysprop_ntfs_title">NTFS support</string>
+    <string name="sysprop_ntfs_summary_on">NTFS support enabled</string>
+    <string name="sysprop_ntfs_summary_off">NTFS support disabled</string>
 
     <!-- Multi Boot -->
     <string name="multi_boot_title">Multi boot setting</string>

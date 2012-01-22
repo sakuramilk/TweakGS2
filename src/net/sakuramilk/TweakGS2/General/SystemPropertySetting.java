@@ -18,6 +18,7 @@ package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
+import net.sakuramilk.TweakGS2.Common.SystemCommand;
 import net.sakuramilk.TweakGS2.Common.TweakPropery;
 
 public class SystemPropertySetting extends SettingManager {
@@ -54,40 +55,40 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public boolean getCrtEffect() {
-        String ret = mTweakPorp.getValue("conf.animateScreenLights", "0");
+        String ret = SystemCommand.get_prop("persist.tgs2.crt_effect", "0");
         // NOTICE: crt effect enable is false, not enable is true.
         return "0".equals(ret) ? true : false;
     }
 
     public void setCrtEffect(boolean value) {
-        mTweakPorp.setValue("conf.animateScreenLights", (value ? "1" : "0"));
+        SystemCommand.set_prop("persist.tgs2.crt_effect", (value ? "0" : "1"));
     }
 
     public boolean getLogger() {
-        String ret = mTweakPorp.getValue("conf.androidLogger", "0");
+        String ret = SystemCommand.get_prop("persist.tgs2.logger", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setLogger(boolean value) {
-        mTweakPorp.setValue("conf.androidLogger", (value ? "1" : "0"));
+        SystemCommand.set_prop("persist.tgs2.logger", (value ? "1" : "0"));
     }
 
     public boolean getCifs() {
-        String ret = mTweakPorp.getValue("conf.cifs", "0");
+        String ret = SystemCommand.get_prop("persist.tgs2.cifs", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setCifs(boolean value) {
-        mTweakPorp.setValue("conf.cifs", (value ? "1" : "0"));
+        SystemCommand.set_prop("persist.tgs2.cifs", (value ? "1" : "0"));
     }
 
     public boolean getNtfs() {
-        String ret = mTweakPorp.getValue("conf.ntfs", "0");
+        String ret = SystemCommand.get_prop("persist.tgs2.ntfs", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setNtfs(boolean value) {
-        mTweakPorp.setValue("conf.ntfs", (value ? "1" : "0"));
+        SystemCommand.set_prop("persist.tgs2.ntfs", (value ? "1" : "0"));
     }
 
     @Override
@@ -103,5 +104,9 @@ public class SystemPropertySetting extends SettingManager {
     @Override
     public void reset() {
         mTweakPorp.delete();
+        setCrtEffect(true);
+        setLogger(false);
+        setCifs(false);
+        setNtfs(false);
     }
 }

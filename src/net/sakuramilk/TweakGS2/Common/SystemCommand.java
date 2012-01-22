@@ -176,4 +176,35 @@ public class SystemCommand {
         String[] ret = RuntimeExec.execute("uname " + option + "\n", true);
         return ret[0];
     }
+
+    public static String get_prop(String key, String defaultValue) {
+        Log.d(TAG, "execute set_prop key=" + key + " value=" + defaultValue);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return defaultValue;
+        }
+        process.write("getprop " + key + "\n");
+        String[] ret = process.read();
+        process.term();
+        if (ret != null && ret.length > 0) {
+            return ret[0];
+        }
+        return defaultValue;
+    }
+
+    public static String get_prop(String key) {
+        return get_prop(key, null);
+    }
+
+    public static void set_prop(String key, String value) {
+        Log.d(TAG, "execute set_prop key=" + key + " value=" + value);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("setprop " + key + " " + value + "\n");
+        process.term();
+    }
 }

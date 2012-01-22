@@ -49,7 +49,16 @@ public class DisplaySetting extends SettingManager {
     }
 
     public String getLcdType() {
-        return mSysFsLcdType.read();
+        String value = mSysFsLcdType.read();
+        if ("SM2 (A1 line)".equals(value)) {
+            return "0";
+        } else if ("M2".equals(value)) {
+            return "1";
+        } else if ("SM2 (A2 line)".equals(value)) {
+            return "2";
+        } else {
+            return "Unknown";
+        }
     }
 
     public String getLcdTypeText(String value) {

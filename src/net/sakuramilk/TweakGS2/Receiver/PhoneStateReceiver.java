@@ -44,6 +44,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(extraState)) {
             if (isBacklightFlash) {
+                Log.d(TAG, "start service");
                 Intent serviceIntent = new Intent(context, KeyBacklightFlashService.class);
                 context.startService(serviceIntent);
             }
@@ -56,6 +57,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
 
         } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(extraState)) {
             if (isBacklightFlash) {
+                Log.d(TAG, "stop service");
                 Intent serviceIntent = new Intent(context, KeyBacklightFlashService.class);
                 context.stopService(serviceIntent);
             }

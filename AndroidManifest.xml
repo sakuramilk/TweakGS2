@@ -84,6 +84,7 @@
 
         <!-- MultiBoot -->
         <activity android:name=".MultiBoot.MultiBootPreferenceActivity" />
+        <activity android:name=".MultiBoot.RomSettingPreferenceActivity" />
 
         <!-- CpuControl -->
         <activity android:name=".CpuControl.CpuControlPreferenceActivity" />

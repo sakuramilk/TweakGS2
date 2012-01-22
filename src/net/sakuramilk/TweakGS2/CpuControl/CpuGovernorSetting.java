@@ -51,10 +51,11 @@ public class CpuGovernorSetting extends SettingManager {
             mParams.add(new Parameter("up_threshold", 0, 0));
             mParams.add(new Parameter("down_differential", 0, 0));
             mParams.add(new Parameter("down_threshold", 0, 0));
-            mParams.add(new Parameter("sakuractive_in_sampling_periods", 0, 0));
-            mParams.add(new Parameter("sakuractive_out_sampling_periods", 0, 0));
+            mParams.add(new Parameter("hotplug_in_sampling_periods", 0, 0));
+            mParams.add(new Parameter("hotplug_out_sampling_periods", 0, 0));
             mParams.add(new Parameter("ignore_nice_load", 0, 0));
             mParams.add(new Parameter("io_is_busy", 0, 0));
+            mParams.add(new Parameter("boost_timeout", 0, 0));
 
         } else if ("lulzactive".equals(governor)) {
             mParams.add(new Parameter("debug_mode", 0, 0));
@@ -65,11 +66,9 @@ public class CpuGovernorSetting extends SettingManager {
             mParams.add(new Parameter("pump_up_step", 0, 0));
             mParams.add(new Parameter("screen_off_min_step", 0, 0));
             mParams.add(new Parameter("up_sample_time", 0, 0));
-            mParams.add(new Parameter("author", 0, 0));
-            mParams.add(new Parameter("tuner", 0, 0));
-            mParams.add(new Parameter("version", 0, 0));
 
         } else if ("smartassV2".equals(governor)) {
+            mGovernor = "smartass";
             mParams.add(new Parameter("awake_ideal_freq", 0, 0));
             mParams.add(new Parameter("debug_mask", 0, 0));
             mParams.add(new Parameter("down_rate_us", 0, 0));
@@ -89,13 +88,13 @@ public class CpuGovernorSetting extends SettingManager {
             mParams.add(new Parameter("go_maxspeed_load", 0, 0));
             mParams.add(new Parameter("min_sample_time", 0, 0));
 
-        } else if ("consercative".equals(governor)) {
+        } else if ("conservative".equals(governor)) {
             mParams.add(new Parameter("down_threshold", 0, 0));
             mParams.add(new Parameter("freq_step", 0, 0));
             mParams.add(new Parameter("ignore_nice_load", 0, 0));
             mParams.add(new Parameter("sampling_down_factor", 0, 0));
             mParams.add(new Parameter("sampling_rate", 0, 0));
-            mParams.add(new Parameter("sampling_rate_max", 0, 0));
+            //mParams.add(new Parameter("sampling_rate_max", 0, 0));
             mParams.add(new Parameter("sampling_rate_min", 0, 0));
             mParams.add(new Parameter("up_threshold", 0, 0));
 

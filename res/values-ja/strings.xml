@@ -79,6 +79,24 @@
     <string name="gsm_network_tweak_title">3G通信の最適化</string>
     <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効</string>
     <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効</string>
+    <string name="sysprop_boot_sound_title">起動時のサウンド</string>
+    <string name="sysprop_boot_sound_summary_on">起動時のサウンドは有効</string>
+    <string name="sysprop_boot_sound_summary_off">起動時のサウンドは無効</string>
+    <string name="sysprop_camera_sound_title">シャッター音の強制</string>
+    <string name="sysprop_camera_sound_summary_on">シャッター音の強制は有効</string>
+    <string name="sysprop_camera_sound_summary_off">シャッター音の強制は無効</string>
+    <string name="sysprop_crt_effect_title">CRTエフェクト</string>
+    <string name="sysprop_crt_effect_summary_on">CRTエフェクトは有効</string>
+    <string name="sysprop_crt_effect_summary_off">CRTエフェクトは無効</string>
+    <string name="sysprop_android_logger_title">logcatの出力</string>
+    <string name="sysprop_android_logger_summary_on">logcatの出力は有効</string>
+    <string name="sysprop_android_logger_summary_off">logcatの出力は無効</string>
+    <string name="sysprop_cifs_title">CIFSサポート</string>
+    <string name="sysprop_cifs_summary_on">CIFSサポートは有効</string>
+    <string name="sysprop_cifs_summary_off">CIFSサポートは無効</string>
+    <string name="sysprop_ntfs_title">NTFSサポート</string>
+    <string name="sysprop_ntfs_summary_on">NTFSサポートは有効</string>
+    <string name="sysprop_ntfs_summary_off">NTFSサポートは無効</string>
 
     <!-- Multi boot -->
     <string name="multi_boot_title">マルチブート設定</string>
