@@ -16,9 +16,8 @@
  * limitations under the License.
  */
 -->
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/gpu_control_title"
-    android:key="root_pref">
-
-</PreferenceScreen>
+<resources>
+    <declare-styleable name="IconPreferenceScreen">
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+</resources>

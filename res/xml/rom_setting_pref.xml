@@ -16,7 +16,8 @@
  * limitations under the License.
  */
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         android:key="rom_system_category"

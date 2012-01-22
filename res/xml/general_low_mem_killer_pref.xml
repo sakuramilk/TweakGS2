@@ -17,7 +17,8 @@
  */
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/low_memory_killer_title">
 
    	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
                 android:key="lowmem_forground_app"

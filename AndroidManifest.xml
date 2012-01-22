@@ -60,6 +60,7 @@
         </activity>
 
         <!-- Parts -->
+        <activity android:name=".Parts.IconPreferenceScreen" />
         <activity android:name=".Parts.FilePickerActivity" />
         <activity android:name=".Parts.SeekBarPreference" />
 

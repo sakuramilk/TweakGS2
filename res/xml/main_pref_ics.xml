@@ -23,103 +23,103 @@
     android:key="parent">
 
     <!-- General -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/general_title"
-        tweakgs2:icon="@drawable/ic_settings_applications">
+        android:icon="@drawable/ic_settings_applications">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.GeneralPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- RomManager -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/rom_manager_title"
-        tweakgs2:icon="@drawable/ic_settings_cmdevice">
+        android:icon="@drawable/ic_settings_cmdevice">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.RomManager.RomManagerPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- MultiBoot -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/multi_boot_title"
-        tweakgs2:icon="@drawable/ic_settings_storage">
+        android:icon="@drawable/ic_settings_storage">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.MultiBoot.MultiBootPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- CpuControl -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/cpu_control_title"
-        tweakgs2:icon="@drawable/ic_settings_cpu">
+        android:icon="@drawable/ic_settings_gpu">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.CpuControl.CpuControlPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- GpuControl -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/gpu_control_title"
-        tweakgs2:icon="@drawable/ic_settings_gpu">
+        android:icon="@drawable/ic_settings_gpu">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.GpuControl.GpuControlPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- Sound and Vibrator -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/sound_and_vib_title"
-        tweakgs2:icon="@drawable/ic_settings_sound">
+        android:icon="@drawable/ic_settings_sound">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- Display -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/display_title"
-        tweakgs2:icon="@drawable/ic_settings_display">
+        android:icon="@drawable/ic_settings_display">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.Display.DisplayPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- Notification -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/notification_title"
-        tweakgs2:icon="@drawable/ic_settings_notification">
+        android:icon="@drawable/ic_settings_notification">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.Notification.NotificationPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- Dock -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/dock_title"
-        tweakgs2:icon="@drawable/ic_settings_dock">
+        android:icon="@drawable/ic_settings_dock">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.Dock.DockPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
     <!-- About -->
-    <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+    <PreferenceScreen
         android:title="@string/about_title"
-        tweakgs2:icon="@drawable/ic_settings_about">
+        android:icon="@drawable/ic_settings_about">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.About.AboutPreferenceActivity" />
-    </net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen>
+    </PreferenceScreen>
 
 </PreferenceScreen>

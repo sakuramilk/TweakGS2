@@ -17,7 +17,8 @@
  */
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/system_property_title">
     
 	<CheckBoxPreference
 		android:key="sysprop_boot_sound"  
