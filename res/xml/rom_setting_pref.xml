@@ -20,6 +20,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
+        android:key="rom_label_category">
+        <PreferenceScreen
+            android:key="rom_label_text" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="rom_system_category"
         android:title="@string/rom_system_category">
         <ListPreference

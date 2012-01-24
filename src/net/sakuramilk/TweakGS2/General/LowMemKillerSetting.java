@@ -17,6 +17,7 @@
 package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -82,10 +83,12 @@ public class LowMemKillerSetting extends SettingManager {
 
     @Override
     public void setRecommend() {
-        // for GB
-        String[] values = { "2560", "4096", "6144", "12288", "14336", "18432" };
-        // for ICS
-        // String[] values = { "8192", "10240", "12288", "14336", "16384", "20480" };
+        String[] values;
+        if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
+            values = new String[]{ "8192", "10240", "12288", "14336", "16384", "20480" };
+        } else {
+            values = new String[]{ "2560", "4096", "6144", "12288", "14336", "18432" };
+        }
         setLowMemKillerMinFree(values);
         saveLowMemKillerMinFree(values);
     }

@@ -41,6 +41,7 @@ public class SeekBarPreference extends DialogPreference
     private Button mButtonUp50;
     private Button mButtonDown1;
     private Button mButtonDown50;
+    private int mPreValue = 0;
     private int mValue = 0;
     private int mMax;
     private int mMin;
@@ -76,6 +77,7 @@ public class SeekBarPreference extends DialogPreference
             mStep = 1;
         }
         mValue = value;
+        mPreValue = value;
     }
 
     public void setValue(int max, int min, int step, int value) {
@@ -83,6 +85,7 @@ public class SeekBarPreference extends DialogPreference
         mMin = min;
         mStep = step;
         mValue = value;
+        mPreValue = value;
     }
 
     @Override
@@ -135,6 +138,8 @@ public class SeekBarPreference extends DialogPreference
                 ed.putString(key, value);
                 ed.commit();
             }
+        } else {
+            mValue = mPreValue;
         }
     }
 

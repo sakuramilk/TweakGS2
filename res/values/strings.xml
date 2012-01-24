@@ -36,6 +36,8 @@
     <string name="voltage">Voltage</string>
     <string name="apply">Apply</string>
     <string name="version">Version</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
 
     <!-- ROM Manager -->
     <string name="rom_manager_title">ROM Manager</string>
@@ -78,8 +80,8 @@
     <string name="system_property_summary">Change system property\nNotice: Take effect after reboot</string>
     <string name="io_scheduler_tite">I/O scheduler</string>
     <string name="gsm_network_tweak_title">3G network tweak</string>
-    <string name="gsm_network_tweak_summary_on">3G network tweak enabled</string>
-    <string name="gsm_network_tweak_summary_off">3G network tweak disabled</string>
+    <string name="gsm_network_tweak_summary_on">3G network tweak enabled\nNotice: Take effect after reboot</string>
+    <string name="gsm_network_tweak_summary_off">3G network tweak disabled\nNotice: Take effect after reboot</string>
     <string name="sysprop_boot_sound_title">Boot sound</string>
     <string name="sysprop_boot_sound_summary_on">Boot sound enabled</string>
     <string name="sysprop_boot_sound_summary_off">Boot sound disabled</string>
@@ -109,6 +111,8 @@
     <string name="rom_partition">Partition</string>
     <string name="rom_image">Image</string>
     <string name="rom_path">Path</string>
+    <string name="menu_add_rom">Add ROM</string>
+    <string name="multi_boot_wizard_title">Multi boot wizard</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPU control</string>

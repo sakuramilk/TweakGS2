@@ -33,22 +33,24 @@ public class LowMemKillerPreferenceActivity extends PreferenceActivity
 
     private LowMemKillerSetting mSetting;
     private ArrayList<SeekBarPreference> mLowMemList;
-    private String[] mValues;
+    private String[] mCurValues;
+    private String[] mSavedValues;
 
     private void setMaxMinValue() {
         for (int i = 0; i < mLowMemList.size(); i++) {
             SeekBarPreference pref = mLowMemList.get(i);
-            pref.setSummary(Misc.getCurrentValueText(this, mValues[i]));
+            pref.setSummary(
+                    Misc.getCurrentAndSavedValueText(this, mCurValues[i], mSavedValues != null ? mSavedValues[i] : null));
             if (i == 0) {
-                pref.setValue(Integer.parseInt(mValues[i+1]), LowMemKillerSetting.MEM_FREE_MIN, Integer.parseInt(mValues[i]));
+                pref.setValue(Integer.parseInt(mCurValues[i+1]), LowMemKillerSetting.MEM_FREE_MIN, Integer.parseInt(mCurValues[i]));
             } else if (i == (mLowMemList.size() - 1)) {
-                pref.setValue(LowMemKillerSetting.MEM_FREE_MAX, Integer.parseInt(mValues[i-1]), Integer.parseInt(mValues[i]));
+                pref.setValue(LowMemKillerSetting.MEM_FREE_MAX, Integer.parseInt(mCurValues[i-1]), Integer.parseInt(mCurValues[i]));
             } else {
-                pref.setValue(Integer.parseInt(mValues[i+1]), Integer.parseInt(mValues[i-1]), Integer.parseInt(mValues[i]));
+                pref.setValue(Integer.parseInt(mCurValues[i+1]), Integer.parseInt(mCurValues[i-1]), Integer.parseInt(mCurValues[i]));
             }
         }
     }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +58,8 @@ public class LowMemKillerPreferenceActivity extends PreferenceActivity
         addPreferencesFromResource(R.xml.general_low_mem_killer_pref);
 
         mSetting = new LowMemKillerSetting(this);
-        mValues = mSetting.getLowMemKillerMinFree();
+        mCurValues = mSetting.getLowMemKillerMinFree();
+        mSavedValues = mSetting.loadLowMemKillerMinFree();
         mLowMemList = new ArrayList<SeekBarPreference>();
         mLowMemList.add((SeekBarPreference)findPreference(LowMemKillerSetting.KEY_LOWMEM_FORGROUND_APP));
         mLowMemList.add((SeekBarPreference)findPreference(LowMemKillerSetting.KEY_LOWMEM_VISIBLE_APP));
@@ -74,10 +77,14 @@ public class LowMemKillerPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceDone(Preference preference, String newValue) {
         int index = mLowMemList.indexOf(preference);
         if (index < 6) {
-            mValues[index] = newValue;
+            mCurValues[index] = newValue;
+            if (mSavedValues == null) {
+                mSavedValues = mCurValues;
+            }
+            mSavedValues[index] = newValue;
             setMaxMinValue();
-            mSetting.setLowMemKillerMinFree(mValues);
-            mSetting.saveLowMemKillerMinFree(mValues);
+            mSetting.setLowMemKillerMinFree(mCurValues);
+            mSetting.saveLowMemKillerMinFree(mCurValues);
             // don't return true
         }
         return false;
@@ -95,11 +102,13 @@ public class LowMemKillerPreferenceActivity extends PreferenceActivity
         switch (item.getItemId()) {
         case R.id.menu_reset:
             mSetting.reset();
+            mSavedValues = null;
             Misc.confirmReboot(this, R.string.reboot_reflect_comfirm);
             return true;
         case R.id.menu_recommend:
             mSetting.setRecommend();
-            mValues = mSetting.loadLowMemKillerMinFree();
+            mCurValues = mSetting.getLowMemKillerMinFree();
+            mSavedValues = mSetting.loadLowMemKillerMinFree();
             setMaxMinValue();
             return true;
         default:

@@ -22,6 +22,7 @@ import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import net.sakuramilk.TweakGS2.General.GeneralSetting;
 import net.sakuramilk.TweakGS2.General.LowMemKillerSetting;
 import net.sakuramilk.TweakGS2.General.VirtualMemorySetting;
+import net.sakuramilk.TweakGS2.GpuControl.GpuControlSetting;
 import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
@@ -51,7 +52,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             cpuControlSetting.setOnBoot();
 
             // GpuControl
-            CpuControlSetting gpuControlSetting = new CpuControlSetting(context);
+            GpuControlSetting gpuControlSetting = new GpuControlSetting(context);
             gpuControlSetting.setOnBoot();
 
             // SoundAndVib

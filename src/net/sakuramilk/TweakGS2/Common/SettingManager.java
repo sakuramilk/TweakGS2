@@ -23,9 +23,11 @@ import android.preference.PreferenceManager;
 
 public abstract class SettingManager {
 
-    private SharedPreferences mSharedPref;
+    public final Context mContext;
+    private final SharedPreferences mSharedPref;
 
     protected SettingManager(Context context) {
+        mContext = context;
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 

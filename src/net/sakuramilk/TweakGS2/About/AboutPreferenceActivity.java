@@ -22,6 +22,7 @@ import net.sakuramilk.TweakGS2.Display.DisplaySetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import net.sakuramilk.TweakGS2.General.GeneralSetting;
 import net.sakuramilk.TweakGS2.General.LowMemKillerSetting;
+import net.sakuramilk.TweakGS2.General.SystemPropertySetting;
 import net.sakuramilk.TweakGS2.General.VirtualMemorySetting;
 import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
 import net.sakuramilk.TweakGS2.Parts.ConfirmAlertDialog;
@@ -73,7 +74,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     Editor ed = settings.edit();
                     ed.clear();
                     ed.commit();
-
+                    SystemPropertySetting sysPropSetting = new SystemPropertySetting(mContext);
+                    sysPropSetting.reset();
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
             });

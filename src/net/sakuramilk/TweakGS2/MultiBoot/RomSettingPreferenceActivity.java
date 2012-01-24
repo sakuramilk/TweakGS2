@@ -24,20 +24,25 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
 
 public class RomSettingPreferenceActivity extends PreferenceActivity
     implements OnPreferenceChangeListener {
 
     private int mRomId;
     private final MbsConf mMbsConf = new MbsConf();
-    
+
+    private static final String KEY_LABEL_CATEGORY = "rom_label_category";
+    private static final String KEY_LABEL_TEXT = "rom_label_text";
     private static final String KEY_SYSTEM_PART = "rom_system_part_list";
     private static final String KEY_SYSTEM_IMG = "rom_system_img_list";
     private static final String KEY_SYSTEM_PATH = "rom_system_path_list";
     private static final String KEY_DATA_PART = "rom_data_part_list";
     private static final String KEY_DATA_IMG = "rom_data_img_list";
     private static final String KEY_DATA_PATH = "rom_data_path_list";
-    
+
+    private PreferenceScreen mLabelText;
     private ListPreference mSystemPart;
     private ListPreference mSystemImg;
     private ListPreference mSystemPath;
@@ -57,6 +62,12 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
             finish();
         }
         
+        PreferenceCategory categoryPref = (PreferenceCategory)findPreference(KEY_LABEL_CATEGORY);
+        categoryPref.setTitle("ROM" + mRomId);
+
+        mLabelText = (PreferenceScreen)findPreference(KEY_LABEL_TEXT);
+        mLabelText.setSummary(Misc.getCurrentValueText(this, mMbsConf.getLabel(mRomId)));
+
         mSystemPart = (ListPreference)findPreference(KEY_SYSTEM_PART);
         mSystemPart.setSummary(Misc.getCurrentValueText(this, mMbsConf.getSystemPartition(mRomId)));
         

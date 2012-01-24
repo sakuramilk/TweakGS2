@@ -19,8 +19,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/menu_reset"
+        android:icon="@drawable/ic_menu_revert"
         android:title="@string/menu_reset" />
     <item
         android:id="@+id/menu_recommend"
+        android:icon="@drawable/ic_menu_star"
         android:title="@string/menu_recommend" />
 </menu>

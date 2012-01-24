@@ -1,71 +1,71 @@
 
 General
-  LowMemKiller       : 動作確認待ち
-  VirtualMemory      : 動作確認待ち
+  LowMemKiller       : OK
+  VirtualMemory      : OK
   SystemProp         : 未実装
-  IOSched            : 動作確認待ち
-  GsmNetwork         : 動作確認待ち
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  IOSched            : OK
+  GsmNetwork         : OK
+  再起動時の反映     : OK
+  リセット時の反映   : OK
 
 RomManager
-  Reboot             : 動作確認待ち
-  Recovery           : 動作確認待ち
-  Download           : 動作確認待ち
+  Reboot             : OK
+  Recovery           : OK
+  Download           : OK
   Backup             : 動作確認待ち
   Restore            : 動作確認待ち
   Manage             : 動作確認待ち
   ZipInstall         : 動作確認待ち
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  再起動時の反映     : 動作確認待ち
+  リセット時の反映   : 動作確認待ち
 
 MultiBoot
   RomSelect          : 未実装
   RomSetting         : 未実装
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  再起動時の反映     : 動作確認待ち
+  リセット時の反映   : 動作確認待ち
 
 CpuControl
-  GovernorSelect     : 動作確認待ち
+  GovernorSelect     : OK
   GovernorSetting    : 未実装
-  Frequency          : 動作確認待ち
-  VoltageControl     : 未実装
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  Frequency          : OK
+  VoltageControl     : 動作確認待ち
+  再起動時の反映     : 動作確認待ち
+  リセット時の反映   : 動作確認待ち
 
 GpuControl
-  未実装
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  Control            : 動作確認待ち
+  再起動時の反映     : 動作確認待ち
+  リセット時の反映   : 動作確認待ち
 
 SoundAndVib
-  HwVolume           : 動作確認待ち
-  FreqLock           : 動作確認待ち
-  VibForce           : 動作確認待ち
-  ForceIncoming      : 動作確認待ち
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  HwVolume           : OK
+  FreqLock           : OK
+  VibForce           : OK
+  ForceIncoming      : OK
+  再起動時の反映     : OK
+  リセット時の反映   : OK
 
 Display
-  LCDType            : 動作確認待ち
-  GammaAdjust        : 動作確認待ち
-  mDNieFunc          : 動作確認待ち
-  mDNieMode          : 動作確認待ち
-  CrAdjust           : 動作確認待ち
-  CbAdjust           : 動作確認待ち
-  再起動時の反映      : 動作確認待ち
-  リセット時の反映    : 動作確認待ち
+  LCDType            : OK
+  GammaAdjust        : OK
+  mDNieFunc          : OK
+  mDNieMode          : OK
+  CrAdjust           : OK
+  CbAdjust           : OK
+  再起動時の反映     : OK
+  リセット時の反映   : OK
 
 Notification
-  BLN on Incoming    : 動作確認待ち
+  BLN on Incoming    : OK
 
 Dock
   Emulate            : OK
   Manual             : OK
-  再起動時の反映      : OK
-  リセット時の反映    : OK
+  再起動時の反映     : OK
+  リセット時の反映   : OK
 
 About
-  All recomend       : 動作確認待ち
-  All reset          : 動作確認待ち     
+  All recomend       : OK
+  All reset          : OK
 

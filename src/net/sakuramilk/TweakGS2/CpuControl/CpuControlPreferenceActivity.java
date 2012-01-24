@@ -16,13 +16,10 @@
 
 package net.sakuramilk.TweakGS2.CpuControl;
 
-import java.util.ArrayList;
-
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -38,11 +35,12 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     private CpuControlSetting mSetting;
     private ListPreference mGovernorList;
     private PreferenceScreen mGovernorSetting;
-    private CheckBoxPreference mGorvenorSetOnBoot;
     private ListPreference mFreqMax;
     private ListPreference mFreqMin;
-    private CheckBoxPreference mFreqSetOnBoot;
 
+    private String getFreqText(String value) {
+        return (Integer.valueOf(value) / 1000) + "MHz"; 
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,35 +61,25 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
         mGovernorSetting = (PreferenceScreen)findPreference(CpuControlSetting.KEY_CPU_GOV_SETTING);
         mGovernorSetting.setOnPreferenceClickListener(this);
 
-        mGorvenorSetOnBoot = (CheckBoxPreference)findPreference(CpuControlSetting.KEY_CPU_GOV_SET_ON_BOOT);
-        mGorvenorSetOnBoot.setOnPreferenceChangeListener(this);
-
         // cpu freq
         String[] availableFrequencies = mSetting.getAvailableFrequencies();
         String maxFreqValue = mSetting.getScalingMaxFreq();
         String minFreqValue = mSetting.getScalingMinFreq();
-        ArrayList<String> list = new ArrayList<String>();
-        for (String freq : availableFrequencies) {
-            list.add(String.valueOf(Integer.parseInt(freq) / 1000) + "MHz");
-        }
-        String[] availableFreqEntries = list.toArray(new String[0]);
+        String[] availableFreqEntries = Misc.getFreqencyEntries(availableFrequencies);
 
         mFreqMax = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MAX_FREQ);
         mFreqMax.setEntries(availableFreqEntries);
         mFreqMax.setEntryValues(availableFrequencies);
         mFreqMax.setValue(maxFreqValue);
         mFreqMax.setOnPreferenceChangeListener(this);
-        mFreqMax.setSummary(Misc.getCurrentValueText(this, maxFreqValue));
+        mFreqMax.setSummary(Misc.getCurrentValueText(this, getFreqText(maxFreqValue)));
 
         mFreqMin = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MIN_FREQ);
         mFreqMin.setEntries(availableFreqEntries);
         mFreqMin.setEntryValues(availableFrequencies);
         mFreqMin.setValue(minFreqValue);
         mFreqMin.setOnPreferenceChangeListener(this);
-        mFreqMin.setSummary(Misc.getCurrentValueText(this, minFreqValue));
-
-        mFreqSetOnBoot = (CheckBoxPreference)findPreference(CpuControlSetting.KEY_CPU_FREQ_SET_ON_BOOT);
-        mFreqSetOnBoot.setOnPreferenceChangeListener(this);
+        mFreqMin.setSummary(Misc.getCurrentValueText(this, getFreqText(minFreqValue)));
     }
 
     @Override
@@ -101,20 +89,14 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
             mGovernorList.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
             return true;
 
-        } else if (preference == mGorvenorSetOnBoot) {
-            return true;
-
         } else if (preference == mFreqMax) {
             mSetting.setScalingMaxFreq(newValue.toString());
-            mFreqMax.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
+            mFreqMax.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
             return true;
 
         } else if (preference == mFreqMin) {
             mSetting.setScalingMinFreq(newValue.toString());
-            mFreqMin.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
-            return true;
-
-        } else if (preference == mFreqSetOnBoot) {
+            mFreqMin.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
             return true;
 
         }

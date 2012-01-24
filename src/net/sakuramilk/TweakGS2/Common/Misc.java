@@ -17,6 +17,7 @@
 package net.sakuramilk.TweakGS2.Common;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -136,5 +137,13 @@ public class Misc {
         return (Integer.valueOf(ver[0]) * 1000 +
                  Integer.valueOf(ver[1]) * 100 +
                  Integer.valueOf(ver[2]));
+    }
+    
+    public static String[] getFreqencyEntries(String[] frequencyValues) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (String freq : frequencyValues) {
+            list.add(String.valueOf(Integer.parseInt(freq) / 1000) + "MHz");
+        }
+        return list.toArray(new String[0]);
     }
 }

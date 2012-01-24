@@ -32,7 +32,7 @@ public class SystemPropertySetting extends SettingManager {
 
     private final TweakPropery mTweakPorp = new TweakPropery();
 
-    protected SystemPropertySetting(Context context) {
+    public SystemPropertySetting(Context context) {
         super(context);
     }
 

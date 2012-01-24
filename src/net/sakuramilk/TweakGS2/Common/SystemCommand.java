@@ -102,6 +102,17 @@ public class SystemCommand {
         process.write("mv " + src + " " + dst + "\n");
         process.term();
     }
+    
+    public static void mkdir(String path) {
+        Log.d(TAG, "execute mkdir path=" + path);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("mkdir -p " + path + "\n");
+        process.term();
+    }
 
     public static void start_dock() {
         String[] commands = { "su", "-c",
@@ -122,19 +133,19 @@ public class SystemCommand {
         if (!process.init()) {
             return;
         }
-        process.write("echo 0 > /proc/sys/net/ipv4/tcp_ecn");
-        process.write("echo 1 > /proc/sys/net/ipv4/route/flush");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_rfc1337");
-        process.write("echo 0 > /proc/sys/net/ipv4/ip_no_pmtu_disc");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_sack");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_fack");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_window_scaling");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_timestamps");
-        process.write("echo 4096 39000 187000 > /proc/sys/net/ipv4/tcp_rmem");
-        process.write("echo 4096 39000 187000 > /proc/sys/net/ipv4/tcp_wmem");
-        process.write("echo 187000 187000 187000 > /proc/sys/net/ipv4/tcp_mem");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_no_metrics_save");
-        process.write("echo 1 > /proc/sys/net/ipv4/tcp_moderate_rcvbuf");
+        process.write("echo 0 > /proc/sys/net/ipv4/tcp_ecn\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/route/flush\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_rfc1337\n");
+        process.write("echo 0 > /proc/sys/net/ipv4/ip_no_pmtu_disc\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_sack\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_fack\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_window_scaling\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_timestamps\n");
+        process.write("echo 4096 39000 187000 > /proc/sys/net/ipv4/tcp_rmem\n");
+        process.write("echo 4096 39000 187000 > /proc/sys/net/ipv4/tcp_wmem\n");
+        process.write("echo 187000 187000 187000 > /proc/sys/net/ipv4/tcp_mem\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_no_metrics_save\n");
+        process.write("echo 1 > /proc/sys/net/ipv4/tcp_moderate_rcvbuf\n");
         process.term();
     }
 
@@ -205,6 +216,20 @@ public class SystemCommand {
             return;
         }
         process.write("setprop " + key + " " + value + "\n");
+        process.term();
+    }
+
+    public static void make_ext4_image(String path, int blockSize, int blockCount) {
+        Log.d(TAG, "execute make_ext4_image path=" + path +
+                " blockSize=" + blockSize+ " blockCount=" + blockCount);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("dd if=/dev/zero of=" + path +
+                " bs=" + blockSize + " count=" + blockCount + "\n");
+        process.write("mke2fs -T ext4 -F " + path + "\n");
         process.term();
     }
 }

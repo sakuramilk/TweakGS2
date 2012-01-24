@@ -48,6 +48,35 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
     private CheckBoxPreference mSetOnBoot;
     private boolean mSetOnBootChecked;
 
+    private void setMaxMinValue() {
+        if (mFreqPrefList != null) {
+            for (int i = 0; i < mFreqPrefList.size(); i++) {
+                SeekBarPreference pref = mFreqPrefList.get(i);
+                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mFreqs[i]) + "MHz"));
+                if (i == 0) {
+                    pref.setValue(mFreqs[i+1], GpuControlSetting.FREQ_MIN, mFreqs[i]);
+                } else if (i == (mFreqPrefList.size() - 1)) {
+                    pref.setValue(GpuControlSetting.FREQ_MAX, mFreqs[i-1], mFreqs[i]);
+                } else {
+                    pref.setValue(mFreqs[i+1], mFreqs[i-1], mFreqs[i]);
+                }
+            }
+        }
+        if (mVoltPrefList != null) {
+            for (int i = 0; i < mVoltPrefList.size(); i++) {
+                SeekBarPreference pref = mVoltPrefList.get(i);
+                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mVolts[i]) + "mV"));
+                if (i == 0) {
+                    pref.setValue(mVolts[i+1], GpuControlSetting.VOLT_MIN, mVolts[i]);
+                } else if (i == (mVoltPrefList.size() - 1)) {
+                    pref.setValue(GpuControlSetting.VOLT_MAX, mVolts[i-1], mVolts[i]);
+                } else {
+                    pref.setValue(mVolts[i+1], mVolts[i-1], mVolts[i]);
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,35 +138,6 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         mApplyButton.setOnClickListener(this);
         
         setMaxMinValue();
-    }
-
-    private void setMaxMinValue() {
-        if (mFreqPrefList != null) {
-            for (int i = 0; i < mFreqPrefList.size(); i++) {
-                SeekBarPreference pref = mFreqPrefList.get(i);
-                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mFreqs[i])));
-                if (i == 0) {
-                    pref.setValue(mFreqs[i+1], GpuControlSetting.FREQ_MIN, mFreqs[i]);
-                } else if (i == (mFreqPrefList.size() - 1)) {
-                    pref.setValue(GpuControlSetting.FREQ_MAX, mFreqs[i-1], mFreqs[i]);
-                } else {
-                    pref.setValue(mFreqs[i+1], mFreqs[i-1], mFreqs[i]);
-                }
-            }
-        }
-        if (mVoltPrefList != null) {
-            for (int i = 0; i < mVoltPrefList.size(); i++) {
-                SeekBarPreference pref = mVoltPrefList.get(i);
-                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mVolts[i])));
-                if (i == 0) {
-                    pref.setValue(mFreqs[i+1], GpuControlSetting.VOLT_MIN, mVolts[i]);
-                } else if (i == (mVoltPrefList.size() - 1)) {
-                    pref.setValue(GpuControlSetting.VOLT_MAX, mVolts[i-1], mVolts[i]);
-                } else {
-                    pref.setValue(mVolts[i+1], mVolts[i-1], mVolts[i]);
-                }
-            }
-        }
     }
 
     @Override

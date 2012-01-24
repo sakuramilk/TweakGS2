@@ -20,10 +20,10 @@ import net.sakuramilk.TweakGS2.Common.PropertyManager;
 
 public class MbsConf extends PropertyManager {
 
-    public static final int MAX_ROM_ID = 8;
+    public static final int MAX_ROM_ID = 7;
 
     public MbsConf() {
-        super("/xdata/mbs.conf");
+        super("/data/mbs.conf");
     }
 
     public class Partision {
@@ -106,5 +106,14 @@ public class MbsConf extends PropertyManager {
 
     public void setDataPath(int romId, String value) {
         setValue(String.format(CONF_KEY_DATA_PATH, romId), value);
+    }
+
+    public int getNextRomId() {
+        for (int i = 0; i < MAX_ROM_ID; i++) {
+            if (getLabel(i) == null) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

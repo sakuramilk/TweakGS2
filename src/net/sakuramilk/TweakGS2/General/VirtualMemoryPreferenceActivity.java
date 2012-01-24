@@ -39,27 +39,33 @@ public class VirtualMemoryPreferenceActivity extends PreferenceActivity implemen
 
     private void updateValues() {
         String curValue = mSetting.getVmSwappiness();
-        mSwappiness.setSummary(Misc.getCurrentValueText(this, curValue));
+        String savedValue = mSetting.loadVmSwappiness();
+        mSwappiness.setSummary(Misc.getCurrentAndSavedValueText(this, curValue, savedValue));
         mSwappiness.setValue(100, 0, Integer.parseInt(curValue));
 
         curValue = mSetting.getVmVfsCachePressure();
-        mVfsCachePressure.setSummary(Misc.getCurrentValueText(this, curValue));
+        savedValue = mSetting.loadVmVfsCachePressure();
+        mVfsCachePressure.setSummary(Misc.getCurrentAndSavedValueText(this, curValue, savedValue));
         mVfsCachePressure.setValue(100, 1, Integer.parseInt(curValue));
 
         curValue = mSetting.getVmDirtyExpireCentisecs();
-        mDirtyExpireCentisecs.setSummary(Misc.getCurrentValueText(this, curValue));
+        savedValue = mSetting.loadVmDirtyExpireCentisecs();
+        mDirtyExpireCentisecs.setSummary(Misc.getCurrentAndSavedValueText(this, curValue, savedValue));
         mDirtyExpireCentisecs.setValue(6000, 100, 100, Integer.parseInt(curValue));
 
         curValue = mSetting.getVmDirtyWritebackCentisecs();
-        mDirtyWritebackCentisecs.setSummary(Misc.getCurrentValueText(this, curValue));
+        savedValue = mSetting.loadVmDirtyWritebackCentisecs();
+        mDirtyWritebackCentisecs.setSummary(Misc.getCurrentAndSavedValueText(this, curValue, savedValue));
         mDirtyWritebackCentisecs.setValue(6000, 100, 100, Integer.parseInt(curValue));
 
         curValue = mSetting.getVmDirtyRatio();
-        mDirtyRatio.setSummary(Misc.getCurrentValueText(this, curValue));
+        savedValue = mSetting.loadVmDirtyRatio();
+        mDirtyRatio.setSummary(Misc.getCurrentAndSavedValueText(this, curValue, savedValue));
         mDirtyRatio.setValue(100, 0, Integer.parseInt(curValue));
 
         curValue = mSetting.getVmDirtyBackgroundRatio();
-        mDirtyBackgroundRatio.setSummary(Misc.getCurrentValueText(this, curValue));
+        savedValue = mSetting.loadVmDirtyBackgroundRatio();
+        mDirtyBackgroundRatio.setSummary(Misc.getCurrentAndSavedValueText(this, curValue, savedValue));
         mDirtyBackgroundRatio.setValue(100, 0, Integer.parseInt(curValue));
     }
 
@@ -90,27 +96,27 @@ public class VirtualMemoryPreferenceActivity extends PreferenceActivity implemen
     public boolean onPreferenceDone(Preference preference, String newValue) {
         if (mSwappiness == preference) {
             mSetting.setVmSwappiness(newValue);
-            mSwappiness.setSummary(Misc.getCurrentValueText(this, newValue));
+            mSwappiness.setSummary(Misc.getCurrentAndSavedValueText(this, newValue, newValue));
             return true;
         } else if (mVfsCachePressure == preference) {
             mSetting.setVmVfsCachePressure(newValue);
-            mVfsCachePressure.setSummary(Misc.getCurrentValueText(this, newValue));
+            mVfsCachePressure.setSummary(Misc.getCurrentAndSavedValueText(this, newValue, newValue));
             return true;
         } else if (mDirtyExpireCentisecs == preference) {
             mSetting.setVmDirtyExpireCentisecs(newValue);
-            mDirtyExpireCentisecs.setSummary(Misc.getCurrentValueText(this, newValue));
+            mDirtyExpireCentisecs.setSummary(Misc.getCurrentAndSavedValueText(this, newValue, newValue));
             return true;
         } else if (mDirtyWritebackCentisecs == preference) {
             mSetting.setVmDirtyWritebackCentisecs(newValue);
-            mDirtyWritebackCentisecs.setSummary(Misc.getCurrentValueText(this, newValue));
+            mDirtyWritebackCentisecs.setSummary(Misc.getCurrentAndSavedValueText(this, newValue, newValue));
             return true;
         } else if (mDirtyRatio == preference) {
             mSetting.setVmDirtyRatio(newValue);
-            mDirtyRatio.setSummary(Misc.getCurrentValueText(this, newValue));
+            mDirtyRatio.setSummary(Misc.getCurrentAndSavedValueText(this, newValue, newValue));
             return true;
         } else if (mDirtyBackgroundRatio == preference) {
             mSetting.setVmDirtyBackgroundRatio(newValue);
-            mDirtyBackgroundRatio.setSummary(Misc.getCurrentValueText(this, newValue));
+            mDirtyBackgroundRatio.setSummary(Misc.getCurrentAndSavedValueText(this, newValue, newValue));
             return true;
         }
         return false;

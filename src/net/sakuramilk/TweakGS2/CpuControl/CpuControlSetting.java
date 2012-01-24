@@ -29,6 +29,7 @@ public class CpuControlSetting extends SettingManager {
     public static final String KEY_CPU_MAX_FREQ = "cpu_max_freq";
     public static final String KEY_CPU_MIN_FREQ = "cpu_min_freq";
     public static final String KEY_CPU_FREQ_SET_ON_BOOT = "cpu_freq_set_on_boot";
+    public static final String KEY_CPU_VOLT_SET_ON_BOOT = "cpu_volt_set_on_boot";
 
     private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq";
     private static final String PATH_SCALING_AVAILABLE_FREQS_KERNEL_3_0 = "/sys/power/cpufreq_table";
@@ -72,6 +73,10 @@ public class CpuControlSetting extends SettingManager {
     public void saveScalingGovernor(String value) {
         setValue(KEY_CPU_GOV_SETTING, value);
     }
+    
+    public boolean loadGovernorSetOnBoot() {
+        return getBooleanValue(KEY_CPU_GOV_SET_ON_BOOT, false);
+    }
 
     public String[] getAvailableFrequencies() {
         String values;
@@ -114,17 +119,26 @@ public class CpuControlSetting extends SettingManager {
         setValue(KEY_CPU_MIN_FREQ, value);
     }
     
-    public boolean loadSetOnBoot() {
+    public boolean loadFreqSetOnBoot() {
         return getBooleanValue(KEY_CPU_FREQ_SET_ON_BOOT, false);
+    }
+
+    public boolean loadVoltSetOnBoot() {
+        return getBooleanValue(KEY_CPU_VOLT_SET_ON_BOOT, false);
     }
 
     @Override
     public void setOnBoot() {
-        if (loadSetOnBoot()) {
-            String value = loadScalingGovernor();
+        String value;
+        if (loadGovernorSetOnBoot()) {
+            value = loadScalingGovernor();
             if (!Misc.isNullOfEmpty(value)) {
                 setScalingGovernor(value);
             }
+            CpuGovernorSetting cpuGovSetting = new CpuGovernorSetting(mContext, value);
+            cpuGovSetting.setOnBoot();
+        }
+        if (loadFreqSetOnBoot()) {
             value = loadScalingMaxFreq();
             if (!Misc.isNullOfEmpty(value)) {
                 setScalingMaxFreq(value);
@@ -133,6 +147,10 @@ public class CpuControlSetting extends SettingManager {
             if (!Misc.isNullOfEmpty(value)) {
                 setScalingMinFreq(value);
             }
+        }
+        if (loadVoltSetOnBoot()) {
+            CpuVoltageSetting cpuVoltSetting = new CpuVoltageSetting(mContext);
+            cpuVoltSetting.setOnBoot();
         }
     }
 
@@ -148,5 +166,8 @@ public class CpuControlSetting extends SettingManager {
         clearValue(KEY_CPU_MAX_FREQ);
         clearValue(KEY_CPU_MIN_FREQ);
         clearValue(KEY_CPU_FREQ_SET_ON_BOOT);
+        clearValue(KEY_CPU_VOLT_SET_ON_BOOT);
+        CpuVoltageSetting cpuVoltSetting = new CpuVoltageSetting(mContext);
+        cpuVoltSetting.reset();
     }
 }

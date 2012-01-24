@@ -24,22 +24,20 @@ import net.sakuramilk.TweakGS2.Parts.ApplyButtonPreferenceActivity;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
-    implements OnSeekBarPreferenceDoneListener, OnClickListener, OnPreferenceChangeListener {
+    implements OnSeekBarPreferenceDoneListener, OnClickListener {
 
     private CpuVoltageSetting mSetting;
-    private CheckBoxPreference mSetOnBoot;
     private ArrayList<SeekBarPreference> mFreqPrefList;
-    private boolean mSetOnBootChecked;
-    
+    String[] mCurVoltTable;
+    String[] mSavedVoltTable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,26 +56,23 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         PreferenceManager prefManager = getPreferenceManager();
         PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(CpuVoltageSetting.KEY_CPU_VOLT_ROOT_PREF);
         if (mSetting.isEnableVoltageControl()) {
-            CheckBoxPreference mSetOnBoot = new CheckBoxPreference(this);
-            mSetOnBoot.setKey(CpuVoltageSetting.KEY_CPU_VOLT_CTRL_SET_ON_BOOT);
-            mSetOnBoot.setTitle(R.string.set_on_boot);
-            rootPref.addPreference(mSetOnBoot);
-            mSetOnBootChecked = mSetting.loadSetOnBoot();
-            
             mFreqPrefList = new ArrayList<SeekBarPreference>();
-            String[] voltTable = mSetting.getVoltageTable();
+            mCurVoltTable = mSetting.getVoltageTable();
+            mSavedVoltTable = new String[mCurVoltTable.length];
             int i = 0;
-            for (String curVolt : voltTable) {
-                //PreferenceScreen pref = prefManager.createPreferenceScreen(this);
+            for (String curVolt : mCurVoltTable) {
                 SeekBarPreference pref = new SeekBarPreference(this, null);
                 String freq = String.valueOf(Integer.parseInt(availableFrequencies[i]) / 1000);
                 String key = CpuVoltageSetting.KEY_CPU_VOLT_CTRL_BASE + freq;
-                String savedVolt = mSetting.loadVoltage(key);
+                mSavedVoltTable[i] = mSetting.loadVoltage(key);
                 pref.setKey(key);
+                pref.setValue(1500, 700, mSavedVoltTable[i] == null ?
+                        Integer.valueOf(curVolt) : Integer.valueOf(mSavedVoltTable[i]));
                 pref.setTitle(availableFreqEntries[i]);
                 pref.setSummary(Misc.getCurrentAndSavedValueText(this,
                         curVolt + "mV",
-                        (savedVolt == null ? getText(R.string.none).toString() : savedVolt + "mV")));
+                        (mSavedVoltTable[i] == null ? getText(R.string.none).toString() : mSavedVoltTable[i] + "mV")));
+                pref.setOnPreferenceDoneListener(this);
                 rootPref.addPreference(pref);
                 mFreqPrefList.add(pref);
                 i++;
@@ -92,34 +87,20 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     @Override
     public void onClick(View v) {
         mApplyButton.setEnabled(false);
-        mSetOnBootChecked = mSetOnBoot.isChecked();
-        mSetting.saveSetOnBoot(mSetOnBootChecked);
-        /*
-        mSetting.saveFreq(mHighFreqValue, mLowFreqValue);
-        mSetting.saveVolt(mHighVoltValue, mLowVoltValue);
-        mSetting.setFreq(mHighFreqValue, mLowFreqValue);
-        mSetting.setVolt(mHighVoltValue, mLowVoltValue);
-        */
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        mApplyButton.setEnabled(true);
-        return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (mApplyButton.isEnabled()) {
-            mSetting.saveSetOnBoot(mSetOnBootChecked);
+        String[] voltTable = new String[mSavedVoltTable.length];
+        for (int i = 0; i < mSavedVoltTable.length; i++) {
+            voltTable[i] = (mSavedVoltTable[i] == null) ?
+                    mCurVoltTable[i] : mSavedVoltTable[i];
         }
+        mSetting.setVoltageTable(voltTable);
     }
 
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
         mApplyButton.setEnabled(true);
-        return false;
+        int index = mFreqPrefList.indexOf(preference);
+        mSavedVoltTable[index] = newValue;
+        preference.setSummary(Misc.getCurrentAndSavedValueText(this, newValue + "mV", newValue + "mV"));
+        return true;
     }
 }

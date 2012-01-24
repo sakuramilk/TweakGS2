@@ -23,44 +23,83 @@ import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class CpuGovernorPreferenceActivity extends PreferenceActivity
-    implements OnSeekBarPreferenceDoneListener {
+    implements OnSeekBarPreferenceDoneListener, OnPreferenceChangeListener {
     
     private CpuGovernorSetting mSetting;
+    
+    private String getEntryText(String[] entries, String[] values, String value) {
+        int i = 0;
+        for (i = 0; i < entries.length; i++) {
+            if (values[i].equals(value)) {
+                return entries[i];
+            }
+        }
+        return value; // if not found value, return safe value.
+    }
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.cpu_control_governor_pref);
-        
-        
+
         Intent intent = this.getIntent();
-        mSetting = new CpuGovernorSetting(this, intent.getStringExtra("governor"));
-        
+        String govName = intent.getStringExtra("governor");
+        mSetting = new CpuGovernorSetting(this, govName);
+
         PreferenceManager prefManager = getPreferenceManager();
         PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference("root_pref");
-        
+        PreferenceCategory ctegoryPref = new PreferenceCategory(this);
+        ctegoryPref.setTitle(govName);
+        rootPref.addPreference(ctegoryPref);
+
         CpuGovernorSetting.Parameter[] params = mSetting.getParameters();
         for (CpuGovernorSetting.Parameter param : params) {
-            SeekBarPreference pref = new SeekBarPreference(this, null);
-            pref.setTitle(param.name);
-            pref.setDialogTitle(param.name);
-            String value = mSetting.getValue(param.name);
-            pref.setValue(param.max, param.min, Integer.valueOf(value));
-            pref.setSummary(Misc.getCurrentValueText(this, value));
-            pref.setOnPreferenceDoneListener(this);
-            rootPref.addPreference(pref);
+            String value;
+            switch (param.type) {
+                case CpuGovernorSetting.Parameter.TYPE_SEEK_BAR:
+                    SeekBarPreference seekBarPref = new SeekBarPreference(this, null);
+                    seekBarPref.setTitle(param.name);
+                    seekBarPref.setDialogTitle(param.name);
+                    value = mSetting.getValue(param.name);
+                    seekBarPref.setValue(param.max, param.min, Integer.valueOf(value));
+                    seekBarPref.setSummary(Misc.getCurrentValueText(this, value));
+                    seekBarPref.setOnPreferenceDoneListener(this);
+                    rootPref.addPreference(seekBarPref);
+                    break;
+
+                case CpuGovernorSetting.Parameter.TYPE_LIST:
+                    ListPreference listPref = new ListPreference(this);
+                    listPref.setTitle(param.name);
+                    listPref.setEntries(param.listEntries);
+                    listPref.setEntryValues(param.listValues);
+                    value = mSetting.getValue(param.name);
+                    listPref.setValue(value);
+                    listPref.setSummary(Misc.getCurrentValueText(this,
+                            getEntryText(param.listEntries, param.listValues, value)));
+                    listPref.setOnPreferenceChangeListener(this);
+                    rootPref.addPreference(listPref);
+                    break;
+            }
         }
     }
 
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
+        return false;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference arg0, Object arg1) {
         return false;
     }
 }

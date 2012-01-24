@@ -59,6 +59,9 @@
                 android:targetPackage="net.sakuramilk.TweakGS2"
                 android:targetClass="net.sakuramilk.TweakGS2.CpuControl.CpuVoltagePreferenceActivity" />
         </PreferenceScreen>
+        <CheckBoxPreference
+            android:key="cpu_volt_set_on_boot"
+            android:title="@string/set_on_boot" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -19,20 +19,47 @@ package net.sakuramilk.TweakGS2.CpuControl;
 import java.util.ArrayList;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
 public class CpuGovernorSetting extends SettingManager {
 
     public class Parameter {
-        Parameter(String name, int max, int min) {
-            this.name = name;
-            this.max = max;
-            this.min = min;
+        public static final int TYPE_SEEK_BAR = 0;
+        public static final int TYPE_LIST = 1;
+
+        Parameter(String name, int min, int max) {
+            this(name, min, max, "");
         }
+
+        Parameter(String name, int min, int max, String unit) {
+            this.name = name;
+            this.type = TYPE_SEEK_BAR;
+            this.min = min;
+            this.max = max;
+            this.unit = unit;
+            this.listEntries = null;
+            this.listValues = null;
+        }
+
+        Parameter(String name, String[] listEntries, String[] listValues) {
+            this.name = name;
+            this.type = TYPE_LIST;
+            this.listEntries = listEntries;
+            this.listValues = listValues;
+            this.min = 0;
+            this.max = 0;
+            this.unit = null;
+        }
+
         public String name;
-        public int max;
+        public String listEntries[];
+        public String listValues[];
+        public int type;
         public int min;
+        public int max;
+        public String unit;
     }
 
     private static ArrayList<Parameter> mParams;
@@ -47,10 +74,10 @@ public class CpuGovernorSetting extends SettingManager {
         
         // setup governor parameter list
         if ("sakuractive".equals(governor)) {
-            mParams.add(new Parameter("sampling_rate", 0, 0));
-            mParams.add(new Parameter("up_threshold", 0, 0));
+            mParams.add(new Parameter("sampling_rate", 0, 0, "μs"));
+            mParams.add(new Parameter("up_threshold", 0, 100, "%"));
+            mParams.add(new Parameter("down_threshold", 0, 100, "%"));
             mParams.add(new Parameter("down_differential", 0, 0));
-            mParams.add(new Parameter("down_threshold", 0, 0));
             mParams.add(new Parameter("hotplug_in_sampling_periods", 0, 0));
             mParams.add(new Parameter("hotplug_out_sampling_periods", 0, 0));
             mParams.add(new Parameter("ignore_nice_load", 0, 0));
@@ -58,14 +85,15 @@ public class CpuGovernorSetting extends SettingManager {
             mParams.add(new Parameter("boost_timeout", 0, 0));
 
         } else if ("lulzactive".equals(governor)) {
-            mParams.add(new Parameter("debug_mode", 0, 0));
-            mParams.add(new Parameter("down_sample_time", 0, 0));
-            mParams.add(new Parameter("freq_table", 0, 0));
-            mParams.add(new Parameter("inc_cpu_load", 0, 0));
-            mParams.add(new Parameter("pump_down_step", 0, 0));
-            mParams.add(new Parameter("pump_up_step", 0, 0));
-            mParams.add(new Parameter("screen_off_min_step", 0, 0));
-            mParams.add(new Parameter("up_sample_time", 0, 0));
+            CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
+            String[] freqValues = cpuControlSetting.getAvailableFrequencies();
+            String[] freqEntries = Misc.getFreqencyEntries(freqValues);
+            mParams.add(new Parameter("inc_cpu_load", 10, 100));
+            mParams.add(new Parameter("pump_up_step", 0, freqEntries.length));
+            mParams.add(new Parameter("pump_down_step", 0, freqEntries.length));
+            mParams.add(new Parameter("screen_off_min_step", freqEntries, freqValues));
+            mParams.add(new Parameter("up_sample_time", 10000, 50000, "μs"));
+            mParams.add(new Parameter("down_sample_time", 10000, 100000, "μs"));
 
         } else if ("smartassV2".equals(governor)) {
             mGovernor = "smartass";

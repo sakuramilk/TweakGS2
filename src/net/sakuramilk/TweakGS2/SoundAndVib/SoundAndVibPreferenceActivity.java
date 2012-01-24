@@ -46,6 +46,7 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
         mSoundPlayFreqLock = (CheckBoxPreference)findPreference(SoundAndVibSetting.KEY_SND_PLAY_CPU_LOCK);
         if (mSetting.isEnableSoundPlayFreqLock()) {
             mSoundPlayFreqLock.setEnabled(true);
+            mSoundPlayFreqLock.setOnPreferenceChangeListener(this);
         }
 
         if (Misc.isAospRom()) {
@@ -94,7 +95,11 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (mVibNormalLevel == preference) {
+        if (mSoundPlayFreqLock == preference) {
+            mSetting.setSoundPlayFreqLock((Boolean)objValue);
+            return true;
+
+        } else if (mVibNormalLevel == preference) {
             mSetting.setVibLevel(objValue.toString());
             Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vib.vibrate(60);

@@ -30,6 +30,6 @@ public class ApplyButtonPreferenceActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.footer_applybutton);
 
-        mApplyButton = (Button)findViewById(R.id.apply_button); 
+        mApplyButton = (Button)findViewById(R.id.apply_button);
     }
 }

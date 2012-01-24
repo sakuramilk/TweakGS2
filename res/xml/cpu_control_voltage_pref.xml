@@ -21,9 +21,4 @@
     android:key="root_pref"
     android:title="@string/cpu_voltage_title">
 
-    <PreferenceCategory
-        android:key="cpu_voltage_option_category"
-        android:title="@string/option">
-    </PreferenceCategory>
-
 </PreferenceScreen>

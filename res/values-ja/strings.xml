@@ -35,6 +35,8 @@
     <string name="voltage">電圧</string>
     <string name="apply">適用</string>
     <string name="version">バージョン</string>
+    <string name="back">戻る</string>
+    <string name="next">次へ</string>
 
     <!-- ROM Manager -->
     <string name="rom_manager_title">ROMマネージャ</string>
@@ -77,8 +79,8 @@
     <string name="system_property_summary">システムプロパティを変更します\n注意: この項目は再起動後に反映されます</string>
     <string name="io_scheduler_tite">I/Oスケジューラ</string>
     <string name="gsm_network_tweak_title">3G通信の最適化</string>
-    <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効</string>
-    <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効</string>
+    <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効\n注意: この項目は再起動後に反映されます</string>
+    <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効\n注意: この項目は再起動後に反映されます</string>
     <string name="sysprop_boot_sound_title">起動時のサウンド</string>
     <string name="sysprop_boot_sound_summary_on">起動時のサウンドは有効</string>
     <string name="sysprop_boot_sound_summary_off">起動時のサウンドは無効</string>
@@ -108,6 +110,8 @@
     <string name="rom_partition">パーティション</string>
     <string name="rom_image">イメージ</string>
     <string name="rom_path">パス</string>
+    <string name="menu_add_rom">ROMを追加</string>
+    <string name="multi_boot_wizard_title">マルチブートウィザード</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPUコントロール</string>
