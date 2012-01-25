@@ -55,7 +55,8 @@ public class PhoneStateReceiver extends BroadcastReceiver {
                 }
             }
 
-        } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(extraState)) {
+        } else if (TelephonyManager.EXTRA_STATE_OFFHOOK.equals(extraState) ||
+                    TelephonyManager.EXTRA_STATE_IDLE.equals(extraState)) {
             if (isBacklightFlash) {
                 Log.d(TAG, "stop service");
                 Intent serviceIntent = new Intent(context, KeyBacklightFlashService.class);

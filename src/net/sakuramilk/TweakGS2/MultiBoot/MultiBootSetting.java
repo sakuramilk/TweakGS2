@@ -21,4 +21,5 @@ public class MultiBootSetting {
     public static final String KEY_ROOT_PREF = "root_pref";
     public static final String KEY_ROM_SELECT = "rom_select";
     public static final String KEY_ROM_SETTING_BASE = "rom_setting";
+    public static final String KEY_ROM_CREATE = "rom_create";
 }

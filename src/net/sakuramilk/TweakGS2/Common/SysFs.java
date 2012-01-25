@@ -21,9 +21,15 @@ import java.io.File;
 public class SysFs {
 
     private File mFile;
+    private String mPermission;
 
     public SysFs(String path) {
+        this(path, null);
+    }
+
+    public SysFs(String path, String permission) {
         mFile = new File(path);
+        mPermission = permission;
     }
 
     public boolean exists() {
@@ -46,6 +52,9 @@ public class SysFs {
         if (!mFile.canRead()) {
             RootProcess process = new RootProcess();
             process.init();
+            if (mPermission != null) {
+                process.write("chmod " + mPermission + " " + mFile.getPath() + "\n");
+            }
             process.write(command);
             String[] ret = process.read();
             process.term();
@@ -63,6 +72,9 @@ public class SysFs {
         if (!mFile.canWrite()) {
             RootProcess process = new RootProcess();
             process.init();
+            if (mPermission != null) {
+                process.write("chmod " + mPermission + " " + mFile.getPath() + "\n");
+            }
             process.write(command);
             process.term();
         } else {

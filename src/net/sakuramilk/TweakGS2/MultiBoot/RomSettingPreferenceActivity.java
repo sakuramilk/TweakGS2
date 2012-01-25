@@ -18,18 +18,22 @@ package net.sakuramilk.TweakGS2.MultiBoot;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Parts.TextInputDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
 public class RomSettingPreferenceActivity extends PreferenceActivity
-    implements OnPreferenceChangeListener {
+    implements OnPreferenceChangeListener, OnPreferenceClickListener {
 
+    private Context mContext;
     private int mRomId;
     private final MbsConf mMbsConf = new MbsConf();
 
@@ -42,47 +46,84 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
     private static final String KEY_DATA_IMG = "rom_data_img_list";
     private static final String KEY_DATA_PATH = "rom_data_path_list";
 
+    private static final int REQUEST_SYS_IMG_PATH = 1000;
+    private static final int REQUEST_DATA_IMG_PATH = 1001;
+
+    private static final String[] PART_ENTRIES = {
+        "mmcblk0p9(factoryfs)",
+        "mmcblk0p10(data)",
+        "mmcblk0p11(hidden)",
+        "mmcblk1p1(emmc)",
+        "mmcblk1p2(emmc)",
+        "mmcblk1p3(emmc)",
+    };
+    private static final String[] PART_ENTRY_VALUES = {
+        MbsConf.Partision.mmcblk0p9,
+        MbsConf.Partision.mmcblk0p10,
+        MbsConf.Partision.mmcblk0p11,
+        MbsConf.Partision.mmcblk1p1,
+        MbsConf.Partision.mmcblk1p2,
+        MbsConf.Partision.mmcblk1p3,
+    };
+
     private PreferenceScreen mLabelText;
     private ListPreference mSystemPart;
-    private ListPreference mSystemImg;
-    private ListPreference mSystemPath;
+    private PreferenceScreen mSystemImg;
+    private PreferenceScreen mSystemPath;
     private ListPreference mDataPart;
-    private ListPreference mDataImg;
-    private ListPreference mDataPath;
-    
+    private PreferenceScreen mDataImg;
+    private PreferenceScreen mDataPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         addPreferencesFromResource(R.xml.rom_setting_pref);
-        
+
+        mContext = this;
         Intent intent = getIntent();
         mRomId = intent.getIntExtra("rom_id", -1);
         if ((0 < mRomId) || (mRomId > MbsConf.MAX_ROM_ID)) {
             finish();
         }
-        
+
         PreferenceCategory categoryPref = (PreferenceCategory)findPreference(KEY_LABEL_CATEGORY);
         categoryPref.setTitle("ROM" + mRomId);
 
         mLabelText = (PreferenceScreen)findPreference(KEY_LABEL_TEXT);
         mLabelText.setSummary(Misc.getCurrentValueText(this, mMbsConf.getLabel(mRomId)));
+        mLabelText.setOnPreferenceClickListener(this);
 
         mSystemPart = (ListPreference)findPreference(KEY_SYSTEM_PART);
-        mSystemPart.setSummary(Misc.getCurrentValueText(this, mMbsConf.getSystemPartition(mRomId)));
-        
+        mSystemPart.setEntries(PART_ENTRIES);
+        mSystemPart.setEntryValues(PART_ENTRY_VALUES);
+        String sysPart = mMbsConf.getSystemPartition(mRomId);
+        mSystemPart.setValue(sysPart);
+        mSystemPart.setSummary(Misc.getCurrentValueText(
+                this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, sysPart)));
         mSystemPart.setOnPreferenceChangeListener(this);
-        mSystemImg = (ListPreference)findPreference(KEY_SYSTEM_IMG);
+
+        mSystemImg = (PreferenceScreen)findPreference(KEY_SYSTEM_IMG);
         mSystemImg.setSummary(Misc.getCurrentValueText(this, mMbsConf.getSystemImage(mRomId)));
-        mSystemPath = (ListPreference)findPreference(KEY_SYSTEM_PATH);
+        mSystemImg.setOnPreferenceClickListener(this);
+        mSystemPath = (PreferenceScreen)findPreference(KEY_SYSTEM_PATH);
         mSystemPath.setSummary(Misc.getCurrentValueText(this, mMbsConf.getSystemPath(mRomId)));
-        
+        mSystemPath.setOnPreferenceClickListener(this);
+
         mDataPart = (ListPreference)findPreference(KEY_DATA_PART);
-        mDataPart.setSummary(Misc.getCurrentValueText(this, mMbsConf.getDataPartition(mRomId)));
-        mDataImg = (ListPreference)findPreference(KEY_DATA_IMG);
+        mDataPart.setEntries(PART_ENTRIES);
+        mDataPart.setEntryValues(PART_ENTRY_VALUES);
+        String dataPart = mMbsConf.getDataPartition(mRomId);
+        mDataPart.setValue(dataPart);
+        mDataPart.setSummary(Misc.getCurrentValueText(
+                this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, dataPart)));
+
+        mDataImg = (PreferenceScreen)findPreference(KEY_DATA_IMG);
         mDataImg.setSummary(Misc.getCurrentValueText(this, mMbsConf.getDataImage(mRomId)));
-        mDataPath = (ListPreference)findPreference(KEY_DATA_PATH);
+        mDataImg.setOnPreferenceClickListener(this);
+        mDataPath = (PreferenceScreen)findPreference(KEY_DATA_PATH);
         mDataPath.setSummary(Misc.getCurrentValueText(this, mMbsConf.getDataPath(mRomId)));
+        mDataPath.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -90,23 +131,76 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         String value = objValue.toString();
         if (preference == mSystemPart) {
             mMbsConf.setSystemPartition(mRomId, value);
-            mSystemPart.setSummary((Misc.getCurrentValueText(this, value)));
-        } else if (preference == mSystemImg) {
-            mMbsConf.setSystemImage(mRomId, value);
-            mSystemImg.setSummary((Misc.getCurrentValueText(this, value)));
-        } else if (preference == mSystemPath) {
-            mMbsConf.setDataPath(mRomId, value);
-            mSystemPath.setSummary((Misc.getCurrentValueText(this, value)));
+            mSystemPart.setSummary(Misc.getCurrentValueText(
+                    this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, value)));
         } else if (preference == mDataPart) {
             mMbsConf.setDataPartition(mRomId, value);
-            mDataPart.setSummary((Misc.getCurrentValueText(this, value)));
-        } else if (preference == mDataImg) {
-            mMbsConf.setDataImage(mRomId, value);
-            mDataImg.setSummary((Misc.getCurrentValueText(this, value)));
-        } else if (preference == mDataPath) {
-            mMbsConf.setDataPath(mRomId, value);
-            mDataPath.setSummary((Misc.getCurrentValueText(this, value)));
+            mDataPart.setSummary(Misc.getCurrentValueText(
+                    this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, value)));
         }
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (preference == mSystemImg) {
+            Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
+            intent.putExtra("title", getText(R.string.select_img_title));
+            intent.putExtra("select", "file");
+            intent.putExtra("filter", ".zip");
+            this.startActivityForResult(intent, REQUEST_SYS_IMG_PATH);
+
+        } else if (preference == mSystemPath) {
+            TextInputDialog dlg = new TextInputDialog(this);
+            dlg.setFinishTextInputListener(new TextInputDialog.FinishTextInputListener() {
+                @Override
+                public void onFinishTextInput(CharSequence input) {
+                    String inputText = input.toString();
+                    inputText = inputText.replace("\n", "").trim();
+                    mMbsConf.setSystemPath(mRomId, inputText);
+                    mSystemPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
+                }
+            });
+            dlg.show(R.string.backup, R.string.backup_name, mMbsConf.getSystemPath(mRomId));
+
+        } else if (preference == mDataImg) {
+            Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
+            intent.putExtra("title", getText(R.string.select_img_title));
+            intent.putExtra("select", "file");
+            intent.putExtra("filter", ".zip");
+            this.startActivityForResult(intent, REQUEST_DATA_IMG_PATH);
+
+        } else if (preference == mDataPath) {
+            TextInputDialog dlg = new TextInputDialog(this);
+            dlg.setFinishTextInputListener(new TextInputDialog.FinishTextInputListener() {
+                @Override
+                public void onFinishTextInput(CharSequence input) {
+                    String inputText = input.toString();
+                    inputText = inputText.replace("\n", "").trim();
+                    mMbsConf.setDataPath(mRomId, inputText);
+                    mDataPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
+                }
+            });
+            dlg.show(R.string.backup, R.string.backup_name, mMbsConf.getDataPath(mRomId));
+
+        }
+        return false;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == RESULT_OK) {
+            String path = intent.getStringExtra("path");
+            if (requestCode == REQUEST_SYS_IMG_PATH) {
+                mMbsConf.setSystemImage(mRomId, path);
+                mSystemImg.setSummary(path);
+
+            } else if (requestCode == REQUEST_DATA_IMG_PATH) {
+                mMbsConf.setDataImage(mRomId, path);
+                mDataImg.setSummary(path);
+
+            }
+        }
     }
 }

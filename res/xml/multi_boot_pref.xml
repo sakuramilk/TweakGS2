@@ -27,8 +27,6 @@
         <ListPreference
             android:key="rom_select"
             android:title="@string/multi_boot_rom_select_title"
-            android:entries="@array/boot_rom_entries"
-            android:entryValues="@array/boot_rom_values"
             android:enabled="false" />
     </PreferenceCategory>
     <PreferenceCategory

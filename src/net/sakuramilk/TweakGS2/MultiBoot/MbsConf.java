@@ -23,7 +23,7 @@ public class MbsConf extends PropertyManager {
     public static final int MAX_ROM_ID = 7;
 
     public MbsConf() {
-        super("/data/mbs.conf");
+        super("/xdata/mbs.conf");
     }
 
     public class Partision {
@@ -44,11 +44,11 @@ public class MbsConf extends PropertyManager {
     private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data_img";
     private static final String CONF_KEY_DATA_PATH = "mbs.rom%d.data_path";
 
-    public int getBootRom() {
+    public int getBootRomId() {
         return Integer.valueOf(getValue(CONF_KEY_BOOT_ROM, "0"));
     }
 
-    public void setBootRom(int romId) {
+    public void setBootRomId(int romId) {
         setValue(CONF_KEY_BOOT_ROM, String.valueOf(romId));        
     }
 
@@ -110,7 +110,7 @@ public class MbsConf extends PropertyManager {
 
     public int getNextRomId() {
         for (int i = 0; i < MAX_ROM_ID; i++) {
-            if (getLabel(i) == null) {
+            if (getSystemPartition(i) == null) {
                 return i;
             }
         }

@@ -20,13 +20,13 @@ import net.sakuramilk.TweakGS2.Parts.FilePickerActivity;
 import android.content.Intent;
 import android.util.Log;
 
-public class ZipFileSelectActivity extends FilePickerActivity {
+public class FileSelectActivity extends FilePickerActivity {
 
-    private static final String TAG = "ZipFileSelectActivity";
+    private static final String TAG = "FileSelectActivity";
 
     @Override
     public void onFilePicked(String path, String mode) {
-        Log.i(TAG, "selected zip file path = " + path);
+        Log.i(TAG, "selected file path = " + path);
         Intent intent = new Intent();
         intent.putExtra("path", path);
         setResult(RESULT_OK, intent); 

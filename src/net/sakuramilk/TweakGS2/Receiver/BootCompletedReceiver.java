@@ -41,36 +41,46 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             // General
             GeneralSetting generalSetting = new GeneralSetting(context);
+            Log.d(TAG, "start: General Setting");
             generalSetting.setOnBoot();
             LowMemKillerSetting lowMemKillerSetting = new LowMemKillerSetting(context);
+            Log.d(TAG, "start: LowMemKiller Setting");
             lowMemKillerSetting.setOnBoot();
             VirtualMemorySetting vmSetting = new VirtualMemorySetting(context);
+            Log.d(TAG, "start: VirtualMemory Setting");
             vmSetting.setOnBoot();
 
             // CpuControl
             CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
+            Log.d(TAG, "start: CpuControl Setting");
             cpuControlSetting.setOnBoot();
 
             // GpuControl
             GpuControlSetting gpuControlSetting = new GpuControlSetting(context);
+            Log.d(TAG, "start: GpuControl Setting");
             gpuControlSetting.setOnBoot();
 
             // SoundAndVib
-            SoundAndVibSetting vibSetting = new SoundAndVibSetting(context);
-            vibSetting.setOnBoot();
+            SoundAndVibSetting soundAndVibSetting = new SoundAndVibSetting(context);
+            Log.d(TAG, "start: SoundAndVib Setting");
+            soundAndVibSetting.setOnBoot();
             HwVolumeSetting hwVolumeSetting = new HwVolumeSetting(context);
+            Log.d(TAG, "start: HwVolume Setting");
             hwVolumeSetting.setOnBoot();
 
             // Display
             DisplaySetting displaySetting = new DisplaySetting(context);
+            Log.d(TAG, "start: Display Setting");
             displaySetting.setOnBoot();
 
             // Notification
             NotificationSetting notifySetting = new NotificationSetting(context);
+            Log.d(TAG, "start: Notification Setting");
             notifySetting.setOnBoot();
 
             // Dock
             DockSetting dockSetting = new DockSetting(context);
+            Log.d(TAG, "start: Dock Setting");
             dockSetting.setOnBoot();
         }
     }

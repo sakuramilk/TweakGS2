@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2.MultiBoot;
 
+import java.util.ArrayList;
+
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import android.content.Intent;
@@ -27,14 +29,24 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class MultiBootPreferenceActivity extends PreferenceActivity
     implements OnPreferenceClickListener, OnPreferenceChangeListener {
 
-    MbsConf mMbsConf = new MbsConf();
-    ListPreference mRomSelect;
+    private static final int REQUEST_ROM_EDIT = 1001;
+    private MbsConf mMbsConf = new MbsConf();
+    private ListPreference mRomSelect;
+    private ArrayList<String> mRomIdEntries;
+    private ArrayList<String> mRomIdEntryValues;
+
+    private String getRomIdEntry(String endtryValue) {
+        for (int i = 0; i < mRomIdEntryValues.size(); i++) {
+            if (mRomIdEntryValues.get(i).equals(endtryValue)) {
+                return mRomIdEntries.get(i);
+            }            
+        }
+        return mRomIdEntries.get(0); // if not find, return safe value
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +58,48 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
             return;
         }
 
-        int value = mMbsConf.getBootRom();
-        mRomSelect = (ListPreference)findPreference(MultiBootSetting.KEY_ROM_SELECT);
-        mRomSelect.setOnPreferenceChangeListener(this);
-        mRomSelect.setValue(String.valueOf(value));
-        mRomSelect.setEnabled(true);
+        int nextRomId = mMbsConf.getNextRomId();
+        if (nextRomId == 0) {
+            // nothing rom setting, create rom0 and rom1 setting
+            mMbsConf.setLabel(0, "Primary");
+            mMbsConf.setSystemPartition(0, MbsConf.Partision.mmcblk0p9);
+            mMbsConf.setLabel(1, "Secondary");
+            mMbsConf.setSystemPartition(1, MbsConf.Partision.mmcblk0p11);
+            mMbsConf.setBootRomId(0);
+            nextRomId = mMbsConf.getNextRomId();
+        }
 
+        int bootRomId = mMbsConf.getBootRomId();
+        mRomIdEntries = new ArrayList<String>();
+        mRomIdEntryValues = new ArrayList<String>();
+        for (int i = 0; i < nextRomId; i++) {
+            mRomIdEntries.add("ROM" + i + ":" + mMbsConf.getLabel(i));
+            mRomIdEntryValues.add(String.valueOf(i));
+        }
+
+        mRomSelect = (ListPreference)findPreference(MultiBootSetting.KEY_ROM_SELECT);
+        if (nextRomId > 0) {
+            mRomSelect.setOnPreferenceChangeListener(this);
+            mRomSelect.setEntries(mRomIdEntries.toArray(new String[0]));
+            mRomSelect.setEntryValues(mRomIdEntryValues.toArray(new String[0]));
+            mRomSelect.setValue(String.valueOf(bootRomId));
+            mRomSelect.setSummary(getRomIdEntry(String.valueOf(bootRomId)));
+            mRomSelect.setEnabled(true);
+        } else {
+            mRomSelect.setValue("ROM設定がありません");
+            mRomSelect.setEnabled(false);
+        }
         PreferenceManager prefManager = getPreferenceManager();
         PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(MultiBootSetting.KEY_ROOT_PREF);
+        
+        if (mMbsConf.getNextRomId() != -1) {
+            PreferenceScreen pref = prefManager.createPreferenceScreen(this);
+            pref.setKey(MultiBootSetting.KEY_ROM_CREATE);
+            pref.setTitle("新規ROMの作成");
+            pref.setOnPreferenceClickListener(this);
+            rootPref.addPreference(pref);
+        }
+        
         int i;
         for (i = 0; i < MbsConf.MAX_ROM_ID; i++) {
             String label = mMbsConf.getLabel(i);
@@ -71,11 +117,11 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
                 
                 String summary =
                         " SYS_PART:" + sysPart + "\n" +
-                        (Misc.isNullOfEmpty(sysImg) ? "  SYS_IMG:" + sysImg + "\n" : "") +
-                        (Misc.isNullOfEmpty(sysPath) ? " SYS_PATH:" + sysPath + "\n" : "") +
-                        (Misc.isNullOfEmpty(dataPart) ? "DATA_PART:" + dataPart + "\n" : "") +
-                        (Misc.isNullOfEmpty(dataImg) ? "  DATA_IMG:" + dataImg + "\n" : "") +
-                        (Misc.isNullOfEmpty(dataPath) ? "DATA_PATH:" + dataPath + "\n" : "");
+                        (!Misc.isNullOfEmpty(sysImg) ? "SYS_IMG:" + sysImg + "\n" : "") +
+                        (!Misc.isNullOfEmpty(sysPath) ? "SYS_PATH:" + sysPath + "\n" : "") +
+                        (!Misc.isNullOfEmpty(dataPart) ? "DATA_PART:" + dataPart + "\n" : "") +
+                        (!Misc.isNullOfEmpty(dataImg) ? " DATA_IMG:" + dataImg + "\n" : "") +
+                        (!Misc.isNullOfEmpty(dataPath) ? "DATA_PATH:" + dataPath + "\n" : "");
                 pref.setSummary(summary);
                 pref.setOnPreferenceClickListener(this);
                 rootPref.addPreference(pref);
@@ -86,10 +132,15 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
-        if (key.indexOf(MultiBootSetting.KEY_ROM_SETTING_BASE) >= 0) {
+        if (key.equals(MultiBootSetting.KEY_ROM_CREATE)) {
+            Intent intent = new Intent(getApplicationContext(), MultiBootWizardActivity.class);
+            intent.putExtra("rom_id", mMbsConf.getNextRomId());
+            startActivity(intent);
+
+        } else if (key.indexOf(MultiBootSetting.KEY_ROM_SETTING_BASE) >= 0) {
             Intent intent = new Intent(getApplicationContext(), RomSettingPreferenceActivity.class);
             intent.putExtra("rom_id", Integer.valueOf(key.substring(MultiBootSetting.KEY_ROM_SETTING_BASE.length())));
-            this.startActivityForResult(intent, 1001);
+            startActivityForResult(intent, REQUEST_ROM_EDIT);
         }
         return false;
     }
@@ -97,29 +148,18 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (preference == mRomSelect) {
-            
+            mMbsConf.setBootRomId(Integer.valueOf((String)objValue));
+            mRomSelect.setSummary(getRomIdEntry((String)objValue));
             // don't return true
         }
         return false;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean ret = super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.multi_boot_menu, menu);
-        return ret;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.menu_add_rom:
-            Intent intent = new Intent(getApplicationContext(), MultiBootWizardActivity.class);
-            intent.putExtra("rom_id", mMbsConf.getNextRomId());
-            this.startActivity(intent);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == REQUEST_ROM_EDIT) {
+            
         }
     }
 }

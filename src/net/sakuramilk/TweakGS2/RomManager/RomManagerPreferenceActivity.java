@@ -118,7 +118,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mNandroidBackup) {
             final String sdcardPath = Misc.getSdcardPath("internal".equals(newValue));
-            TextInputDialog dlg = new TextInputDialog(this, android.R.string.ok, android.R.string.cancel);
+            TextInputDialog dlg = new TextInputDialog(this);
             dlg.setFinishTextInputListener(new TextInputDialog.FinishTextInputListener() {
                 @Override
                 public void onFinishTextInput(CharSequence input) {

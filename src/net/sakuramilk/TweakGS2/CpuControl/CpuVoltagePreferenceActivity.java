@@ -87,12 +87,12 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     @Override
     public void onClick(View v) {
         mApplyButton.setEnabled(false);
-        String[] voltTable = new String[mSavedVoltTable.length];
         for (int i = 0; i < mSavedVoltTable.length; i++) {
-            voltTable[i] = (mSavedVoltTable[i] == null) ?
-                    mCurVoltTable[i] : mSavedVoltTable[i];
+            if (mSavedVoltTable[i] != null) {
+                mCurVoltTable[i] = mSavedVoltTable[i];
+            }
         }
-        mSetting.setVoltageTable(voltTable);
+        mSetting.setVoltageTable(mCurVoltTable);
     }
 
     @Override
@@ -100,7 +100,8 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         mApplyButton.setEnabled(true);
         int index = mFreqPrefList.indexOf(preference);
         mSavedVoltTable[index] = newValue;
-        preference.setSummary(Misc.getCurrentAndSavedValueText(this, newValue + "mV", newValue + "mV"));
+        preference.setSummary(Misc.getCurrentAndSavedValueText(this,
+                mCurVoltTable[index] + "mV", newValue + "mV"));
         return true;
     }
 }

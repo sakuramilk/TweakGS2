@@ -22,7 +22,8 @@
     <PreferenceCategory
         android:key="rom_label_category">
         <PreferenceScreen
-            android:key="rom_label_text" />
+            android:key="rom_label_text"
+            android:title="@string/label" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -31,10 +32,10 @@
         <ListPreference
             android:key="rom_system_part_list"
             android:title="@string/rom_partition" />
-        <ListPreference
+        <PreferenceScreen
             android:key="rom_system_img_list"
             android:title="@string/rom_image" />
-        <ListPreference
+        <PreferenceScreen
             android:key="rom_system_path_list"
             android:title="@string/rom_path" />
     </PreferenceCategory>
@@ -45,10 +46,10 @@
         <ListPreference
             android:key="rom_data_part_list"
             android:title="@string/rom_partition" />
-        <ListPreference
+        <PreferenceScreen
             android:key="rom_data_img_list"
             android:title="@string/rom_image" />
-        <ListPreference
+        <PreferenceScreen
             android:key="rom_data_path_list"
             android:title="@string/rom_path" />
     </PreferenceCategory>

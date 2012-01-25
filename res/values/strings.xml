@@ -38,6 +38,8 @@
     <string name="version">Version</string>
     <string name="back">Back</string>
     <string name="next">Next</string>
+    <string name="create">Create</string>
+    <string name="label">Label</string>
 
     <!-- ROM Manager -->
     <string name="rom_manager_title">ROM Manager</string>
@@ -113,6 +115,7 @@
     <string name="rom_path">Path</string>
     <string name="menu_add_rom">Add ROM</string>
     <string name="multi_boot_wizard_title">Multi boot wizard</string>
+    <string name="select_img_title">Select img file</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPU control</string>

@@ -3,7 +3,6 @@ package net.sakuramilk.TweakGS2.MultiBoot;
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
 import net.sakuramilk.TweakGS2.Parts.WizardPreferenceActivity;
-import net.sakuramilk.TweakGS2.RomManager.ZipFilePickerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class MultiBootWizardActivity extends WizardPreferenceActivity
     implements OnClickListener, OnPreferenceChangeListener, OnPreferenceClickListener {
@@ -45,7 +45,7 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
     private PreferenceScreen mSelectZipFile = null;
     private String mSystemSize;
     private String mDataSize;
-    private String mZipPath;
+    private String mZipPath = null;
 
     Handler mCreateImageFinishHandler = new Handler() {
         @Override
@@ -78,6 +78,7 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
                     mSelectSystemSize.setEntries(SYSTEM_SIZE_ENTRIES);
                     mSelectSystemSize.setEntryValues(SYSTEM_SIZE_ENTRY_VALUES);
                     mSelectSystemSize.setValue(SYSTEM_SIZE_DEFAULT_VALUE);
+                    mSelectSystemSize.setSummary(SYSTEM_SIZE_DEFAULT_VALUE + "M");
                     mSelectSystemSize.setOnPreferenceChangeListener(this);
                 }
                 rootPref.addPreference(mSelectSystemSize);
@@ -89,6 +90,7 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
                     mSelectDataSize.setEntries(DATA_SIZE_ENTRIES);
                     mSelectDataSize.setEntryValues(DATA_SIZE_ENTRY_VALUES);
                     mSelectDataSize.setValue(DATA_SIZE_DEFAULT_VALUE);
+                    mSelectDataSize.setSummary(DATA_SIZE_DEFAULT_VALUE + "M");
                     mSelectDataSize.setOnPreferenceChangeListener(this);
                 }
                 rootPref.addPreference(mSelectDataSize);
@@ -96,6 +98,7 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
             }
             case STATE_SELECT_ZIP:
             {
+                mBackButton.setVisibility(View.VISIBLE);
                 PreferenceScreen pref = prefManager.createPreferenceScreen(this);
                 pref.setTitle("ROMのインストール");
                 pref.setSummary(
@@ -113,6 +116,7 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
             }
             case STATE_CREATE_IMAGE:
             {
+                mBackButton.setVisibility(View.VISIBLE);
                 PreferenceScreen pref = prefManager.createPreferenceScreen(this);
                 pref.setTitle("ROMイメージを作成します");
                 pref.setSummary(
@@ -218,8 +222,12 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
                     }
                     case STATE_SELECT_ZIP:
                     {
-                        mState = STATE_CREATE_IMAGE;
-                        createPreference();
+                        if (mZipPath == null) {
+                            Toast.makeText(this, "zipファイルを選択してください", Toast.LENGTH_SHORT);
+                        } else {
+                            mState = STATE_CREATE_IMAGE;
+                            createPreference();
+                        }
                         break;
                     }
                     case STATE_CREATE_IMAGE:
@@ -233,13 +241,18 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
+        if (mSelectSystemSize == preference) {
+            mSelectSystemSize.setSummary(objValue.toString() + "M");
+        } else if (mSelectDataSize == preference) {
+            mSelectDataSize.setSummary(objValue.toString() + "M");
+        }
         return false;
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference == mSelectZipFile) {
-            Intent intent = new Intent(getApplicationContext(), ZipFilePickerActivity.class);
+            Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
             intent.putExtra("title", getText(R.string.select_zip_title));
             intent.putExtra("select", "file");
             intent.putExtra("filter", ".zip");
@@ -248,9 +261,12 @@ public class MultiBootWizardActivity extends WizardPreferenceActivity
         return false;
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        mZipPath = intent.getStringExtra("path");
-        mSelectZipFile.setSummary(mZipPath);
+        if (resultCode == RESULT_OK) {
+            mZipPath = intent.getStringExtra("path");
+            mSelectZipFile.setSummary(mZipPath);
+        }
     }
 }

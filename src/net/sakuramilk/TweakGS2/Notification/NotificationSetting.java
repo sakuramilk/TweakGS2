@@ -25,7 +25,7 @@ public class NotificationSetting extends SettingManager {
 
     public static final String KEY_NOTIFY_BACKLIGHT_FLASH_ON_INCOMING = "notify_backlight_flash_on_incoming";
 
-    private final SysFs mSysFsBlnControl = new SysFs("/sys/devices/virtual/misc/melfas_touchkey/touchkey_bln_control");
+    private final SysFs mSysFsBlnControl = new SysFs("/sys/devices/virtual/misc/melfas_touchkey/touchkey_bln_control", "0222");
 
     public NotificationSetting(Context context) {
         super(context);

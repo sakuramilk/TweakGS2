@@ -38,6 +38,10 @@ public class TextInputDialog extends AlertDialog {
         public void onFinishTextInput(CharSequence input);
     }
 
+    public TextInputDialog(Context context) {
+        this(context, android.R.string.ok, android.R.string.cancel);
+    }
+
     public TextInputDialog(Context context, int okBut, int cancelBut) {
     	this(context, context.getText(okBut), context.getText(cancelBut));
     }

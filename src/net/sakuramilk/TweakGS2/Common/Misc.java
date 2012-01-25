@@ -146,4 +146,13 @@ public class Misc {
         }
         return list.toArray(new String[0]);
     }
+
+    public static String getEntryFromEntryValue(String[] entries, String[] entryValues, String value) {
+        for (int i = 0; i < entries.length; i++) {
+            if (entryValues[i].equals(value)) {
+                return entries[i];
+            }
+        }
+        return null;
+    }
 }
