@@ -78,7 +78,10 @@ public class GpuControlSetting extends SettingManager {
             ret.add(Integer.parseInt(value));
             i++;
         }
-        return ret.toArray(new Integer[0]);
+        if (ret.size() > 0) {
+            return ret.toArray(new Integer[0]);
+        }
+        return null;
     }
 
     public void saveFreqs(Integer[] freqs) {
@@ -122,7 +125,10 @@ public class GpuControlSetting extends SettingManager {
             ret.add(Integer.parseInt(value));
             i++;
         }
-        return ret.toArray(new Integer[0]);
+        if (ret.size() > 0) {
+            return ret.toArray(new Integer[0]);
+        }
+        return null;
     }
 
     public void saveVolts(Integer[] volts) {
