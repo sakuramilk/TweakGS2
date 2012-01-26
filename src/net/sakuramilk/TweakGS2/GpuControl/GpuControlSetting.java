@@ -105,7 +105,7 @@ public class GpuControlSetting extends SettingManager {
     }
 
     public void setVolts(Integer[] volts) {
-        String values = String.valueOf(volts[0]);
+        String values = String.valueOf(volts[0] * 1000);
         for (int i = 1; i < volts.length; i++) {
             values += " " + String.valueOf(volts[i] * 1000);
         }

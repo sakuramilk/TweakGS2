@@ -40,8 +40,10 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
 
     private GpuControlSetting mSetting;
 
-    private Integer mFreqs[] = null;
-    private Integer mVolts[] = null;
+    private Integer mCurFreqs[] = null;
+    private Integer mCurVolts[] = null;
+    private Integer mSavedFreqs[] = null;
+    private Integer mSavedVolts[] = null;
     private int mStep;
     private ArrayList<SeekBarPreference> mFreqPrefList;
     private ArrayList<SeekBarPreference> mVoltPrefList;
@@ -52,26 +54,28 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         if (mFreqPrefList != null) {
             for (int i = 0; i < mFreqPrefList.size(); i++) {
                 SeekBarPreference pref = mFreqPrefList.get(i);
-                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mFreqs[i]) + "MHz"));
+                pref.setSummary(Misc.getCurrentAndSavedValueText(
+                        this, String.valueOf(mCurFreqs[i]) + "MHz", String.valueOf(mSavedFreqs[i]) + "MHz"));
                 if (i == 0) {
-                    pref.setValue(mFreqs[i+1], GpuControlSetting.FREQ_MIN, mFreqs[i]);
+                    pref.setValue(mSavedFreqs[i+1], GpuControlSetting.FREQ_MIN, mSavedFreqs[i]);
                 } else if (i == (mFreqPrefList.size() - 1)) {
-                    pref.setValue(GpuControlSetting.FREQ_MAX, mFreqs[i-1], mFreqs[i]);
+                    pref.setValue(GpuControlSetting.FREQ_MAX, mSavedFreqs[i-1], mSavedFreqs[i]);
                 } else {
-                    pref.setValue(mFreqs[i+1], mFreqs[i-1], mFreqs[i]);
+                    pref.setValue(mSavedFreqs[i+1], mSavedFreqs[i-1], mSavedFreqs[i]);
                 }
             }
         }
         if (mVoltPrefList != null) {
             for (int i = 0; i < mVoltPrefList.size(); i++) {
                 SeekBarPreference pref = mVoltPrefList.get(i);
-                pref.setSummary(Misc.getCurrentValueText(this, String.valueOf(mVolts[i]) + "mV"));
+                pref.setSummary(Misc.getCurrentAndSavedValueText(
+                        this, String.valueOf(mCurVolts[i]) + "mV", String.valueOf(mSavedVolts[i]) + "mV"));
                 if (i == 0) {
-                    pref.setValue(mVolts[i+1], GpuControlSetting.VOLT_MIN, mVolts[i]);
+                    pref.setValue(mSavedVolts[i+1], GpuControlSetting.VOLT_MIN, mSavedVolts[i]);
                 } else if (i == (mVoltPrefList.size() - 1)) {
-                    pref.setValue(GpuControlSetting.VOLT_MAX, mVolts[i-1], mVolts[i]);
+                    pref.setValue(GpuControlSetting.VOLT_MAX, mCurVolts[i-1], mSavedVolts[i]);
                 } else {
-                    pref.setValue(mVolts[i+1], mVolts[i-1], mVolts[i]);
+                    pref.setValue(mSavedVolts[i+1], mSavedVolts[i-1], mSavedVolts[i]);
                 }
             }
         }
@@ -88,9 +92,13 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
 
         mSetting = new GpuControlSetting(this);
         if (mSetting.isEnableFreqCtrl()) {
-            mFreqs = mSetting.getFreqs();
+            mCurFreqs = mSetting.getFreqs();
+            mSavedFreqs = mSetting.loadFreqs();
+            if (mSavedFreqs == null) {
+                mSavedFreqs = mCurFreqs.clone();
+            }
             mFreqPrefList = new ArrayList<SeekBarPreference>();
-            for (int i = 0; i < mFreqs.length; i++) {
+            for (int i = 0; i < mCurFreqs.length; i++) {
                 SeekBarPreference pref = new SeekBarPreference(this, null);
                 pref.setKey(GpuControlSetting.KEY_GPU_FREQ_BASE + i);
                 pref.setTitle(R.string.frequency);
@@ -98,12 +106,16 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
                 pref.setOnPreferenceDoneListener(this);
                 mFreqPrefList.add(pref);
             }
-            mStep = mFreqs.length;
+            mStep = mCurFreqs.length;
         }
         if (mSetting.isEnableVoltageCtrl()) {
-            mVolts = mSetting.getVolts();
+            mCurVolts = mSetting.getVolts();
+            mSavedVolts = mSetting.loadVolts();
+            if (mSavedVolts == null) {
+                mSavedVolts = mCurVolts.clone();
+            }
             mVoltPrefList = new ArrayList<SeekBarPreference>();
-            for (int i = 0; i < mVolts.length; i++) {
+            for (int i = 0; i < mCurVolts.length; i++) {
                 SeekBarPreference pref = new SeekBarPreference(this, null);
                 pref.setKey(GpuControlSetting.KEY_GPU_VOLT_BASE + i);
                 pref.setTitle(R.string.voltage);
@@ -111,7 +123,7 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
                 pref.setOnPreferenceDoneListener(this);
                 mVoltPrefList.add(pref);
             }
-            mStep = mVolts.length;
+            mStep = mCurVolts.length;
         }
 
         for (int i = 0; i < mStep; i++) {
@@ -136,7 +148,7 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
             mSetOnBoot.setChecked(mSetOnBootChecked);
         }
         mApplyButton.setOnClickListener(this);
-        
+
         setMaxMinValue();
     }
 
@@ -147,8 +159,8 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         if (mFreqPrefList != null) {
             int index = mFreqPrefList.indexOf(preference);
             if (index != -1) {
-                if (mFreqs[index] != value) {
-                    mFreqs[index] = value;
+                if (mSavedFreqs[index] != value) {
+                    mSavedFreqs[index] = value;
                     setMaxMinValue();
                     mApplyButton.setEnabled(true);
                 }
@@ -158,8 +170,8 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         if (mVoltPrefList != null) {
             int index = mVoltPrefList.indexOf(preference);
             if (index != -1) {
-                if (mVolts[index] != value) {
-                    mVolts[index] = value;
+                if (mSavedVolts[index] != value) {
+                    mSavedVolts[index] = value;
                     setMaxMinValue();
                     mApplyButton.setEnabled(true);
                 }
@@ -176,14 +188,17 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
         mSetting.saveSetOnBoot(mSetOnBootChecked);
 
         // NOTICE: set first volt, next freq
-        if (mVolts != null) {
-            mSetting.saveVolts(mVolts);
-            mSetting.setVolts(mVolts);
+        if (mSavedVolts != null) {
+            mSetting.saveVolts(mSavedVolts);
+            mSetting.setVolts(mSavedVolts);
+            mCurVolts = mSavedVolts.clone();
         }
-        if (mFreqs != null) {
-            mSetting.saveFreqs(mFreqs);
-            mSetting.setFreqs(mFreqs);
+        if (mSavedFreqs != null) {
+            mSetting.saveFreqs(mSavedFreqs);
+            mSetting.setFreqs(mSavedFreqs);
+            mCurFreqs = mSavedFreqs.clone();
         }
+        setMaxMinValue();
     }
 
     @Override
