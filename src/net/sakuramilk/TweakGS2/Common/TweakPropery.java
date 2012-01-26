@@ -18,8 +18,12 @@ package net.sakuramilk.TweakGS2.Common;
 
 public class TweakPropery extends PropertyManager {
 
-    private static final String FILE_PATH = "/data/tweakgs2.prop";
     public TweakPropery() {
-        super(FILE_PATH);
+        super("/data/tweakgs2.prop");
+
+        // if not exists, create prop file.
+        if (!mFile.exists()) {
+            SystemCommand.touch(mFile.getPath(), "0666");
+        }
     }
 }

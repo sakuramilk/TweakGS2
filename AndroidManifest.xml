@@ -88,7 +88,9 @@
         <!-- MultiBoot -->
         <activity android:name=".MultiBoot.MultiBootPreferenceActivity" />
         <activity android:name=".MultiBoot.RomSettingPreferenceActivity" />
-        <activity android:name=".MultiBoot.MultiBootWizardActivity" />
+        <activity android:name=".MultiBoot.MultiBootWizardStartActivity" />
+        <activity android:name=".MultiBoot.MultiBootWizardSelectSizeActivity" />
+        <activity android:name=".MultiBoot.MultiBootWizardFinishActivity" />
         <activity android:name=".MultiBoot.FileSelectActivity" />
 
         <!-- CpuControl -->

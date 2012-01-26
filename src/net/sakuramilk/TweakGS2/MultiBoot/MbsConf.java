@@ -17,13 +17,19 @@
 package net.sakuramilk.TweakGS2.MultiBoot;
 
 import net.sakuramilk.TweakGS2.Common.PropertyManager;
+import net.sakuramilk.TweakGS2.Common.SystemCommand;
 
 public class MbsConf extends PropertyManager {
 
     public static final int MAX_ROM_ID = 7;
 
     public MbsConf() {
-        super("/xdata/mbs.conf");
+        super("/data/mbs.conf");
+
+        // if not exists, create prop file.
+        if (!mFile.exists()) {
+            SystemCommand.touch(mFile.getPath(), "0666");
+        }
     }
 
     public class Partision {

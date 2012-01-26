@@ -30,6 +30,10 @@
 		android:title="@string/sysprop_camera_sound_title"
 		android:summaryOn="@string/sysprop_boot_sound_summary_on"
 		android:summaryOff="@string/sysprop_boot_sound_summary_off" />
+	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        android:key="sysprop_lcd_density"
+        android:title="@string/sysprop_lcd_density_title"
+        android:dialogTitle="@string/sysprop_lcd_density_title" />
 	<CheckBoxPreference   
 		android:key="sysprop_crt_effect"
 		android:title="@string/sysprop_crt_effect_title"

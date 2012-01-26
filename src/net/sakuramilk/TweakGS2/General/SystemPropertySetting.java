@@ -25,6 +25,7 @@ public class SystemPropertySetting extends SettingManager {
 
     public static final String KEY_BOOT_SOUND = "sysprop_boot_sound";
     public static final String KEY_CAMERA_SOUND = "sysprop_camera_sound";
+    public static final String KEY_LCD_DENSITY = "sysprop_lcd_density";
     public static final String KEY_CRT_EFFECT = "sysprop_crt_effect";
     public static final String KEY_LOGGER = "sysprop_android_logger";
     public static final String KEY_CIFS = "sysprop_cifs";
@@ -52,6 +53,18 @@ public class SystemPropertySetting extends SettingManager {
 
     public void setCameraSound(boolean value) {
         mTweakPorp.setValue("ro.camera.sound.forced", (value ? "1" : "0"));
+    }
+
+    public String getLcdDensity() {
+        String ret = mTweakPorp.getValue("ro.sf.lcd_density", null);
+        if (ret == null) {
+            return SystemCommand.get_prop("ro.sf.lcd_density", "240");
+        }
+        return ret;
+    }
+
+    public void setLcdDensity(String value) {
+        mTweakPorp.setValue("ro.sf.lcd_density", value);
     }
 
     public boolean getCrtEffect() {

@@ -31,7 +31,7 @@ import java.util.Set;
 
 public abstract class PropertyManager {
 
-    File mFile;
+    protected File mFile;
 
     protected PropertyManager(String filePath) {
         mFile = new File(filePath);

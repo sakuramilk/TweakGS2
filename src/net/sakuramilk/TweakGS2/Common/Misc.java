@@ -153,6 +153,15 @@ public class Misc {
                 return entries[i];
             }
         }
-        return null;
+        return value; // if not found value, return safe value.
+    }
+
+    public static String getEntryFromEntryValue(CharSequence[] entries, CharSequence[] entryValues, String value) {
+        for (int i = 0; i < entries.length; i++) {
+            if (entryValues[i].toString().equals(value)) {
+                return entries[i].toString();
+            }
+        }
+        return value; // if not found value, return safe value.
     }
 }

@@ -71,6 +71,10 @@ public class SeekBarPreference extends DialogPreference
     }
 
     public void setValue(int max, int min, int value) {
+        setValue(max, min, 0, value);
+    }
+
+    public void setValue(int max, int min, int step, int value) {
         mMax = max;
         mMin = min;
         if (mStep == 0) {
@@ -80,10 +84,7 @@ public class SeekBarPreference extends DialogPreference
         mPreValue = value;
     }
 
-    public void setValue(int max, int min, int step, int value) {
-        mMax = max;
-        mMin = min;
-        mStep = step;
+    public void updateValue(int value) {
         mValue = value;
         mPreValue = value;
     }

@@ -35,17 +35,7 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
     implements OnSeekBarPreferenceDoneListener, OnPreferenceChangeListener {
     
     private CpuGovernorSetting mSetting;
-    
-    private String getEntryText(String[] entries, String[] values, String value) {
-        int i = 0;
-        for (i = 0; i < entries.length; i++) {
-            if (values[i].equals(value)) {
-                return entries[i];
-            }
-        }
-        return value; // if not found value, return safe value.
-    }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,39 +57,67 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
             String value;
             switch (param.type) {
                 case CpuGovernorSetting.Parameter.TYPE_SEEK_BAR:
+                {
                     SeekBarPreference seekBarPref = new SeekBarPreference(this, null);
+                    Intent paramIntent = new Intent();
+                    paramIntent.putExtra("unit", param.unit);
+                    seekBarPref.setIntent(paramIntent);
+                    seekBarPref.setKey(mSetting.makeKey(param.name));
                     seekBarPref.setTitle(param.name);
                     seekBarPref.setDialogTitle(param.name);
                     value = mSetting.getValue(param.name);
                     seekBarPref.setValue(param.max, param.min, Integer.valueOf(value));
-                    seekBarPref.setSummary(Misc.getCurrentValueText(this, value));
+                    seekBarPref.setSummary(Misc.getCurrentValueText(this, value) + param.unit);
                     seekBarPref.setOnPreferenceDoneListener(this);
                     rootPref.addPreference(seekBarPref);
                     break;
+                }
 
                 case CpuGovernorSetting.Parameter.TYPE_LIST:
+                {
                     ListPreference listPref = new ListPreference(this);
+                    Intent paramIntent = new Intent();
+                    paramIntent.putExtra("unit", param.unit);
+                    listPref.setIntent(paramIntent);
+                    listPref.setKey(mSetting.makeKey(param.name));
                     listPref.setTitle(param.name);
                     listPref.setEntries(param.listEntries);
                     listPref.setEntryValues(param.listValues);
                     value = mSetting.getValue(param.name);
                     listPref.setValue(value);
+                    listPref.setIntent(intent);
                     listPref.setSummary(Misc.getCurrentValueText(this,
-                            getEntryText(param.listEntries, param.listValues, value)));
+                            Misc.getEntryFromEntryValue(param.listEntries, param.listValues, value) + param.unit));
                     listPref.setOnPreferenceChangeListener(this);
                     rootPref.addPreference(listPref);
                     break;
+                }
             }
         }
     }
 
     @Override
     public boolean onPreferenceDone(Preference preference, String newValue) {
-        return false;
+        SeekBarPreference seekBarPref = (SeekBarPreference)preference;
+        String paramName = seekBarPref.getTitle().toString();
+        Intent paramIntent = seekBarPref.getIntent();
+        String unit = paramIntent.getStringExtra("unit");
+        mSetting.setValue(paramName, newValue);
+        seekBarPref.setSummary(Misc.getCurrentValueText(this, newValue) + unit);
+        seekBarPref.updateValue(Integer.valueOf(newValue));
+        return true;
     }
 
     @Override
-    public boolean onPreferenceChange(Preference arg0, Object arg1) {
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        ListPreference listPref = (ListPreference)preference;
+        String paramName = listPref.getTitle().toString();
+        Intent paramIntent = listPref.getIntent();
+        String unit = paramIntent.getStringExtra("unit");
+        mSetting.setValue(paramName, objValue.toString());
+        listPref.setValue(objValue.toString());
+        listPref.setSummary(Misc.getCurrentValueText(this,
+                Misc.getEntryFromEntryValue(listPref.getEntries(), listPref.getEntryValues(), objValue.toString()) + unit));
         return false;
     }
 }

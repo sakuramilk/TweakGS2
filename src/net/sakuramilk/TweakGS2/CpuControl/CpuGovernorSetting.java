@@ -25,6 +25,8 @@ import net.sakuramilk.TweakGS2.Common.SysFs;
 
 public class CpuGovernorSetting extends SettingManager {
 
+    private static final int SAMPING_RATE_MAX = 100000000;
+
     public class Parameter {
         public static final int TYPE_SEEK_BAR = 0;
         public static final int TYPE_LIST = 1;
@@ -68,21 +70,20 @@ public class CpuGovernorSetting extends SettingManager {
 
     protected CpuGovernorSetting(Context context, String governor) {
         super(context);
-        
+
         mGovernor = governor;
         mParams = new ArrayList<Parameter>();
         
         // setup governor parameter list
         if ("sakuractive".equals(governor)) {
-            mParams.add(new Parameter("sampling_rate", 0, 0, "μs"));
-            mParams.add(new Parameter("up_threshold", 0, 100, "%"));
-            mParams.add(new Parameter("down_threshold", 0, 100, "%"));
-            mParams.add(new Parameter("down_differential", 0, 0));
+            mParams.add(new Parameter("sampling_rate", 10000, 1000000, "μs"));
+            mParams.add(new Parameter("up_threshold", 1, 100, "%"));
+            mParams.add(new Parameter("down_threshold", 1, 100, "%"));
             mParams.add(new Parameter("hotplug_in_sampling_periods", 0, 0));
             mParams.add(new Parameter("hotplug_out_sampling_periods", 0, 0));
-            mParams.add(new Parameter("ignore_nice_load", 0, 0));
-            mParams.add(new Parameter("io_is_busy", 0, 0));
-            mParams.add(new Parameter("boost_timeout", 0, 0));
+            mParams.add(new Parameter("ignore_nice_load", 0, 1));
+            mParams.add(new Parameter("boost_timeout", 0, 10000000, "μs"));
+            //mParams.add(new Parameter("down_differential", 0, 0));
 
         } else if ("lulzactive".equals(governor)) {
             CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
@@ -97,53 +98,58 @@ public class CpuGovernorSetting extends SettingManager {
 
         } else if ("smartassV2".equals(governor)) {
             mGovernor = "smartass";
-            mParams.add(new Parameter("awake_ideal_freq", 0, 0));
-            mParams.add(new Parameter("debug_mask", 0, 0));
-            mParams.add(new Parameter("down_rate_us", 0, 0));
-            mParams.add(new Parameter("max_cpu_load", 0, 0));
-            mParams.add(new Parameter("min_cpu_load", 0, 0));
-            mParams.add(new Parameter("ramp_down_step", 0, 0));
-            mParams.add(new Parameter("ramp_up_step", 0, 0));
-            mParams.add(new Parameter("sample_rate_jiffies", 0, 0));
-            mParams.add(new Parameter("sleep_ideal_freq", 0, 0));
-            mParams.add(new Parameter("sleep_wakeup_freq", 0, 0));
-            mParams.add(new Parameter("up_rate_us", 0, 0));
+            CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
+            String[] freqValues = cpuControlSetting.getAvailableFrequencies();
+            String[] freqEntries = Misc.getFreqencyEntries(freqValues);
+            mParams.add(new Parameter("max_cpu_load", 1, 100, "%"));
+            mParams.add(new Parameter("min_cpu_load", 1, 100, "%"));
+            mParams.add(new Parameter("up_rate_us", 1, 100000000, "μs"));
+            mParams.add(new Parameter("down_rate_us", 1, 100000000, "μs"));
+            mParams.add(new Parameter("ramp_down_step", 1, 100000000, "μs"));
+            mParams.add(new Parameter("ramp_up_step", 1, 100000000, "μs"));
+            mParams.add(new Parameter("sample_rate_jiffies", 1, 1000));
+            mParams.add(new Parameter("awake_ideal_freq", freqEntries, freqValues));
+            mParams.add(new Parameter("sleep_ideal_freq", freqEntries, freqValues));
+            mParams.add(new Parameter("sleep_wakeup_freq", freqEntries, freqValues));
+            //mParams.add(new Parameter("debug_mask", 0, 0));
 
         } else if ("interactiveX".equals(governor)) {
-            mParams.add(new Parameter("min_sample_time", 0, 0));
+            mParams.add(new Parameter("min_sample_time", 10000, 1000000));
 
         } else if ("interactive".equals(governor)) {
-            mParams.add(new Parameter("go_maxspeed_load", 0, 0));
-            mParams.add(new Parameter("min_sample_time", 0, 0));
+            mParams.add(new Parameter("go_maxspeed_load", 5, 100, "%"));
+            mParams.add(new Parameter("min_sample_time", 10000, 1000000, "μs"));
 
         } else if ("conservative".equals(governor)) {
-            mParams.add(new Parameter("down_threshold", 0, 0));
-            mParams.add(new Parameter("freq_step", 0, 0));
-            mParams.add(new Parameter("ignore_nice_load", 0, 0));
-            mParams.add(new Parameter("sampling_down_factor", 0, 0));
-            mParams.add(new Parameter("sampling_rate", 0, 0));
-            //mParams.add(new Parameter("sampling_rate_max", 0, 0));
-            mParams.add(new Parameter("sampling_rate_min", 0, 0));
-            mParams.add(new Parameter("up_threshold", 0, 0));
+            SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
+            String samplingRateMin = sysFs.read();
+            mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
+            mParams.add(new Parameter("up_threshold", 1, 100, "%"));
+            mParams.add(new Parameter("down_threshold", 1, 100, "%"));
+            mParams.add(new Parameter("freq_step", 5, 100, "%"));
+            mParams.add(new Parameter("ignore_nice_load", 0, 1));
+            //mParams.add(new Parameter("sampling_down_factor", 0, 0));
 
         } else if ("ondemandx".equals(governor)) {
-            mParams.add(new Parameter("down_differential", 0, 0));
-            mParams.add(new Parameter("ignore_nice_load", 0, 0));
-            mParams.add(new Parameter("io_is_busy", 0, 0));
-            mParams.add(new Parameter("powersave_bias", 0, 0));
-            mParams.add(new Parameter("sampling_down_factor", 0, 0));
-            mParams.add(new Parameter("sampling_rate", 0, 0));
-            mParams.add(new Parameter("sampling_rate_min", 0, 0));
-            mParams.add(new Parameter("suspend_freq", 0, 0));
-            mParams.add(new Parameter("up_threshold", 0, 0));
+            SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
+            String samplingRateMin = sysFs.read();
+            CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
+            String[] freqValues = cpuControlSetting.getAvailableFrequencies();
+            String[] freqEntries = Misc.getFreqencyEntries(freqValues);
+            mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
+            mParams.add(new Parameter("up_threshold", 5, 100, "%"));
+            mParams.add(new Parameter("ignore_nice_load", 0, 1));
+            mParams.add(new Parameter("powersave_bias", 0, 1000));
+            mParams.add(new Parameter("suspend_freq", freqEntries, freqValues));
+            //mParams.add(new Parameter("down_differential", 0, 0));
 
         } else if ("ondemand".equals(governor)) {
-            mParams.add(new Parameter("ignore_nice_load", 0, 0));
-            mParams.add(new Parameter("io_is_busy", 0, 0));
-            mParams.add(new Parameter("powersave_bias", 0, 0));
-            mParams.add(new Parameter("sampling_rate", 0, 0));
-            mParams.add(new Parameter("sampling_rate_min", 0, 0));
-            mParams.add(new Parameter("up_threshold", 0, 0));
+            SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
+            String samplingRateMin = sysFs.read();
+            mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
+            mParams.add(new Parameter("up_threshold", 5, 100, "%"));
+            mParams.add(new Parameter("ignore_nice_load", 0, 1));
+            mParams.add(new Parameter("powersave_bias", 0, 1000));
 
         } else if ("powersave".equals(governor)) {
             // nothing parameter
@@ -158,13 +164,22 @@ public class CpuGovernorSetting extends SettingManager {
         return mParams.toArray(new Parameter[0]);
     }
 
+    public String makeKey(String paramName) {
+        return "cpu_" + mGovernor + "_" + paramName;
+    }
+
     public String getValue(String paramName) {
         SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/" + paramName);
         return sysFs.read();
     }
 
+    public void setValue(String paramName, String value) {
+        SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/" + paramName);
+        sysFs.write(value);
+    }
+
     public String loadValue(String paramName) {
-        String key = "cpu_" + mGovernor + "_" + paramName;
+        String key = makeKey(paramName);
         return super.getStringValue(key);
     }
 

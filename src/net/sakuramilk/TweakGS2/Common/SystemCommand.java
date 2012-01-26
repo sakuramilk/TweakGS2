@@ -114,6 +114,18 @@ public class SystemCommand {
         process.term();
     }
 
+    public static void touch(String path, String permission) {
+        Log.d(TAG, "execute mkdir path=" + path);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("touch " + path + "\n");
+        process.write("chmod " + permission + " " + path + "\n");
+        process.term();
+    }
+
     public static void start_dock() {
         String[] commands = { "su", "-c",
                 "am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 1\n" };

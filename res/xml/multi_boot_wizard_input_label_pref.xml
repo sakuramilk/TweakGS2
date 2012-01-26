@@ -18,7 +18,19 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/multi_boot_wizard_title"
-    android:key="root_pref">
+    android:title="@string/multi_boot_wizard_title">
+
+    <PreferenceCategory
+        android:key="header">
+        <PreferenceScreen
+            android:key="header"
+            android:title="ROMのラベル"
+            android:summary="ROMを識別しやすいように名前をつけてください"
+            android:selectable="false" />
+    </PreferenceCategory>
+
+    <PreferenceScreen
+		android:key="rom_label"
+		android:title="ラベル" />
 
 </PreferenceScreen>

@@ -67,10 +67,10 @@
     <string name="select_backup_title">Select backup</string>
     <string name="do_install_zip">Install zip file</string>
     <string name="do_restore">Restore</string>
-	<string name="backup_manage_rename">Rename</string>
-	<string name="backup_manage_rename_message">Enter a new backup name</string>
-	<string name="backup_manage_delete">Delete</string>
-	<string name="backup_manage_delete_confirm">Do you want to delete the backup?</string>
+    <string name="backup_manage_rename">Rename</string>
+    <string name="backup_manage_rename_message">Enter a new backup name</string>
+    <string name="backup_manage_delete">Delete</string>
+    <string name="backup_manage_delete_confirm">Do you want to delete the backup?</string>
 
     <!-- General -->
     <string name="general_title">General</string>
@@ -87,6 +87,7 @@
     <string name="sysprop_boot_sound_title">Boot sound</string>
     <string name="sysprop_boot_sound_summary_on">Boot sound enabled</string>
     <string name="sysprop_boot_sound_summary_off">Boot sound disabled</string>
+    <string name="sysprop_lcd_density_title">LCD density</string>
     <string name="sysprop_camera_sound_title">Force shutter sound</string>
     <string name="sysprop_camera_sound_summary_on">Force shutter sound enabled</string>
     <string name="sysprop_camera_sound_summary_off">Force shutter sound disabled</string>
@@ -115,7 +116,9 @@
     <string name="rom_path">Path</string>
     <string name="menu_add_rom">Add ROM</string>
     <string name="multi_boot_wizard_title">Multi boot wizard</string>
-    <string name="select_img_title">Select img file</string>
+    <string name="select_img_title">Select image file</string>
+    <string name="rom_label_title">ROM label</string>
+    <string name="rom_label_message">Please input ROM label</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPU control</string>

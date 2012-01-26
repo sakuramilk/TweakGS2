@@ -33,6 +33,7 @@
         android:background="#999999"
         android:paddingTop="4dip"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">"
         <Button android:id="@+id/back_button"
             android:layout_width="160dip"

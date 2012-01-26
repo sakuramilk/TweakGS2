@@ -133,7 +133,7 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
         if (key.equals(MultiBootSetting.KEY_ROM_CREATE)) {
-            Intent intent = new Intent(getApplicationContext(), MultiBootWizardActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MultiBootWizardStartActivity.class);
             intent.putExtra("rom_id", mMbsConf.getNextRomId());
             startActivity(intent);
 
