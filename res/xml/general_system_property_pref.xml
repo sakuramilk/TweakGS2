@@ -28,8 +28,8 @@
 	<CheckBoxPreference   
 		android:key="sysprop_camera_sound"
 		android:title="@string/sysprop_camera_sound_title"
-		android:summaryOn="@string/sysprop_boot_sound_summary_on"
-		android:summaryOff="@string/sysprop_boot_sound_summary_off" />
+		android:summaryOn="@string/sysprop_camera_sound_summary_on"
+		android:summaryOff="@string/sysprop_camera_sound_summary_off" />
 	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="sysprop_lcd_density"
         android:title="@string/sysprop_lcd_density_title"
