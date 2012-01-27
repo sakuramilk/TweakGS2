@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.5.0a3"
-    android:versionCode="492">
+    android:versionName="0.5.0b1"
+    android:versionCode="495">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15" />
@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -88,8 +89,8 @@
         <!-- MultiBoot -->
         <activity android:name=".MultiBoot.MultiBootPreferenceActivity" />
         <activity android:name=".MultiBoot.RomSettingPreferenceActivity" />
-        <activity android:name=".MultiBoot.MultiBootWizardStartActivity" />
-        <activity android:name=".MultiBoot.MultiBootWizardSelectSizeActivity" />
+        <activity android:name=".MultiBoot.MultiBootWizardActivity" />
+        <activity android:name=".MultiBoot.MultiBootWizardSelectSizePage" />
         <activity android:name=".MultiBoot.MultiBootWizardFinishActivity" />
         <activity android:name=".MultiBoot.FileSelectActivity" />
 

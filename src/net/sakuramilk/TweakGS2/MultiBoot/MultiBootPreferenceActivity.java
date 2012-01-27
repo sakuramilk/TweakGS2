@@ -62,9 +62,9 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
         if (nextRomId == 0) {
             // nothing rom setting, create rom0 and rom1 setting
             mMbsConf.setLabel(0, "Primary");
-            mMbsConf.setSystemPartition(0, MbsConf.Partision.mmcblk0p9);
+            mMbsConf.setSystemPartition(0, MbsConf.Partition.mmcblk0p9);
             mMbsConf.setLabel(1, "Secondary");
-            mMbsConf.setSystemPartition(1, MbsConf.Partision.mmcblk0p11);
+            mMbsConf.setSystemPartition(1, MbsConf.Partition.mmcblk0p11);
             mMbsConf.setBootRomId(0);
             nextRomId = mMbsConf.getNextRomId();
         }
@@ -133,8 +133,8 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
         if (key.equals(MultiBootSetting.KEY_ROM_CREATE)) {
-            Intent intent = new Intent(getApplicationContext(), MultiBootWizardStartActivity.class);
-            intent.putExtra("rom_id", mMbsConf.getNextRomId());
+            Intent intent = new Intent(getApplicationContext(), MultiBootWizardActivity.class);
+            //intent.putExtra("rom_id", mMbsConf.getNextRomId());
             startActivity(intent);
 
         } else if (key.indexOf(MultiBootSetting.KEY_ROM_SETTING_BASE) >= 0) {
@@ -150,6 +150,7 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
         if (preference == mRomSelect) {
             mMbsConf.setBootRomId(Integer.valueOf((String)objValue));
             mRomSelect.setSummary(getRomIdEntry((String)objValue));
+            mRomSelect.setValue((String)objValue);
             // don't return true
         }
         return false;

@@ -45,6 +45,7 @@ public class SeekBarPreference extends DialogPreference
     private int mValue = 0;
     private int mMax;
     private int mMin;
+    private String mUnit = "";
     private int mStep = 0;
     private int mValueScale;
 
@@ -89,6 +90,14 @@ public class SeekBarPreference extends DialogPreference
         mPreValue = value;
     }
 
+    public void setUnit(String unit) {
+        mUnit = unit;
+    }
+    
+    public String getUnit() {
+        return mUnit;
+    }
+
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
@@ -99,7 +108,7 @@ public class SeekBarPreference extends DialogPreference
         mSeekBar.setProgress(mValue - mMin);
         mSeekBar.setOnSeekBarChangeListener(this);
         mTextView = getTextView(view);
-        mTextView.setText(String.valueOf(mValue));
+        mTextView.setText(String.valueOf(mValue) + mUnit);
 
         if (mSeekBar.getMax() > 300) {
             mValueScale = 50;
@@ -155,7 +164,7 @@ public class SeekBarPreference extends DialogPreference
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         mValue = progress + mMin;
         String value = String.valueOf(mValue);
-        mTextView.setText(value);
+        mTextView.setText(value + mUnit);
         callChangeListener(value);
     }
 

@@ -22,9 +22,10 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.StatFs;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Parts.ConfirmAlertDialog;
+import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
 
 public class Misc {
 
@@ -34,6 +35,7 @@ public class Misc {
     public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
             // internal sdcard path is fixed /mnt/sdcard
+            //return Environment.getExternalStorageDirectory().getAbsolutePath();
             return "/mnt/sdcard";
         } else {
             // external sdcard path search
@@ -118,8 +120,8 @@ public class Misc {
     }
     
     public static void confirmReboot(Context context, int message) {
-        final ConfirmAlertDialog dlg = new ConfirmAlertDialog(context);
-        dlg.setResultListener(new ConfirmAlertDialog.ResultListener() {
+        final ConfirmDialog dlg = new ConfirmDialog(context);
+        dlg.setResultListener(new ConfirmDialog.ResultListener() {
             @Override
             public void onYes() {
                 SystemCommand.reboot(null);
@@ -163,5 +165,12 @@ public class Misc {
             }
         }
         return value; // if not found value, return safe value.
+    }
+
+    public static long getAvailableSdcardSize(boolean isInternal) {
+        StatFs statFs = new StatFs(getSdcardPath(isInternal));
+        long blockSize = statFs.getBlockSize();
+        long availableBlocks = statFs.getAvailableBlocks();
+        return blockSize * availableBlocks;
     }
 }

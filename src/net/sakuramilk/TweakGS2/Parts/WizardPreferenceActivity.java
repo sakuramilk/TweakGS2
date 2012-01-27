@@ -10,8 +10,12 @@ public class WizardPreferenceActivity extends PreferenceActivity {
     protected Button mBackButton;
     protected Button mNextButton;
 
+    public interface OnPageEventListener {
+        public void onPageEvent(int eventCode, Object objValue);
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard);
         

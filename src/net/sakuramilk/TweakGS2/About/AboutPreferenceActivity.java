@@ -25,7 +25,7 @@ import net.sakuramilk.TweakGS2.General.LowMemKillerSetting;
 import net.sakuramilk.TweakGS2.General.SystemPropertySetting;
 import net.sakuramilk.TweakGS2.General.VirtualMemorySetting;
 import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
-import net.sakuramilk.TweakGS2.Parts.ConfirmAlertDialog;
+import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
 import android.content.Context;
@@ -65,8 +65,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceClick(Preference preference)
     {
         if (preference == mReset) {
-            final ConfirmAlertDialog confirmDialog = new ConfirmAlertDialog(this);
-            confirmDialog.setResultListener(new ConfirmAlertDialog.ResultListener() {
+            final ConfirmDialog confirmDialog = new ConfirmDialog(this);
+            confirmDialog.setResultListener(new ConfirmDialog.ResultListener() {
                 @Override
                 public void onYes() {
                     // clear shared preference
@@ -82,8 +82,8 @@ public class AboutPreferenceActivity extends PreferenceActivity
             confirmDialog.show(this, R.string.all_reset_title, R.string.all_reset_summary);
 
         } else if (preference == mRecommend) {
-            final ConfirmAlertDialog confirmDialog = new ConfirmAlertDialog(this);
-            confirmDialog.setResultListener(new ConfirmAlertDialog.ResultListener() {
+            final ConfirmDialog confirmDialog = new ConfirmDialog(this);
+            confirmDialog.setResultListener(new ConfirmDialog.ResultListener() {
                 @Override
                 public void onYes() {
                     // General

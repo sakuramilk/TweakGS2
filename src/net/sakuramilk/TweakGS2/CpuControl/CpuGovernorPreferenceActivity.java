@@ -33,7 +33,7 @@ import android.preference.PreferenceScreen;
 
 public class CpuGovernorPreferenceActivity extends PreferenceActivity
     implements OnSeekBarPreferenceDoneListener, OnPreferenceChangeListener {
-    
+
     private CpuGovernorSetting mSetting;
 
     @Override
@@ -59,15 +59,13 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
                 case CpuGovernorSetting.Parameter.TYPE_SEEK_BAR:
                 {
                     SeekBarPreference seekBarPref = new SeekBarPreference(this, null);
-                    Intent paramIntent = new Intent();
-                    paramIntent.putExtra("unit", param.unit);
-                    seekBarPref.setIntent(paramIntent);
                     seekBarPref.setKey(mSetting.makeKey(param.name));
                     seekBarPref.setTitle(param.name);
                     seekBarPref.setDialogTitle(param.name);
                     value = mSetting.getValue(param.name);
                     seekBarPref.setValue(param.max, param.min, Integer.valueOf(value));
                     seekBarPref.setSummary(Misc.getCurrentValueText(this, value) + param.unit);
+                    seekBarPref.setUnit(param.unit);
                     seekBarPref.setOnPreferenceDoneListener(this);
                     rootPref.addPreference(seekBarPref);
                     break;
@@ -76,9 +74,6 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
                 case CpuGovernorSetting.Parameter.TYPE_LIST:
                 {
                     ListPreference listPref = new ListPreference(this);
-                    Intent paramIntent = new Intent();
-                    paramIntent.putExtra("unit", param.unit);
-                    listPref.setIntent(paramIntent);
                     listPref.setKey(mSetting.makeKey(param.name));
                     listPref.setTitle(param.name);
                     listPref.setEntries(param.listEntries);
@@ -100,10 +95,8 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceDone(Preference preference, String newValue) {
         SeekBarPreference seekBarPref = (SeekBarPreference)preference;
         String paramName = seekBarPref.getTitle().toString();
-        Intent paramIntent = seekBarPref.getIntent();
-        String unit = paramIntent.getStringExtra("unit");
         mSetting.setValue(paramName, newValue);
-        seekBarPref.setSummary(Misc.getCurrentValueText(this, newValue) + unit);
+        seekBarPref.setSummary(Misc.getCurrentValueText(this, newValue) + seekBarPref.getUnit());
         seekBarPref.updateValue(Integer.valueOf(newValue));
         return true;
     }
@@ -112,12 +105,10 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         ListPreference listPref = (ListPreference)preference;
         String paramName = listPref.getTitle().toString();
-        Intent paramIntent = listPref.getIntent();
-        String unit = paramIntent.getStringExtra("unit");
         mSetting.setValue(paramName, objValue.toString());
         listPref.setValue(objValue.toString());
         listPref.setSummary(Misc.getCurrentValueText(this,
-                Misc.getEntryFromEntryValue(listPref.getEntries(), listPref.getEntryValues(), objValue.toString()) + unit));
+                Misc.getEntryFromEntryValue(listPref.getEntries(), listPref.getEntryValues(), objValue.toString())));
         return false;
     }
 }

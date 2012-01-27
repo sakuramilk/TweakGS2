@@ -58,12 +58,12 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         "mmcblk1p3(emmc)",
     };
     private static final String[] PART_ENTRY_VALUES = {
-        MbsConf.Partision.mmcblk0p9,
-        MbsConf.Partision.mmcblk0p10,
-        MbsConf.Partision.mmcblk0p11,
-        MbsConf.Partision.mmcblk1p1,
-        MbsConf.Partision.mmcblk1p2,
-        MbsConf.Partision.mmcblk1p3,
+        MbsConf.Partition.mmcblk0p9,
+        MbsConf.Partition.mmcblk0p10,
+        MbsConf.Partition.mmcblk0p11,
+        MbsConf.Partition.mmcblk1p1,
+        MbsConf.Partition.mmcblk1p2,
+        MbsConf.Partition.mmcblk1p3,
     };
 
     private PreferenceScreen mLabelText;
@@ -161,7 +161,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                     mSystemPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
                 }
             });
-            dlg.show(R.string.backup, R.string.backup_name, mMbsConf.getSystemPath(mRomId));
+            dlg.show(R.string.backup, R.string.path, mMbsConf.getSystemPath(mRomId));
 
         } else if (preference == mDataImg) {
             Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
@@ -181,7 +181,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                     mDataPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
                 }
             });
-            dlg.show(R.string.backup, R.string.backup_name, mMbsConf.getDataPath(mRomId));
+            dlg.show(R.string.backup, R.string.path, mMbsConf.getDataPath(mRomId));
 
         }
         return false;

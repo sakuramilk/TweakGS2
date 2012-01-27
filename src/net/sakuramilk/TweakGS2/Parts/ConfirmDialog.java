@@ -20,7 +20,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-public class ConfirmAlertDialog extends AlertDialog {
+public class ConfirmDialog extends AlertDialog {
 
     private ResultListener mListener = null;
 
@@ -28,7 +28,7 @@ public class ConfirmAlertDialog extends AlertDialog {
         public void onYes();
     }
 
-    public ConfirmAlertDialog(Context context) {
+    public ConfirmDialog(Context context) {
         super(context);
 
         setIcon(android.R.drawable.ic_dialog_info);
