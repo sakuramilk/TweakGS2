@@ -69,4 +69,17 @@
             android:summary="@string/install_zip_summary" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="special_category"
+        android:title="@string/special_category">
+        <PreferenceScreen
+            android:key="sbl_backup"
+            android:title="@string/sbl_backup_title"
+            android:summary="@string/sbl_backup_summary" />
+        <PreferenceScreen
+            android:key="efs_backup"
+            android:title="@string/efs_backup_title"
+            android:summary="@string/efs_backup_summary" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

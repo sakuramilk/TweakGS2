@@ -119,6 +119,12 @@
     <string name="select_img_title">imgファイルを選択</string>
     <string name="rom_label_title">ROMラベル</string>
     <string name="rom_label_message">ROMのラベルを入力してください</string>
+	<string name="special_category">特殊領域のバックアップ</string>
+    <string name="sbl_backup_title">Sblバックアップ</string>
+    <string name="sbl_backup_summary">Sbl領域をバックアップ</string>
+    <string name="efs_backup_title">efsバックアップ</string>
+    <string name="efs_backup_summary">efs領域をバックアップ</string>
+    <string name="backup_completed">バックアップ完了</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPUコントロール</string>

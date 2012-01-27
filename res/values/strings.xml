@@ -72,6 +72,12 @@
     <string name="backup_manage_rename_message">Enter a new backup name</string>
     <string name="backup_manage_delete">Delete</string>
     <string name="backup_manage_delete_confirm">Do you want to delete the backup?</string>
+    <string name="special_category">Special</string>
+    <string name="sbl_backup_title">Sbl backup</string>
+    <string name="sbl_backup_summary">Sbl partision backup</string>
+    <string name="efs_backup_title">efs backup</string>
+    <string name="efs_backup_summary">efs partision backup</string>
+    <string name="backup_completed">backup completed.</string>
 
     <!-- General -->
     <string name="general_title">General</string>

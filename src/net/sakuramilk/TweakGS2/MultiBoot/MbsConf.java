@@ -16,6 +16,7 @@
 
 package net.sakuramilk.TweakGS2.MultiBoot;
 
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.PropertyManager;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
 
@@ -36,6 +37,7 @@ public class MbsConf extends PropertyManager {
         public static final String mmcblk0p9 = "/dev/block/mmcblk0p9";
         public static final String mmcblk0p10 = "/dev/block/mmcblk0p10";
         public static final String mmcblk0p11 = "/dev/block/mmcblk0p11";
+        public static final String mmcblk0p12 = "/dev/block/mmcblk0p12";
         public static final String mmcblk1p1 = "/dev/block/mmcblk1p1";
         public static final String mmcblk1p2 = "/dev/block/mmcblk1p2";
         public static final String mmcblk1p3 = "/dev/block/mmcblk1p3";
@@ -116,10 +118,31 @@ public class MbsConf extends PropertyManager {
 
     public int getNextRomId() {
         for (int i = 0; i < MAX_ROM_ID; i++) {
-            if (getSystemPartition(i) == null) {
+            if (!Misc.isNullOfEmpty(getSystemPartition(i))) {
                 return i;
             }
         }
         return -1;
+    }
+
+    public void deleteRomId(int romId) {
+        setLabel(romId, "");
+        setSystemPartition(romId, "");
+        setSystemImage(romId, "");
+        setSystemPath(romId, "");
+        setDataPartition(romId, "");
+        setDataImage(romId, "");
+        setDataPath(romId, "");
+
+        int bootRomId = getBootRomId();
+        if (bootRomId == romId) {
+            while (romId > 0) {
+                romId--;
+                if (!Misc.isNullOfEmpty(getSystemPartition(romId))) {
+                    setBootRomId(romId);
+                    break;
+                }
+            }
+        }
     }
 }

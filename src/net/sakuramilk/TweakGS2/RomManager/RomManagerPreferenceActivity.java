@@ -31,6 +31,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.widget.Toast;
 
 public class RomManagerPreferenceActivity extends PreferenceActivity
     implements OnPreferenceClickListener, OnPreferenceChangeListener {
@@ -42,6 +43,8 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     private ListPreference mNandroidRestore;
     private ListPreference mNandroidManage;
     private PreferenceScreen mFlashInstallZip;
+    private PreferenceScreen mSblBackup;
+    private PreferenceScreen mEfsBackup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,11 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
 
         mFlashInstallZip = (PreferenceScreen)findPreference("flash_install_zip");
         mFlashInstallZip.setOnPreferenceClickListener(this);
+
+        mSblBackup = (PreferenceScreen)findPreference("sbl_backup");
+        mSblBackup.setOnPreferenceClickListener(this);
+        mEfsBackup = (PreferenceScreen)findPreference("efs_backup");
+        mEfsBackup.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -110,6 +118,20 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             intent.putExtra("select", "file");
             intent.putExtra("filter", ".zip");
             this.startActivity(intent);
+
+        } else if (preference == mSblBackup) {
+            String backupDir = Misc.getSdcardPath(true) + Constant.TGS2_BACKUP_DIR;
+            String backupPath = backupDir + "/Sbl_" + Misc.getDateString() + ".bin";
+            SystemCommand.mkdir(backupDir);
+            SystemCommand.sbl_backup(backupPath);
+            Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
+
+        } else if (preference == mEfsBackup) {
+            String backupDir = Misc.getSdcardPath(true) + Constant.TGS2_BACKUP_DIR;
+            String backupPath = backupDir + "/efs_" + Misc.getDateString() + ".img";
+            SystemCommand.mkdir(backupDir);
+            SystemCommand.efs_backup(backupPath);
+            Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
         }
         return false;
     }

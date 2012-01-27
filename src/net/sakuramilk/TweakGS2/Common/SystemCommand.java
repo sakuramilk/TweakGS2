@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2.Common;
 
+import java.io.File;
+
 import android.util.Log;
 
 public class SystemCommand {
@@ -242,6 +244,36 @@ public class SystemCommand {
         process.write("dd if=/dev/zero of=" + path +
                 " bs=" + blockSize + " count=" + blockCount + "\n");
         process.write("mke2fs -T ext4 -F " + path + "\n");
+        process.term();
+    }
+
+    public static void sbl_backup(String path) {
+        Log.d(TAG, "execute sbl_backup path=" + path);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("dd if=/dev/block/mmcblk0p2 of=" + path + " bs=4096\n");
+        File file = new File(path);
+        String dir = file.getParent();
+        process.write("cd " + dir + "\n");
+        process.write("md5sum " + file.getName() + " > " + file.getName() + ".md5\n");
+        process.term();
+    }
+
+    public static void efs_backup(String path) {
+        Log.d(TAG, "execute efs_backup path=" + path);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("dd if=/dev/block/mmcblk0p1 of=" + path + " bs=4096\n");
+        File file = new File(path);
+        String dir = file.getParent();
+        process.write("cd " + dir + "\n");
+        process.write("md5sum " + file.getName() + " > " + file.getName() + ".md5\n");
         process.term();
     }
 }
