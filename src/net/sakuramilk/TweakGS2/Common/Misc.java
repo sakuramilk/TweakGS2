@@ -173,4 +173,16 @@ public class Misc {
         long availableBlocks = statFs.getAvailableBlocks();
         return blockSize * availableBlocks;
     }
+
+    public static boolean isSuperUserEnabled() {
+        File file = new File("/system/bin/su");
+        if (file.exists()) {
+            return true;
+        }
+        file = new File("/system/xbin/su");
+        if (file.exists()) {
+            return true;
+        }
+        return false;
+    }
 }

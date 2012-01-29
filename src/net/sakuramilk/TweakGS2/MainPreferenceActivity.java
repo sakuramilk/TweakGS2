@@ -16,6 +16,9 @@
 
 package net.sakuramilk.TweakGS2;
 
+import net.sakuramilk.TweakGS2.Common.Misc;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
@@ -25,5 +28,19 @@ public class MainPreferenceActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.main_pref);
+
+        // check rooted
+        if (!Misc.isSuperUserEnabled()) {
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(android.R.string.dialog_alert_title);
+            alertDialogBuilder.setMessage(R.string.not_rooted_message);
+            alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            alertDialogBuilder.show();
+        }
     }
 }

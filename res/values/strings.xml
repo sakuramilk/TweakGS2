@@ -41,6 +41,7 @@
     <string name="complete">Complete</string>
     <string name="create">Create</string>
     <string name="label">Label</string>
+    <string name="not_rooted_message">ROM is not rooted in use</string>
 
     <!-- ROM Manager -->
     <string name="rom_manager_title">ROM Manager</string>
