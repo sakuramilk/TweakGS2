@@ -1,5 +1,5 @@
 
-  *** TweakGS2 V0.5.0 beta1 ****
+  *** TweakGS2 V0.5.0 beta2 ****
 
   SC-02Cの設定アプリです
   要root
@@ -43,36 +43,33 @@
     注意3 : あくまでも音鳴動の強制を抑制するものですのでサウンドOFF時のみ音が消えます
   
   ・Low Memory Killer
-    お好みで
+    現在のおすすめ設定値
+    上から 2560, 4096, 6144, 12288, 14336, 18432
 
   ・Vitual Memory
-    おすすめ設定
-    /proc/sys/vm/swappiness: 0
-    /proc/sys/vm/vfs_cache_pressure: 50
-    /proc/sys/vm/dirty_expire_centisecs: 3000
-    /proc/sys/vm/dirty_writeback_centisecs: 500
-    /proc/sys/vm/dirty_ratio: 22
-    /proc/sys/vm/dirty_background_ratio: 4 
+    現在のおすすめ設定値
+    Swappiness 10
+    VFS Cache Pressure 50
+    Dirty expire centisecs 3000
+    Dirty writeback centisecs 500
+    Dirty ratio 22
+    Dirty background ratio 4
 
   ・I/O Scheduler
     お好みで
+    現在のおすすめ設定値はbfq
 
   ・gamma設定
     お好みで
+    下げると若干消費電力が下がります
 
   ・LCD設定
     あまり上げたり下げたりしても良い効果は得られません
     +-5程度が良いと思います。
 
   ・HW Volume設定
-    おすすめ設定は以下
-    AVOL HP = -3
-    DVOL DAC MASTER = 4
-    DVOL DAC ATT = 2
-    DVOL DIR0 = -1
-    DVOL DIR0 ATT = -1
-
-    ポイントはDACを上げてHPを下げる感じで調整すると良い感じです。
+    デジタル系を上げて、アナログ系を下げるとノイズが聞こえにくくなりますが
+    デジタル系を上げすぎると音割れするので上げすぎには注意
 
   ・Dock設定
     HW Emulation : カーネルレベルでドロイド君を騙します
@@ -82,6 +79,8 @@
 
 　■更新履歴
 
+    V0.5.0b2  いくつかの不具合修正
+    
     V0.5.0b1  いくつかの不具合修正
               sbl/efs領域のバックアップ
 
