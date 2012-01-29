@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.5.0b1"
-    android:versionCode="495">
+    android:versionName="0.5.0b2"
+    android:versionCode="496">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15" />

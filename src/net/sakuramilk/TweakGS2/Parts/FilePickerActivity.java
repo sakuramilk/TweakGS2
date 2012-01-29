@@ -136,7 +136,7 @@ public abstract class FilePickerActivity extends PreferenceActivity
             }
         });
 
-        if (zipFiles.length > 0 && mDirMode == false) {
+        if (zipFiles != null && zipFiles.length > 0 && mDirMode == false) {
             categoryPref = new PreferenceCategory(this);
             categoryPref.setTitle(R.string.file);
             rootPref.addPreference(categoryPref);
@@ -159,7 +159,7 @@ public abstract class FilePickerActivity extends PreferenceActivity
             }
         }
 
-        if (directories.length > 0) {
+        if (directories != null && directories.length > 0) {
             categoryPref = new PreferenceCategory(this);
             categoryPref.setTitle(R.string.directory);
             rootPref.addPreference(categoryPref);
