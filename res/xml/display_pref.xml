@@ -39,14 +39,14 @@
     <PreferenceCategory
         android:key="disp_mdnie_category"
         android:title="@string/mdnie_category">
-        <CheckBoxPreference   
-            android:key="disp_mdnie_force_disable"  
+        <CheckBoxPreference
+            android:key="disp_mdnie_enabled"
             android:title="@string/mdnie_function"
             android:summaryOn="@string/mdnie_function_on"
             android:summaryOff="@string/mdnie_function_off"
             android:enabled="false" />
         <CheckBoxPreference   
-            android:key="disp_mdnie_mode"  
+            android:key="disp_mdnie_mode"
             android:title="@string/mdnie_mode"
             android:summaryOn="@string/mdnie_mode_on"
             android:summaryOff="@string/mdnie_mode_off"

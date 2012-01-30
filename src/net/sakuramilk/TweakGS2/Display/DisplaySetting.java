@@ -24,7 +24,7 @@ public class DisplaySetting extends SettingManager {
 
     public static final String KEY_LCD_TYPE = "disp_lcd_type";
     public static final String KEY_LCD_GAMMA = "disp_lcd_gamma";
-    public static final String KEY_MDNIE_FORCE_DISABLE = "disp_mdnie_force_disable";
+    public static final String KEY_MDNIE_ENABLED = "disp_mdnie_enabled";
     public static final String KEY_MDNIE_MODE = "disp_mdnie_mode";
     public static final String KEY_MDNIE_MCM_CB = "disp_mdnie_color_cb";
     public static final String KEY_MDNIE_MCM_CR = "disp_mdnie_color_cr";
@@ -109,21 +109,22 @@ public class DisplaySetting extends SettingManager {
         return mSysFsMdnieForceDisable.exists();
     }
 
-    public String getMdnieForceDisable() {
-        return mSysFsMdnieForceDisable.read();
+    public boolean getMdnieEnabled() {
+        String ret = mSysFsMdnieForceDisable.read();
+        return "0".equals(ret) ? true : false;
     }
 
-    public void setMdnieForceDisable(boolean value) {
+    public void setMdnieEnabled(boolean value) {
         mSysFsMdnieForceDisable.write(value ? "0" : "1");
         mSysFsMdniePower.write(value ? "1" : "0");
     }
 
-    public boolean loadMdnieForceDisable() {
-        return getBooleanValue(KEY_MDNIE_FORCE_DISABLE);
+    public boolean loadMdnieEnabled() {
+        return getBooleanValue(KEY_MDNIE_ENABLED);
     }
 
-    public void saveMdnieForceDisable(boolean value) {
-        setValue(KEY_MDNIE_FORCE_DISABLE, value);
+    public void saveMdnieEnabled(boolean value) {
+        setValue(KEY_MDNIE_ENABLED, value);
     }
 
     public boolean isEnableMdnieMode() {
@@ -261,9 +262,9 @@ public class DisplaySetting extends SettingManager {
             setMdnieMode(value ? MDNIE_MCM_ENABLE : MDNIE_MCM_DISABLE);
         }
         if (isEnableMdnieForceDisable()) {
-            boolean value = loadMdnieForceDisable();
-            if (value == true) {
-                setMdnieForceDisable(true);
+            boolean value = loadMdnieEnabled();
+            if (value == false) {
+                setMdnieEnabled(false);
             }
         }
     }
@@ -277,7 +278,7 @@ public class DisplaySetting extends SettingManager {
     public void reset() {
         clearValue(KEY_LCD_TYPE);
         clearValue(KEY_LCD_GAMMA);
-        clearValue(KEY_MDNIE_FORCE_DISABLE);
+        clearValue(KEY_MDNIE_ENABLED);
         clearValue(KEY_MDNIE_MODE);
         clearValue(KEY_MDNIE_MCM_CB);
         clearValue(KEY_MDNIE_MCM_CR);

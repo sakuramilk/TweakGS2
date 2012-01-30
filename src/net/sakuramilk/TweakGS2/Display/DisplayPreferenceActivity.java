@@ -35,11 +35,11 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
 
     private ListPreference mLcdType;
     private SeekBarPreference mLcdGamma;
-    private CheckBoxPreference mMdnieForceDisable;
+    private CheckBoxPreference mMdnieEnabled;
     private CheckBoxPreference mMdnieMode;
     private SeekBarPreference mMdnieColorCb;
     private SeekBarPreference mMdnieColorCr;
-    
+
     private boolean mIsEnableMdnieForceDisable = false;
     private boolean mIsEnableMdnieMode = false;
     private boolean mIsEnableMdnieMcmCb = false;
@@ -54,7 +54,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
 
         mLcdType = (ListPreference)findPreference(DisplaySetting.KEY_LCD_TYPE);
         mLcdGamma = (SeekBarPreference)findPreference(DisplaySetting.KEY_LCD_GAMMA);
-        mMdnieForceDisable = (CheckBoxPreference)findPreference(DisplaySetting.KEY_MDNIE_FORCE_DISABLE);
+        mMdnieEnabled = (CheckBoxPreference)findPreference(DisplaySetting.KEY_MDNIE_ENABLED);
         mMdnieMode = (CheckBoxPreference)findPreference(DisplaySetting.KEY_MDNIE_MODE);
         mMdnieColorCb = (SeekBarPreference)findPreference(DisplaySetting.KEY_MDNIE_MCM_CB);
         mMdnieColorCr = (SeekBarPreference)findPreference(DisplaySetting.KEY_MDNIE_MCM_CR);
@@ -76,19 +76,18 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
         }
 
         mIsEnableMdnieForceDisable = mSetting.isEnableMdnieForceDisable();
-        boolean isMdnieForceDisable = false;
+        boolean isMdnieEnabled = false;
         if (mIsEnableMdnieForceDisable) {
-            mMdnieForceDisable.setEnabled(true);
-            mMdnieForceDisable.setOnPreferenceChangeListener(this);
-            String value = mSetting.getMdnieForceDisable();
-            isMdnieForceDisable = "0".equals(value) ? false : true;
-            mMdnieForceDisable.setChecked(!isMdnieForceDisable);
+            mMdnieEnabled.setEnabled(true);
+            mMdnieEnabled.setOnPreferenceChangeListener(this);
+            isMdnieEnabled = mSetting.getMdnieEnabled();
+            mMdnieEnabled.setChecked(isMdnieEnabled);
         }
 
         mIsEnableMdnieMode = mSetting.isEnableMdnieMode();
         boolean isMdnieMcmEnable = false;
         if (mIsEnableMdnieMode) {
-            mMdnieMode.setEnabled(!isMdnieForceDisable);
+            mMdnieMode.setEnabled(isMdnieEnabled);
             mMdnieMode.setOnPreferenceChangeListener(this);
             String value = mSetting.getMdnieMode();
             isMdnieMcmEnable = DisplaySetting.MDNIE_MCM_ENABLE.equals(value) ? true : false;
@@ -97,7 +96,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
 
         mIsEnableMdnieMcmCb = mSetting.isEnableMdnieMcmCb();
         if (mIsEnableMdnieMcmCb) {
-            mMdnieColorCb.setEnabled(mMdnieForceDisable.isEnabled() &
+            mMdnieColorCb.setEnabled(mMdnieEnabled.isEnabled() &
                     mMdnieMode.isEnabled() & isMdnieMcmEnable);
             mMdnieColorCb.setOnPreferenceDoneListener(this);
             String value = mSetting.getMdnieMcmCb();
@@ -107,7 +106,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
 
         mIsEnableMdnieMcmCr = mSetting.isEnableMdnieMcmCr();
         if (mIsEnableMdnieMcmCr) {
-            mMdnieColorCr.setEnabled(mMdnieForceDisable.isEnabled() &
+            mMdnieColorCr.setEnabled(mMdnieEnabled.isEnabled() &
                     mMdnieMode.isEnabled() & isMdnieMcmEnable);
             mMdnieColorCr.setOnPreferenceDoneListener(this);
             String value = mSetting.getMdnieMcmCr();
@@ -122,8 +121,8 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
             mLcdType.setSummary(Misc.getCurrentValueText(this, mSetting.getLcdTypeText(objValue.toString())));
             return true;
 
-        } else if (mMdnieForceDisable == preference) {
-            mSetting.setMdnieForceDisable(((Boolean)objValue));
+        } else if (mMdnieEnabled == preference) {
+            mSetting.setMdnieEnabled(((Boolean)objValue));
             boolean mode = mSetting.loadMdnieMode();
             mMdnieMode.setEnabled((Boolean)objValue);
             mMdnieColorCb.setEnabled((Boolean)objValue & mode);
