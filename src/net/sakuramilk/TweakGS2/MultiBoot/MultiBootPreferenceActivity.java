@@ -54,10 +54,6 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
 
         addPreferencesFromResource(R.xml.multi_boot_pref);
 
-        if (!mMbsConf.exists()) {
-            return;
-        }
-
         int nextRomId = mMbsConf.getNextRomId();
         if (nextRomId == 0) {
             // nothing rom setting, create rom0 and rom1 setting

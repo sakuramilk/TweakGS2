@@ -20,6 +20,7 @@ import net.sakuramilk.TweakGS2.Common.Misc;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 public class MainPreferenceActivity extends PreferenceActivity {
@@ -41,6 +42,12 @@ public class MainPreferenceActivity extends PreferenceActivity {
                 }
             });
             alertDialogBuilder.show();
+        }
+
+        // check build target
+        if (Misc.getBuildTarget() != Misc.BUILD_TARGET_MULTI) {
+            //Preference pref = (Preference)findPreference("multi_boot_title");
+            //pref.setEnabled(false);
         }
     }
 }

@@ -31,6 +31,8 @@ public class Misc {
 
     static final SysFs sSysFsFeatureAosp = new SysFs("proc/sys/kernel/feature_aosp");
     static int sIsFeatureAospEnabled = -1;
+    static final SysFs sSysFsBuildTarget = new SysFs("proc/sys/kernel/build_target");
+    static int sBuildTarget = -1;
 
     public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
@@ -108,7 +110,19 @@ public class Misc {
         }
         return (sIsFeatureAospEnabled == 1) ? true : false;
     }
-    
+
+    public static final int BUILD_TARGET_SAMSUNG = 0;
+    public static final int BUILD_TARGET_AOSP = 1;
+    public static final int BUILD_TARGET_MULTI = 2;
+
+    public static int getBuildTarget() {
+        if (sBuildTarget == -1) {
+            String value = sSysFsBuildTarget.read();
+            sBuildTarget = Integer.valueOf(value);
+        }
+        return sBuildTarget;
+    }
+
     public static String getVersionName(Context context) {
         String version;
         try {

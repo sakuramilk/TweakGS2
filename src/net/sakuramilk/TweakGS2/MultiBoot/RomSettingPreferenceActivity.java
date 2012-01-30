@@ -85,7 +85,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         mContext = this;
         Intent intent = getIntent();
         mRomId = intent.getIntExtra("rom_id", -1);
-        if ((0 < mRomId) || (mRomId > MbsConf.MAX_ROM_ID)) {
+        if ((mRomId < 0) || (mRomId > MbsConf.MAX_ROM_ID)) {
             finish();
         }
 
@@ -145,7 +145,20 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if (preference == mSystemImg) {
+        if (preference == mLabelText) {
+            TextInputDialog dlg = new TextInputDialog(this);
+            dlg.setFinishTextInputListener(new TextInputDialog.FinishTextInputListener() {
+                @Override
+                public void onFinishTextInput(CharSequence input) {
+                    String inputText = input.toString();
+                    inputText = inputText.replace("\n", "").trim();
+                    mMbsConf.setLabel(mRomId, inputText);
+                    mDataPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
+                }
+            });
+            dlg.show(R.string.rom_label_title, R.string.rom_label_message, mMbsConf.getLabel(mRomId));
+
+        } else if (preference == mSystemImg) {
             Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
             intent.putExtra("title", getText(R.string.select_img_title));
             intent.putExtra("select", "file");
@@ -163,7 +176,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                     mSystemPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
                 }
             });
-            dlg.show(R.string.backup, R.string.path, mMbsConf.getSystemPath(mRomId));
+            dlg.show(R.string.path, R.string.path_input_message, mMbsConf.getSystemPath(mRomId));
 
         } else if (preference == mDataImg) {
             Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
@@ -183,7 +196,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                     mDataPath.setSummary((Misc.getCurrentValueText(mContext, inputText)));
                 }
             });
-            dlg.show(R.string.backup, R.string.path, mMbsConf.getDataPath(mRomId));
+            dlg.show(R.string.path, R.string.path_input_message, mMbsConf.getDataPath(mRomId));
 
         }
         return false;

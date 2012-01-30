@@ -127,6 +127,7 @@
     <string name="select_img_title">Select image file</string>
     <string name="rom_label_title">ROM label</string>
     <string name="rom_label_message">Please input ROM label</string>
+    <string name="path_input_message">Please input path</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPU control</string>

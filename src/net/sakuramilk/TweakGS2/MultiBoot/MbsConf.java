@@ -118,7 +118,7 @@ public class MbsConf extends PropertyManager {
 
     public int getNextRomId() {
         for (int i = 0; i < MAX_ROM_ID; i++) {
-            if (!Misc.isNullOfEmpty(getSystemPartition(i))) {
+            if (Misc.isNullOfEmpty(getSystemPartition(i))) {
                 return i;
             }
         }

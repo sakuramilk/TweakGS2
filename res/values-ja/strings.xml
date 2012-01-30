@@ -126,6 +126,7 @@
     <string name="efs_backup_title">efsバックアップ</string>
     <string name="efs_backup_summary">efs領域をバックアップ</string>
     <string name="backup_completed">バックアップ完了</string>
+    <string name="path_input_message">パスを入力してください</string>
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPUコントロール</string>

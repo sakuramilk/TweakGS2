@@ -44,6 +44,7 @@
 
     <!-- MultiBoot -->
     <net.sakuramilk.TweakGS2.Parts.IconPreferenceScreen
+        android:key="multi_boot_title"
         android:title="@string/multi_boot_title"
         tweakgs2:icon="@drawable/ic_settings_storage">
         <intent
