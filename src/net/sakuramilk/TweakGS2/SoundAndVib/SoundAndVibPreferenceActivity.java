@@ -49,7 +49,7 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
             mSoundPlayFreqLock.setOnPreferenceChangeListener(this);
         }
 
-        if (Misc.isAospRom()) {
+        if (Misc.isFeatureAospEnabled()) {
             mVibNormalLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_NORMAL_LEVEL);
             if (mSetting.isEnableVibLevel()) {
                 mVibNormalLevel.setEnabled(true);

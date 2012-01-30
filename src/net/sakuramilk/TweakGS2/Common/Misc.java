@@ -29,8 +29,8 @@ import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
 
 public class Misc {
 
-    static final SysFs sSysFsAospRom = new SysFs("proc/sys/kernel/aosp_rom_mode");
-    static int sAospRomMode = -1;
+    static final SysFs sSysFsFeatureAosp = new SysFs("proc/sys/kernel/feature_aosp");
+    static int sIsFeatureAospEnabled = -1;
 
     public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
@@ -101,12 +101,12 @@ public class Misc {
         }
     }
 
-    public static boolean isAospRom() {
-        if (sAospRomMode == -1) {
-            String value = sSysFsAospRom.read();
-            sAospRomMode = ("1".equals(value)) ? 1 : 0;
+    public static boolean isFeatureAospEnabled() {
+        if (sIsFeatureAospEnabled == -1) {
+            String value = sSysFsFeatureAosp.read();
+            sIsFeatureAospEnabled = ("1".equals(value)) ? 1 : 0;
         }
-        return (sAospRomMode == 1) ? true : false;
+        return (sIsFeatureAospEnabled == 1) ? true : false;
     }
     
     public static String getVersionName(Context context) {
