@@ -18,6 +18,7 @@ package net.sakuramilk.TweakGS2.CpuControl;
 
 import java.util.ArrayList;
 
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 import android.content.Context;
@@ -63,9 +64,14 @@ public class CpuVoltageSetting extends SettingManager {
     @Override
     public void setOnBoot() {
         String[] voltTable = getVoltageTable();
+        CpuControlSetting cpuSetting = new CpuControlSetting(mContext);
+        String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
         for (int i = 0; i < voltTable.length; i++) {
-            String volt = loadVoltage(KEY_CPU_VOLT_CTRL_BASE + i);
-            voltTable[i] = volt;
+            String freq = String.valueOf(Integer.parseInt(availableFrequencies[i]) / 1000);
+            String volt = loadVoltage(KEY_CPU_VOLT_CTRL_BASE + freq);
+            if (!Misc.isNullOfEmpty(volt)) {
+                voltTable[i] = volt;
+            }
         }
         setVoltageTable(voltTable);
     }

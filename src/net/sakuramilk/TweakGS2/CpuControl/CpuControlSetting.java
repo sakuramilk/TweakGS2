@@ -67,11 +67,11 @@ public class CpuControlSetting extends SettingManager {
     }
 
     public String loadScalingGovernor() {
-        return getStringValue(KEY_CPU_GOV_SETTING);
+        return getStringValue(KEY_CPU_GOV_LIST);
     }
 
     public void saveScalingGovernor(String value) {
-        setValue(KEY_CPU_GOV_SETTING, value);
+        setValue(KEY_CPU_GOV_LIST, value);
     }
     
     public boolean loadGovernorSetOnBoot() {
@@ -134,9 +134,9 @@ public class CpuControlSetting extends SettingManager {
             value = loadScalingGovernor();
             if (!Misc.isNullOfEmpty(value)) {
                 setScalingGovernor(value);
+                CpuGovernorSetting cpuGovSetting = new CpuGovernorSetting(mContext, value);
+                cpuGovSetting.setOnBoot();
             }
-            CpuGovernorSetting cpuGovSetting = new CpuGovernorSetting(mContext, value);
-            cpuGovSetting.setOnBoot();
         }
         if (loadFreqSetOnBoot()) {
             value = loadScalingMaxFreq();

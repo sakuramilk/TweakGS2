@@ -27,6 +27,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -111,5 +113,23 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         preference.setSummary(Misc.getCurrentAndSavedValueText(this,
                 mCurVoltTable[index] + "mV", newValue + "mV"));
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean ret = super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.reset_menu, menu);
+        return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_reset:
+            mSetting.reset();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
