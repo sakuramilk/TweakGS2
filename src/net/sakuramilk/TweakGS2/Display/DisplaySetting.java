@@ -240,7 +240,7 @@ public class DisplaySetting extends SettingManager {
             }
         }
         if (isEnableLcdGamma()) {
-            String value = loadLcdType();
+            String value = loadLcdGamma();
             if (value != null) {
                 setLcdGamma(value);
             }
