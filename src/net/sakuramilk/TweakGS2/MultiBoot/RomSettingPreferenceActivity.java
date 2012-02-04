@@ -110,6 +110,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         if (Misc.isNullOfEmpty(sysPart)) {
             sysPart = MbsConf.Partition.mmcblk0p9;
             mMbsConf.setSystemPartition(mRomId, sysPart);
+            mMbsConf.setSystemPath(mRomId, "/");
         }
         mSystemPart.setValue(sysPart);
         mSystemPart.setSummary(Misc.getCurrentValueText(
@@ -127,6 +128,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         if (Misc.isNullOfEmpty(dataPart)) {
             dataPart = MbsConf.Partition.mmcblk0p10;
             mMbsConf.setDataPartition(mRomId, dataPart);
+            mMbsConf.setDataPath(mRomId, "/data" + mRomId);
         }
         mDataPart.setValue(dataPart);
         mDataPart.setSummary(Misc.getCurrentValueText(
@@ -181,6 +183,11 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
             mDataPart.setValue(value);
             mDataPart.setSummary(Misc.getCurrentValueText(
                     this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, value)));
+            if (MbsConf.Partition.mmcblk0p10.equals(value)) {
+                mMbsConf.setDataPath(mRomId, "/data" + mRomId);
+            } else {
+                mMbsConf.setDataPath(mRomId, "/");
+            }
 
         } else if (preference == mDataImg) {
             if ("modify".equals(value)) {
@@ -211,6 +218,11 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
             } else if ("delete".equals(value)) {
                 mMbsConf.setDataImage(mRomId, "");
                 mDataImg.setSummary(Misc.getCurrentValueText(this, null));
+                if (MbsConf.Partition.mmcblk0p10.equals(mMbsConf.getDataPartition(mRomId))) {
+                    mMbsConf.setDataPath(mRomId, "/data" + mRomId);
+                } else {
+                    mMbsConf.setDataPath(mRomId, "/");
+                }
             }
         }
         return false;
@@ -246,6 +258,7 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                 String path = intent.getStringExtra("path");
                 mMbsConf.setDataImage(mRomId, path);
                 mDataImg.setSummary(Misc.getCurrentValueText(this, path));
+                mMbsConf.setDataPath(mRomId, "/");
             }
         }
         if (mNeedUnmount) {

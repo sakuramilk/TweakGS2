@@ -47,8 +47,10 @@ public class MbsConf extends PropertyManager {
     private static final String CONF_KEY_LABEL = "mbs.rom%d.label";
     private static final String CONF_KEY_SYSTEM_PART = "mbs.rom%d.system.part";
     private static final String CONF_KEY_SYSTEM_IMG = "mbs.rom%d.system.img";
+    private static final String CONF_KEY_SYSTEM_PATH = "mbs.rom%d.system.path";
     private static final String CONF_KEY_DATA_PART = "mbs.rom%d.data.part";
     private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data.img";
+    private static final String CONF_KEY_DATA_PATH = "mbs.rom%d.data.path";
 
     public int getBootRomId() {
         return Integer.valueOf(getValue(CONF_KEY_BOOT_ROM, "0"));
@@ -82,6 +84,14 @@ public class MbsConf extends PropertyManager {
         setValue(String.format(CONF_KEY_SYSTEM_IMG, romId), value);
     }
 
+    public String getSystemPath(int romId) {
+        return getValue(String.format(CONF_KEY_SYSTEM_PATH, romId));
+    }
+
+    public void setSystemPath(int romId, String value) {
+        setValue(String.format(CONF_KEY_SYSTEM_PATH, romId), value);
+    }
+
     public String getDataPartition(int romId) {
         return getValue(String.format(CONF_KEY_DATA_PART, romId));
     }
@@ -98,6 +108,14 @@ public class MbsConf extends PropertyManager {
         setValue(String.format(CONF_KEY_DATA_IMG, romId), value);
     }
 
+    public String getDataPath(int romId) {
+        return getValue(String.format(CONF_KEY_DATA_PATH, romId));
+    }
+
+    public void setDataPath(int romId, String value) {
+        setValue(String.format(CONF_KEY_DATA_PATH, romId), value);
+    }
+
     public int getNextRomId() {
         for (int i = 0; i <= MAX_ROM_ID; i++) {
             if (Misc.isNullOfEmpty(getSystemPartition(i))) {
@@ -111,8 +129,10 @@ public class MbsConf extends PropertyManager {
         setLabel(romId, "");
         setSystemPartition(romId, "");
         setSystemImage(romId, "");
+        setSystemPath(romId, "");
         setDataPartition(romId, "");
         setDataImage(romId, "");
+        setDataPath(romId, "");
 
         int bootRomId = getBootRomId();
         if (bootRomId == romId) {

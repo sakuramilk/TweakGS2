@@ -64,9 +64,11 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
             mMbsConf.setLabel(0, "Primary");
             mMbsConf.setSystemPartition(0, MbsConf.Partition.mmcblk0p9);
             mMbsConf.setDataPartition(0, MbsConf.Partition.mmcblk0p10);
+            mMbsConf.setDataPath(0, "/data0");
             mMbsConf.setLabel(1, "Secondary");
             mMbsConf.setSystemPartition(1, MbsConf.Partition.mmcblk0p11);
             mMbsConf.setDataPartition(1, MbsConf.Partition.mmcblk0p10);
+            mMbsConf.setDataPath(1, "/data1");
             mMbsConf.setBootRomId(0);
             nextRomId = mMbsConf.getNextRomId();
         }
@@ -74,9 +76,11 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
         int bootRomId = mMbsConf.getBootRomId();
         mRomIdEntries = new ArrayList<String>();
         mRomIdEntryValues = new ArrayList<String>();
-        for (int i = 0; i < nextRomId; i++) {
-            mRomIdEntries.add("ROM" + i + ":" + mMbsConf.getLabel(i));
-            mRomIdEntryValues.add(String.valueOf(i));
+        for (int i = 0; i <= MbsConf.MAX_ROM_ID; i++) {
+            if (!Misc.isNullOfEmpty(mMbsConf.getSystemPartition(i))) {
+                mRomIdEntries.add("ROM" + i + ":" + mMbsConf.getLabel(i));
+                mRomIdEntryValues.add(String.valueOf(i));
+            }
         }
 
         PreferenceCategory categoryPref = new PreferenceCategory(this);
