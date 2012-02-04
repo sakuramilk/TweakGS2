@@ -1,5 +1,5 @@
 
-  *** TweakGS2 V0.5.0 beta3 ****
+  *** TweakGS2 V0.5.0 beta4 ****
 
   SC-02Cの設定アプリです
   要root
@@ -78,6 +78,9 @@
 
 
 　■更新履歴
+
+    V0.5.0b4  issue #13修正
+              MultiBoot仕様変更対応
 
     V0.5.0b3  issue #7～12修正
 

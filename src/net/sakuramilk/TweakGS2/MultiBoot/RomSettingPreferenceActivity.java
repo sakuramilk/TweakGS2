@@ -19,7 +19,6 @@ package net.sakuramilk.TweakGS2.MultiBoot;
 import java.io.File;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Constant;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
 import net.sakuramilk.TweakGS2.Parts.TextInputDialog;
