@@ -20,4 +20,5 @@ public class Constant {
     public static final String CWM_BACKUP_DIR = "/clockworkmod/backup";
     public static final String TGS2_BACKUP_DIR = "/TweakGS2/backup";
     public static final String MNT_ROOT = "/mnt";
+    public static final String TGS2_WORK_DIR = "sdcard/TweakGS2/";
 }

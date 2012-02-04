@@ -20,9 +20,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -84,6 +86,8 @@ public class TextInputDialog extends AlertDialog {
         mInputField.setHorizontallyScrolling(true);
         mInputField.setGravity(Gravity.FILL_HORIZONTAL);
         mInputField.setTextAppearance(context, android.R.attr.textAppearanceMedium);
+        mInputField.setInputType(InputType.TYPE_CLASS_TEXT);
+        mInputField.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         lp.setMargins(20, 10, 20, 20);

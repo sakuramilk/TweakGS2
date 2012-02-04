@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceScreen
+        android:key="dst_dir"
+        android:title="作成先のディレクトリ" />
+    <PreferenceScreen
+        android:key="dst_file"
+        android:title="イメージファイル名" />
+    <ListPreference
+        android:key="img_size"
+        android:title="イメージサイズ" />
+
+</PreferenceScreen>

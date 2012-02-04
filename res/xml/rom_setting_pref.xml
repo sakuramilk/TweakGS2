@@ -32,12 +32,11 @@
         <ListPreference
             android:key="rom_system_part_list"
             android:title="@string/rom_partition" />
-        <PreferenceScreen
+        <ListPreference
             android:key="rom_system_img_list"
-            android:title="@string/rom_image" />
-        <PreferenceScreen
-            android:key="rom_system_path_list"
-            android:title="@string/rom_path" />
+            android:title="@string/rom_image"
+            android:entries="@array/rom_img_menu_entries"
+            android:entryValues="@array/rom_img_menu_values" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -46,12 +45,11 @@
         <ListPreference
             android:key="rom_data_part_list"
             android:title="@string/rom_partition" />
-        <PreferenceScreen
+        <ListPreference
             android:key="rom_data_img_list"
-            android:title="@string/rom_image" />
-        <PreferenceScreen
-            android:key="rom_data_path_list"
-            android:title="@string/rom_path" />
+            android:title="@string/rom_image"
+            android:entries="@array/rom_img_menu_entries"
+            android:entryValues="@array/rom_img_menu_values" />
     </PreferenceCategory>
 
 </PreferenceScreen>

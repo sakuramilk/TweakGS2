@@ -44,6 +44,7 @@ public abstract class FilePickerActivity extends PreferenceActivity
     private boolean mDirMode = false;
     private String mExecMode = "";
     private String mRootPath = Constant.MNT_ROOT;
+    private String mChRootPath;
     private String mCurPath = "";
     private String mFilter = null;
 
@@ -55,6 +56,10 @@ public abstract class FilePickerActivity extends PreferenceActivity
         Intent intent = getIntent();
         setTitle(intent.getStringExtra("title"));
         String path = intent.getStringExtra("path");
+        mChRootPath = intent.getStringExtra("chroot");
+        if (mChRootPath == null) {
+            mChRootPath = "";
+        }
         mFilter = intent.getStringExtra("filter");
         mExecMode = intent.getStringExtra("mode");
         if ("dir".equals(intent.getStringExtra("select"))) {
@@ -116,7 +121,8 @@ public abstract class FilePickerActivity extends PreferenceActivity
         PreferenceCategory categoryPref;
         PreferenceScreen pref = prefManager.createPreferenceScreen(this);
         pref.setTitle(R.string.path);
-        pref.setSummary(mCurPath);
+        pref.setSummary(mCurPath.substring(mChRootPath.length()));
+        pref.setSelectable(false);
         rootPref.addPreference(pref);
 
         File[] directories = new File(path).listFiles(new FilenameFilter() {
@@ -206,14 +212,14 @@ public abstract class FilePickerActivity extends PreferenceActivity
             } else if (file.isDirectory()) {
                 if (mDirMode) {
                     // selected directory
-                    onFilePicked(file.getPath(), mExecMode);
+                    onFilePicked(file.getPath().substring(mChRootPath.length()), mExecMode);
                 } else {
                     // selected directory
                     setPreferenceScreen(createFileList(file.getPath()));
                 }
             } else {
                 // selected file
-                onFilePicked(file.getPath(), mExecMode);
+                onFilePicked(file.getPath().substring(mChRootPath.length()), mExecMode);
             }
         } else {
             // selected sdcard

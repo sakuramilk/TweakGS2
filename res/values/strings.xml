@@ -125,6 +125,7 @@
     <string name="menu_add_rom">Add ROM</string>
     <string name="multi_boot_wizard_title">Multi boot wizard</string>
     <string name="select_img_title">Select image file</string>
+    <string name="select_dir_title">Select directory</string>
     <string name="rom_label_title">ROM label</string>
     <string name="rom_label_message">Please input ROM label</string>
     <string name="path_input_message">Please input path</string>

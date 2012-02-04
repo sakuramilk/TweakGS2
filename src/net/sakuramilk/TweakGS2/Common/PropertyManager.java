@@ -103,7 +103,11 @@ public abstract class PropertyManager {
             for (String prop : propString) {
                 String keyValue[] = prop.split("=");
                 if (key.equals(keyValue[0])) {
-                    return keyValue[1];
+                    if (keyValue.length > 1) {
+                        return keyValue[1];
+                    } else {
+                        return defaultValue;
+                    }
                 }
             }
         }

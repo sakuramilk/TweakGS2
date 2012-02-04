@@ -25,7 +25,7 @@ public class MbsConf extends PropertyManager {
     public static final int MAX_ROM_ID = 7;
 
     public MbsConf() {
-        super("/data/mbs.conf");
+        super("/xdata/mbs.conf");
 
         // if not exists, create prop file.
         if (!mFile.exists()) {
@@ -43,14 +43,12 @@ public class MbsConf extends PropertyManager {
         public static final String mmcblk1p3 = "/dev/block/mmcblk1p3";
     }
 
-    private static final String CONF_KEY_BOOT_ROM = "mbs.boot_rom";
-    private static final String CONF_KEY_LABEL = "mbs.rom%d_label";
-    private static final String CONF_KEY_SYSTEM_PART = "mbs.rom%d.system_part";
-    private static final String CONF_KEY_SYSTEM_IMG = "mbs.rom%d.system_img";
-    private static final String CONF_KEY_SYSTEM_PATH = "mbs.rom%d.system_path";
-    private static final String CONF_KEY_DATA_PART = "mbs.rom%d.data_part";
-    private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data_img";
-    private static final String CONF_KEY_DATA_PATH = "mbs.rom%d.data_path";
+    private static final String CONF_KEY_BOOT_ROM = "mbs.boot.rom";
+    private static final String CONF_KEY_LABEL = "mbs.rom%d.label";
+    private static final String CONF_KEY_SYSTEM_PART = "mbs.rom%d.system.part";
+    private static final String CONF_KEY_SYSTEM_IMG = "mbs.rom%d.system.img";
+    private static final String CONF_KEY_DATA_PART = "mbs.rom%d.data.part";
+    private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data.img";
 
     public int getBootRomId() {
         return Integer.valueOf(getValue(CONF_KEY_BOOT_ROM, "0"));
@@ -84,14 +82,6 @@ public class MbsConf extends PropertyManager {
         setValue(String.format(CONF_KEY_SYSTEM_IMG, romId), value);
     }
 
-    public String getSystemPath(int romId) {
-        return getValue(String.format(CONF_KEY_SYSTEM_PATH, romId));
-    }
-
-    public void setSystemPath(int romId, String value) {
-        setValue(String.format(CONF_KEY_SYSTEM_PATH, romId), value);
-    }
-
     public String getDataPartition(int romId) {
         return getValue(String.format(CONF_KEY_DATA_PART, romId));
     }
@@ -108,16 +98,8 @@ public class MbsConf extends PropertyManager {
         setValue(String.format(CONF_KEY_DATA_IMG, romId), value);
     }
 
-    public String getDataPath(int romId) {
-        return getValue(String.format(CONF_KEY_DATA_PATH, romId));
-    }
-
-    public void setDataPath(int romId, String value) {
-        setValue(String.format(CONF_KEY_DATA_PATH, romId), value);
-    }
-
     public int getNextRomId() {
-        for (int i = 0; i < MAX_ROM_ID; i++) {
+        for (int i = 0; i <= MAX_ROM_ID; i++) {
             if (Misc.isNullOfEmpty(getSystemPartition(i))) {
                 return i;
             }
@@ -129,10 +111,8 @@ public class MbsConf extends PropertyManager {
         setLabel(romId, "");
         setSystemPartition(romId, "");
         setSystemImage(romId, "");
-        setSystemPath(romId, "");
         setDataPartition(romId, "");
         setDataImage(romId, "");
-        setDataPath(romId, "");
 
         int bootRomId = getBootRomId();
         if (bootRomId == romId) {

@@ -163,16 +163,30 @@ public class SystemCommand {
         process.term();
     }
 
-    public static void mount(String format, String device, String mountPoint) {
-        String[] commands = { "su", "-c",
-                "mount -t " + format + " -o rw " + device + " " + mountPoint + "\n" };
-        RuntimeExec.execute(commands, false);
+    public static void mount(String device, String mountPoint, String format, String option) {
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        String command = "mount ";
+        if (!Misc.isNullOfEmpty(format)) {
+            command += "-t " + format + " ";
+        }
+        if (!Misc.isNullOfEmpty(option)) {
+            command += "-o " + option + " ";
+        }
+        command += device + " " + mountPoint + "\n";
+        process.write(command);
+        process.term();
     }
 
     public static void umount(String mountPoint) {
-        String[] commands = { "su", "-c",
-            "umount " + mountPoint + "\n" };
-        RuntimeExec.execute(commands, false);
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("umount " + mountPoint + "\n");
+        process.term();
     }
 
     public static void remount_system_rw() {
@@ -275,5 +289,10 @@ public class SystemCommand {
         process.write("cd " + dir + "\n");
         process.write("md5sum " + file.getName() + " > " + file.getName() + ".md5\n");
         process.term();
+    }
+
+    public static String df(String device) {
+        String ret[] = RuntimeExec.execute("df " + device + " | grep " + device + "\n", true);
+        return ret[0];
     }
 }

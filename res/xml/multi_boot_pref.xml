@@ -21,17 +21,4 @@
     android:title="@string/multi_boot_title"
     android:key="root_pref">
 
-    <PreferenceCategory
-        android:key="multi_boot_boot_rom_category"
-        android:title="@string/multi_boot_rom_select_category">
-        <ListPreference
-            android:key="rom_select"
-            android:title="@string/multi_boot_rom_select_title"
-            android:enabled="false" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:key="multi_boot_rom_setting_category"
-        android:title="@string/multi_boot_rom_setting">
-    </PreferenceCategory>
-
 </PreferenceScreen>

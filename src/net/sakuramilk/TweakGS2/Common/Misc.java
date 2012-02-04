@@ -83,7 +83,7 @@ public class Misc {
     }
 
     public static String getCurrentValueText(Context context, String value) {
-        return context.getText(R.string.current_value) + " " + value;
+        return context.getText(R.string.current_value) + " " + (value == null ? context.getText(R.string.none) : value);
     }
 
     public static String getCurrentValueText(Context context, int resId) {
@@ -182,7 +182,11 @@ public class Misc {
     }
 
     public static long getAvailableSdcardSize(boolean isInternal) {
-        StatFs statFs = new StatFs(getSdcardPath(isInternal));
+        return getAvailableSize(getSdcardPath(isInternal));
+    }
+    
+    public static long getAvailableSize(String mountPath) {
+        StatFs statFs = new StatFs(mountPath);
         long blockSize = statFs.getBlockSize();
         long availableBlocks = statFs.getAvailableBlocks();
         return blockSize * availableBlocks;
@@ -198,5 +202,14 @@ public class Misc {
             return true;
         }
         return false;
+    }
+
+    public static String getMountedPath(String device) {
+        String ret = SystemCommand.df(device);
+        String[] value = ret.split(" ");
+        if (value == null || value[value.length - 1] == "") {
+            return null;
+        }
+        return value[value.length - 1];
     }
 }

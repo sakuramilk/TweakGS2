@@ -118,6 +118,7 @@
     <string name="menu_add_rom">ROMを追加</string>
     <string name="multi_boot_wizard_title">マルチブートウィザード</string>
     <string name="select_img_title">imgファイルを選択</string>
+    <string name="select_dir_title">ディレクトリを選択</string>
     <string name="rom_label_title">ROMラベル</string>
     <string name="rom_label_message">ROMのラベルを入力してください</string>
 	<string name="special_category">特殊領域のバックアップ</string>

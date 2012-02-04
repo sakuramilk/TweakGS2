@@ -30,21 +30,9 @@
         <item>PCC and MCM</item>
     </string-array>
 
-    <string-array name="lcdcolor_mode_values">
-        <item>0</item>
-        <item>65</item>
-        <item>6</item>
-        <item>69</item>
-    </string-array>
-
     <string-array name="dock_emulate_entries">
         <item>無効</item>
         <item>SWエミュレーション</item>
-    </string-array>
-
-    <string-array name="dock_emulate_values">
-        <item>0</item>
-        <item>1</item>
     </string-array>
 
     <string-array name="dock_emulate_hw_entries">
@@ -53,10 +41,15 @@
         <item>HWエミュレーション</item>
     </string-array>
 
-    <string-array name="dock_emulate_hw_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
+    <string-array name="rom_setting_menu_entries">
+        <item>変更</item>
+        <item>削除</item>
+    </string-array>
+
+    <string-array name="rom_img_menu_entries">
+        <item>変更</item>
+        <item>作成</item>
+        <item>削除</item>
     </string-array>
 
 </resources>
