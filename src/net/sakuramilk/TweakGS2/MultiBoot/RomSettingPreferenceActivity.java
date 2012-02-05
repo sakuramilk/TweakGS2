@@ -110,7 +110,6 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         if (Misc.isNullOfEmpty(sysPart)) {
             sysPart = MbsConf.Partition.mmcblk0p9;
             mMbsConf.setSystemPartition(mRomId, sysPart);
-            mMbsConf.setSystemPath(mRomId, "/");
         }
         mSystemPart.setValue(sysPart);
         mSystemPart.setSummary(Misc.getCurrentValueText(

@@ -123,7 +123,7 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
                 String dataPart = mMbsConf.getDataPartition(i);
                 String dataImg = mMbsConf.getDataImage(i);
                 String summary =
-                        " SYS_PART:" + sysPart + "\n" +
+                        "SYS_PART:" + sysPart + "\n" +
                         (!Misc.isNullOfEmpty(sysImg) ? "SYS_IMG:" + sysImg + "\n" : "") +
                         (!Misc.isNullOfEmpty(dataPart) ? "DATA_PART:" + dataPart + "\n" : "") +
                         (!Misc.isNullOfEmpty(dataImg) ? " DATA_IMG:" + dataImg : "");
