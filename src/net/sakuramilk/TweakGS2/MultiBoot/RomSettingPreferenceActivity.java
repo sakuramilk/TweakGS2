@@ -153,11 +153,15 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         } else if (preference == mSystemImg) {
             if ("modify".equals(value)) {
                 String part = mSystemPart.getValue();
-                String path = Misc.getMountedPath(part);
-                if (path == null) {
+                String path;
+                if (MbsConf.Partition.mmcblk0p11.equals(part)) {
+                    path = Misc.getSdcardPath(true);
+                } else if (MbsConf.Partition.mmcblk1p1.equals(part)) {
+                    path = Misc.getSdcardPath(false);
+                } else {
                     path = TMP_MOUNT_DIR;
                     SystemCommand.umount(TMP_MOUNT_DIR);
-                    SystemCommand.mount(mSystemPart.getValue(), TMP_MOUNT_DIR, null, null);
+                    SystemCommand.mount(part, TMP_MOUNT_DIR, null, null);
                     mNeedUnmount = true;
                 }
                 Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
@@ -192,14 +196,14 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
             if ("modify".equals(value)) {
                 String part = mDataPart.getValue();
                 String path;
-                if (MbsConf.Partition.mmcblk0p12.equals(part)) {
+                if (MbsConf.Partition.mmcblk0p11.equals(part)) {
                     path = Misc.getSdcardPath(true);
                 } else if (MbsConf.Partition.mmcblk1p1.equals(part)) {
                     path = Misc.getSdcardPath(false);
                 } else {
                     path = TMP_MOUNT_DIR;
                     SystemCommand.umount(TMP_MOUNT_DIR);
-                    SystemCommand.mount(mSystemPart.getValue(), TMP_MOUNT_DIR, null, null);
+                    SystemCommand.mount(part, TMP_MOUNT_DIR, null, null);
                     mNeedUnmount = true;
                 }
                 Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
