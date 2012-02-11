@@ -48,6 +48,7 @@ public class MainPreferenceActivity extends PreferenceActivity {
         if (Misc.getBuildTarget() != Misc.BUILD_TARGET_MULTI) {
             Preference pref = (Preference)findPreference("multi_boot_title");
             pref.setEnabled(false);
+            pref.setSelectable(false);
         }
     }
 }

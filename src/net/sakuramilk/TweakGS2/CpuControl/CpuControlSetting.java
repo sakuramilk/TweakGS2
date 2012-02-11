@@ -84,7 +84,8 @@ public class CpuControlSetting extends SettingManager {
         if (values != null) {
             return values.split(" ");
         }
-        return null;
+        // FIXME: default kernel is not found target sysfs.
+        return new String[] { "1200000", "1000000", "800000", "500000", "200000" };
     }
 
     public String getScalingMaxFreq() {

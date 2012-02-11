@@ -118,7 +118,16 @@ public class Misc {
     public static int getBuildTarget() {
         if (sBuildTarget == -1) {
             String value = sSysFsBuildTarget.read();
-            sBuildTarget = Integer.valueOf(value);
+            if (Misc.isNullOfEmpty(value)) {
+                File file = new File("/system/framework/twframework.jar");
+                if (file.exists()) {
+                    sBuildTarget = BUILD_TARGET_SAMSUNG;
+                } else {
+                    sBuildTarget = BUILD_TARGET_AOSP;
+                }
+            } else {
+                sBuildTarget = Integer.valueOf(value);
+            }
         }
         return sBuildTarget;
     }
@@ -149,10 +158,14 @@ public class Misc {
 
     public static int getKernelVersion() {
         String ret = SystemCommand.uname("-r");
-        String[] ver = ret.substring(0, ret.indexOf('-')).split("\\.");
-        return (Integer.valueOf(ver[0]) * 1000 +
-                 Integer.valueOf(ver[1]) * 100 +
-                 Integer.valueOf(ver[2]));
+        if (Misc.isNullOfEmpty(ret)) {
+            return KERNEL_VER_2_6_0;
+        } else {
+            String[] ver = ret.substring(0, ret.indexOf('-')).split("\\.");
+            return (Integer.valueOf(ver[0]) * 1000 +
+                     Integer.valueOf(ver[1]) * 100 +
+                     Integer.valueOf(ver[2]));
+        }
     }
     
     public static String[] getFreqencyEntries(String[] frequencyValues) {
