@@ -44,6 +44,7 @@
 
     <!-- MultiBoot -->
     <PreferenceScreen
+        android:key="multi_boot_pref"
         android:title="@string/multi_boot_title"
         android:icon="@drawable/ic_settings_storage">
         <intent
@@ -55,7 +56,7 @@
     <!-- CpuControl -->
     <PreferenceScreen
         android:title="@string/cpu_control_title"
-        android:icon="@drawable/ic_settings_gpu">
+        android:icon="@drawable/ic_settings_cpu">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"

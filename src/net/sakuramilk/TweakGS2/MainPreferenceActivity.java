@@ -19,6 +19,8 @@ package net.sakuramilk.TweakGS2;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -28,7 +30,12 @@ public class MainPreferenceActivity extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.main_pref);
+
+        if (VERSION.SDK_INT > VERSION_CODES.GINGERBREAD_MR1) {
+            addPreferencesFromResource(R.xml.main_pref_ics);
+        } else {
+            addPreferencesFromResource(R.xml.main_pref);
+        }
 
         // check rooted
         if (!Misc.isSuperUserEnabled()) {
@@ -45,8 +52,9 @@ public class MainPreferenceActivity extends PreferenceActivity {
         }
 
         // check build target
-        if (Misc.getBuildTarget() != Misc.BUILD_TARGET_MULTI) {
-            Preference pref = (Preference)findPreference("multi_boot_title");
+        if ((Misc.getBuildTarget() != Misc.BUILD_TARGET_MULTI) &&
+            (VERSION.SDK_INT <= VERSION_CODES.GINGERBREAD_MR1)) {
+            Preference pref = (Preference)findPreference("multi_boot_pref");
             pref.setEnabled(false);
             pref.setSelectable(false);
         }
