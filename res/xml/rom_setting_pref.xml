@@ -51,5 +51,18 @@
             android:entries="@array/rom_img_menu_entries"
             android:entryValues="@array/rom_img_menu_values" />
     </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:key="rom_kernel_category"
+        android:title="@string/rom_kernel_category">
+        <ListPreference
+            android:key="rom_kernel_part_list"
+            android:title="@string/rom_partition" />
+        <ListPreference
+            android:key="rom_kernel_img_list"
+            android:title="@string/rom_kernel_image"
+            android:entries="@array/rom_kernel_img_menu_entries"
+            android:entryValues="@array/rom_kernel_img_menu_values" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

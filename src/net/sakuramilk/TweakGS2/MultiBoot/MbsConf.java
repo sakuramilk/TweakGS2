@@ -50,6 +50,8 @@ public class MbsConf extends PropertyManager {
     private static final String CONF_KEY_DATA_PART = "mbs.rom%d.data.part";
     private static final String CONF_KEY_DATA_IMG = "mbs.rom%d.data.img";
     private static final String CONF_KEY_DATA_PATH = "mbs.rom%d.data.path";
+    private static final String CONF_KEY_KERNEL_PART= "mbs.rom%d.kernel.part";
+    private static final String CONF_KEY_KERNEL_IMG = "mbs.rom%d.kernel.img";
 
     public int getBootRomId() {
         return Integer.valueOf(getValue(CONF_KEY_BOOT_ROM, "0"));
@@ -107,6 +109,22 @@ public class MbsConf extends PropertyManager {
         setValue(String.format(CONF_KEY_DATA_PATH, romId), value);
     }
 
+    public String getKernelPartition(int romId) {
+        return getValue(String.format(CONF_KEY_KERNEL_PART, romId));
+    }
+
+    public void setKernelPartition(int romId, String value) {
+        setValue(String.format(CONF_KEY_KERNEL_PART, romId), value);
+    }
+
+    public String getKernelImage(int romId) {
+        return getValue(String.format(CONF_KEY_KERNEL_IMG, romId));
+    }
+
+    public void setKernelImage(int romId, String value) {
+        setValue(String.format(CONF_KEY_KERNEL_IMG, romId), value);
+    }
+
     public int getNextRomId() {
         for (int i = 0; i <= MAX_ROM_ID; i++) {
             if (Misc.isNullOfEmpty(getSystemPartition(i))) {
@@ -123,6 +141,8 @@ public class MbsConf extends PropertyManager {
         setDataPartition(romId, "");
         setDataImage(romId, "");
         setDataPath(romId, "");
+        setKernelPartition(romId, "");
+        setKernelImage(romId, "");
 
         int bootRomId = getBootRomId();
         if (bootRomId == romId) {

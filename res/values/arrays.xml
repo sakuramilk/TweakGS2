@@ -140,4 +140,14 @@
         <item>delete</item>
     </string-array>
 
+    <string-array name="rom_kernel_img_menu_entries">
+        <item>Modify</item>
+        <item>Delete</item>
+    </string-array>
+
+    <string-array name="rom_kernel_img_menu_values">
+        <item>modify</item>
+        <item>delete</item>
+    </string-array>
+
 </resources>

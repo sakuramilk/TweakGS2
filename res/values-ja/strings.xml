@@ -112,8 +112,10 @@
     <string name="multi_boot_rom_setting">ROM設定</string>
     <string name="rom_system_category">システム領域</string>
     <string name="rom_data_category">データ領域</string>
+    <string name="rom_kernel_category">カーネルイメージ</string>
     <string name="rom_partition">パーティション</string>
     <string name="rom_image">イメージ</string>
+    <string name="rom_kernel_image">カーネルイメージ</string>
     <string name="rom_path">パス</string>
     <string name="menu_add_rom">ROMを追加</string>
     <string name="multi_boot_wizard_title">マルチブートウィザード</string>

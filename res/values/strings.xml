@@ -119,8 +119,10 @@
     <string name="multi_boot_rom_setting">ROM setting</string>
     <string name="rom_system_category">System area</string>
     <string name="rom_data_category">Data area</string>
+    <string name="rom_kernel_category">Kernel image</string>
     <string name="rom_partition">Partition</string>
     <string name="rom_image">Image</string>
+    <string name="rom_kernel_image">Kernel image</string>
     <string name="rom_path">Path</string>
     <string name="menu_add_rom">Add ROM</string>
     <string name="multi_boot_wizard_title">Multi boot wizard</string>

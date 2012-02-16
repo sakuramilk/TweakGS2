@@ -47,10 +47,13 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
     private static final String KEY_SYSTEM_IMG = "rom_system_img_list";
     private static final String KEY_DATA_PART = "rom_data_part_list";
     private static final String KEY_DATA_IMG = "rom_data_img_list";
+    private static final String KEY_KERNEL_PART = "rom_kernel_part_list";
+    private static final String KEY_KERNEL_IMG = "rom_kernel_img_list";
 
     private static final int REQUEST_SYS_IMG_PATH = 1000;
     private static final int REQUEST_DATA_IMG_PATH = 1001;
-    
+    private static final int REQUEST_KERNEL_IMG_PATH = 1002;
+
     private static final String TMP_MOUNT_DIR = "/data/TweakGS2/mnt/tmp";
     private static final String[] PART_ENTRIES = {
         "mmcblk0p9(factoryfs)",
@@ -76,6 +79,8 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
     private ListPreference mSystemImg;
     private ListPreference mDataPart;
     private ListPreference mDataImg;
+    private ListPreference mKernelPart;
+    private ListPreference mKernelImg;
     private boolean mNeedUnmount = false;
 
     @Override
@@ -138,7 +143,22 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         mDataImg.setSummary(Misc.getCurrentValueText(this, mMbsConf.getDataImage(mRomId)));
         mDataImg.setOnPreferenceChangeListener(this);
 
-        registerForContextMenu(getListView());
+        mKernelPart = (ListPreference)findPreference(KEY_KERNEL_PART);
+        mKernelPart.setEntries(PART_ENTRIES);
+        mKernelPart.setEntryValues(PART_ENTRY_VALUES);
+        String kernelPart = mMbsConf.getKernelPartition(mRomId);
+        if (!Misc.isNullOfEmpty(kernelPart)) {
+            mKernelPart.setValue(kernelPart);
+        }
+        mKernelPart.setSummary(Misc.getCurrentValueText(
+                this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, dataPart)));
+        mKernelPart.setOnPreferenceChangeListener(this);
+
+        mKernelImg = (ListPreference)findPreference(KEY_KERNEL_IMG);
+        mKernelImg.setSummary(Misc.getCurrentValueText(this, mMbsConf.getKernelImage(mRomId)));
+        mKernelImg.setOnPreferenceChangeListener(this);
+
+        //registerForContextMenu(getListView());
     }
 
     @Override
@@ -227,6 +247,37 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                     mMbsConf.setDataPath(mRomId, "/");
                 }
             }
+
+        } else if (preference == mKernelPart) {
+            mMbsConf.setKernelPartition(mRomId, value);
+            mKernelPart.setValue(value);
+            mKernelPart.setSummary(Misc.getCurrentValueText(
+                    this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, value)));
+
+        } else if (preference == mKernelImg) {
+            if ("modify".equals(value)) {
+                String part = mKernelPart.getValue();
+                String path;
+                if (MbsConf.Partition.mmcblk0p11.equals(part)) {
+                    path = Misc.getSdcardPath(true);
+                } else if (MbsConf.Partition.mmcblk1p1.equals(part)) {
+                    path = Misc.getSdcardPath(false);
+                } else {
+                    path = TMP_MOUNT_DIR;
+                    SystemCommand.umount(TMP_MOUNT_DIR);
+                    SystemCommand.mount(part, TMP_MOUNT_DIR, null, null);
+                    mNeedUnmount = true;
+                }
+                Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
+                intent.putExtra("title", getText(R.string.select_img_title));
+                intent.putExtra("path", path);
+                intent.putExtra("chroot", path);
+                intent.putExtra("select", "file");
+                this.startActivityForResult(intent, REQUEST_KERNEL_IMG_PATH);
+            } else if ("delete".equals(value)) {
+                mMbsConf.setKernelImage(mRomId, "");
+                mKernelImg.setSummary(Misc.getCurrentValueText(this, null));
+            }
         }
         return false;
     }
@@ -262,6 +313,10 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
                 mMbsConf.setDataImage(mRomId, path);
                 mDataImg.setSummary(Misc.getCurrentValueText(this, path));
                 mMbsConf.setDataPath(mRomId, "/");
+            } else if (REQUEST_KERNEL_IMG_PATH == requestCode) {
+                String path = intent.getStringExtra("path");
+                mMbsConf.setKernelImage(mRomId, path);
+                mKernelImg.setSummary(Misc.getCurrentValueText(this, path));
             }
         }
         if (mNeedUnmount) {
