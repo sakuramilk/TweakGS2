@@ -147,9 +147,11 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         mKernelPart.setEntries(PART_ENTRIES);
         mKernelPart.setEntryValues(PART_ENTRY_VALUES);
         String kernelPart = mMbsConf.getKernelPartition(mRomId);
-        if (!Misc.isNullOfEmpty(kernelPart)) {
-            mKernelPart.setValue(kernelPart);
+        if (Misc.isNullOfEmpty(kernelPart)) {
+            kernelPart = MbsConf.Partition.mmcblk0p10;
+            mMbsConf.setKernelPartition(mRomId, kernelPart);
         }
+        mKernelPart.setValue(kernelPart);
         mKernelPart.setSummary(Misc.getCurrentValueText(
                 this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, dataPart)));
         mKernelPart.setOnPreferenceChangeListener(this);
