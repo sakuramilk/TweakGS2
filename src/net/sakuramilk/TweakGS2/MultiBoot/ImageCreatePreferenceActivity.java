@@ -56,7 +56,9 @@ public class ImageCreatePreferenceActivity extends ApplyButtonPreferenceActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent();
-                    intent.putExtra("path", mDstDir + "/" + mDstFile);
+                    String path = mDstDir + "/" + mDstFile;
+                    path = path.replace("//", "/");
+                    intent.putExtra("path", path);
                     setResult(RESULT_OK, intent); 
                     finish();
                 }
@@ -75,9 +77,21 @@ public class ImageCreatePreferenceActivity extends ApplyButtonPreferenceActivity
         Intent intent = getIntent();
         String target = intent.getStringExtra("target");
         mDevicePath = intent.getStringExtra("device_path");
+        
+        String path;
+        if (MbsConf.Partition.mmcblk0p11.equals(mDevicePath)) {
+            path = Misc.getSdcardPath(true);
+        } else if (MbsConf.Partition.mmcblk1p1.equals(mDevicePath)) {
+            path = Misc.getSdcardPath(false);
+        } else {
+            path = TMP_MOUNT_DIR;
+        }
+        mRootPath = path;
 
         mDstDirPref = (PreferenceScreen)findPreference("dst_dir");
         mDstDirPref.setOnPreferenceClickListener(this);
+        mDstDir = "/";
+        mDstDirPref.setSummary(Misc.getCurrentValueText(this, mDstDir));
 
         mDstFilePref = (PreferenceScreen)findPreference("dst_file");
         mDstFilePref.setOnPreferenceClickListener(this);
@@ -100,22 +114,16 @@ public class ImageCreatePreferenceActivity extends ApplyButtonPreferenceActivity
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference == mDstDirPref) {
-            String path;
-            if (MbsConf.Partition.mmcblk0p12.equals(mDevicePath)) {
-                path = Misc.getSdcardPath(true);
-            } else if (MbsConf.Partition.mmcblk1p1.equals(mDevicePath)) {
-                path = Misc.getSdcardPath(false);
-            } else {
-                path = TMP_MOUNT_DIR;
+            if (!MbsConf.Partition.mmcblk0p12.equals(mDevicePath) &&
+                !MbsConf.Partition.mmcblk1p1.equals(mDevicePath)) {
                 SystemCommand.umount(TMP_MOUNT_DIR);
                 SystemCommand.mount(mDevicePath, TMP_MOUNT_DIR, null, null);
                 mNeedUnmount = true;
             }
-            mRootPath = path;
             Intent intent = new Intent(getApplicationContext(), FileSelectActivity.class);
             intent.putExtra("title", getText(R.string.select_dir_title));
-            intent.putExtra("path", path);
-            intent.putExtra("chroot", path);
+            intent.putExtra("path", mRootPath);
+            intent.putExtra("chroot", mRootPath);
             intent.putExtra("select", "dir");
             this.startActivityForResult(intent, REQUEST_IMG_DIR);
 
