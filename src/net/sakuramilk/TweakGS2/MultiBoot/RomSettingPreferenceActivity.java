@@ -73,6 +73,18 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         MbsConf.Partition.mmcblk1p2,
         MbsConf.Partition.mmcblk1p3,
     };
+    private static final String[] KERNEL_PART_ENTRIES = {
+        "mmcblk0p5(zImage)",
+        "mmcblk0p10(data)",
+        "mmcblk0p11(sdcard)",
+        "mmcblk1p1(emmc)",
+    };
+    private static final String[] KERNEL_PART_ENTRY_VALUES = {
+        MbsConf.Partition.mmcblk0p5,
+        MbsConf.Partition.mmcblk0p10,
+        MbsConf.Partition.mmcblk0p11,
+        MbsConf.Partition.mmcblk1p1,
+    };
 
     private PreferenceScreen mLabelText;
     private ListPreference mSystemPart;
@@ -144,19 +156,20 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
         mDataImg.setOnPreferenceChangeListener(this);
 
         mKernelPart = (ListPreference)findPreference(KEY_KERNEL_PART);
-        mKernelPart.setEntries(PART_ENTRIES);
-        mKernelPart.setEntryValues(PART_ENTRY_VALUES);
+        mKernelImg = (ListPreference)findPreference(KEY_KERNEL_IMG);
+        mKernelPart.setEntries(KERNEL_PART_ENTRIES);
+        mKernelPart.setEntryValues(KERNEL_PART_ENTRY_VALUES);
         String kernelPart = mMbsConf.getKernelPartition(mRomId);
         if (Misc.isNullOfEmpty(kernelPart)) {
-            kernelPart = MbsConf.Partition.mmcblk0p10;
+            kernelPart = MbsConf.Partition.mmcblk0p5;
             mMbsConf.setKernelPartition(mRomId, kernelPart);
+            mKernelImg.setEnabled(false);
         }
         mKernelPart.setValue(kernelPart);
         mKernelPart.setSummary(Misc.getCurrentValueText(
-                this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, dataPart)));
+                this, Misc.getEntryFromEntryValue(KERNEL_PART_ENTRIES, KERNEL_PART_ENTRY_VALUES, kernelPart)));
         mKernelPart.setOnPreferenceChangeListener(this);
 
-        mKernelImg = (ListPreference)findPreference(KEY_KERNEL_IMG);
         mKernelImg.setSummary(Misc.getCurrentValueText(this, mMbsConf.getKernelImage(mRomId)));
         mKernelImg.setOnPreferenceChangeListener(this);
 
@@ -254,13 +267,20 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
             mMbsConf.setKernelPartition(mRomId, value);
             mKernelPart.setValue(value);
             mKernelPart.setSummary(Misc.getCurrentValueText(
-                    this, Misc.getEntryFromEntryValue(PART_ENTRIES, PART_ENTRY_VALUES, value)));
+                    this, Misc.getEntryFromEntryValue(KERNEL_PART_ENTRIES, KERNEL_PART_ENTRY_VALUES, value)));
+            if (MbsConf.Partition.mmcblk0p5.equals(value)) {
+                mKernelImg.setEnabled(false);
+            } else {
+                mKernelImg.setEnabled(true);
+            }
 
         } else if (preference == mKernelImg) {
             if ("modify".equals(value)) {
                 String part = mKernelPart.getValue();
                 String path;
-                if (MbsConf.Partition.mmcblk0p11.equals(part)) {
+                if (MbsConf.Partition.mmcblk0p5.equals(part)) {
+                    return false;
+                } else if (MbsConf.Partition.mmcblk0p11.equals(part)) {
                     path = Misc.getSdcardPath(true);
                 } else if (MbsConf.Partition.mmcblk1p1.equals(part)) {
                     path = Misc.getSdcardPath(false);

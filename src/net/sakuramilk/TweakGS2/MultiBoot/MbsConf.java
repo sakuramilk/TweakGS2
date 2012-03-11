@@ -34,6 +34,7 @@ public class MbsConf extends PropertyManager {
     }
 
     public class Partition {
+        public static final String mmcblk0p5 = "/dev/block/mmcblk0p5";
         public static final String mmcblk0p9 = "/dev/block/mmcblk0p9";
         public static final String mmcblk0p10 = "/dev/block/mmcblk0p10";
         public static final String mmcblk0p11 = "/dev/block/mmcblk0p11";
