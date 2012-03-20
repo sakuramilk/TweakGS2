@@ -1,5 +1,5 @@
 
-  *** TweakGS2 V0.5.7 ****
+  *** TweakGS2 V0.5.8 ****
 
   SC-02Cの設定アプリです
   要root
@@ -76,6 +76,8 @@
 
 
 　■更新履歴
+
+    V0.5.8    ICS対応
 
     V0.5.7    kernel指定にmmcblk0p5を追加
 

@@ -17,6 +17,7 @@
 package net.sakuramilk.TweakGS2.Display;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -31,17 +32,43 @@ public class DisplaySetting extends SettingManager {
 
     public static final String MDNIE_MCM_ENABLE = "69";
     public static final String MDNIE_MCM_DISABLE = "0";
-
-    private final SysFs mSysFsLcdType = new SysFs("/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/user_lcdtype");
-    private final SysFs mSysFsLcdGamma = new SysFs("/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/user_gamma_adjust");
+    
+    public static final String LCD_BASE_PATH_KERNEL_3_0 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/lcd/panel";
+    public static final String LCD_BASE_PATH_KERNEL_2_6 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0";
+    public static final String LCD_USER_LCDTYPE = "/user_lcdtype";
+    public static final String LCD_USER_GAMMA_ADJUST = "/user_gamma_adjust";
+    private final SysFs mSysFsLcdType;
+    private final SysFs mSysFsLcdGamma;
+    
     private final SysFs mSysFsMdniePower = new SysFs("/sys/devices/platform/samsung-pd.2/s3cfb.0/mdnie_power");
     private final SysFs mSysFsMdnieForceDisable = new SysFs("/sys/devices/platform/samsung-pd.2/s3cfb.0/mdnie_force_disable");
-    private final SysFs mSysFsMdnieMode = new SysFs("/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_user_mode_cmd");
-    private final SysFs mSysFsMdnieMcmCb = new SysFs("/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_user_mcm_cb_cmd");
-    private final SysFs mSysFsMdnieMcmCr = new SysFs("/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_user_mcm_cr_cmd");
+    public static final String MDNIE_BASE_PATH_KERNEL_3_0 = "/sys/devices/platform/samsung-pd.2/mdnie/mdnie/mdnie";
+    public static final String MDNIE_BASE_PATH_KERNEL_2_6 = "/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui";
+    public static final String MDNIE_USER_MODE_CMD = "/user_mode_cmd";
+    public static final String MDNIE_USER_MCM_CB_CMD = "/user_mcm_cb_cmd";
+    public static final String MDNIE_USER_MCM_CR_CMD = "/user_mcm_cr_cmd";
+    public static final String MDNIE_USER_MODE_CMD_LEGACY = "/mdnieset_user_mode_cmd";
+    public static final String MDNIE_USER_MCM_CB_CMD_LEGACY = "/mdnieset_user_mcm_cb_cmd";
+    public static final String MDNIE_USER_MCM_CR_CMD_LEGACY = "/mdnieset_user_mcm_cr_cmd";
+    private final SysFs mSysFsMdnieMode;
+    private final SysFs mSysFsMdnieMcmCb;
+    private final SysFs mSysFsMdnieMcmCr;
 
     public DisplaySetting(Context context) {
         super(context);
+        if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
+            mSysFsLcdType = new SysFs(LCD_BASE_PATH_KERNEL_3_0 + LCD_USER_LCDTYPE);
+            mSysFsLcdGamma = new SysFs(LCD_BASE_PATH_KERNEL_3_0 + LCD_USER_GAMMA_ADJUST);
+            mSysFsMdnieMode = new SysFs(MDNIE_BASE_PATH_KERNEL_3_0 + MDNIE_USER_MODE_CMD);
+            mSysFsMdnieMcmCb = new SysFs(MDNIE_BASE_PATH_KERNEL_3_0 + MDNIE_USER_MCM_CB_CMD);
+            mSysFsMdnieMcmCr = new SysFs(MDNIE_BASE_PATH_KERNEL_3_0 + MDNIE_USER_MCM_CR_CMD);
+        } else {
+            mSysFsLcdType = new SysFs(LCD_BASE_PATH_KERNEL_2_6 + LCD_USER_LCDTYPE);
+            mSysFsLcdGamma = new SysFs(LCD_BASE_PATH_KERNEL_2_6 + LCD_USER_GAMMA_ADJUST);
+            mSysFsMdnieMode = new SysFs(MDNIE_BASE_PATH_KERNEL_2_6 + MDNIE_USER_MODE_CMD_LEGACY);
+            mSysFsMdnieMcmCb = new SysFs(MDNIE_BASE_PATH_KERNEL_2_6 + MDNIE_USER_MCM_CB_CMD_LEGACY);
+            mSysFsMdnieMcmCr = new SysFs(MDNIE_BASE_PATH_KERNEL_2_6 + MDNIE_USER_MCM_CR_CMD_LEGACY);
+        }
     }
 
     public boolean isEnableLcdType() {
