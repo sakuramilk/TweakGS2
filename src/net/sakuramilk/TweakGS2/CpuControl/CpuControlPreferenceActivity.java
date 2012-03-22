@@ -86,18 +86,21 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mGovernorList) {
             mSetting.setScalingGovernor(newValue.toString());
+            mSetting.saveScalingGovernor(newValue.toString());
             mGovernorList.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
-            return true;
+            return false;
 
         } else if (preference == mFreqMax) {
             mSetting.setScalingMaxFreq(newValue.toString());
+            mSetting.saveScalingMaxFreq(newValue.toString());
             mFreqMax.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
-            return true;
+            return false;
 
         } else if (preference == mFreqMin) {
             mSetting.setScalingMinFreq(newValue.toString());
+            mSetting.saveScalingMinFreq(newValue.toString());
             mFreqMin.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
-            return true;
+            return false;
 
         }
         return false;
