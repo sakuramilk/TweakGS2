@@ -19,7 +19,6 @@ package net.sakuramilk.TweakGS2.General;
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
-import net.sakuramilk.TweakGS2.Common.TweakPropery;
 
 public class SystemPropertySetting extends SettingManager {
 
@@ -30,6 +29,7 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_LOGGER = "sysprop_android_logger";
     public static final String KEY_CIFS = "sysprop_cifs";
     public static final String KEY_NTFS = "sysprop_ntfs";
+    public static final String KEY_USB_CONFIG = "sysprop_usb_config";
 
     private final TweakPropery mTweakPorp = new TweakPropery();
 
@@ -104,6 +104,14 @@ public class SystemPropertySetting extends SettingManager {
         SystemCommand.set_prop("persist.tgs2.ntfs", (value ? "1" : "0"));
     }
 
+    public String getUsbConfig() {
+        return SystemCommand.get_prop("persist.sys.usb.config", "mtp,adb");
+    }
+
+    public void setUsbConfig(String value) {
+        SystemCommand.set_prop("persist.sys.usb.config", value);
+    }
+
     @Override
     public void setOnBoot() {
         // noop
@@ -121,5 +129,6 @@ public class SystemPropertySetting extends SettingManager {
         setLogger(false);
         setCifs(false);
         setNtfs(false);
+        setUsbConfig("mtp,adb");
     }
 }

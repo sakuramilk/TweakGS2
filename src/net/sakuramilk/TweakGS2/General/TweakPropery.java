@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-package net.sakuramilk.TweakGS2.Common;
+package net.sakuramilk.TweakGS2.General;
+
+import net.sakuramilk.TweakGS2.Common.PropertyManager;
+import net.sakuramilk.TweakGS2.Common.SystemCommand;
 
 public class TweakPropery extends PropertyManager {
 

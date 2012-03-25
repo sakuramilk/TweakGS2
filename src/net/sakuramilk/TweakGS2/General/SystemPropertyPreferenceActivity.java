@@ -22,6 +22,7 @@ import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
@@ -36,6 +37,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mLogger;
     private CheckBoxPreference mCifs;
     private CheckBoxPreference mNtfs;
+    private ListPreference mUsbConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,33 +83,51 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mNtfs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_NTFS);
         mNtfs.setChecked(value);
         mNtfs.setOnPreferenceChangeListener(this);
+
+        String strValue = mSetting.getUsbConfig(); 
+        mUsbConfig = (ListPreference)findPreference(SystemPropertySetting.KEY_USB_CONFIG);
+        mUsbConfig.setValue(strValue);
+        mUsbConfig.setSummary(Misc.getCurrentValueText(
+                this, Misc.getEntryFromEntryValue(mUsbConfig.getEntries(), mUsbConfig.getEntryValues(), strValue)));
+        mUsbConfig.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        boolean newValue = (Boolean)objValue;
         if (mBootSound == preference) {
+            boolean newValue = (Boolean)objValue;
             mSetting.setBootSound(newValue);
             mBootSound.setChecked(newValue);
             // not return true
         } else if (mCameraSound == preference) {
+            boolean newValue = (Boolean)objValue;
             mSetting.setCameraSound(newValue);
             mCameraSound.setChecked(newValue);
             // not return true
         } else if (mCrtEffect == preference) {
+            boolean newValue = (Boolean)objValue;
             mSetting.setCrtEffect(newValue);
             mCrtEffect.setChecked(newValue);
             // not return true
         } else if (mLogger == preference) {
+            boolean newValue = (Boolean)objValue;
             mSetting.setLogger(newValue);
             mLogger.setChecked(newValue);
             // not return true
         } else if (mCifs == preference) {
+            boolean newValue = (Boolean)objValue;
             mSetting.setCifs(newValue);
             mCifs.setChecked(newValue);
             // not return true
         } else if (mNtfs == preference) {
+            boolean newValue = (Boolean)objValue;
             mSetting.setNtfs(newValue);
             mNtfs.setChecked(newValue);
+            // not return true
+        } else if (mUsbConfig == preference) {
+            String newValue = objValue.toString();
+            mSetting.setUsbConfig(newValue);
+            mUsbConfig.setSummary(Misc.getCurrentValueText(
+                    this, Misc.getEntryFromEntryValue(mUsbConfig.getEntries(), mUsbConfig.getEntryValues(), newValue)));
             // not return true
         }
         return false;

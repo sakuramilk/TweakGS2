@@ -111,6 +111,7 @@
     <string name="sysprop_ntfs_title">NTFS support</string>
     <string name="sysprop_ntfs_summary_on">NTFS support enabled</string>
     <string name="sysprop_ntfs_summary_off">NTFS support disabled</string>
+    <string name="sysprop_usb_config_title">USB Config</string>
 
     <!-- Multi Boot -->
     <string name="multi_boot_title">Multi boot setting</string>

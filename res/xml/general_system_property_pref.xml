@@ -54,5 +54,10 @@
 		android:title="@string/sysprop_ntfs_title"
 		android:summaryOn="@string/sysprop_ntfs_summary_on"
 		android:summaryOff="@string/sysprop_ntfs_summary_off" />
+	<ListPreference
+		android:key="sysprop_usb_config"
+		android:title="@string/sysprop_usb_config_title"
+        android:entries="@array/sysprop_usb_config_entries"
+        android:entryValues="@array/sysprop_usb_config_values" />
 
 </PreferenceScreen>

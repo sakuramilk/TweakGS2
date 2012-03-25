@@ -150,4 +150,22 @@
         <item>delete</item>
     </string-array>
 
+    <string-array name="sysprop_usb_config_entries">
+        <item>MTP</item>
+        <item>MTP and ADB</item>
+        <item>PTP</item>
+        <item>PTP and ADB</item>
+        <item>UMS</item>
+        <item>UMS and ADB</item>
+    </string-array>
+
+    <string-array name="sysprop_usb_config_values">
+        <item>mtp</item>
+        <item>mtp,adb</item>
+        <item>ptp</item>
+        <item>ptp,adb</item>
+        <item>mass_storage</item>
+        <item>mass_storage,adb</item>
+    </string-array>
+
 </resources>
