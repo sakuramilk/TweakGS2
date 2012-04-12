@@ -39,6 +39,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {  
         Log.d(TAG, "onReceive");
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            // check safe mode
+
             // General
             GeneralSetting generalSetting = new GeneralSetting(context);
             Log.d(TAG, "start: General Setting");

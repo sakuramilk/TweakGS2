@@ -21,10 +21,14 @@ import java.util.ArrayList;
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Parts.ApplyButtonPreferenceActivity;
+import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
+import android.content.Context;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.Menu;
@@ -33,14 +37,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
-    implements OnSeekBarPreferenceDoneListener, OnClickListener {
+    implements OnSeekBarPreferenceDoneListener, OnClickListener, OnPreferenceChangeListener {
 
+    private Context mContext;
+    private ListPreference mAsvGroup;
     private CpuVoltageSetting mSetting;
     private ArrayList<SeekBarPreference> mFreqPrefList;
-    String[] mCurVoltTable;
-    String[] mSavedVoltTable;
+    private String[] mCurVoltTable;
+    private String[] mSavedVoltTable;
+    private String mCurAsvGroup;
+    private String mSavedAsvGroup;
 
     private void setValues() {
+        mAsvGroup.setValue(mSavedAsvGroup);
+        mAsvGroup.setSummary(Misc.getCurrentAndSavedValueText(mContext,
+                Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mCurAsvGroup),
+                Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mSavedAsvGroup)));
+
         for (int i = 0; i < mCurVoltTable.length; i++) {
             SeekBarPreference pref = mFreqPrefList.get(i);
             pref.setValue(1500, 700, mSavedVoltTable[i] == null ?
@@ -55,11 +68,25 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mContext = this;
+
         addPreferencesFromResource(R.xml.cpu_control_voltage_pref);
         mSetting = new CpuVoltageSetting(this);
 
         mApplyButton.setOnClickListener(this);
 
+        mCurAsvGroup = mSetting.getAsvGroup();
+        mAsvGroup = (ListPreference)findPreference(CpuVoltageSetting.KEY_ASV_GROUP);
+        if (Misc.isNullOfEmpty(mCurAsvGroup)) {
+            mAsvGroup.setEnabled(false);
+        } else {
+            mSavedAsvGroup = mSetting.loadAsvGroup();
+            mAsvGroup.setValue(mSavedAsvGroup);
+            mAsvGroup.setOnPreferenceChangeListener(this);
+            mAsvGroup.setSummary(Misc.getCurrentAndSavedValueText(this,
+                    Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mCurAsvGroup),
+                    Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mSavedAsvGroup)));
+        }
         CpuControlSetting cpuSetting = new CpuControlSetting(this);
         String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
         ArrayList<String> list = new ArrayList<String>();
@@ -96,6 +123,9 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     @Override
     public void onClick(View v) {
         mApplyButton.setEnabled(false);
+        mSetting.setAsvGroup(mSavedAsvGroup);
+        mCurAsvGroup = mSavedAsvGroup;
+        mCurVoltTable = mSetting.getVoltageTable();
         for (int i = 0; i < mSavedVoltTable.length; i++) {
             if (mSavedVoltTable[i] != null) {
                 mCurVoltTable[i] = mSavedVoltTable[i];
@@ -131,5 +161,34 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mAsvGroup) {
+            if (mCurAsvGroup.equals(newValue.toString())) {
+                return false;
+            }
+            final ConfirmDialog dlg = new ConfirmDialog(this);
+            final String newAsvValue = newValue.toString();
+            dlg.setResultListener(new ConfirmDialog.ResultListener() {
+                @Override
+                public void onYes() {
+                    mSetting.reset();
+                    for (int i = 0; i < mSavedVoltTable.length; i++) {
+                        mSavedVoltTable[i] = null;
+                    }
+                    mSavedAsvGroup = newAsvValue;
+                    mSetting.saveAsvGroup(mSavedAsvGroup);
+                    mAsvGroup.setValue(mSavedAsvGroup);
+                    mAsvGroup.setSummary(Misc.getCurrentAndSavedValueText(mContext,
+                            Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mCurAsvGroup),
+                            Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mSavedAsvGroup)));
+                    mApplyButton.setEnabled(true);
+                }
+            });
+            dlg.show(this, android.R.string.dialog_alert_title, R.string.cpu_asv_group_change_message);
+        }
+        return false;
     }
 }

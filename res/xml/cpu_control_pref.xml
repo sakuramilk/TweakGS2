@@ -43,6 +43,12 @@
         <ListPreference
             android:key="cpu_min_freq"
             android:title="@string/cpu_min_freq" />
+        <ListPreference
+            android:key="cpu_max_suspend_freq"
+            android:title="@string/cpu_max_suspend_freq" />
+        <ListPreference
+            android:key="cpu_min_suspend_freq"
+            android:title="@string/cpu_min_suspend_freq" />
         <CheckBoxPreference
             android:key="cpu_freq_set_on_boot"
             android:title="@string/set_on_boot" />
@@ -52,7 +58,7 @@
         android:key="cpu_voltage_category"
         android:title="@string/cpu_voltage_category">
         <PreferenceScreen
-            android:key="hw_volumes"
+            android:key="cpu_voltage"
             android:title="@string/cpu_voltage_title">
             <intent
                 android:action="android.intent.action.MAIN"

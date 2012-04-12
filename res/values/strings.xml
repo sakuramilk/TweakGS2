@@ -141,8 +141,14 @@
     <string name="cpu_freq_category">Frequency</string>
     <string name="cpu_max_freq">Max</string>
     <string name="cpu_min_freq">Min</string>
+    <string name="cpu_max_suspend_freq">Max (In suspend)</string>
+    <string name="cpu_min_suspend_freq">Min (In suspend)</string>
     <string name="cpu_voltage_category">Voltage</string>
     <string name="cpu_voltage_title">Voltage control</string>
+    <string name="cpu_asv_group_title">ASV group</string>
+    <string name="cpu_voltage_asv_group_category_title">Voltage table</string>
+    <string name="cpu_voltage_value_category_title">Voltage value</string>
+    <string name="cpu_asv_group_change_message">Are you sure you want the current voltage setting will be reset when you change the ASV group, even if you change the settings?</string>
 
     <!-- GPU Control -->
     <string name="gpu_control_title">GPU control</string>

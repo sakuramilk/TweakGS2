@@ -28,6 +28,8 @@ public class CpuControlSetting extends SettingManager {
     public static final String KEY_CPU_GOV_SET_ON_BOOT = "cpu_governor_set_on_boot";
     public static final String KEY_CPU_MAX_FREQ = "cpu_max_freq";
     public static final String KEY_CPU_MIN_FREQ = "cpu_min_freq";
+    public static final String KEY_CPU_MAX_SUSPEND_FREQ = "cpu_max_suspend_freq";
+    public static final String KEY_CPU_MIN_SUSPEND_FREQ = "cpu_min_suspend_freq";
     public static final String KEY_CPU_FREQ_SET_ON_BOOT = "cpu_freq_set_on_boot";
     public static final String KEY_CPU_VOLT_SET_ON_BOOT = "cpu_volt_set_on_boot";
 
@@ -40,6 +42,8 @@ public class CpuControlSetting extends SettingManager {
     private final SysFs mSysFsCpuAvailableFrequencies;
     private final SysFs mSysFsScalingMaxFreq = new SysFs(CRTL_PATH + "/scaling_max_freq");
     private final SysFs mSysFsScalingMinFreq = new SysFs(CRTL_PATH + "/scaling_min_freq");
+    private final SysFs mSysFsScalingMaxSuspendFreq = new SysFs(CRTL_PATH + "/scaling_max_suspend_freq");
+    private final SysFs mSysFsScalingMinSuspendFreq = new SysFs(CRTL_PATH + "/scaling_min_suspend_freq");
 
     public CpuControlSetting(Context context) {
         super(context);
@@ -119,7 +123,39 @@ public class CpuControlSetting extends SettingManager {
     public void saveScalingMinFreq(String value) {
         setValue(KEY_CPU_MIN_FREQ, value);
     }
-    
+
+    public String getScalingMaxSuspendFreq() {
+        return mSysFsScalingMaxSuspendFreq.read();
+    }
+
+    public void setScalingMaxSuspendFreq(String value) {
+        mSysFsScalingMaxSuspendFreq.write(value);
+    }
+
+    public String loadScalingMaxSuspendFreq() {
+        return getStringValue(KEY_CPU_MAX_SUSPEND_FREQ);
+    }
+
+    public void saveScalingMaxSuspendFreq(String value) {
+        setValue(KEY_CPU_MAX_SUSPEND_FREQ, value);
+    }
+
+    public String getScalingMinSuspendFreq() {
+        return mSysFsScalingMinSuspendFreq.read();
+    }
+
+    public void setScalingMinSuspendFreq(String value) {
+        mSysFsScalingMinSuspendFreq.write(value);
+    }
+
+    public String loadScalingMinSuspendFreq() {
+        return getStringValue(KEY_CPU_MIN_SUSPEND_FREQ);
+    }
+
+    public void saveScalingMinSuspendFreq(String value) {
+        setValue(KEY_CPU_MIN_SUSPEND_FREQ, value);
+    }
+
     public boolean loadFreqSetOnBoot() {
         return getBooleanValue(KEY_CPU_FREQ_SET_ON_BOOT, false);
     }
@@ -148,6 +184,14 @@ public class CpuControlSetting extends SettingManager {
             if (!Misc.isNullOfEmpty(value)) {
                 setScalingMinFreq(value);
             }
+            value = loadScalingMaxSuspendFreq();
+            if (!Misc.isNullOfEmpty(value)) {
+                setScalingMaxSuspendFreq(value);
+            }
+            value = loadScalingMinSuspendFreq();
+            if (!Misc.isNullOfEmpty(value)) {
+                setScalingMinSuspendFreq(value);
+            }
         }
         if (loadVoltSetOnBoot()) {
             CpuVoltageSetting cpuVoltSetting = new CpuVoltageSetting(mContext);
@@ -166,6 +210,8 @@ public class CpuControlSetting extends SettingManager {
         clearValue(KEY_CPU_GOV_SET_ON_BOOT);
         clearValue(KEY_CPU_MAX_FREQ);
         clearValue(KEY_CPU_MIN_FREQ);
+        clearValue(KEY_CPU_MAX_SUSPEND_FREQ);
+        clearValue(KEY_CPU_MIN_SUSPEND_FREQ);
         clearValue(KEY_CPU_FREQ_SET_ON_BOOT);
         clearValue(KEY_CPU_VOLT_SET_ON_BOOT);
         CpuVoltageSetting cpuVoltSetting = new CpuVoltageSetting(mContext);

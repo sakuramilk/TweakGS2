@@ -20,5 +20,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="root_pref"
     android:title="@string/cpu_voltage_title">
-
+    <PreferenceCategory
+        android:key="cpu_voltage_asv_group_category"
+        android:title="@string/cpu_voltage_asv_group_category_title" />
+    <ListPreference
+        android:key="asv_group"
+        android:title="@string/cpu_asv_group_title"
+        android:entries="@array/asv_group_entries"
+        android:entryValues="@array/asv_group_values" />
+    <PreferenceCategory
+        android:key="cpu_voltage_value_category"
+        android:title="@string/cpu_voltage_value_category_title" />
 </PreferenceScreen>

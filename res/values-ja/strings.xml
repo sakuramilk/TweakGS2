@@ -139,8 +139,14 @@
     <string name="cpu_freq_category">周波数</string>
     <string name="cpu_max_freq">最大</string>
     <string name="cpu_min_freq">最小</string>
+    <string name="cpu_max_suspend_freq">最大 (サスペンド中)</string>
+    <string name="cpu_min_suspend_freq">最小 (サスペンド中)</string>
     <string name="cpu_voltage_category">電圧</string>
     <string name="cpu_voltage_title">電圧調整</string>
+    <string name="cpu_asv_group_title">ASVグループ</string>
+    <string name="cpu_voltage_asv_group_category_title">電圧テーブル</string>
+    <string name="cpu_voltage_value_category_title">電圧設定</string>
+    <string name="cpu_asv_group_change_message">ASVグループを変更すると現在の電圧設定がリセットされます、設定を変更してもよろしいですか？</string>
 
     <!-- GPU Control -->
     <string name="gpu_control_title">GPUコントロール</string>
