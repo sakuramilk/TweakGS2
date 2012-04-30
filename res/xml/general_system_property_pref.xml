@@ -20,43 +20,48 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/system_property_title">
     
-	<CheckBoxPreference
-		android:key="sysprop_boot_sound"  
-		android:title="@string/sysprop_boot_sound_title"
-		android:summaryOn="@string/sysprop_boot_sound_summary_on"
-		android:summaryOff="@string/sysprop_boot_sound_summary_off" />
-	<CheckBoxPreference   
-		android:key="sysprop_camera_sound"
-		android:title="@string/sysprop_camera_sound_title"
-		android:summaryOn="@string/sysprop_camera_sound_summary_on"
-		android:summaryOff="@string/sysprop_camera_sound_summary_off" />
-	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <CheckBoxPreference
+        android:key="sysprop_boot_sound"  
+        android:title="@string/sysprop_boot_sound_title"
+        android:summaryOn="@string/sysprop_boot_sound_summary_on"
+        android:summaryOff="@string/sysprop_boot_sound_summary_off" />
+    <CheckBoxPreference   
+        android:key="sysprop_camera_sound"
+        android:title="@string/sysprop_camera_sound_title"
+        android:summaryOn="@string/sysprop_camera_sound_summary_on"
+        android:summaryOff="@string/sysprop_camera_sound_summary_off" />
+    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
         android:key="sysprop_lcd_density"
         android:title="@string/sysprop_lcd_density_title"
         android:dialogTitle="@string/sysprop_lcd_density_title" />
-	<CheckBoxPreference   
-		android:key="sysprop_crt_effect"
-		android:title="@string/sysprop_crt_effect_title"
-		android:summaryOn="@string/sysprop_crt_effect_summary_on"
-		android:summaryOff="@string/sysprop_crt_effect_summary_off" />
-	<CheckBoxPreference
-		android:key="sysprop_android_logger"
-		android:title="@string/sysprop_android_logger_title"
-		android:summaryOn="@string/sysprop_android_logger_summary_on"
-		android:summaryOff="@string/sysprop_android_logger_summary_off" />
-	<CheckBoxPreference
-		android:key="sysprop_cifs"
-		android:title="@string/sysprop_cifs_title"
-		android:summaryOn="@string/sysprop_cifs_summary_on"
-		android:summaryOff="@string/sysprop_cifs_summary_off" />
-	<CheckBoxPreference
-		android:key="sysprop_ntfs"
-		android:title="@string/sysprop_ntfs_title"
-		android:summaryOn="@string/sysprop_ntfs_summary_on"
-		android:summaryOff="@string/sysprop_ntfs_summary_off" />
-	<ListPreference
-		android:key="sysprop_usb_config"
-		android:title="@string/sysprop_usb_config_title"
+    <CheckBoxPreference   
+        android:key="sysprop_crt_effect"
+        android:title="@string/sysprop_crt_effect_title"
+        android:summaryOn="@string/sysprop_crt_effect_summary_on"
+        android:summaryOff="@string/sysprop_crt_effect_summary_off" />
+    <CheckBoxPreference
+        android:key="sysprop_android_logger"
+        android:title="@string/sysprop_android_logger_title"
+        android:summaryOn="@string/sysprop_android_logger_summary_on"
+        android:summaryOff="@string/sysprop_android_logger_summary_off" />
+    <CheckBoxPreference
+        android:key="sysprop_cifs"
+        android:title="@string/sysprop_cifs_title"
+        android:summaryOn="@string/sysprop_cifs_summary_on"
+        android:summaryOff="@string/sysprop_cifs_summary_off" />
+    <CheckBoxPreference
+        android:key="sysprop_ntfs"
+        android:title="@string/sysprop_ntfs_title"
+        android:summaryOn="@string/sysprop_ntfs_summary_on"
+        android:summaryOff="@string/sysprop_ntfs_summary_off" />
+    <CheckBoxPreference
+        android:key="sysprop_j4fs"
+        android:title="@string/sysprop_j4fs_title"
+        android:summaryOn="@string/sysprop_j4fs_summary_on"
+        android:summaryOff="@string/sysprop_j4fs_summary_off" />
+    <ListPreference
+        android:key="sysprop_usb_config"
+        android:title="@string/sysprop_usb_config_title"
         android:entries="@array/sysprop_usb_config_entries"
         android:entryValues="@array/sysprop_usb_config_values" />
 

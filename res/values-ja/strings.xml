@@ -104,6 +104,10 @@
     <string name="sysprop_ntfs_title">NTFSサポート</string>
     <string name="sysprop_ntfs_summary_on">NTFSサポートは有効</string>
     <string name="sysprop_ntfs_summary_off">NTFSサポートは無効</string>
+    <string name="sysprop_j4fs_title">J4FSサポート</string>
+    <string name="sysprop_j4fs_summary_on">J4FSサポートは有効</string>
+    <string name="sysprop_j4fs_summary_off">J4FSサポートは無効</string>
+    <string name="sysprop_usb_config_title">USB設定</string>
 
     <!-- Multi boot -->
     <string name="multi_boot_title">マルチブート設定</string>
@@ -176,6 +180,7 @@
     <string name="sound_play_freq_lock_title">CPU下限ロック</string>
     <string name="sound_play_freq_lock_summary_on">音楽再生中のCPU下限ロックは有効\n注意: 次の再生から適用されます</string>
     <string name="sound_play_freq_lock_summary_off">音楽再生中のCPU下限ロックは無効\n注意: 次の再生から適用されます</string>
+    <string name="boot_sound">起動時のサウンド</string>
     <string name="vib_category">バイブレータ</string>
     <string name="vib_normal_level">バイブの強さ（通常時）</string>
     <string name="vib_incoming_level">バイブの強さ（着信時）</string>

@@ -111,6 +111,9 @@
     <string name="sysprop_ntfs_title">NTFS support</string>
     <string name="sysprop_ntfs_summary_on">NTFS support enabled</string>
     <string name="sysprop_ntfs_summary_off">NTFS support disabled</string>
+    <string name="sysprop_j4fs_title">J4FS support</string>
+    <string name="sysprop_j4fs_summary_on">J4FS support enabled</string>
+    <string name="sysprop_j4fs_summary_off">J4FS support disabled</string>
     <string name="sysprop_usb_config_title">USB Config</string>
 
     <!-- Multi Boot -->
@@ -178,6 +181,7 @@
     <string name="sound_play_freq_lock_title">CPU freq lock during music play</string>
     <string name="sound_play_freq_lock_summary_on">CPU freq lock enabled\nNOTICE: Apply from the next play</string>
     <string name="sound_play_freq_lock_summary_off">CPU freq lock disabled\nNOTICE: Apply from the next play</string>
+    <string name="boot_sound">Boot sound</string>
     <string name="vib_category">Vibrator</string>
     <string name="vib_normal_level">Normal vib level</string>
     <string name="vib_incoming_level">Incoming vib level</string>

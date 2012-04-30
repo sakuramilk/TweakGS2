@@ -44,9 +44,9 @@ public class DisplaySetting extends SettingManager {
     private final SysFs mSysFsMdnieForceDisable = new SysFs("/sys/devices/platform/samsung-pd.2/s3cfb.0/mdnie_force_disable");
     public static final String MDNIE_BASE_PATH_KERNEL_3_0 = "/sys/devices/platform/samsung-pd.2/mdnie/mdnie/mdnie";
     public static final String MDNIE_BASE_PATH_KERNEL_2_6 = "/sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui";
-    public static final String MDNIE_USER_MODE_CMD = "/user_mode_cmd";
-    public static final String MDNIE_USER_MCM_CB_CMD = "/user_mcm_cb_cmd";
-    public static final String MDNIE_USER_MCM_CR_CMD = "/user_mcm_cr_cmd";
+    public static final String MDNIE_USER_MODE_CMD = "/user_mode";
+    public static final String MDNIE_USER_MCM_CB_CMD = "/user_cb";
+    public static final String MDNIE_USER_MCM_CR_CMD = "/user_cr";
     public static final String MDNIE_USER_MODE_CMD_LEGACY = "/mdnieset_user_mode_cmd";
     public static final String MDNIE_USER_MCM_CB_CMD_LEGACY = "/mdnieset_user_mcm_cb_cmd";
     public static final String MDNIE_USER_MCM_CR_CMD_LEGACY = "/mdnieset_user_mcm_cr_cmd";

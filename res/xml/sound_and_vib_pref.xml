@@ -37,6 +37,16 @@
             android:summaryOn="@string/sound_play_freq_lock_summary_on"
             android:summaryOff="@string/sound_play_freq_lock_summary_off"
             android:enabled="false" />
+        <!--
+        <PreferenceScreen
+            android:key="sound_boot_sound"
+            android:title="@string/boot_sound">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="net.sakuramilk.TweakGS2"
+                android:targetClass="net.sakuramilk.TweakGS2.SoundAndVib.BootSoundPreferenceActivity" />
+        </PreferenceScreen>
+        -->
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -37,6 +37,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mLogger;
     private CheckBoxPreference mCifs;
     private CheckBoxPreference mNtfs;
+    private CheckBoxPreference mJ4fs;
     private ListPreference mUsbConfig;
 
     @Override
@@ -84,6 +85,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mNtfs.setChecked(value);
         mNtfs.setOnPreferenceChangeListener(this);
 
+        value = mSetting.getJ4fs();
+        mJ4fs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_J4FS);
+        mJ4fs.setChecked(value);
+        mJ4fs.setOnPreferenceChangeListener(this);
+
         String strValue = mSetting.getUsbConfig(); 
         mUsbConfig = (ListPreference)findPreference(SystemPropertySetting.KEY_USB_CONFIG);
         mUsbConfig.setValue(strValue);
@@ -122,6 +128,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             boolean newValue = (Boolean)objValue;
             mSetting.setNtfs(newValue);
             mNtfs.setChecked(newValue);
+            // not return true
+        } else if (mJ4fs == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setJ4fs(newValue);
+            mJ4fs.setChecked(newValue);
             // not return true
         } else if (mUsbConfig == preference) {
             String newValue = objValue.toString();

@@ -29,6 +29,7 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_LOGGER = "sysprop_android_logger";
     public static final String KEY_CIFS = "sysprop_cifs";
     public static final String KEY_NTFS = "sysprop_ntfs";
+    public static final String KEY_J4FS = "sysprop_j4fs";
     public static final String KEY_USB_CONFIG = "sysprop_usb_config";
 
     private final TweakPropery mTweakPorp = new TweakPropery();
@@ -77,6 +78,7 @@ public class SystemPropertySetting extends SettingManager {
         SystemCommand.set_prop("persist.tgs2.crt_effect", (value ? "0" : "1"));
     }
 
+/*
     public boolean getLogger() {
         String ret = SystemCommand.get_prop("persist.tgs2.logger", "0");
         return "0".equals(ret) ? false : true;
@@ -103,13 +105,49 @@ public class SystemPropertySetting extends SettingManager {
     public void setNtfs(boolean value) {
         SystemCommand.set_prop("persist.tgs2.ntfs", (value ? "1" : "0"));
     }
+*/
+    public boolean getLogger() {
+        String ret = mTweakPorp.getValue("ro.tgs2.logger", "0");
+        return "0".equals(ret) ? false : true;
+    }
+
+    public void setLogger(boolean value) {
+        mTweakPorp.setValue("ro.tgs2.logger", (value ? "1" : "0"));
+    }
+
+    public boolean getCifs() {
+        String ret = mTweakPorp.getValue("ro.tgs2.cifs", "0");
+        return "0".equals(ret) ? false : true;
+    }
+
+    public void setCifs(boolean value) {
+        mTweakPorp.setValue("ro.tgs2.cifs", (value ? "1" : "0"));
+    }
+
+    public boolean getNtfs() {
+        String ret = mTweakPorp.getValue("ro.tgs2.ntfs", "0");
+        return "0".equals(ret) ? false : true;
+    }
+
+    public void setNtfs(boolean value) {
+        mTweakPorp.setValue("ro.tgs2.ntfs", (value ? "1" : "0"));
+    }
+
+    public boolean getJ4fs() {
+        String ret = mTweakPorp.getValue("ro.tgs2.j4fs", "0");
+        return "0".equals(ret) ? false : true;
+    }
+
+    public void setJ4fs(boolean value) {
+        mTweakPorp.setValue("ro.tgs2.j4fs", (value ? "1" : "0"));
+    }
 
     public String getUsbConfig() {
-        return SystemCommand.get_prop("persist.sys.usb.config", "mtp,adb");
+        return mTweakPorp.getValue("ro.sys.usb.config", "mtp,adb");
     }
 
     public void setUsbConfig(String value) {
-        SystemCommand.set_prop("persist.sys.usb.config", value);
+        mTweakPorp.setValue("ro.sys.usb.config", value);
     }
 
     @Override
@@ -129,6 +167,7 @@ public class SystemPropertySetting extends SettingManager {
         setLogger(false);
         setCifs(false);
         setNtfs(false);
-        setUsbConfig("mtp,adb");
+        setJ4fs(false);
+        setUsbConfig("mass_storage,adb");
     }
 }
