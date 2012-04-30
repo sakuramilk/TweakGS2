@@ -33,7 +33,7 @@ public class DisplaySetting extends SettingManager {
     public static final String MDNIE_MCM_ENABLE = "69";
     public static final String MDNIE_MCM_DISABLE = "0";
     
-    public static final String LCD_BASE_PATH_KERNEL_3_0 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/lcd/panel";
+    public static final String LCD_BASE_PATH_KERNEL_3_0 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi_master/spi3/spi3.0/lcd/panel";
     public static final String LCD_BASE_PATH_KERNEL_2_6 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0";
     public static final String LCD_USER_LCDTYPE = "/user_lcdtype";
     public static final String LCD_USER_GAMMA_ADJUST = "/user_gamma_adjust";
