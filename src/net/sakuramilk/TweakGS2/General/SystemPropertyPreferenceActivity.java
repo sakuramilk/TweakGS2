@@ -39,6 +39,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mNtfs;
     private CheckBoxPreference mJ4fs;
     private ListPreference mUsbConfig;
+    private CheckBoxPreference mSwitchExtarnal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mUsbConfig.setSummary(Misc.getCurrentValueText(
                 this, Misc.getEntryFromEntryValue(mUsbConfig.getEntries(), mUsbConfig.getEntryValues(), strValue)));
         mUsbConfig.setOnPreferenceChangeListener(this);
+
+        value = mSetting.getSwitchExternal();
+        mSwitchExtarnal = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SWITCH_EXTERNAL);
+        mSwitchExtarnal.setChecked(value);
+        mSwitchExtarnal.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -139,6 +145,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             mSetting.setUsbConfig(newValue);
             mUsbConfig.setSummary(Misc.getCurrentValueText(
                     this, Misc.getEntryFromEntryValue(mUsbConfig.getEntries(), mUsbConfig.getEntryValues(), newValue)));
+            // not return true
+        } else if (mSwitchExtarnal == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setSwitchExternal(newValue);
+            mSwitchExtarnal.setChecked(newValue);
             // not return true
         }
         return false;

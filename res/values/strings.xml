@@ -115,6 +115,9 @@
     <string name="sysprop_j4fs_summary_on">J4FS support enabled</string>
     <string name="sysprop_j4fs_summary_off">J4FS support disabled</string>
     <string name="sysprop_usb_config_title">USB Config</string>
+    <string name="sysprop_switch_external_title">Switch sdcard mount point</string>
+    <string name="sysprop_switch_external_summary_on">Switch dcard mount point enabled</string>
+    <string name="sysprop_switch_external_summary_off">Switch dcard mount point enabled</string>
 
     <!-- Multi Boot -->
     <string name="multi_boot_title">Multi boot setting</string>

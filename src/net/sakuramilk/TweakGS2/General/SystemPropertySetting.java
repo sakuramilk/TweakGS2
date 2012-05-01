@@ -31,6 +31,7 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_NTFS = "sysprop_ntfs";
     public static final String KEY_J4FS = "sysprop_j4fs";
     public static final String KEY_USB_CONFIG = "sysprop_usb_config";
+    public static final String KEY_SWITCH_EXTERNAL = "sysprop_switch_external";
 
     private final TweakPropery mTweakPorp = new TweakPropery();
 
@@ -150,6 +151,15 @@ public class SystemPropertySetting extends SettingManager {
         mTweakPorp.setValue("ro.sys.usb.config", value);
     }
 
+    public boolean getSwitchExternal() {
+        String ret = SystemCommand.get_prop("persist.sys.vold.switchexternal", "0");
+        return "0".equals(ret) ? false : true;
+    }
+
+    public void setSwitchExternal(boolean value) {
+        SystemCommand.set_prop("persist.sys.vold.switchexternal", (value ? "1" : "0"));
+    }
+
     @Override
     public void setOnBoot() {
         // noop
@@ -169,5 +179,6 @@ public class SystemPropertySetting extends SettingManager {
         setNtfs(false);
         setJ4fs(false);
         setUsbConfig("mass_storage,adb");
+        setSwitchExternal(false);
     }
 }

@@ -64,5 +64,10 @@
         android:title="@string/sysprop_usb_config_title"
         android:entries="@array/sysprop_usb_config_entries"
         android:entryValues="@array/sysprop_usb_config_values" />
+    <CheckBoxPreference
+        android:key="sysprop_switch_external"
+        android:title="@string/sysprop_switch_external_title"
+        android:summaryOn="@string/sysprop_switch_external_summary_on"
+        android:summaryOff="@string/sysprop_switch_external_summary_off" />
 
 </PreferenceScreen>

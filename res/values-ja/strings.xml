@@ -108,6 +108,9 @@
     <string name="sysprop_j4fs_summary_on">J4FSサポートは有効</string>
     <string name="sysprop_j4fs_summary_off">J4FSサポートは無効</string>
     <string name="sysprop_usb_config_title">USB設定</string>
+    <string name="sysprop_switch_external_title">SDカードマウント先の切り替え</string>
+    <string name="sysprop_switch_external_summary_on">SDカードのマウント先を切り替えます</string>
+    <string name="sysprop_switch_external_summary_off">SDカードのマウント先を切り替えません</string>
 
     <!-- Multi boot -->
     <string name="multi_boot_title">マルチブート設定</string>
