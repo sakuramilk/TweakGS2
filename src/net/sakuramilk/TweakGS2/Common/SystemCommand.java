@@ -129,15 +129,23 @@ public class SystemCommand {
     }
 
     public static void start_dock() {
-        String[] commands = { "su", "-c",
-                "am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 1\n" };
-        RuntimeExec.execute(commands, false);
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("export LD_LIBRARY_PATH=/vendor/lib:/system/lib\n");
+        process.write("am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 1\n");
+        process.term();
     }
 
     public static void stop_dock() {
-        String[] commands = { "su", "-c",
-                "am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 0\n" };
-        RuntimeExec.execute(commands, false);
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+        process.write("export LD_LIBRARY_PATH=/vendor/lib:/system/lib\n");
+        process.write("am broadcast -a android.intent.action.DOCK_EVENT --ei android.intent.extra.DOCK_STATE 0\n");
+        process.term();
     }
 
     public static void gsm_network_tweak() {
