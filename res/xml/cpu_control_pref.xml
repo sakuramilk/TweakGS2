@@ -45,10 +45,12 @@
             android:title="@string/cpu_min_freq" />
         <ListPreference
             android:key="cpu_max_suspend_freq"
-            android:title="@string/cpu_max_suspend_freq" />
+            android:title="@string/cpu_max_suspend_freq"
+            android:enabled="false" />
         <ListPreference
             android:key="cpu_min_suspend_freq"
-            android:title="@string/cpu_min_suspend_freq" />
+            android:title="@string/cpu_min_suspend_freq"
+            android:enabled="false" />
         <CheckBoxPreference
             android:key="cpu_freq_set_on_boot"
             android:title="@string/set_on_boot" />

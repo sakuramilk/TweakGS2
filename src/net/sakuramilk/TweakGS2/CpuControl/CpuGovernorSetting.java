@@ -16,6 +16,7 @@
 
 package net.sakuramilk.TweakGS2.CpuControl;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -74,51 +75,152 @@ public class CpuGovernorSetting extends SettingManager {
         mGovernor = governor;
         mParams = new ArrayList<Parameter>();
         
+        File[] govParams = new File(CTRL_PATH + "/" + governor).listFiles();
+        if (govParams == null) {
+            return;
+        }
+
         // setup governor parameter list
         if ("sakuractive".equals(governor)) {
-            mParams.add(new Parameter("sampling_rate", 10000, 1000000, "μs"));
-            mParams.add(new Parameter("up_threshold", 1, 100, "%"));
-            mParams.add(new Parameter("down_threshold", 1, 100, "%"));
-            mParams.add(new Parameter("hotplug_in_sampling_periods", 0, 0));
-            mParams.add(new Parameter("hotplug_out_sampling_periods", 0, 0));
-            mParams.add(new Parameter("ignore_nice_load", 0, 1));
-            mParams.add(new Parameter("boost_timeout", 0, 10000000, "μs"));
+            for (File param : govParams) {
+                String fileName = param.getName();
+                if (fileName.equals("sampling_rate")) {
+                    mParams.add(new Parameter("sampling_rate", 10000, 1000000, "μs"));
+                } else if (fileName.equals("up_threshold")) {
+                    mParams.add(new Parameter("up_threshold", 1, 100, "%"));
+                } else if (fileName.equals("down_threshold")) {
+                    mParams.add(new Parameter("down_threshold", 1, 100, "%"));
+                } else if (fileName.equals("hotplug_in_sampling_periods")) {
+                    mParams.add(new Parameter("hotplug_in_sampling_periods", 0, 0));
+                } else if (fileName.equals("hotplug_out_sampling_periods")) {
+                    mParams.add(new Parameter("hotplug_out_sampling_periods", 0, 0));
+                } else if (fileName.equals("ignore_nice_load")) {
+                    mParams.add(new Parameter("ignore_nice_load", 0, 1));
+                } else if (fileName.equals("boost_timeout")) {
+                    mParams.add(new Parameter("boost_timeout", 0, 10000000, "μs"));
+                }
+            }
             //mParams.add(new Parameter("down_differential", 0, 0));
 
         } else if ("lulzactive".equals(governor)) {
             CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
             String[] freqValues = cpuControlSetting.getAvailableFrequencies();
             String[] freqEntries = Misc.getFreqencyEntries(freqValues);
-            mParams.add(new Parameter("inc_cpu_load", 10, 100));
-            mParams.add(new Parameter("pump_up_step", 0, freqEntries.length));
-            mParams.add(new Parameter("pump_down_step", 0, freqEntries.length));
-            mParams.add(new Parameter("screen_off_min_step", freqEntries, freqValues));
-            mParams.add(new Parameter("up_sample_time", 10000, 50000, "μs"));
-            mParams.add(new Parameter("down_sample_time", 10000, 100000, "μs"));
+            for (File param : govParams) {
+                String fileName = param.getName();
+                if (fileName.equals("inc_cpu_load")) {
+                    mParams.add(new Parameter("inc_cpu_load", 10, 100));
+                } else if (fileName.equals("pump_up_step")) {
+                    mParams.add(new Parameter("pump_up_step", 0, freqEntries.length));
+                } else if (fileName.equals("pump_down_step")) {
+                    mParams.add(new Parameter("pump_down_step", 0, freqEntries.length));
+                } else if (fileName.equals("screen_off_min_step")) {
+                    mParams.add(new Parameter("screen_off_min_step", 0, freqEntries.length));
+                } else if (fileName.equals("up_sample_time")) {
+                    mParams.add(new Parameter("up_sample_time", 10000, 50000, "μs"));
+                } else if (fileName.equals("down_sample_time")) {
+                    mParams.add(new Parameter("down_sample_time", 10000, 100000, "μs"));
+                }
+            }
 
         } else if ("smartassV2".equals(governor)) {
             mGovernor = "smartass";
             CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
             String[] freqValues = cpuControlSetting.getAvailableFrequencies();
             String[] freqEntries = Misc.getFreqencyEntries(freqValues);
-            mParams.add(new Parameter("max_cpu_load", 1, 100, "%"));
-            mParams.add(new Parameter("min_cpu_load", 1, 100, "%"));
-            mParams.add(new Parameter("up_rate_us", 1, 100000000, "μs"));
-            mParams.add(new Parameter("down_rate_us", 1, 100000000, "μs"));
-            mParams.add(new Parameter("ramp_down_step", 1, 100000000, "μs"));
-            mParams.add(new Parameter("ramp_up_step", 1, 100000000, "μs"));
-            mParams.add(new Parameter("sample_rate_jiffies", 1, 1000));
-            mParams.add(new Parameter("awake_ideal_freq", freqEntries, freqValues));
-            mParams.add(new Parameter("sleep_ideal_freq", freqEntries, freqValues));
-            mParams.add(new Parameter("sleep_wakeup_freq", freqEntries, freqValues));
-            //mParams.add(new Parameter("debug_mask", 0, 0));
+            for (File param : govParams) {
+                String fileName = param.getName();
+                if (fileName.equals("max_cpu_load")) {
+                    mParams.add(new Parameter("max_cpu_load", 1, 100, "%"));
+                } else if (fileName.equals("min_cpu_load")) {
+                    mParams.add(new Parameter("min_cpu_load", 1, 100, "%"));
+                } else if (fileName.equals("up_rate_us")) {
+                    mParams.add(new Parameter("up_rate_us", 1, 100000000, "μs"));
+                } else if (fileName.equals("down_rate_us")) {
+                    mParams.add(new Parameter("down_rate_us", 1, 100000000, "μs"));
+                } else if (fileName.equals("ramp_down_step")) {
+                    mParams.add(new Parameter("ramp_down_step", 1, 100000000, "μs"));
+                } else if (fileName.equals("ramp_up_step")) {
+                    mParams.add(new Parameter("ramp_up_step", 1, 100000000, "μs"));
+                } else if (fileName.equals("sample_rate_jiffies")) {
+                    mParams.add(new Parameter("sample_rate_jiffies", 1, 1000));
+                } else if (fileName.equals("awake_ideal_freq")) {
+                    mParams.add(new Parameter("awake_ideal_freq", freqEntries, freqValues));
+                } else if (fileName.equals("sleep_ideal_freq")) {
+                    mParams.add(new Parameter("sleep_ideal_freq", freqEntries, freqValues));
+                } else if (fileName.equals("sleep_wakeup_freq")) {
+                    mParams.add(new Parameter("sleep_wakeup_freq", freqEntries, freqValues));
+                }
+                //mParams.add(new Parameter("debug_mask", 0, 0));
+            }
 
         } else if ("interactiveX".equals(governor)) {
-            mParams.add(new Parameter("min_sample_time", 10000, 1000000));
+            for (File param : govParams) {
+                String fileName = param.getName();
+                if (fileName.equals("min_sample_time")) {
+                    mParams.add(new Parameter("min_sample_time", 10000, 1000000));
+                }
+            }
 
         } else if ("interactive".equals(governor)) {
-            mParams.add(new Parameter("go_maxspeed_load", 5, 100, "%"));
-            mParams.add(new Parameter("min_sample_time", 10000, 1000000, "μs"));
+            CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
+            String[] freqValues = cpuControlSetting.getAvailableFrequencies();
+            String[] freqEntries = Misc.getFreqencyEntries(freqValues);
+            for (File param : govParams) {
+                String fileName = param.getName();
+                if (fileName.equals("go_maxspeed_load")) {
+                    mParams.add(new Parameter("go_maxspeed_load", 5, 100, "%"));
+                } else if (fileName.equals("min_sample_time")) {
+                    mParams.add(new Parameter("min_sample_time", 10000, 1000000, "μs"));
+                } else if (fileName.equals("above_hispeed_delay")) {
+                    mParams.add(new Parameter("above_hispeed_delay", 10000, 1000000, "μs"));
+                } else if (fileName.equals("boost")) {
+                    mParams.add(new Parameter("boost", 0, 1));
+                } else if (fileName.equals("go_hispeed_load")) {
+                    mParams.add(new Parameter("go_hispeed_load", 5, 100));
+                } else if (fileName.equals("hispeed_freq")) {
+                    mParams.add(new Parameter("hispeed_freq", freqEntries, freqValues));
+                } else if (fileName.equals("input_boost")) {
+                    mParams.add(new Parameter("input_boost", 0, 1));
+                } else if (fileName.equals("timer_rate")) {
+                    mParams.add(new Parameter("min_sample_time", 10000, 1000000, "μs"));
+                }
+            }
+
+        } else if ("hotplug".equals(governor)) {
+            for (File param : govParams) {
+                String fileName = param.getName();
+                if (fileName.equals("sampling_rate")) {
+                    mParams.add(new Parameter("sampling_rate", 10000, 1000000, "μs"));
+                } else if (fileName.equals("up_threshold")) {
+                    mParams.add(new Parameter("up_threshold", 1, 100, "%"));
+                } else if (fileName.equals("down_threshold")) {
+                    mParams.add(new Parameter("down_threshold", 1, 100, "%"));
+                } else if (fileName.equals("hotplug_in_sampling_periods")) {
+                    mParams.add(new Parameter("hotplug_in_sampling_periods", 0, 0));
+                } else if (fileName.equals("hotplug_out_sampling_periods")) {
+                    mParams.add(new Parameter("hotplug_out_sampling_periods", 0, 0));
+                } else if (fileName.equals("ignore_nice_load")) {
+                    mParams.add(new Parameter("ignore_nice_load", 0, 1));
+                }
+            }
+
+        } else if ("wheatley".equals(governor)) {
+            SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
+            String samplingRateMin = sysFs.read();
+            mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
+            mParams.add(new Parameter("ignore_nice_load", 0, 1));
+            mParams.add(new Parameter("powersave_bias", 0, 1000));
+            mParams.add(new Parameter("up_threshold", 1, 100, "%"));
+            mParams.add(new Parameter("allowed_misses", 0, 100));
+            mParams.add(new Parameter("target_residency", 10, 100000));
+
+        } else if ("adaptive".equals(governor)) {
+            SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
+            String samplingRateMin = sysFs.read();
+            mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
+            mParams.add(new Parameter("ignore_nice_load", 0, 1));
+            mParams.add(new Parameter("up_threshold", 1, 100, "%"));
 
         } else if ("conservative".equals(governor)) {
             SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");

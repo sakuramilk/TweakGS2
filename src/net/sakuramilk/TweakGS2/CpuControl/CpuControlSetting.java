@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2.CpuControl;
 
+import java.io.File;
+
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
@@ -48,7 +50,12 @@ public class CpuControlSetting extends SettingManager {
     public CpuControlSetting(Context context) {
         super(context);
         if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
-            mSysFsCpuAvailableFrequencies = new SysFs(PATH_SCALING_AVAILABLE_FREQS_KERNEL_3_0);
+            File file = new File(PATH_SCALING_AVAILABLE_FREQS_KERNEL_2_6);
+            if (file.exists()) {
+                mSysFsCpuAvailableFrequencies = new SysFs(PATH_SCALING_AVAILABLE_FREQS_KERNEL_2_6);
+            } else {
+                mSysFsCpuAvailableFrequencies = new SysFs(PATH_SCALING_AVAILABLE_FREQS_KERNEL_3_0);
+            }
         } else {
             mSysFsCpuAvailableFrequencies = new SysFs(PATH_SCALING_AVAILABLE_FREQS_KERNEL_2_6);
         }
@@ -124,6 +131,10 @@ public class CpuControlSetting extends SettingManager {
         setValue(KEY_CPU_MIN_FREQ, value);
     }
 
+    public boolean isEnableSuspendFreq() {
+        return mSysFsScalingMaxSuspendFreq.exists();
+    }
+
     public String getScalingMaxSuspendFreq() {
         return mSysFsScalingMaxSuspendFreq.read();
     }
@@ -184,13 +195,15 @@ public class CpuControlSetting extends SettingManager {
             if (!Misc.isNullOfEmpty(value)) {
                 setScalingMinFreq(value);
             }
-            value = loadScalingMaxSuspendFreq();
-            if (!Misc.isNullOfEmpty(value)) {
-                setScalingMaxSuspendFreq(value);
-            }
-            value = loadScalingMinSuspendFreq();
-            if (!Misc.isNullOfEmpty(value)) {
-                setScalingMinSuspendFreq(value);
+            if (isEnableSuspendFreq()) {
+                value = loadScalingMaxSuspendFreq();
+                if (!Misc.isNullOfEmpty(value)) {
+                    setScalingMaxSuspendFreq(value);
+                }
+                value = loadScalingMinSuspendFreq();
+                if (!Misc.isNullOfEmpty(value)) {
+                    setScalingMinSuspendFreq(value);
+                }
             }
         }
         if (loadVoltSetOnBoot()) {

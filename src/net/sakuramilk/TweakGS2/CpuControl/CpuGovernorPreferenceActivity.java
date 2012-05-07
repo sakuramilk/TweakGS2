@@ -82,7 +82,7 @@ public class CpuGovernorPreferenceActivity extends PreferenceActivity
                     listPref.setValue(value);
                     listPref.setIntent(intent);
                     listPref.setSummary(Misc.getCurrentValueText(this,
-                            Misc.getEntryFromEntryValue(param.listEntries, param.listValues, value) + param.unit));
+                            Misc.getEntryFromEntryValue(param.listEntries, param.listValues, value) + (param.unit == null ? "" : param.unit)));
                     listPref.setOnPreferenceChangeListener(this);
                     rootPref.addPreference(listPref);
                     break;
