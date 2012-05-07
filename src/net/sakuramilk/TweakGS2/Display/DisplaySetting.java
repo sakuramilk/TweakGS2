@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2.Display;
 
+import java.io.File;
+
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
@@ -34,6 +36,7 @@ public class DisplaySetting extends SettingManager {
     public static final String MDNIE_MCM_DISABLE = "0";
     
     public static final String LCD_BASE_PATH_KERNEL_3_0 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi_master/spi3/spi3.0/lcd/panel";
+    public static final String LCD_BASE_PATH_KERNEL_3_0_OLD = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/lcd/panel";
     public static final String LCD_BASE_PATH_KERNEL_2_6 = "/sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0";
     public static final String LCD_USER_LCDTYPE = "/user_lcdtype";
     public static final String LCD_USER_GAMMA_ADJUST = "/user_gamma_adjust";
@@ -57,8 +60,14 @@ public class DisplaySetting extends SettingManager {
     public DisplaySetting(Context context) {
         super(context);
         if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
-            mSysFsLcdType = new SysFs(LCD_BASE_PATH_KERNEL_3_0 + LCD_USER_LCDTYPE);
-            mSysFsLcdGamma = new SysFs(LCD_BASE_PATH_KERNEL_3_0 + LCD_USER_GAMMA_ADJUST);
+            File file = new File(LCD_BASE_PATH_KERNEL_3_0);
+            if (file.exists()) { 
+                mSysFsLcdType = new SysFs(LCD_BASE_PATH_KERNEL_3_0 + LCD_USER_LCDTYPE);
+                mSysFsLcdGamma = new SysFs(LCD_BASE_PATH_KERNEL_3_0 + LCD_USER_GAMMA_ADJUST);
+            } else {
+                mSysFsLcdType = new SysFs(LCD_BASE_PATH_KERNEL_3_0_OLD + LCD_USER_LCDTYPE);
+                mSysFsLcdGamma = new SysFs(LCD_BASE_PATH_KERNEL_3_0_OLD + LCD_USER_GAMMA_ADJUST);
+            }
             mSysFsMdnieMode = new SysFs(MDNIE_BASE_PATH_KERNEL_3_0 + MDNIE_USER_MODE_CMD);
             mSysFsMdnieMcmCb = new SysFs(MDNIE_BASE_PATH_KERNEL_3_0 + MDNIE_USER_MCM_CB_CMD);
             mSysFsMdnieMcmCr = new SysFs(MDNIE_BASE_PATH_KERNEL_3_0 + MDNIE_USER_MCM_CR_CMD);
