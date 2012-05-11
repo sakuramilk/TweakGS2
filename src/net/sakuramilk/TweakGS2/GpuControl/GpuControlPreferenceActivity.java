@@ -42,10 +42,14 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
 
     private Integer mCurFreqs[] = null;
     private Integer mCurVolts[] = null;
+    private Integer mCurThresholds[] = null;
     private Integer mSavedFreqs[] = null;
     private Integer mSavedVolts[] = null;
-    private int mStep;
+    private Integer mSavedThresholds[] = null;
+    private int mFreqStep;
+    private int mThresholdStep;
     private ArrayList<SeekBarPreference> mFreqPrefList;
+    private ArrayList<SeekBarPreference> mThresholdPrefList;
     private ArrayList<SeekBarPreference> mVoltPrefList;
     private CheckBoxPreference mSetOnBoot;
     private boolean mSetOnBootChecked;
@@ -63,6 +67,14 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
                 } else {
                     pref.setValue(mSavedFreqs[i+1], mSavedFreqs[i-1], mSavedFreqs[i]);
                 }
+            }
+        }
+        if (mThresholdPrefList != null) {
+            for (int i = 0; i < mThresholdPrefList.size(); i++) {
+                SeekBarPreference pref = mThresholdPrefList.get(i);
+                pref.setSummary(Misc.getCurrentAndSavedValueText(
+                        this, String.valueOf(mCurThresholds[i]) + "%", String.valueOf(mSavedThresholds[i]) + "%"));
+                pref.setValue(GpuControlSetting.THRESHOLD_MAX, GpuControlSetting.THRESHOLD_MIN, mSavedThresholds[i]);
             }
         }
         if (mVoltPrefList != null) {
@@ -97,6 +109,10 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
             if (mSavedFreqs == null) {
                 mSavedFreqs = mCurFreqs.clone();
             }
+            if (mCurFreqs.length != mSavedFreqs.length) {
+                mSetting.reset();
+                mSavedFreqs = mCurFreqs.clone();
+            }
             mFreqPrefList = new ArrayList<SeekBarPreference>();
             for (int i = 0; i < mCurFreqs.length; i++) {
                 SeekBarPreference pref = new SeekBarPreference(this, null);
@@ -106,7 +122,23 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
                 pref.setOnPreferenceDoneListener(this);
                 mFreqPrefList.add(pref);
             }
-            mStep = mCurFreqs.length;
+            mFreqStep = mCurFreqs.length;
+
+            mCurThresholds = mSetting.getThresholds();
+            if (mCurThresholds != null && mCurThresholds.length != 0) {
+                mSavedThresholds = mSetting.loadThresholds();
+                if (mSavedThresholds == null) {
+                    mSavedThresholds = mCurThresholds.clone();
+                }
+                mThresholdPrefList = new ArrayList<SeekBarPreference>();
+                for (int i = 0; i < mCurThresholds.length; i++) {
+                    SeekBarPreference pref = new SeekBarPreference(this, null);
+                    pref.setKey(GpuControlSetting.KEY_GPU_THRESHOLD_BASE + i);
+                    pref.setOnPreferenceDoneListener(this);
+                    mThresholdPrefList.add(pref);
+                }
+                mThresholdStep = mCurThresholds.length;
+            }
         }
         if (mSetting.isEnableVoltageCtrl()) {
             mCurVolts = mSetting.getVolts();
@@ -123,10 +155,10 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
                 pref.setOnPreferenceDoneListener(this);
                 mVoltPrefList.add(pref);
             }
-            mStep = mCurVolts.length;
         }
 
-        for (int i = 0; i < mStep; i++) {
+        int j = 0;
+        for (int i = 0; i < mFreqStep; i++) {
             PreferenceCategory categoryPref = new PreferenceCategory(this);
             categoryPref.setTitle("Step" + i);
             rootPref.addPreference(categoryPref);
@@ -136,8 +168,33 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
             if (mVoltPrefList != null) {
                 rootPref.addPreference(mVoltPrefList.get(i));
             }
+            if (mThresholdPrefList != null) {
+                if (j == 0) {
+                    SeekBarPreference pref = mThresholdPrefList.get(j++);
+                    pref.setTitle(R.string.up_threshold);
+                    pref.setDialogTitle(R.string.up_threshold);
+                    rootPref.addPreference(pref);
+                } else if (j == mThresholdStep - 1) {
+                    SeekBarPreference pref = mThresholdPrefList.get(j++);
+                    pref.setTitle(R.string.down_threshold);
+                    pref.setDialogTitle(R.string.down_threshold);
+                    rootPref.addPreference(pref);
+                } else {
+                    SeekBarPreference pref = mThresholdPrefList.get(j++);
+                    pref.setTitle(R.string.up_threshold);
+                    pref.setDialogTitle(R.string.up_threshold);
+                    rootPref.addPreference(pref);
+                    pref = mThresholdPrefList.get(j++);
+                    pref.setTitle(R.string.down_threshold);
+                    pref.setDialogTitle(R.string.down_threshold);
+                    rootPref.addPreference(pref);
+                }
+            }
         }
-        if (mStep > 0) {
+        
+        
+        
+        if (mFreqStep > 0) {
             PreferenceCategory categoryPref = new PreferenceCategory(this);
             categoryPref.setTitle(R.string.option);
             mSetOnBoot = new CheckBoxPreference(this);
@@ -161,6 +218,17 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
             if (index != -1) {
                 if (mSavedFreqs[index] != value) {
                     mSavedFreqs[index] = value;
+                    setMaxMinValue();
+                    mApplyButton.setEnabled(true);
+                }
+                return false; // don't return true
+            }
+        }
+        if (mThresholdPrefList != null) {
+            int index = mThresholdPrefList.indexOf(preference);
+            if (index != -1) {
+                if (mSavedThresholds[index] != value) {
+                    mSavedThresholds[index] = value;
                     setMaxMinValue();
                     mApplyButton.setEnabled(true);
                 }
@@ -197,6 +265,11 @@ public class GpuControlPreferenceActivity extends ApplyButtonPreferenceActivity
             mSetting.saveFreqs(mSavedFreqs);
             mSetting.setFreqs(mSavedFreqs);
             mCurFreqs = mSavedFreqs.clone();
+        }
+        if (mSavedThresholds != null) {
+            mSetting.saveThresholds(mSavedThresholds);
+            mSetting.setThresholds(mSavedThresholds);
+            mCurThresholds = mSavedThresholds.clone();
         }
         setMaxMinValue();
     }

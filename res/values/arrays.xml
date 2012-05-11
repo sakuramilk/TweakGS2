@@ -190,4 +190,14 @@
         <item>7</item>
     </string-array>
 
+    <string-array name="dualboot_rom_select_entries">
+        <item>Primary</item>
+        <item>Secondary</item>
+    </string-array>
+
+    <string-array name="dualboot_rom_select_values">
+        <item>primary</item>
+        <item>secondary</item>
+    </string-array>
+
 </resources>

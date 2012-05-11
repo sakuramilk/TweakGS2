@@ -46,6 +46,8 @@
     <PreferenceScreen
         android:key="multi_boot_pref"
         android:title="@string/multi_boot_title"
+        android:enabled="false"
+        android:selectable="false"
         android:icon="@drawable/ic_settings_storage">
         <intent
             android:action="android.intent.action.MAIN"

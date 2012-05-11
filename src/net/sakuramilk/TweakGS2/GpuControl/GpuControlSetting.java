@@ -27,10 +27,13 @@ public class GpuControlSetting extends SettingManager {
     public static final String KEY_ROOT_PREF = "root_pref";
     public static final String KEY_GPU_FREQ_BASE = "gpu_freq_step";
     public static final String KEY_GPU_VOLT_BASE = "gpu_volt_step";
+    public static final String KEY_GPU_THRESHOLD_BASE = "gpu_threshold_step";
     public static final String KEY_GPU_SET_ON_BOOT = "gpu_set_on_boot";
 
     public static final int FREQ_MIN = 10;
     public static final int FREQ_MAX = 450;
+    public static final int THRESHOLD_MAX = 100;
+    public static final int THRESHOLD_MIN = 1;
     public static final int VOLT_MIN = 800000 / 1000;
     public static final int VOLT_MAX = 1200000 / 1000;
     public static final int FREQ_STEP = 1;
@@ -51,8 +54,10 @@ public class GpuControlSetting extends SettingManager {
         ArrayList<Integer> ret = new ArrayList<Integer>();
         String[] values = mSysFsClkCtrl.readMuitiLine();
         for (String value : values) {
-            String[] v = value.split(" ");
-            ret.add(Integer.parseInt(v[1]));
+            if (value.indexOf("Step") >= 0) {
+                String[] v = value.split(" ");
+                ret.add(Integer.parseInt(v[1]));
+            }
         }
         return ret.toArray(new Integer[0]);
     }
@@ -61,6 +66,27 @@ public class GpuControlSetting extends SettingManager {
         String values = String.valueOf(freqs[0]);
         for (int i = 1; i < freqs.length; i++) {
             values += " " + String.valueOf(freqs[i]);
+        }
+        mSysFsClkCtrl.write(values);
+    }
+
+    public Integer[] getThresholds() {
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+        String[] values = mSysFsClkCtrl.readMuitiLine();
+        for (String value : values) {
+            if (value.indexOf("Threshold") >= 0) {
+                String[] v = value.replace("%", "").split(" ");
+                ret.add(Integer.parseInt(v[1]));
+                ret.add(Integer.parseInt(v[2]));
+            }
+        }
+        return ret.toArray(new Integer[0]);
+    }
+
+    public void setThresholds(Integer[] thresholds) {
+        String values = String.valueOf(thresholds[0] == 100 ? thresholds[0] : thresholds[0] + 1) + "%";
+        for (int i = 1; i < thresholds.length; i++) {
+            values += " " + String.valueOf(thresholds[i] == 100 ? thresholds[i] : thresholds[i] + 1) + "%";
         }
         mSysFsClkCtrl.write(values);
     }
@@ -87,6 +113,31 @@ public class GpuControlSetting extends SettingManager {
     public void saveFreqs(Integer[] freqs) {
         for (int i = 0; i < freqs.length ; i++) {
             setValue(KEY_GPU_FREQ_BASE + i, String.valueOf(freqs[i]));
+        }
+    }
+
+    public Integer[] loadThresholds() {
+        String value = null;
+        int i = 0;
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+
+        while (true) {
+            value = getStringValue(KEY_GPU_THRESHOLD_BASE + i, null);
+            if (value == null) {
+                break;
+            }
+            ret.add(Integer.parseInt(value));
+            i++;
+        }
+        if (ret.size() > 0) {
+            return ret.toArray(new Integer[0]);
+        }
+        return null;
+    }
+
+    public void saveThresholds(Integer[] freqs) {
+        for (int i = 0; i < freqs.length ; i++) {
+            setValue(KEY_GPU_THRESHOLD_BASE + i, String.valueOf(freqs[i]));
         }
     }
 
@@ -147,13 +198,26 @@ public class GpuControlSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-        Integer[] volts = loadVolts();
-        if (volts != null) {
-            setVolts(volts);
+        if (isEnableVoltageCtrl()) {
+            Integer[] volts = loadVolts();
+            if (volts != null) {
+                Integer[] curVolts = getVolts();
+                if (curVolts.length == volts.length) {
+                    reset();
+                    return;
+                }
+                setVolts(volts);
+            }
         }
-        Integer[] freqs = loadFreqs();
-        if (freqs != null) {
-            setFreqs(freqs);
+        if (isEnableFreqCtrl()) {
+            Integer[] freqs = loadFreqs();
+            if (freqs != null) {
+                setFreqs(freqs);
+            }
+            Integer[] thresholds = loadThresholds();
+            if (thresholds != null && thresholds.length != 0) {
+                setThresholds(thresholds);
+            }
         }
     }
 
@@ -180,6 +244,15 @@ public class GpuControlSetting extends SettingManager {
                 break;
             }
             clearValue(KEY_GPU_VOLT_BASE + i);
+            i++;
+        }
+        i = 0;
+        while (true) {
+            String value = getStringValue(KEY_GPU_THRESHOLD_BASE + i, null);
+            if (value == null) {
+                break;
+            }
+            clearValue(KEY_GPU_THRESHOLD_BASE + i);
             i++;
         }
         clearValue(KEY_GPU_SET_ON_BOOT);

@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2;
 
+import java.io.File;
+
 import net.sakuramilk.TweakGS2.Common.Misc;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -52,11 +54,17 @@ public class MainPreferenceActivity extends PreferenceActivity {
         }
 
         // check build target
-        if ((Misc.getBuildTarget() != Misc.BUILD_TARGET_MULTI) &&
-            (VERSION.SDK_INT <= VERSION_CODES.GINGERBREAD_MR1)) {
+        if (Misc.getBuildTarget() == Misc.BUILD_TARGET_MULTI) {
             Preference pref = (Preference)findPreference("multi_boot_pref");
-            pref.setEnabled(false);
-            pref.setSelectable(false);
+            pref.setEnabled(true);
+            pref.setSelectable(true);
+        } else {
+            File xdataDir = new File("/xdata");
+            if (xdataDir.exists()) {
+                Preference pref = (Preference)findPreference("multi_boot_pref");
+                pref.setEnabled(true);
+                pref.setSelectable(true);
+            }
         }
     }
 }

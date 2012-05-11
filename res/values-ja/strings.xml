@@ -40,6 +40,8 @@
     <string name="complete">完了</string>
     <string name="create">作成</string>
     <string name="label">ラベル</string>
+    <string name="up_threshold">アップしきい値</string>
+    <string name="down_threshold">ダウンしきい値</string>
     <string name="not_rooted_message">使用中のROMはrootedではありません</string>
 
     <!-- ROM Manager -->

@@ -39,6 +39,7 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
 
     private MbsConf mMbsConf = new MbsConf();
     private ListPreference mRomSelect;
+    private ListPreference mDualRomSelect = null;
     private ArrayList<ListPreference> mRomSettingList;
     private ArrayList<String> mRomIdEntries;
     private ArrayList<String> mRomIdEntryValues;
@@ -51,8 +52,8 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
         }
         return mRomIdEntries.get(0); // if not find, return safe value
     }
-
-    private void createPreference() {
+    
+    private void createMultiBootPreference() {
         PreferenceManager prefManager = getPreferenceManager();
         PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(MultiBootSetting.KEY_ROOT_PREF);
         
@@ -143,13 +144,35 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
         }
     }
 
+    private void createDualBootPreference() {
+        PreferenceManager prefManager = getPreferenceManager();
+        PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(MultiBootSetting.KEY_ROOT_PREF);
+        
+        rootPref.removeAll();
+        
+        BootConf bootConf = new BootConf();
+        String curRom = bootConf.getBootRom();
+        mDualRomSelect = new ListPreference(this);
+        mDualRomSelect.setTitle(R.string.multi_boot_rom_select_title);
+        mDualRomSelect.setEntries(R.array.dualboot_rom_select_entries);
+        mDualRomSelect.setEntryValues(R.array.dualboot_rom_select_values);
+        mDualRomSelect.setValue(curRom);
+        mDualRomSelect.setSummary(Misc.getCurrentValueText(this, curRom));
+        mDualRomSelect.setOnPreferenceChangeListener(this);
+        rootPref.addPreference(mDualRomSelect);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.multi_boot_pref);
 
-        createPreference();
+        if (Misc.getBuildTarget() == Misc.BUILD_TARGET_MULTI) {
+            createMultiBootPreference();
+        } else {
+            createDualBootPreference();
+        }
     }
 
     @Override
@@ -165,11 +188,19 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mRomSelect) {
+        if (mDualRomSelect != null && preference == mDualRomSelect) {
+            BootConf bootConf = new BootConf();
+            bootConf.setBootRom(objValue.toString());
+            mDualRomSelect.setValue(objValue.toString());
+            mDualRomSelect.setSummary(Misc.getCurrentValueText(this, objValue.toString()));
+           // don't return true
+
+        } else if (preference == mRomSelect) {
             mMbsConf.setBootRomId(Integer.valueOf((String)objValue));
             mRomSelect.setSummary(getRomIdEntry((String)objValue));
             mRomSelect.setValue((String)objValue);
             // don't return true
+
         } else {
             int index = mRomSettingList.indexOf(preference);
             if (index >= 0) {
@@ -194,7 +225,7 @@ public class MultiBootPreferenceActivity extends PreferenceActivity
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == REQUEST_ROM_EDIT || requestCode == REQUEST_ROM_CREATE) {
-            createPreference();
+            createMultiBootPreference();
         }
     }
 }
