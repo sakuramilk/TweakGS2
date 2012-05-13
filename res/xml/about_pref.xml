@@ -25,6 +25,11 @@
         android:title="@string/version">
 	</PreferenceScreen>
 	<PreferenceScreen
+        android:key="about_check_update"
+        android:title="@string/about_check_update_title"
+        android:summary="@string/about_check_update_summary">
+	</PreferenceScreen>
+	<PreferenceScreen
     	android:key="about_recommend"
         android:title="@string/all_recommend_title"
         android:summary="@string/all_recommend_summary">

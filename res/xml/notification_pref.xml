@@ -20,11 +20,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/notification_title" >
 
-    <CheckBoxPreference
-        android:key="notify_backlight_flash_on_incoming"
-        android:title="@string/notification_bln_on_incoming_title"
-        android:summaryOn="@string/notification_bln_on_incoming_summary_on"
-        android:summaryOff="@string/notification_bln_on_incoming_summary_off"
-        android:enabled="false" />
+    <PreferenceCategory
+        android:key="notification_led_category"
+        android:title="@string/notification_led_category">
+        <ListPreference
+            android:key="notification_led_timeout"
+            android:title="@string/notification_led_timeout_title"
+            android:entries="@array/notification_led_timeout_entries"
+            android:entryValues="@array/notification_led_timeout_values"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="notification_bln_category"
+        android:title="@string/notification_bln_category">
+        <CheckBoxPreference
+            android:key="notification_bln_enabled"
+            android:title="@string/notification_bln_enabled_title"
+            android:summaryOn="@string/notification_bln_enabled_summary"
+            android:summaryOff="@string/notification_bln_enabled_summary"
+               android:enabled="false" />
+        <ListPreference
+            android:key="notification_bln_timeout"
+            android:title="@string/notification_bln_timeout_title"
+            android:summary="@string/notification_bln_timeout_summary"
+            android:entries="@array/notification_bln_timeout_entries"
+            android:entryValues="@array/notification_bln_timeout_values"
+            android:enabled="false" />
+        <CheckBoxPreference
+            android:key="notification_bln_blinking"
+            android:title="@string/notification_bln_blinking_title"
+            android:summaryOn="@string/notification_bln_blinking_summary_on"
+            android:summaryOff="@string/notification_bln_blinking_summary_off"
+               android:enabled="false" />
+        <CheckBoxPreference
+            android:key="notification_bln_breathing"
+            android:title="@string/notification_bln_breathing_title"
+            android:summaryOn="@string/notification_bln_breathing_summary_on"
+            android:summaryOff="@string/notification_bln_breathing_summary_off"
+               android:enabled="false" />
+        <CheckBoxPreference
+            android:key="notification_bln_on_incoming"
+            android:title="@string/notification_bln_on_incoming_title"
+            android:summaryOn="@string/notification_bln_on_incoming_summary_on"
+            android:summaryOff="@string/notification_bln_on_incoming_summary_off"
+            android:enabled="false" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

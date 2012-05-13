@@ -35,7 +35,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
         Log.d(TAG, "onReceive state=" + extraState);
         
         final NotificationSetting notificationSetting = new NotificationSetting(context);
-        final boolean isBacklightFlash = notificationSetting.loadBacklightFlashOnIncoming();
+        final boolean isBacklightFlash = notificationSetting.loadBlnOnIncoming();
 
         final SoundAndVibSetting soundAndVibSetting = new SoundAndVibSetting(context);
         final String vibNormalLevel = soundAndVibSetting.loadVibNormalLevel();

@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2.About;
 
+import java.net.URI;
+
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Display.DisplaySetting;
@@ -29,8 +31,10 @@ import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -41,6 +45,7 @@ public class AboutPreferenceActivity extends PreferenceActivity
     implements Preference.OnPreferenceClickListener {
 
     private PreferenceScreen mVersion;
+    private PreferenceScreen mCheckUpdate;
     private PreferenceScreen mRecommend;
     private PreferenceScreen mReset;
     private Context mContext;
@@ -54,6 +59,9 @@ public class AboutPreferenceActivity extends PreferenceActivity
 
         mVersion = (PreferenceScreen)findPreference("about_version");
         mVersion.setSummary(Misc.getVersionName(this));
+
+        mCheckUpdate = (PreferenceScreen)findPreference("about_check_update");
+        mCheckUpdate.setOnPreferenceClickListener(this);
 
         mRecommend = (PreferenceScreen)findPreference("about_recommend");
         mRecommend.setOnPreferenceClickListener(this);
@@ -116,6 +124,12 @@ public class AboutPreferenceActivity extends PreferenceActivity
                 }
             });
             confirmDialog.show(this, R.string.all_recommend_title, R.string.all_recommend_summary);
+
+        } else if (preference == mCheckUpdate) {
+            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=net.sakuramilk.TweakGS2");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
         }
         return false;
     }

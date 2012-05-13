@@ -132,7 +132,7 @@
     <string name="select_dir_title">ディレクトリを選択</string>
     <string name="rom_label_title">ROMラベル</string>
     <string name="rom_label_message">ROMのラベルを入力してください</string>
-	<string name="special_category">特殊領域のバックアップ</string>
+    <string name="special_category">特殊領域のバックアップ</string>
     <string name="sbl_backup_title">Sblバックアップ</string>
     <string name="sbl_backup_summary">Sbl領域をバックアップ</string>
     <string name="efs_backup_title">efsバックアップ</string>
@@ -192,6 +192,20 @@
 
     <!-- Notification -->
     <string name="notification_title">通知設定</string>
+    <string name="notification_led_category">タッチキー</string>
+    <string name="notification_led_timeout_title">バックライト点灯時間</string>
+    <string name="notification_led_timeout_summary">バックライトの点灯時間を設定します</string>
+    <string name="notification_bln_category">LED通知設定</string>
+    <string name="notification_bln_enabled_title">LED通知</string>
+    <string name="notification_bln_enabled_summary">LED通知を有効または無効にします\n※通知中はDeep sleepが無効になります</string>
+    <string name="notification_bln_timeout_title">LED通知の有効時間</string>
+    <string name="notification_bln_timeout_summary">通知を行う時間を設定します</string>
+    <string name="notification_bln_blinking_title">LED通知の点滅</string>
+    <string name="notification_bln_blinking_summary_on">点滅は有効です</string>
+    <string name="notification_bln_blinking_summary_off">点滅は無効です</string>
+    <string name="notification_bln_breathing_title">LED通知のエフェクト</string>
+    <string name="notification_bln_breathing_summary_on">エフェクトは有効です</string>
+    <string name="notification_bln_breathing_summary_off">エフェクトは無効です</string>
     <string name="notification_bln_on_incoming_title">着信時のBLN</string>
     <string name="notification_bln_on_incoming_summary_on">着信時にBLNで通知する</string>
     <string name="notification_bln_on_incoming_summary_off">着信時にBLNで通知しない</string>
@@ -209,6 +223,8 @@
 
     <!-- About -->
     <string name="about_title">TweakGS2について</string>
+    <string name="about_check_update_title">TweakGS2の更新を確認</string>
+    <string name="about_check_update_summary">これは、寄付を受け付けるための有料版です。寄付を行わず、無料版を利用することも可能です</string>
     <string name="all_recommend_title">おすすめ設定</string>
     <string name="all_recommend_summary">全ての項目におすすめの値を設定します</string>
     <string name="all_reset_title">初期化</string>

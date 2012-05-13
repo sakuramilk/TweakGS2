@@ -202,6 +202,20 @@
 
     <!-- Notification -->
     <string name="notification_title">Notification setting</string>
+    <string name="notification_led_category">Touchkey</string>
+    <string name="notification_led_timeout_title">Backlight Timeout</string>
+    <string name="notification_led_timeout_summary">How long the touchkey backlight should stay on before turning off</string>
+    <string name="notification_bln_category">LED Notifications</string>
+    <string name="notification_bln_enabled_title">Notifications</string>
+    <string name="notification_bln_enabled_summary">Enable kernel support for LED Notifications.  Note: An active notification will prevent the phone from entering deep sleep</string>
+    <string name="notification_bln_timeout_title">Notification Timeout</string>
+    <string name="notification_bln_timeout_summary">How long the notification indicator should stay on before turning off</string>
+    <string name="notification_bln_blinking_title">Notification blinking</string>
+    <string name="notification_bln_blinking_summary_on">Blinking enabled</string>
+    <string name="notification_bln_blinking_summary_off">Blinking disabled</string>
+    <string name="notification_bln_breathing_title">Notification breathing</string>
+    <string name="notification_bln_breathing_summary_on">Breathing enabled</string>
+    <string name="notification_bln_breathing_summary_off">Breathing disabled</string>
     <string name="notification_bln_on_incoming_title">BLN on incoming</string>
     <string name="notification_bln_on_incoming_summary_on">BLN on incoming enabled</string>
     <string name="notification_bln_on_incoming_summary_off">BLN on incoming disabled</string>
@@ -219,6 +233,8 @@
 
     <!-- About -->
     <string name="about_title">About TweakGS2</string>
+    <string name="about_check_update_title">Check for update TweakGS2</string>
+    <string name="about_check_update_summary">This is a paid version to accept the donation. Without a donation, it is also possible to use the free version</string>
     <string name="all_recommend_title">Recommended Settings</string>
     <string name="all_recommend_summary">Recommended to set the value of all items</string>
     <string name="all_reset_title">Reset Settings</string>

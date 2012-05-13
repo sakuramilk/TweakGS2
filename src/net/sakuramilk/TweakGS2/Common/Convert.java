@@ -14,29 +14,18 @@
  * limitations under the License.
  */
 
-package net.sakuramilk.TweakGS2.MultiBoot;
+package net.sakuramilk.TweakGS2.Common;
 
-import net.sakuramilk.TweakGS2.Common.PropertyManager;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+public class Convert {
 
-public class BootConf extends PropertyManager {
-
-    private static final String CONF_KEY_BOOT_ROM = "ro.boot.rom";
-
-    public BootConf() {
-        super("/xdata/boot.conf");
-
-        // if not exists, create prop file.
-        if (!mFile.exists()) {
-            SystemCommand.touch(mFile.getPath(), "0666");
+    public static boolean toBoolean(String value) {
+        if (!Misc.isNullOfEmpty(value)) {
+            return value.equals("0") ? false : true;
         }
-    }
-    
-    public String getBootRom() {
-        return getValue(CONF_KEY_BOOT_ROM, "primary");
+        return false;
     }
 
-    public void setBootRom(String rom) {
-        setValue(CONF_KEY_BOOT_ROM, rom);
+    public static String toString(boolean value) {
+        return value ? "1" : "0";
     }
 }
