@@ -65,76 +65,93 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
 
         // cpu freq
         String[] availableFrequencies = mSetting.getAvailableFrequencies();
-        String maxFreqValue = mSetting.getScalingMaxFreq();
-        String minFreqValue = mSetting.getScalingMinFreq();
+        String curMaxFreqValue = mSetting.getScalingMaxFreq();
+        String curMinFreqValue = mSetting.getScalingMinFreq();
+        String savedMaxFreqValue = mSetting.loadScalingMaxFreq();
+        String savedMinFreqValue = mSetting.loadScalingMinFreq();
         String[] availableFreqEntries = Misc.getFreqencyEntries(availableFrequencies);
 
         mMaxFreq = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MAX_FREQ);
         mMaxFreq.setEntries(availableFreqEntries);
         mMaxFreq.setEntryValues(availableFrequencies);
-        mMaxFreq.setValue(maxFreqValue);
+        mMaxFreq.setValue(curMaxFreqValue);
         mMaxFreq.setOnPreferenceChangeListener(this);
-        mMaxFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(maxFreqValue)));
+        mMaxFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                this, getFreqText(curMaxFreqValue), getFreqText(savedMaxFreqValue)));
 
         mMinFreq = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MIN_FREQ);
         mMinFreq.setEntries(availableFreqEntries);
         mMinFreq.setEntryValues(availableFrequencies);
-        mMinFreq.setValue(minFreqValue);
+        mMinFreq.setValue(curMinFreqValue);
         mMinFreq.setOnPreferenceChangeListener(this);
-        mMinFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(minFreqValue)));
+        mMinFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                this, getFreqText(curMinFreqValue), getFreqText(savedMinFreqValue)));
 
         if (mSetting.isEnableSuspendFreq()) {
-            String maxSuspendFreqValue = mSetting.getScalingMaxSuspendFreq();
-            String minSuspendFreqValue = mSetting.getScalingMinSuspendFreq();
+            String curMaxSuspendFreqValue = mSetting.getScalingMaxSuspendFreq();
+            String curMinSuspendFreqValue = mSetting.getScalingMinSuspendFreq();
+            String savedMaxSuspendFreqValue = mSetting.loadScalingMaxSuspendFreq();
+            String savedMinSuspendFreqValue = mSetting.loadScalingMinSuspendFreq();
 
             mMaxSuspendFreq = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MAX_SUSPEND_FREQ);
             mMaxSuspendFreq.setEnabled(true);
             mMaxSuspendFreq.setEntries(availableFreqEntries);
             mMaxSuspendFreq.setEntryValues(availableFrequencies);
-            mMaxSuspendFreq.setValue(maxSuspendFreqValue);
+            mMaxSuspendFreq.setValue(curMaxSuspendFreqValue);
             mMaxSuspendFreq.setOnPreferenceChangeListener(this);
-            mMaxSuspendFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(maxSuspendFreqValue)));
+            mMaxSuspendFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                    this, getFreqText(curMaxSuspendFreqValue), getFreqText(savedMaxSuspendFreqValue)));
 
             mMinSuspendFreq = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MIN_SUSPEND_FREQ);
             mMinSuspendFreq.setEnabled(true);
             mMinSuspendFreq.setEntries(availableFreqEntries);
             mMinSuspendFreq.setEntryValues(availableFrequencies);
-            mMinSuspendFreq.setValue(minSuspendFreqValue);
+            mMinSuspendFreq.setValue(curMinSuspendFreqValue);
             mMinSuspendFreq.setOnPreferenceChangeListener(this);
-            mMinSuspendFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(minSuspendFreqValue)));
+            mMinSuspendFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                    this, getFreqText(curMinSuspendFreqValue), getFreqText(savedMinSuspendFreqValue)));
         }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mGovernorList) {
-            mSetting.setScalingGovernor(newValue.toString());
-            mSetting.saveScalingGovernor(newValue.toString());
-            mGovernorList.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
+            String value = newValue.toString();
+            mSetting.setScalingGovernor(value);
+            mSetting.saveScalingGovernor(value);
+            mGovernorList.setSummary(Misc.getCurrentValueText(this, value));
             return false;
 
         } else if (preference == mMaxFreq) {
-            mSetting.setScalingMaxFreq(newValue.toString());
-            mSetting.saveScalingMaxFreq(newValue.toString());
-            mMaxFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
+            String value = newValue.toString();
+            mSetting.setScalingMaxFreq(value);
+            mSetting.saveScalingMaxFreq(value);
+            mMaxFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                    this, getFreqText(value), getFreqText(value)));
             return false;
 
         } else if (preference == mMinFreq) {
-            mSetting.setScalingMinFreq(newValue.toString());
-            mSetting.saveScalingMinFreq(newValue.toString());
-            mMinFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
+            String value = newValue.toString();
+            mSetting.setScalingMinFreq(value);
+            mSetting.saveScalingMinFreq(value);
+            mMinFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                    this, getFreqText(value), getFreqText(value)));
             return false;
 
         } else if (preference == mMaxSuspendFreq) {
-            mSetting.setScalingMaxSuspendFreq(newValue.toString());
-            mSetting.saveScalingMaxSuspendFreq(newValue.toString());
-            mMaxSuspendFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
+            String value = newValue.toString();
+            mSetting.setScalingMaxSuspendFreq(value);
+            mSetting.saveScalingMaxSuspendFreq(value);
+            mMaxSuspendFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                    this, getFreqText(value), getFreqText(value)));
             return false;
 
         } else if (preference == mMinSuspendFreq) {
-            mSetting.setScalingMinSuspendFreq(newValue.toString());
-            mSetting.saveScalingMinSuspendFreq(newValue.toString());
-            mMinSuspendFreq.setSummary(Misc.getCurrentValueText(this, getFreqText(newValue.toString())));
+            String value = newValue.toString();
+            mSetting.setScalingMinSuspendFreq(value);
+            mSetting.saveScalingMinSuspendFreq(value);
+            mMinSuspendFreq.setSummary(Misc.getCurrentAndSavedValueText(
+                    this, getFreqText(value), getFreqText(value)));
             return false;
 
         }

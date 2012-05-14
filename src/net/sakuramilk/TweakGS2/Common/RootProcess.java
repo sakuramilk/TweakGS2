@@ -33,7 +33,6 @@ public class RootProcess {
             mProcess = Runtime.getRuntime().exec("su");
             mOutputStream = new DataOutputStream(mProcess.getOutputStream());
             mInputStream = new DataInputStream(mProcess.getInputStream());
-
             if (write("su -v\n")) {
                 String[] results = read();
                 for (String line : results) {

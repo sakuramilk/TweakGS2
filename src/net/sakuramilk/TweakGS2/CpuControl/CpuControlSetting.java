@@ -20,6 +20,7 @@ import java.io.File;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -47,8 +48,8 @@ public class CpuControlSetting extends SettingManager {
     private final SysFs mSysFsScalingMaxSuspendFreq = new SysFs(CRTL_PATH + "/scaling_max_suspend_freq");
     private final SysFs mSysFsScalingMinSuspendFreq = new SysFs(CRTL_PATH + "/scaling_min_suspend_freq");
 
-    public CpuControlSetting(Context context) {
-        super(context);
+    public CpuControlSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
         if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
             File file = new File(PATH_SCALING_AVAILABLE_FREQS_KERNEL_2_6);
             if (file.exists()) {
@@ -61,8 +62,12 @@ public class CpuControlSetting extends SettingManager {
         }
     }
 
+    public CpuControlSetting(Context context) {
+        this(context, null);
+    }
+
     public String[] getAvailableGovernors() {
-        String values = mSysFsAvailableGovernors.read();
+        String values = mSysFsAvailableGovernors.read(mRootProcess);
         if (values != null) {
             return values.split(" ");
         }
@@ -70,11 +75,11 @@ public class CpuControlSetting extends SettingManager {
     }
 
     public String getScalingGovernor() {
-        return mSysFsScalingGovernor.read();
+        return mSysFsScalingGovernor.read(mRootProcess);
     }
 
     public void setScalingGovernor(String value) {
-        mSysFsScalingGovernor.write(value);
+        mSysFsScalingGovernor.write(value, mRootProcess);
     }
 
     public String loadScalingGovernor() {
@@ -91,7 +96,7 @@ public class CpuControlSetting extends SettingManager {
 
     public String[] getAvailableFrequencies() {
         String values;
-        values = mSysFsCpuAvailableFrequencies.read();
+        values = mSysFsCpuAvailableFrequencies.read(mRootProcess);
         if (values != null) {
             return values.split(" ");
         }
@@ -100,11 +105,11 @@ public class CpuControlSetting extends SettingManager {
     }
 
     public String getScalingMaxFreq() {
-        return mSysFsScalingMaxFreq.read();
+        return mSysFsScalingMaxFreq.read(mRootProcess);
     }
 
     public void setScalingMaxFreq(String value) {
-        mSysFsScalingMaxFreq.write(value);
+        mSysFsScalingMaxFreq.write(value, mRootProcess);
     }
 
     public String loadScalingMaxFreq() {
@@ -116,11 +121,11 @@ public class CpuControlSetting extends SettingManager {
     }
 
     public String getScalingMinFreq() {
-        return mSysFsScalingMinFreq.read();
+        return mSysFsScalingMinFreq.read(mRootProcess);
     }
 
     public void setScalingMinFreq(String value) {
-        mSysFsScalingMinFreq.write(value);
+        mSysFsScalingMinFreq.write(value, mRootProcess);
     }
 
     public String loadScalingMinFreq() {
@@ -136,11 +141,11 @@ public class CpuControlSetting extends SettingManager {
     }
 
     public String getScalingMaxSuspendFreq() {
-        return mSysFsScalingMaxSuspendFreq.read();
+        return mSysFsScalingMaxSuspendFreq.read(mRootProcess);
     }
 
     public void setScalingMaxSuspendFreq(String value) {
-        mSysFsScalingMaxSuspendFreq.write(value);
+        mSysFsScalingMaxSuspendFreq.write(value, mRootProcess);
     }
 
     public String loadScalingMaxSuspendFreq() {
@@ -152,11 +157,11 @@ public class CpuControlSetting extends SettingManager {
     }
 
     public String getScalingMinSuspendFreq() {
-        return mSysFsScalingMinSuspendFreq.read();
+        return mSysFsScalingMinSuspendFreq.read(mRootProcess);
     }
 
     public void setScalingMinSuspendFreq(String value) {
-        mSysFsScalingMinSuspendFreq.write(value);
+        mSysFsScalingMinSuspendFreq.write(value, mRootProcess);
     }
 
     public String loadScalingMinSuspendFreq() {

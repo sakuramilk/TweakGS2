@@ -20,6 +20,7 @@ import java.io.File;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -57,8 +58,8 @@ public class DisplaySetting extends SettingManager {
     private final SysFs mSysFsMdnieMcmCb;
     private final SysFs mSysFsMdnieMcmCr;
 
-    public DisplaySetting(Context context) {
-        super(context);
+    public DisplaySetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
         if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
             File file = new File(LCD_BASE_PATH_KERNEL_3_0);
             if (file.exists()) { 
@@ -80,12 +81,16 @@ public class DisplaySetting extends SettingManager {
         }
     }
 
+    public DisplaySetting(Context context) {
+        this(context, null);
+    }
+
     public boolean isEnableLcdType() {
         return mSysFsLcdType.exists();
     }
 
     public String getLcdType() {
-        String value = mSysFsLcdType.read();
+        String value = mSysFsLcdType.read(mRootProcess);
         if ("SM2 (A1 line)".equals(value)) {
             return "0";
         } else if ("M2".equals(value)) {
@@ -110,7 +115,7 @@ public class DisplaySetting extends SettingManager {
     }
 
     public void setLcdType(String value) {
-        mSysFsLcdType.write(value);
+        mSysFsLcdType.write(value, mRootProcess);
     }
 
     public String loadLcdType() {
@@ -126,11 +131,11 @@ public class DisplaySetting extends SettingManager {
     }
 
     public String getLcdGamma() {
-        return mSysFsLcdGamma.read();
+        return mSysFsLcdGamma.read(mRootProcess);
     }
 
     public void setLcdGamma(String value) {
-        mSysFsLcdGamma.write(value);
+        mSysFsLcdGamma.write(value, mRootProcess);
     }
 
     public String loadLcdGamma() {
@@ -146,13 +151,13 @@ public class DisplaySetting extends SettingManager {
     }
 
     public boolean getMdnieEnabled() {
-        String ret = mSysFsMdnieForceDisable.read();
+        String ret = mSysFsMdnieForceDisable.read(mRootProcess);
         return "0".equals(ret) ? true : false;
     }
 
     public void setMdnieEnabled(boolean value) {
-        mSysFsMdnieForceDisable.write(value ? "0" : "1");
-        mSysFsMdniePower.write(value ? "1" : "0");
+        mSysFsMdnieForceDisable.write(value ? "0" : "1", mRootProcess);
+        mSysFsMdniePower.write(value ? "1" : "0", mRootProcess);
     }
 
     public boolean loadMdnieEnabled() {
@@ -168,11 +173,11 @@ public class DisplaySetting extends SettingManager {
     }
 
     public String getMdnieMode() {
-        return mSysFsMdnieMode.read();
+        return mSysFsMdnieMode.read(mRootProcess);
     }
 
     public void setMdnieMode(String value) {
-        mSysFsMdnieMode.write(value);
+        mSysFsMdnieMode.write(value, mRootProcess);
     }
 
     public boolean loadMdnieMode() {
@@ -188,11 +193,11 @@ public class DisplaySetting extends SettingManager {
     }
 
     public String getMdnieMcmCb() {
-        return mSysFsMdnieMcmCb.read();
+        return mSysFsMdnieMcmCb.read(mRootProcess);
     }
 
     public void setMdnieMcmCb(String value) {
-        mSysFsMdnieMcmCb.write(value);
+        mSysFsMdnieMcmCb.write(value, mRootProcess);
     }
 
     public String loadMdnieMcmCb() {
@@ -208,11 +213,11 @@ public class DisplaySetting extends SettingManager {
     }
 
     public String getMdnieMcmCr() {
-        return mSysFsMdnieMcmCr.read();
+        return mSysFsMdnieMcmCr.read(mRootProcess);
     }
 
     public void setMdnieMcmCr(String value) {
-        mSysFsMdnieMcmCr.write(value);
+        mSysFsMdnieMcmCr.write(value, mRootProcess);
     }
 
     public String loadMdnieMcmCr() {
@@ -271,25 +276,25 @@ public class DisplaySetting extends SettingManager {
     public void setOnBoot() {
         if (isEnableLcdType()) {
             String value = loadLcdType();
-            if (value != null) {
+            if (!Misc.isNullOfEmpty(value)) {
                 setLcdType(value);
             }
         }
         if (isEnableLcdGamma()) {
             String value = loadLcdGamma();
-            if (value != null) {
+            if (!Misc.isNullOfEmpty(value)) {
                 setLcdGamma(value);
             }
         }
         if (isEnableMdnieMcmCb()) {
             String value = loadMdnieMcmCb();
-            if (value != null) {
+            if (!Misc.isNullOfEmpty(value)) {
                 setMdnieMcmCb(value);
             }
         }
         if (isEnableMdnieMcmCr()) {
             String value = loadMdnieMcmCr();
-            if (value != null) {
+            if (!Misc.isNullOfEmpty(value)) {
                 setMdnieMcmCr(value);
             }
         }

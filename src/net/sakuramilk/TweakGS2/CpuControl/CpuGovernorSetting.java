@@ -207,7 +207,7 @@ public class CpuGovernorSetting extends SettingManager {
 
         } else if ("wheatley".equals(governor)) {
             SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
-            String samplingRateMin = sysFs.read();
+            String samplingRateMin = sysFs.read(mRootProcess);
             mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
             mParams.add(new Parameter("ignore_nice_load", 0, 1));
             mParams.add(new Parameter("powersave_bias", 0, 1000));
@@ -217,14 +217,14 @@ public class CpuGovernorSetting extends SettingManager {
 
         } else if ("adaptive".equals(governor)) {
             SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
-            String samplingRateMin = sysFs.read();
+            String samplingRateMin = sysFs.read(mRootProcess);
             mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
             mParams.add(new Parameter("ignore_nice_load", 0, 1));
             mParams.add(new Parameter("up_threshold", 1, 100, "%"));
 
         } else if ("conservative".equals(governor)) {
             SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
-            String samplingRateMin = sysFs.read();
+            String samplingRateMin = sysFs.read(mRootProcess);
             mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
             mParams.add(new Parameter("up_threshold", 1, 100, "%"));
             mParams.add(new Parameter("down_threshold", 1, 100, "%"));
@@ -234,7 +234,7 @@ public class CpuGovernorSetting extends SettingManager {
 
         } else if ("ondemandx".equals(governor)) {
             SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
-            String samplingRateMin = sysFs.read();
+            String samplingRateMin = sysFs.read(mRootProcess);
             CpuControlSetting cpuControlSetting = new CpuControlSetting(context);
             String[] freqValues = cpuControlSetting.getAvailableFrequencies();
             String[] freqEntries = Misc.getFreqencyEntries(freqValues);
@@ -247,7 +247,7 @@ public class CpuGovernorSetting extends SettingManager {
 
         } else if ("ondemand".equals(governor)) {
             SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/sampling_rate_min");
-            String samplingRateMin = sysFs.read();
+            String samplingRateMin = sysFs.read(mRootProcess);
             mParams.add(new Parameter("sampling_rate", Integer.valueOf(samplingRateMin), SAMPING_RATE_MAX));
             mParams.add(new Parameter("up_threshold", 5, 100, "%"));
             mParams.add(new Parameter("ignore_nice_load", 0, 1));
@@ -272,12 +272,12 @@ public class CpuGovernorSetting extends SettingManager {
 
     public String getValue(String paramName) {
         SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/" + paramName);
-        return sysFs.read();
+        return sysFs.read(mRootProcess);
     }
 
     public void setValue(String paramName, String value) {
         SysFs sysFs = new SysFs(CTRL_PATH + "/" + mGovernor + "/" + paramName);
-        sysFs.write(value);
+        sysFs.write(value, mRootProcess);
     }
 
     public String loadValue(String paramName) {

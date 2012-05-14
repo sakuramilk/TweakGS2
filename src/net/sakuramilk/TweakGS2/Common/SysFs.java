@@ -36,47 +36,69 @@ public class SysFs {
         return mFile.exists();
     }
 
-    public String read() {
-        String[] values = readMuitiLine();
+    public String read(RootProcess rootProcess) {
+        String[] values = readMuitiLine(rootProcess);
         if (values != null) {
             return values[0];
         }
         return null;
     }
 
-    public String[] readMuitiLine() {
+    public String[] readMuitiLine(RootProcess rootProcess) {
         if (!mFile.exists()) {
             return null;
         }
         String command = "cat " + mFile.getPath() + "\n";
         if (!mFile.canRead()) {
-            RootProcess process = new RootProcess();
-            process.init();
+            RootProcess process;
+            if (rootProcess == null) {
+                process = new RootProcess();
+                process.init();
+            } else {
+                process = rootProcess;
+            }
+
             if (mPermission != null) {
                 process.write("chmod " + mPermission + " " + mFile.getPath() + "\n");
             }
             process.write(command);
             String[] ret = process.read();
-            process.term();
+            
+            if (rootProcess == null) {
+                process.term();
+            }
             return ret;
         } else {
             return RuntimeExec.execute(command, true);
         }
     }
 
-    public void write(String data) {
+    //public void write(String data) {
+    //    write(data, null);
+    //}
+
+    public void write(String data, RootProcess rootProcess) {
         if (!mFile.exists()) {
             return;
         }
         String command = "echo " + data + " > " + mFile.getPath() + "\n";
         if (!mFile.canWrite()) {
-            RootProcess process = new RootProcess();
-            process.init();
+            RootProcess process;
+            if (rootProcess == null) {
+                process = new RootProcess();
+                process.init();
+            } else {
+                process = rootProcess;
+            }
+            
             if (mPermission != null) {
                 process.write("chmod " + mPermission + " " + mFile.getPath() + "\n");
             }
             process.write(command);
-            process.term();
+            
+            if (rootProcess == null) {
+                process.term();
+            }
         } else {
             RuntimeExec.execute(command, false);
         }

@@ -20,6 +20,7 @@ import android.content.Context;
 
 import net.sakuramilk.TweakGS2.Common.Convert;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -40,8 +41,12 @@ public class NotificationSetting extends SettingManager {
     private final SysFs mSysFsBlnBreathing = new SysFs("/sys/devices/virtual/misc/notification/breathing_enabled");
     private final SysFs mSysFsBlnControl = new SysFs("/sys/devices/virtual/misc/melfas_touchkey/touchkey_bln_control", "0222");
 
+    public NotificationSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public NotificationSetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public boolean isEnableLedTimeout() {
@@ -49,11 +54,11 @@ public class NotificationSetting extends SettingManager {
     }
 
     public String getLedTimeout() {
-        return mSysFsLedTimeout.read();
+        return mSysFsLedTimeout.read(mRootProcess);
     }
 
     public void setLedTimeout(String value) {
-        mSysFsLedTimeout.write(value);
+        mSysFsLedTimeout.write(value, mRootProcess);
     }
 
     public String loadLedTimeout() {
@@ -69,11 +74,11 @@ public class NotificationSetting extends SettingManager {
     }
 
     public boolean getBlnEnabled() {
-        return Convert.toBoolean(mSysFsBlnEnabled.read());
+        return Convert.toBoolean(mSysFsBlnEnabled.read(mRootProcess));
     }
 
     public void setBlnEnabled(boolean value) {
-        mSysFsBlnEnabled.write(Convert.toString(value));
+        mSysFsBlnEnabled.write(Convert.toString(value), mRootProcess);
     }
 
     public boolean loadBlnEnabled() {
@@ -89,11 +94,11 @@ public class NotificationSetting extends SettingManager {
     }
 
     public String getBlnTimeout() {
-        return mSysFsBlnTimeout.read();
+        return mSysFsBlnTimeout.read(mRootProcess);
     }
 
     public void setBlnTimeout(String value) {
-        mSysFsBlnTimeout.write(value);
+        mSysFsBlnTimeout.write(value, mRootProcess);
     }
 
     public String loadBlnTimeout() {
@@ -109,11 +114,11 @@ public class NotificationSetting extends SettingManager {
     }
 
     public boolean getBlnBlinking() {
-        return Convert.toBoolean(mSysFsBlnBlinking.read());
+        return Convert.toBoolean(mSysFsBlnBlinking.read(mRootProcess));
     }
 
     public void setBlnBlinking(boolean value) {
-        mSysFsBlnBlinking.write(Convert.toString(value));
+        mSysFsBlnBlinking.write(Convert.toString(value), mRootProcess);
     }
 
     public boolean loadBlnBlinking() {
@@ -129,11 +134,11 @@ public class NotificationSetting extends SettingManager {
     }
 
     public boolean getBlnBreathing() {
-        return Convert.toBoolean(mSysFsBlnBreathing.read());
+        return Convert.toBoolean(mSysFsBlnBreathing.read(mRootProcess));
     }
 
     public void setBlnBreathing(boolean value) {
-        mSysFsBlnBreathing.write(Convert.toString(value));
+        mSysFsBlnBreathing.write(Convert.toString(value), mRootProcess);
     }
 
     public boolean loadBlnBreathing() {
@@ -149,11 +154,11 @@ public class NotificationSetting extends SettingManager {
     }
 
     public String getBlnControl() {
-        return mSysFsBlnControl.read();
+        return mSysFsBlnControl.read(mRootProcess);
     }
 
     public void setBlnControl(String value) {
-        mSysFsBlnControl.write(value);
+        mSysFsBlnControl.write(value, mRootProcess);
     }
 
     public boolean loadBlnOnIncoming() {
@@ -182,10 +187,10 @@ public class NotificationSetting extends SettingManager {
             }
         }
         if (isEnableBlnBlinking()) {
-            setBlnEnabled(loadBlnBlinking());
+            setBlnBlinking(loadBlnBlinking());
         }
         if (isEnableBlnBreathing()) {
-            setBlnEnabled(loadBlnBreathing());
+            setBlnBreathing(loadBlnBreathing());
         }
     }
 

@@ -19,6 +19,7 @@ package net.sakuramilk.TweakGS2.General;
 import android.content.Context;
 
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
@@ -33,8 +34,8 @@ public class GeneralSetting extends SettingManager {
     private static final String PATH_IO_SCHED_MMC0_KERNEL_2_6 = "/sys/devices/platform/s3c-mshci.0/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler";
     private final SysFs mSysFsIoSheduler;
 
-    public GeneralSetting(Context context) {
-        super(context);
+    public GeneralSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
         if (Misc.getKernelVersion() >= Misc.KERNEL_VER_3_0_0) {
             mSysFsIoSheduler = new SysFs(PATH_IO_SCHED_MMC0_KERNEL_3_0);
         } else {
@@ -42,8 +43,12 @@ public class GeneralSetting extends SettingManager {
         }
     }
 
+    public GeneralSetting(Context context) {
+        this(context, null);
+    }
+
     public String getCurrentIoScheduler() {
-        String value = mSysFsIoSheduler.read();
+        String value = mSysFsIoSheduler.read(mRootProcess);
         if (value != null) {
             String list[] = value.split(" ");
             for (String ioSched : list) {
@@ -56,7 +61,7 @@ public class GeneralSetting extends SettingManager {
     }
 
     public String[] getIoSchedulerList() {
-        String value = mSysFsIoSheduler.read();
+        String value = mSysFsIoSheduler.read(mRootProcess);
         if (value != null) {
             String list[] = value.split(" ");
             for (int i = 0; i < list.length ; i++) {
@@ -70,7 +75,7 @@ public class GeneralSetting extends SettingManager {
     }
 
     public void setIoScheduler(String value) {
-        mSysFsIoSheduler.write(value);
+        mSysFsIoSheduler.write(value, mRootProcess);
     }
 
     public String loadIoScheduler() {

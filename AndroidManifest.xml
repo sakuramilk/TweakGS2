@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.6.6b1"
-    android:versionCode="6051">
+    android:versionName="0.6.6"
+    android:versionCode="6060">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15" />
@@ -32,6 +32,7 @@
     <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -45,8 +46,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Receiver.DevicePowerReceiver"
-            android:permission="android.permission.DEVICE_POWER">
+            android:name=".Receiver.DevicePowerReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
@@ -60,6 +60,7 @@
         </receiver>
         
         <service android:name=".Notification.KeyBacklightFlashService" />
+        <service android:name=".Service.BootCompletedService" />
 
         <activity
             android:label="@string/app_name"

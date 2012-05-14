@@ -27,7 +27,7 @@ import net.sakuramilk.TweakGS2.Parts.FilePickerActivity;
 
 public class ZipFilePickerActivity extends FilePickerActivity {
 
-    private static final String TAG = "ZipFilePickerActivity";
+    private static final String TAG = "TweakGS2::ZipFilePickerActivity";
 
     @Override
     public void onFilePicked(String path, String mode) {

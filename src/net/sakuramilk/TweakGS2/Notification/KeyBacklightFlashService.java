@@ -26,7 +26,7 @@ public class KeyBacklightFlashService extends Service {
 
     private static Context mContext;
     private static BacklightThread mThread;
-    private static final String TAG = "KeyBacklightFlashService";
+    private static final String TAG = "TweakGS2::KeyBacklightFlashService";
 
     class BacklightThread extends Thread {
         private boolean mRunning = false;
@@ -85,5 +85,6 @@ public class KeyBacklightFlashService extends Service {
         Log.d(TAG , "OnDestroy");
         mThread.exit();
         mThread.interrupt();
+        mThread = null;
     }
 }

@@ -16,10 +16,9 @@
 
 package net.sakuramilk.TweakGS2.About;
 
-import java.net.URI;
-
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Display.DisplaySetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import net.sakuramilk.TweakGS2.General.GeneralSetting;
@@ -94,31 +93,37 @@ public class AboutPreferenceActivity extends PreferenceActivity
             confirmDialog.setResultListener(new ConfirmDialog.ResultListener() {
                 @Override
                 public void onYes() {
+                    RootProcess process = new RootProcess();
+                    process.init();
+
                     // General
-                    GeneralSetting generalSetting = new GeneralSetting(mContext);
+                    GeneralSetting generalSetting = new GeneralSetting(mContext, process);
                     generalSetting.setRecommend();
-                    LowMemKillerSetting lowMemKillerSetting = new LowMemKillerSetting(mContext);
+                    LowMemKillerSetting lowMemKillerSetting = new LowMemKillerSetting(mContext, process);
                     lowMemKillerSetting.setRecommend();
-                    VirtualMemorySetting vmSetting = new VirtualMemorySetting(mContext);
+                    VirtualMemorySetting vmSetting = new VirtualMemorySetting(mContext, process);
                     vmSetting.setRecommend();
 
                     // Sound and vib
-                    HwVolumeSetting hwVolumeSetting = new HwVolumeSetting(mContext);
+                    HwVolumeSetting hwVolumeSetting = new HwVolumeSetting(mContext, process);
                     hwVolumeSetting.setRecommend();
-                    SoundAndVibSetting vibSetting = new SoundAndVibSetting(mContext);
+                    SoundAndVibSetting vibSetting = new SoundAndVibSetting(mContext, process);
                     vibSetting.setRecommend();
 
                     // Display
-                    DisplaySetting displaySetting = new DisplaySetting(mContext);
+                    DisplaySetting displaySetting = new DisplaySetting(mContext, process);
                     displaySetting.setRecommend();
 
                     // Notification
-                    NotificationSetting notifySetting = new NotificationSetting(mContext);
+                    NotificationSetting notifySetting = new NotificationSetting(mContext, process);
                     notifySetting.setRecommend();
 
                     // Dock
-                    DockSetting dockSetting = new DockSetting(mContext);
+                    DockSetting dockSetting = new DockSetting(mContext, process);
                     dockSetting.setRecommend();
+                    
+                    process.term();
+                    process = null;
 
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }

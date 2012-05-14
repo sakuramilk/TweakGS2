@@ -52,7 +52,7 @@
             android:title="@string/notification_bln_blinking_title"
             android:summaryOn="@string/notification_bln_blinking_summary_on"
             android:summaryOff="@string/notification_bln_blinking_summary_off"
-               android:enabled="false" />
+            android:enabled="false" />
         <CheckBoxPreference
             android:key="notification_bln_breathing"
             android:title="@string/notification_bln_breathing_title"

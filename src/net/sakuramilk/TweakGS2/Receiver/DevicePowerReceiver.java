@@ -25,7 +25,7 @@ import android.util.Log;
 
 public class DevicePowerReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "DevicePowerReceiver";
+    private static final String TAG = "TweakGS2::DevicePowerReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {  

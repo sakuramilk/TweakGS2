@@ -43,7 +43,7 @@ public class CpuVoltageSetting extends SettingManager {
     }
 
     public String getAsvGroup() {
-    	String value = mSysFsAsvGroup.read();
+    	String value = mSysFsAsvGroup.read(mRootProcess);
     	if (!Misc.isNullOfEmpty(value)) {
     		String[] v = value.split(" ");
     		return v[1];
@@ -52,7 +52,7 @@ public class CpuVoltageSetting extends SettingManager {
     }
 
     public void setAsvGroup(String value) {
-    	mSysFsAsvGroup.write(value);
+    	mSysFsAsvGroup.write(value, mRootProcess);
     }
 
     public String loadAsvGroup() {
@@ -65,7 +65,7 @@ public class CpuVoltageSetting extends SettingManager {
 
     public String[] getVoltageTable() {
         ArrayList<String> ret = new ArrayList<String>();
-        String[] values = mSysFsUV_mV_table.readMuitiLine();
+        String[] values = mSysFsUV_mV_table.readMuitiLine(mRootProcess);
         for (String value : values) {
             String voltage = value.substring(value.indexOf(" ") + 1).split(" ")[0];
             ret.add(voltage);
@@ -78,7 +78,7 @@ public class CpuVoltageSetting extends SettingManager {
         for (String volt : voltageTable) {
             value += volt + " ";
         }
-        mSysFsUV_mV_table.write(value);
+        mSysFsUV_mV_table.write(value, mRootProcess);
     }
 
     public String loadVoltage(String key) {

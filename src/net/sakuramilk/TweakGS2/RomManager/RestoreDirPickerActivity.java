@@ -31,7 +31,7 @@ import net.sakuramilk.TweakGS2.Parts.TextInputDialog;
 
 public class RestoreDirPickerActivity extends FilePickerActivity {
 
-    private static final String TAG = "DirPickerActivity";
+    private static final String TAG = "TweakGS2::DirPickerActivity";
 
     private final int ACTION_RENAME = 0;
     private final int ACTION_DELETE = 1;

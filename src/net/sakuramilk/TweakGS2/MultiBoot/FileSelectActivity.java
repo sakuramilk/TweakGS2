@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class FileSelectActivity extends FilePickerActivity {
 
-    private static final String TAG = "FileSelectActivity";
+    private static final String TAG = "TweakGS2::FileSelectActivity";
 
     @Override
     public void onFilePicked(String path, String mode) {

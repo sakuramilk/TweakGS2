@@ -39,7 +39,7 @@ import android.view.KeyEvent;
 public abstract class FilePickerActivity extends PreferenceActivity
     implements OnPreferenceClickListener {
 
-    private static final String TAG = "FilePickerActivity";
+    private static final String TAG = "TweakGS2::FilePickerActivity";
     private boolean mFileMode = false;
     private boolean mDirMode = false;
     private String mExecMode = "";

@@ -18,6 +18,7 @@ package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -31,8 +32,12 @@ public class SoundAndVibSetting extends SettingManager {
     private final SysFs mSysFsVibLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level");
     private final SysFs mSysFsVibMaxLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level_max");
 
+    public SoundAndVibSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public SoundAndVibSetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public boolean isEnableSoundPlayFreqLock() {
@@ -40,12 +45,12 @@ public class SoundAndVibSetting extends SettingManager {
     }
 
     public boolean getSoundPlayFreqLock() {
-        String value = mSysFsSoundPlayFreqLock.read();
+        String value = mSysFsSoundPlayFreqLock.read(mRootProcess);
         return "0".equals(value) ? false : true;
     }
 
     public void setSoundPlayFreqLock(boolean value) {
-        mSysFsSoundPlayFreqLock.write(value ? "1" : "0");
+        mSysFsSoundPlayFreqLock.write(value ? "1" : "0", mRootProcess);
     }
 
     public boolean loadSoundPlayFreqLock() {
@@ -61,11 +66,11 @@ public class SoundAndVibSetting extends SettingManager {
     }
 
     public String getVibLevel() {
-        return mSysFsVibLevel.read();
+        return mSysFsVibLevel.read(mRootProcess);
     }
 
     public void setVibLevel(String value) {
-        mSysFsVibLevel.write(value);
+        mSysFsVibLevel.write(value, mRootProcess);
     }
 
     public String loadVibNormalLevel() {
@@ -85,7 +90,7 @@ public class SoundAndVibSetting extends SettingManager {
     }
 
     public String getVibMaxLevel() {
-        return mSysFsVibMaxLevel.read();
+        return mSysFsVibMaxLevel.read(mRootProcess);
     }
 
     @Override

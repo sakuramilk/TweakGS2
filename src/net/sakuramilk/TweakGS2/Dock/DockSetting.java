@@ -17,6 +17,7 @@
 package net.sakuramilk.TweakGS2.Dock;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -34,8 +35,12 @@ public class DockSetting extends SettingManager {
 
     private SysFs mDockEmulate = new SysFs("/sys/devices/platform/s3c2410-i2c.5/i2c-5/5-0066/max8997-muic/fake_cable_type");
 
+    public DockSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public DockSetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public String getEmuIndexFromEmuValue(String value) {
@@ -55,11 +60,11 @@ public class DockSetting extends SettingManager {
     }
 
     public String getDockEmulate() {
-        return mDockEmulate.read();
+        return mDockEmulate.read(mRootProcess);
     }
 
     public void setDockEmulate(String value) {
-        mDockEmulate.write(value);
+        mDockEmulate.write(value, mRootProcess);
     }
 
     public String loadDockEmulate() {

@@ -25,10 +25,20 @@ public abstract class SettingManager {
 
     public final Context mContext;
     private final SharedPreferences mSharedPref;
+    protected RootProcess mRootProcess;
+
+    protected SettingManager(Context context, RootProcess process) {
+        mContext = context;
+        mRootProcess = process;
+        mSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+    }
 
     protected SettingManager(Context context) {
-        mContext = context;
-        mSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        this(context, null);
+    }
+
+    public void setRootProcess(RootProcess process) {
+        mRootProcess = process;
     }
 
     protected String getStringValue(String key) {

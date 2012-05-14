@@ -18,6 +18,7 @@ package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -37,16 +38,20 @@ public class VirtualMemorySetting extends SettingManager {
     public final SysFs mSysFsVmDirtyWritebackCentisecs = new SysFs("/proc/sys/vm/dirty_writeback_centisecs");
     public final SysFs mSysFsVmDirtyBackgroundRatio = new SysFs("/proc/sys/vm/dirty_background_ratio");
 
+    public VirtualMemorySetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public VirtualMemorySetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public String getVmSwappiness() {
-        return mSysFsVmSwappiness.read();
+        return mSysFsVmSwappiness.read(mRootProcess);
     }
 
     public void setVmSwappiness(String value) {
-        mSysFsVmSwappiness.write(value);
+        mSysFsVmSwappiness.write(value, mRootProcess);
     }
 
     public String loadVmSwappiness() {
@@ -66,19 +71,19 @@ public class VirtualMemorySetting extends SettingManager {
     }
 
     public String getVmVfsCachePressure() {
-        return mSysFsVfsCachePressure.read();
+        return mSysFsVfsCachePressure.read(mRootProcess);
     }
 
     public void setVmVfsCachePressure(String value) {
-        mSysFsVfsCachePressure.write(value);
+        mSysFsVfsCachePressure.write(value, mRootProcess);
     }
 
     public String getVmDirtyExpireCentisecs() {
-        return mSysFsVmDirtyExpireCentisecs.read();
+        return mSysFsVmDirtyExpireCentisecs.read(mRootProcess);
     }
 
     public void setVmDirtyExpireCentisecs(String value) {
-        mSysFsVmDirtyExpireCentisecs.write(value);
+        mSysFsVmDirtyExpireCentisecs.write(value, mRootProcess);
     }
 
     public String loadVmDirtyExpireCentisecs() {
@@ -90,11 +95,11 @@ public class VirtualMemorySetting extends SettingManager {
     }
 
     public String getVmDirtyWritebackCentisecs() {
-        return mSysFsVmDirtyWritebackCentisecs.read();
+        return mSysFsVmDirtyWritebackCentisecs.read(mRootProcess);
     }
 
     public void setVmDirtyWritebackCentisecs(String value) {
-        mSysFsVmDirtyWritebackCentisecs.write(value);
+        mSysFsVmDirtyWritebackCentisecs.write(value, mRootProcess);
     }
 
     public String loadVmDirtyWritebackCentisecs() {
@@ -114,11 +119,11 @@ public class VirtualMemorySetting extends SettingManager {
     }
 
     public String getVmDirtyRatio() {
-        return mSysFsVmDirtyRatio.read();
+        return mSysFsVmDirtyRatio.read(mRootProcess);
     }
 
     public void setVmDirtyRatio(String value) {
-        mSysFsVmDirtyRatio.write(value);
+        mSysFsVmDirtyRatio.write(value, mRootProcess);
     }
 
     public String loadVmDirtyBackgroundRatio() {
@@ -130,11 +135,11 @@ public class VirtualMemorySetting extends SettingManager {
     }
 
     public String getVmDirtyBackgroundRatio() {
-        return mSysFsVmDirtyBackgroundRatio.read();
+        return mSysFsVmDirtyBackgroundRatio.read(mRootProcess);
     }
 
     public void setVmDirtyBackgroundRatio(String value) {
-        mSysFsVmDirtyBackgroundRatio.write(value);
+        mSysFsVmDirtyBackgroundRatio.write(value, mRootProcess);
     }
 
     @Override

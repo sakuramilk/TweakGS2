@@ -22,7 +22,7 @@ import android.util.Log;
 
 public class SystemCommand {
 
-    private static final String TAG = "SystemCommand";
+    private static final String TAG = "TweakGS2::SystemCommand";
 
     public static void reboot(String action) {
         Log.d(TAG, "execute reboot action=" + action);

@@ -27,7 +27,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 public class PhoneStateReceiver extends BroadcastReceiver {
-    private static final String TAG = "PhoneStateReceiver";
+    private static final String TAG = "TweakGS2::PhoneStateReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {

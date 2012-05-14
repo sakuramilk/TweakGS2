@@ -18,6 +18,7 @@ package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -37,12 +38,16 @@ public class LowMemKillerSetting extends SettingManager {
 
     public final SysFs mSysFsLowMemKillerMinFree = new SysFs("/sys/module/lowmemorykiller/parameters/minfree");
 
+    public LowMemKillerSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public LowMemKillerSetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public String[] getLowMemKillerMinFree() {
-        String value = mSysFsLowMemKillerMinFree.read();
+        String value = mSysFsLowMemKillerMinFree.read(mRootProcess);
         if (value == null) {
             return null;
         }
@@ -54,7 +59,7 @@ public class LowMemKillerSetting extends SettingManager {
         for (int i = 1; i<values.length; i++) {
             value += "," + values[i];
         }
-        mSysFsLowMemKillerMinFree.write(value);
+        mSysFsLowMemKillerMinFree.write(value, mRootProcess);
     }
 
     public String[] loadLowMemKillerMinFree() {

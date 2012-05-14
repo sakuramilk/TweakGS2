@@ -34,7 +34,7 @@ import android.widget.TextView;
 public class SeekBarPreference extends DialogPreference
     implements SeekBar.OnSeekBarChangeListener, OnClickListener {
 
-    private static final String TAG = "SeekBarPreference";
+    private static final String TAG = "TweakGS2::SeekBarPreference";
     private SeekBar mSeekBar;
     private TextView mTextView;
     private Button mButtonUp1;

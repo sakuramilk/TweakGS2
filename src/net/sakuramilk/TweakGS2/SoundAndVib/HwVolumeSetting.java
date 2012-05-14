@@ -18,6 +18,7 @@ package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import android.content.Context;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -60,8 +61,12 @@ public class HwVolumeSetting extends SettingManager {
     private final SysFs mSysFsDvolDir0Att = new SysFs(CTRL_PATH + "/DVOL_DIR0_ATT");
     private final SysFs mSysFsUpdateVolume = new SysFs(CTRL_PATH + "/update_volume");
 
+    public HwVolumeSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public HwVolumeSetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     // AVOL_HP
@@ -70,11 +75,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getAvolHp() {
-        return mSysFsAvolHp.read();
+        return mSysFsAvolHp.read(mRootProcess);
     }
 
     public void setAvolHp(String value) {
-        mSysFsAvolHp.write(value);
+        mSysFsAvolHp.write(value, mRootProcess);
     }
 
     public String loadAvolHp() {
@@ -95,11 +100,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getAvolHpGain() {
-        return mSysFsAvolHpGain.read();
+        return mSysFsAvolHpGain.read(mRootProcess);
     }
 
     public void setAvolHpGain(String value) {
-        mSysFsAvolHpGain.write(value);
+        mSysFsAvolHpGain.write(value, mRootProcess);
     }
 
     public String loadAvolHpGain() {
@@ -120,11 +125,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getAvolRc() {
-        return mSysFsAvolRc.read();
+        return mSysFsAvolRc.read(mRootProcess);
     }
 
     public void setAvolRc(String value) {
-        mSysFsAvolRc.write(value);
+        mSysFsAvolRc.write(value, mRootProcess);
     }
 
     public String loadAvolRc() {
@@ -145,11 +150,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getAvolSp() {
-        return mSysFsAvolSp.read();
+        return mSysFsAvolSp.read(mRootProcess);
     }
 
     public void setAvolSp(String value) {
-        mSysFsAvolSp.write(value);
+        mSysFsAvolSp.write(value, mRootProcess);
     }
 
     public String loadAvolSp() {
@@ -170,11 +175,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getDvolDacMaster() {
-        return mSysFsDvolDacMaster.read();
+        return mSysFsDvolDacMaster.read(mRootProcess);
     }
 
     public void setDvolDacMaster(String value) {
-        mSysFsDvolDacMaster.write(value);
+        mSysFsDvolDacMaster.write(value, mRootProcess);
     }
 
     public String loadDvolDacMaster() {
@@ -195,11 +200,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getDvolDacAtt() {
-        return mSysFsDvolDacAtt.read();
+        return mSysFsDvolDacAtt.read(mRootProcess);
     }
 
     public void setDvolDacAtt(String value) {
-        mSysFsDvolDacAtt.write(value);
+        mSysFsDvolDacAtt.write(value, mRootProcess);
     }
 
     public String loadDvolDacAtt() {
@@ -220,11 +225,11 @@ public class HwVolumeSetting extends SettingManager {
     }
     
     public String getDvolDir0() {
-        return mSysFsDvolDir0.read();
+        return mSysFsDvolDir0.read(mRootProcess);
     }
     
     public void setDvolDir0(String value) {
-        mSysFsDvolDir0.write(value);
+        mSysFsDvolDir0.write(value, mRootProcess);
     }
     
     public String loadDvolDir0() {
@@ -245,11 +250,11 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public String getDvolDir0Att() {
-        return mSysFsDvolDir0Att.read();
+        return mSysFsDvolDir0Att.read(mRootProcess);
     }
 
     public void setDvolDir0Att(String value) {
-        mSysFsDvolDir0Att.write(value);
+        mSysFsDvolDir0Att.write(value, mRootProcess);
     }
 
     public String loadDvolDir0Att() {
@@ -265,7 +270,7 @@ public class HwVolumeSetting extends SettingManager {
     }
 
     public void updateVolume() {
-        mSysFsUpdateVolume.write("1");
+        mSysFsUpdateVolume.write("1", mRootProcess);
     }
 
     @Override

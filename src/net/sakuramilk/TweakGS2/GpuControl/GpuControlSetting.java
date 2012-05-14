@@ -19,6 +19,7 @@ package net.sakuramilk.TweakGS2.GpuControl;
 import java.util.ArrayList;
 
 import android.content.Context;
+import net.sakuramilk.TweakGS2.Common.RootProcess;
 import net.sakuramilk.TweakGS2.Common.SettingManager;
 import net.sakuramilk.TweakGS2.Common.SysFs;
 
@@ -42,8 +43,12 @@ public class GpuControlSetting extends SettingManager {
     private final SysFs mSysFsClkCtrl = new SysFs("/sys/devices/virtual/misc/gpu_clock_control/gpu_control");
     private final SysFs mSysFsVoltCtrl = new SysFs("/sys/devices/virtual/misc/gpu_voltage_control/gpu_control");
 
+    public GpuControlSetting(Context context, RootProcess rootProcess) {
+        super(context, rootProcess);
+    }
+
     public GpuControlSetting(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public boolean isEnableFreqCtrl() {
@@ -52,7 +57,7 @@ public class GpuControlSetting extends SettingManager {
 
     public Integer[] getFreqs() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
-        String[] values = mSysFsClkCtrl.readMuitiLine();
+        String[] values = mSysFsClkCtrl.readMuitiLine(mRootProcess);
         for (String value : values) {
             if (value.indexOf("Step") >= 0) {
                 String[] v = value.split(" ");
@@ -67,12 +72,12 @@ public class GpuControlSetting extends SettingManager {
         for (int i = 1; i < freqs.length; i++) {
             values += " " + String.valueOf(freqs[i]);
         }
-        mSysFsClkCtrl.write(values);
+        mSysFsClkCtrl.write(values, mRootProcess);
     }
 
     public Integer[] getThresholds() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
-        String[] values = mSysFsClkCtrl.readMuitiLine();
+        String[] values = mSysFsClkCtrl.readMuitiLine(mRootProcess);
         for (String value : values) {
             if (value.indexOf("Threshold") >= 0) {
                 String[] v = value.replace("%", "").split(" ");
@@ -88,7 +93,7 @@ public class GpuControlSetting extends SettingManager {
         for (int i = 1; i < thresholds.length; i++) {
             values += " " + String.valueOf(thresholds[i] == 100 ? thresholds[i] : thresholds[i] + 1) + "%";
         }
-        mSysFsClkCtrl.write(values);
+        mSysFsClkCtrl.write(values, mRootProcess);
     }
 
     public Integer[] loadFreqs() {
@@ -147,7 +152,7 @@ public class GpuControlSetting extends SettingManager {
 
     public Integer[] getVolts() {
         ArrayList<Integer> ret = new ArrayList<Integer>();
-        String[] values = mSysFsVoltCtrl.readMuitiLine();
+        String[] values = mSysFsVoltCtrl.readMuitiLine(mRootProcess);
         for (String value : values) {
             String[] v = value.split(" ");
             ret.add(Integer.parseInt(v[1]) / 1000);
@@ -160,7 +165,7 @@ public class GpuControlSetting extends SettingManager {
         for (int i = 1; i < volts.length; i++) {
             values += " " + String.valueOf(volts[i] * 1000);
         }
-        mSysFsVoltCtrl.write(values);
+        mSysFsVoltCtrl.write(values, mRootProcess);
     }
 
     public Integer[] loadVolts() {
@@ -198,11 +203,15 @@ public class GpuControlSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
+        if (!loadSetOnBoot()) {
+            return;
+        }
+
         if (isEnableVoltageCtrl()) {
             Integer[] volts = loadVolts();
             if (volts != null) {
                 Integer[] curVolts = getVolts();
-                if (curVolts.length == volts.length) {
+                if (curVolts.length != volts.length) {
                     reset();
                     return;
                 }

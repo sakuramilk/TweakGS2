@@ -105,7 +105,7 @@ public class Misc {
 
     public static boolean isFeatureAospEnabled() {
         if (sIsFeatureAospEnabled == -1) {
-            String value = sSysFsFeatureAosp.read();
+            String value = sSysFsFeatureAosp.read(null);
             sIsFeatureAospEnabled = ("1".equals(value)) ? 1 : 0;
         }
         return (sIsFeatureAospEnabled == 1) ? true : false;
@@ -117,7 +117,7 @@ public class Misc {
 
     public static int getBuildTarget() {
         if (sBuildTarget == -1) {
-            String value = sSysFsBuildTarget.read();
+            String value = sSysFsBuildTarget.read(null);
             if (Misc.isNullOfEmpty(value)) {
                 File file = new File("/system/framework/twframework.jar");
                 if (file.exists()) {
