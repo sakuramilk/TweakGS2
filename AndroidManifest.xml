@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.6.7"
-    android:versionCode="6070">
+    android:versionName="0.7.0"
+    android:versionCode="7000">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15" />
@@ -103,6 +103,7 @@
 
         <!-- Sound and Vibrator -->
         <activity android:name=".SoundAndVib.SoundAndVibPreferenceActivity" />
+        <activity android:name=".SoundAndVib.BootSoundPreferenceActivity" />
         <activity android:name=".SoundAndVib.HwVolumePreferenceActivity" />
 
         <!-- Display -->
