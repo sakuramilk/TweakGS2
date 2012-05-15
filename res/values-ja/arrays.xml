@@ -70,4 +70,10 @@
         <item>60分</item>
     </string-array>
 
+    <string-array name="notification_bln_effect_entries">
+        <item>エフェクトなし</item>
+        <item>点滅エフェクト</item>
+        <item>呼吸エフェクト</item>
+    </string-array>
+
 </resources>

@@ -236,4 +236,36 @@
         <item>3600000</item>
     </string-array>
 
+    <string-array name="notification_bln_effect_entries">
+        <item>None</item>
+        <item>Blinking</item>
+        <item>Breathing</item>
+    </string-array>
+
+    <string-array name="notification_bln_effect_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="notification_bln_blink_interval_entries">
+        <item>500 msec</item>
+        <item>1 sec</item>
+        <item>2 sec</item>
+        <item>3 sec</item>
+        <item>4 sec</item>
+        <item>5 sec</item>
+        <item>10 sec</item>
+    </string-array>
+
+    <string-array name="notification_bln_blink_interval_values" translatable="false">
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>10000</item>
+    </string-array>
+
 </resources>

@@ -30,10 +30,12 @@ public class NotificationPreferenceActivity extends PreferenceActivity
 
     private NotificationSetting mSetting;
     private ListPreference mLedTimeout;
+    private CheckBoxPreference mLedFadeout;
     private CheckBoxPreference mBlnEnabled;
     private ListPreference mBlnTimeout;
-    private CheckBoxPreference mBlnBlinking;
-    private CheckBoxPreference mBlnBreathing;
+    private ListPreference mBlnEffect;
+    private ListPreference mBlnBlinkOnInterval;
+    private ListPreference mBlnBlinkOffInterval;
     private CheckBoxPreference mBlnOnIncoming;
 
     @Override
@@ -55,6 +57,14 @@ public class NotificationPreferenceActivity extends PreferenceActivity
             mLedTimeout.setEnabled(true);
         }
 
+        mLedFadeout = (CheckBoxPreference)findPreference(NotificationSetting.KEY_NOTIFY_LED_FADEOUT);
+        if (mSetting.isEnableLedFadeout()) {
+            boolean value = mSetting.getLedFadeout();
+            mLedFadeout.setChecked(value);
+            mLedFadeout.setOnPreferenceChangeListener(this);
+            mLedFadeout.setEnabled(true);
+        }
+
         mBlnEnabled = (CheckBoxPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_ENABLED);
         if (mSetting.isEnableBlnEnabled()) {
             boolean value = mSetting.getBlnEnabled();
@@ -73,22 +83,35 @@ public class NotificationPreferenceActivity extends PreferenceActivity
             mBlnTimeout.setEnabled(true);
         }
 
-        mBlnBlinking = (CheckBoxPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_BLINKING);
-        if (mSetting.isEnableBlnBlinking()) {
-            boolean value = mSetting.getBlnBlinking();
-            mBlnBlinking.setChecked(value);
-            mBlnBlinking.setOnPreferenceChangeListener(this);
-            mBlnBlinking.setEnabled(true);
+        mBlnEffect = (ListPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_EFFECT);
+        if (mSetting.isEnableBlnEffect()) {
+            String value = mSetting.getBlnEffect();
+            mBlnEffect.setValue(value);
+            mBlnEffect.setSummary(Misc.getCurrentValueText(this,
+                    Misc.getEntryFromEntryValue(mBlnEffect.getEntries(), mBlnEffect.getEntryValues(), value)));
+            mBlnEffect.setOnPreferenceChangeListener(this);
+            mBlnEffect.setEnabled(true);
         }
 
-        mBlnBreathing = (CheckBoxPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_BREATHING);
-        if (mSetting.isEnableBlnBlinking()) {
-            boolean value = mSetting.getBlnBreathing();
-            mBlnBreathing.setChecked(value);
-            mBlnBreathing.setOnPreferenceChangeListener(this);
-            mBlnBreathing.setEnabled(true);
+        mBlnBlinkOnInterval = (ListPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_BLINK_ON_INTERVAL);
+        if (mSetting.isEnableBlnEffect()) {
+            String value = mSetting.getBlnBlinkOnInterval();
+            mBlnBlinkOnInterval.setValue(value);
+            mBlnBlinkOnInterval.setSummary(Misc.getCurrentValueText(this,
+                    Misc.getEntryFromEntryValue(mBlnBlinkOnInterval.getEntries(), mBlnBlinkOnInterval.getEntryValues(), value)));
+            mBlnBlinkOnInterval.setOnPreferenceChangeListener(this);
+            mBlnBlinkOnInterval.setEnabled(true);
         }
-        
+
+        mBlnBlinkOffInterval = (ListPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_BLINK_OFF_INTERVAL);
+        if (mSetting.isEnableBlnEffect()) {
+            String value = mSetting.getBlnBlinkOffInterval();
+            mBlnBlinkOffInterval.setValue(value);
+            mBlnBlinkOffInterval.setSummary(Misc.getCurrentValueText(this,
+                    Misc.getEntryFromEntryValue(mBlnBlinkOffInterval.getEntries(), mBlnBlinkOffInterval.getEntryValues(), value)));
+            mBlnBlinkOffInterval.setOnPreferenceChangeListener(this);
+            mBlnBlinkOffInterval.setEnabled(true);
+        }
 
         mBlnOnIncoming = (CheckBoxPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_ON_INCOMING);
         mBlnOnIncoming.setEnabled(true);
@@ -105,6 +128,12 @@ public class NotificationPreferenceActivity extends PreferenceActivity
             mLedTimeout.setSummary(Misc.getCurrentValueText(this,
                     Misc.getEntryFromEntryValue(mLedTimeout.getEntries(), mLedTimeout.getEntryValues(), value)));
 
+        } else if (preference == mLedFadeout) {
+            Boolean value = (Boolean)newValue;
+            mSetting.setLedFadeout(value);
+            mSetting.saveLedFadeout(value);
+            mLedFadeout.setChecked(value);
+
         } else if (preference == mBlnEnabled) {
             Boolean value = (Boolean)newValue;
             mSetting.setBlnEnabled(value);
@@ -119,17 +148,29 @@ public class NotificationPreferenceActivity extends PreferenceActivity
             mBlnTimeout.setSummary(Misc.getCurrentValueText(this,
                     Misc.getEntryFromEntryValue(mBlnTimeout.getEntries(), mBlnTimeout.getEntryValues(), value)));
 
-        } else if (preference == mBlnBlinking) {
-            Boolean value = (Boolean)newValue;
-            mSetting.setBlnBlinking(value);
-            mSetting.saveBlnBlinking(value);
-            mBlnBlinking.setChecked(value);
+        } else if (preference == mBlnEffect) {
+            String value = newValue.toString();
+            mSetting.setBlnEffect(value);
+            mSetting.saveBlnEffect(value);
+            mBlnEffect.setValue(value);
+            mBlnEffect.setSummary(Misc.getCurrentValueText(this,
+                    Misc.getEntryFromEntryValue(mBlnEffect.getEntries(), mBlnEffect.getEntryValues(), value)));
 
-        } else if (preference == mBlnBreathing) {
-            Boolean value = (Boolean)newValue;
-            mSetting.setBlnBreathing(value);
-            mSetting.saveBlnBreathing(value);
-            mBlnBreathing.setChecked(value);
+        } else if (preference == mBlnBlinkOnInterval) {
+            String value = newValue.toString();
+            mSetting.setBlnBlinkOnInterval(value);
+            mSetting.saveBlnBlinkOnInterval(value);
+            mBlnBlinkOnInterval.setValue(value);
+            mBlnBlinkOnInterval.setSummary(Misc.getCurrentValueText(this,
+                    Misc.getEntryFromEntryValue(mBlnBlinkOnInterval.getEntries(), mBlnBlinkOnInterval.getEntryValues(), value)));
+
+        } else if (preference == mBlnBlinkOffInterval) {
+            String value = newValue.toString();
+            mSetting.setBlnBlinkOffInterval(value);
+            mSetting.saveBlnBlinkOffInterval(value);
+            mBlnBlinkOffInterval.setValue(value);
+            mBlnBlinkOffInterval.setSummary(Misc.getCurrentValueText(this,
+                    Misc.getEntryFromEntryValue(mBlnBlinkOffInterval.getEntries(), mBlnBlinkOffInterval.getEntryValues(), value)));
         }
 
         return false;

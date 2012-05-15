@@ -29,6 +29,12 @@
             android:entries="@array/notification_led_timeout_entries"
             android:entryValues="@array/notification_led_timeout_values"
             android:enabled="false" />
+        <CheckBoxPreference
+            android:key="notification_led_fadeout"
+            android:title="@string/notification_led_fadeout_title"
+            android:summaryOn="@string/notification_led_fadeout_summary"
+            android:summaryOff="@string/notification_led_fadeout_summary"
+               android:enabled="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -43,22 +49,27 @@
         <ListPreference
             android:key="notification_bln_timeout"
             android:title="@string/notification_bln_timeout_title"
-            android:summary="@string/notification_bln_timeout_summary"
             android:entries="@array/notification_bln_timeout_entries"
             android:entryValues="@array/notification_bln_timeout_values"
             android:enabled="false" />
-        <CheckBoxPreference
-            android:key="notification_bln_blinking"
-            android:title="@string/notification_bln_blinking_title"
-            android:summaryOn="@string/notification_bln_blinking_summary_on"
-            android:summaryOff="@string/notification_bln_blinking_summary_off"
+        <ListPreference
+            android:key="notification_bln_effect"
+            android:title="@string/notification_bln_effect_title"
+            android:entries="@array/notification_bln_effect_entries"
+            android:entryValues="@array/notification_bln_effect_values"
             android:enabled="false" />
-        <CheckBoxPreference
-            android:key="notification_bln_breathing"
-            android:title="@string/notification_bln_breathing_title"
-            android:summaryOn="@string/notification_bln_breathing_summary_on"
-            android:summaryOff="@string/notification_bln_breathing_summary_off"
-               android:enabled="false" />
+        <ListPreference
+            android:key="notification_bln_blink_on_interval"
+            android:title="@string/notification_bln_blink_on_interval_title"
+            android:entries="@array/notification_bln_blink_interval_entries"
+            android:entryValues="@array/notification_bln_blink_interval_values"
+            android:enabled="false" />
+        <ListPreference
+            android:key="notification_bln_blink_off_interval"
+            android:title="@string/notification_bln_blink_off_interval_title"
+            android:entries="@array/notification_bln_blink_interval_entries"
+            android:entryValues="@array/notification_bln_blink_interval_values"
+            android:enabled="false" />
         <CheckBoxPreference
             android:key="notification_bln_on_incoming"
             android:title="@string/notification_bln_on_incoming_title"

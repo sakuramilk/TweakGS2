@@ -27,18 +27,26 @@ import net.sakuramilk.TweakGS2.Common.SysFs;
 public class NotificationSetting extends SettingManager {
 
     public static final String KEY_NOTIFY_LED_TIMEOUT = "notification_led_timeout";
+    public static final String KEY_NOTIFY_LED_FADEOUT = "notification_led_fadeout";
     public static final String KEY_NOTIFY_BLN_ENABLED = "notification_bln_enabled";
     public static final String KEY_NOTIFY_BLN_TIMEOUT = "notification_bln_timeout";
-    public static final String KEY_NOTIFY_BLN_BLINKING = "notification_bln_blinking";
-    public static final String KEY_NOTIFY_BLN_BREATHING = "notification_bln_breathing";
-
+    public static final String KEY_NOTIFY_BLN_EFFECT = "notification_bln_effect";
+    public static final String KEY_NOTIFY_BLN_BLINK_ON_INTERVAL = "notification_bln_blink_on_interval";
+    public static final String KEY_NOTIFY_BLN_BLINK_OFF_INTERVAL = "notification_bln_blink_off_interval";
     public static final String KEY_NOTIFY_BLN_ON_INCOMING = "notification_bln_on_incoming";
 
+    public static final String BLN_EFFECT_NONE = "0";
+    public static final String BLN_EFFECT_BLINKING = "1";
+    public static final String BLN_EFFECT_BREATHING = "2";
+
     private final SysFs mSysFsLedTimeout = new SysFs("/sys/devices/virtual/misc/notification/led_timeout");
+    private final SysFs mSysFsLedFadeout = new SysFs("/sys/devices/virtual/misc/notification/led_fadeout");
     private final SysFs mSysFsBlnEnabled = new SysFs("/sys/devices/virtual/misc/notification/notification_enabled");
     private final SysFs mSysFsBlnTimeout = new SysFs("/sys/devices/virtual/misc/notification/notification_timeout");
     private final SysFs mSysFsBlnBlinking = new SysFs("/sys/devices/virtual/misc/notification/blinking_enabled");
     private final SysFs mSysFsBlnBreathing = new SysFs("/sys/devices/virtual/misc/notification/breathing_enabled");
+    private final SysFs mSysFsBlnBlinkOnInterval = new SysFs("/sys/devices/virtual/misc/notification/blinking_int_on");
+    private final SysFs mSysFsBlnBlinkOffInterval = new SysFs("/sys/devices/virtual/misc/notification/blinking_int_off");
     private final SysFs mSysFsBlnControl = new SysFs("/sys/devices/virtual/misc/melfas_touchkey/touchkey_bln_control", "0222");
 
     public NotificationSetting(Context context, RootProcess rootProcess) {
@@ -67,6 +75,26 @@ public class NotificationSetting extends SettingManager {
 
     public void saveLedTimeout(String value) {
         setValue(KEY_NOTIFY_LED_TIMEOUT, value);
+    }
+
+    public boolean isEnableLedFadeout() {
+        return mSysFsLedFadeout.exists();
+    }
+
+    public boolean getLedFadeout() {
+        return Convert.toBoolean(mSysFsLedFadeout.read(mRootProcess));
+    }
+
+    public void setLedFadeout(boolean value) {
+        mSysFsLedFadeout.write(Convert.toString(value), mRootProcess);
+    }
+
+    public boolean loadLedFadeout() {
+        return getBooleanValue(KEY_NOTIFY_LED_FADEOUT);
+    }
+
+    public void saveLedFadeout(boolean value) {
+        setValue(KEY_NOTIFY_LED_FADEOUT, value);
     }
 
     public boolean isEnableBlnEnabled() {
@@ -109,44 +137,70 @@ public class NotificationSetting extends SettingManager {
         setValue(KEY_NOTIFY_BLN_TIMEOUT, value);
     }
 
-    public boolean isEnableBlnBlinking() {
-        return mSysFsBlnBlinking.exists();
+    public boolean isEnableBlnEffect() {
+        return mSysFsBlnBlinking.exists() && mSysFsBlnBreathing.exists();
     }
 
-    public boolean getBlnBlinking() {
-        return Convert.toBoolean(mSysFsBlnBlinking.read(mRootProcess));
+    public String getBlnEffect() {
+        boolean blinking = Convert.toBoolean(mSysFsBlnBlinking.read(mRootProcess));
+        boolean breathing = Convert.toBoolean(mSysFsBlnBreathing.read(mRootProcess));
+        if (breathing) {
+            return BLN_EFFECT_BREATHING;
+        } else if (blinking) {
+            return BLN_EFFECT_BLINKING;
+        }
+        return BLN_EFFECT_NONE;
     }
 
-    public void setBlnBlinking(boolean value) {
-        mSysFsBlnBlinking.write(Convert.toString(value), mRootProcess);
+    public void setBlnEffect(String value) {
+        if (BLN_EFFECT_BREATHING.equals(value)) {
+            mSysFsBlnBreathing.write("1", mRootProcess);
+        } else if (BLN_EFFECT_BLINKING.equals(value)) {
+            mSysFsBlnBlinking.write("1", mRootProcess);
+        } else {
+            mSysFsBlnBlinking.write("0", mRootProcess);
+            mSysFsBlnBreathing.write("0", mRootProcess);
+        }
     }
 
-    public boolean loadBlnBlinking() {
-        return getBooleanValue(KEY_NOTIFY_BLN_BLINKING);
+    public String loadBlnEffect() {
+        return getStringValue(KEY_NOTIFY_BLN_EFFECT);
     }
 
-    public void saveBlnBlinking(boolean value) {
-        setValue(KEY_NOTIFY_BLN_BLINKING, value);
+    public void saveBlnEffect(String value) {
+        setValue(KEY_NOTIFY_BLN_EFFECT, value);
     }
 
-    public boolean isEnableBlnBreathing() {
-        return mSysFsBlnBlinking.exists();
+    public String getBlnBlinkOnInterval() {
+        return mSysFsBlnBlinkOnInterval.read(mRootProcess);
     }
 
-    public boolean getBlnBreathing() {
-        return Convert.toBoolean(mSysFsBlnBreathing.read(mRootProcess));
+    public void setBlnBlinkOnInterval(String value) {
+        mSysFsBlnBlinkOnInterval.write(value, mRootProcess);
     }
 
-    public void setBlnBreathing(boolean value) {
-        mSysFsBlnBreathing.write(Convert.toString(value), mRootProcess);
+    public String loadBlnBlinkOnInterval() {
+        return getStringValue(KEY_NOTIFY_BLN_BLINK_ON_INTERVAL);
     }
 
-    public boolean loadBlnBreathing() {
-        return getBooleanValue(KEY_NOTIFY_BLN_BREATHING);
+    public void saveBlnBlinkOnInterval(String value) {
+        setValue(KEY_NOTIFY_BLN_BLINK_ON_INTERVAL, value);
     }
 
-    public void saveBlnBreathing(boolean value) {
-        setValue(KEY_NOTIFY_BLN_BREATHING, value);
+    public String getBlnBlinkOffInterval() {
+        return mSysFsBlnBlinkOffInterval.read(mRootProcess);
+    }
+
+    public void setBlnBlinkOffInterval(String value) {
+        mSysFsBlnBlinkOffInterval.write(value, mRootProcess);
+    }
+
+    public String loadBlnBlinkOffInterval() {
+        return getStringValue(KEY_NOTIFY_BLN_BLINK_OFF_INTERVAL);
+    }
+
+    public void saveBlnBlinkOffInterval(String value) {
+        setValue(KEY_NOTIFY_BLN_BLINK_OFF_INTERVAL, value);
     }
 
     public boolean isEnableBlnControl() {
@@ -177,6 +231,11 @@ public class NotificationSetting extends SettingManager {
                 setLedTimeout(value);
             }
         }
+        if (isEnableLedFadeout()) {
+            boolean value = loadLedFadeout();
+            setLedFadeout(value);
+        }
+
         if (isEnableBlnEnabled()) {
             setBlnEnabled(loadBlnEnabled());
         }
@@ -186,11 +245,19 @@ public class NotificationSetting extends SettingManager {
                 setBlnTimeout(value);
             }
         }
-        if (isEnableBlnBlinking()) {
-            setBlnBlinking(loadBlnBlinking());
-        }
-        if (isEnableBlnBreathing()) {
-            setBlnBreathing(loadBlnBreathing());
+        if (isEnableBlnEffect()) {
+            String value = loadBlnEffect();
+            if (!Misc.isNullOfEmpty(value)) {
+                setBlnEffect(value);
+            }
+            value = loadBlnBlinkOnInterval();
+            if (!Misc.isNullOfEmpty(value)) {
+                setBlnBlinkOnInterval(value);
+            }
+            value = loadBlnBlinkOffInterval();
+            if (!Misc.isNullOfEmpty(value)) {
+                setBlnBlinkOffInterval(value);
+            }
         }
     }
 
@@ -202,10 +269,12 @@ public class NotificationSetting extends SettingManager {
     @Override
     public void reset() {
         clearValue(KEY_NOTIFY_LED_TIMEOUT);
+        clearValue(KEY_NOTIFY_LED_FADEOUT);
         clearValue(KEY_NOTIFY_BLN_ENABLED);
         clearValue(KEY_NOTIFY_BLN_TIMEOUT);
-        clearValue(KEY_NOTIFY_BLN_BLINKING);
-        clearValue(KEY_NOTIFY_BLN_BREATHING);
+        clearValue(KEY_NOTIFY_BLN_EFFECT);
+        clearValue(KEY_NOTIFY_BLN_BLINK_ON_INTERVAL);
+        clearValue(KEY_NOTIFY_BLN_BLINK_OFF_INTERVAL);
         clearValue(KEY_NOTIFY_BLN_ON_INCOMING);
     }
 }
