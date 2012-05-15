@@ -23,7 +23,7 @@ public class BootSoundPreferenceActivity extends PreferenceActivity
         addPreferencesFromResource(R.xml.boot_sound_pref);
 
         mSetting = new BootSoundSetting();
-        
+
         mBootSoundEnabled = (CheckBoxPreference)findPreference(BootSoundSetting.KEY_BOOT_SOUND_ENABLED);
         mBootSoundEnabled.setChecked(mSetting.getBootSoundEnabled());
         mBootSoundEnabled.setOnPreferenceChangeListener(this);
@@ -49,7 +49,7 @@ public class BootSoundPreferenceActivity extends PreferenceActivity
             mBootSoundVolume.setValue(value);
             mBootSoundVolume.setSummary(Misc.getCurrentValueText(this,
                     Misc.getEntryFromEntryValue(mBootSoundVolume.getEntries(), mBootSoundVolume.getEntryValues(), value)));
-            
+
         }
         return false;
     }

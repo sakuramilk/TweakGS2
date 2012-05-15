@@ -190,7 +190,7 @@
     <string name="boot_sound_enabled_on_summary">起動音は有効です</string>
     <string name="boot_sound_enabled_off_summary">起動音は無効です</string>
     <string name="boot_sound_volume_title">起動音のボリューム</string>
-    <string name="boot_sound_note">起動音を有効にするには\'/system/media/\'に\'boot_sound.mp3\'を置いてください</string>
+    <string name="boot_sound_note">起動音を有効にするには\'/system/media/\'に\'bootsound.mp3\'を置いてください</string>
     <string name="vib_category">バイブレータ</string>
     <string name="vib_normal_level">バイブの強さ（通常時）</string>
     <string name="vib_incoming_level">バイブの強さ（着信時）</string>

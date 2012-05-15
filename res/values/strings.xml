@@ -192,7 +192,7 @@
     <string name="boot_sound_enabled_on_summary">Boot sound enabled</string>
     <string name="boot_sound_enabled_off_summary">Boot sound disabled</string>
     <string name="boot_sound_volume_title">Boot sound volume</string>
-    <string name="boot_sound_note">Please put \'boot_sound.mp3\' to \'/system/media/\' To enable the boot sound</string>
+    <string name="boot_sound_note">Please put \'bootsound.mp3\' to \'/system/media/\' To enable the boot sound</string>
     <string name="vib_category">Vibrator</string>
     <string name="vib_normal_level">Normal vib level</string>
     <string name="vib_incoming_level">Incoming vib level</string>
