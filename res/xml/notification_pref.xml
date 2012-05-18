@@ -29,12 +29,12 @@
             android:entries="@array/notification_led_timeout_entries"
             android:entryValues="@array/notification_led_timeout_values"
             android:enabled="false" />
-        <CheckBoxPreference
+        <!--<CheckBoxPreference
             android:key="notification_led_fadeout"
             android:title="@string/notification_led_fadeout_title"
             android:summaryOn="@string/notification_led_fadeout_summary"
             android:summaryOff="@string/notification_led_fadeout_summary"
-               android:enabled="false" />
+               android:enabled="false" />-->
     </PreferenceCategory>
 
     <PreferenceCategory

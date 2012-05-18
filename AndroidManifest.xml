@@ -20,10 +20,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.7.0"
-    android:versionCode="7000">
+    android:versionName="0.7.1"
+    android:versionCode="7010">
 
-    <uses-sdk android:minSdkVersion="10"
+    <uses-sdk android:minSdkVersion="7"
               android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.VIBRATE"/>
