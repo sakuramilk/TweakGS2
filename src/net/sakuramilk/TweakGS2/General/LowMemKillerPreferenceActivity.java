@@ -39,8 +39,8 @@ public class LowMemKillerPreferenceActivity extends PreferenceActivity
     private void setMaxMinValue() {
         for (int i = 0; i < mLowMemList.size(); i++) {
             SeekBarPreference pref = mLowMemList.get(i);
-            pref.setSummary(
-                    Misc.getCurrentAndSavedValueText(this, mCurValues[i], mSavedValues != null ? mSavedValues[i] : null));
+            pref.setSummary(Misc.getCurrentAndSavedValueText(this,
+                    mCurValues[i], (mSavedValues != null && mSavedValues.length > i)? mSavedValues[i] : null));
             if (i == 0) {
                 pref.setValue(Integer.parseInt(mCurValues[i+1]), LowMemKillerSetting.MEM_FREE_MIN, Integer.parseInt(mCurValues[i]));
             } else if (i == (mLowMemList.size() - 1)) {

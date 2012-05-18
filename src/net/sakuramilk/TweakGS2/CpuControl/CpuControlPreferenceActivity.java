@@ -41,8 +41,13 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     private ListPreference mMinSuspendFreq;
 
     private String getFreqText(String value) {
-        return (Integer.valueOf(value) / 1000) + "MHz"; 
+        if (value == null) { 
+            return getText(R.string.none).toString();
+        } else {
+            return (Integer.valueOf(value) / 1000) + "MHz";
+        }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

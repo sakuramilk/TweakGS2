@@ -46,7 +46,7 @@ public class CpuVoltageSetting extends SettingManager {
     	String value = mSysFsAsvGroup.read(mRootProcess);
     	if (!Misc.isNullOfEmpty(value)) {
     		String[] v = value.split(" ");
-    		return v[1];
+    		return (v.length > 1) ? v[1] : null;
     	}
     	return null;
     }
