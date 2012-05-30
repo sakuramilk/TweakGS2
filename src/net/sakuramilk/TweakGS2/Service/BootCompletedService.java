@@ -92,6 +92,12 @@ public class BootCompletedService extends Service {
         mContext = this;
         mThread = new BootCompletedThread();
         mThread.start();
+        try {
+            mThread.join();
+        } catch (InterruptedException e) {
+        }
+        Log.d(TAG , "OnStart stopSelf");
+        this.stopSelf();
     }
 
     @Override
