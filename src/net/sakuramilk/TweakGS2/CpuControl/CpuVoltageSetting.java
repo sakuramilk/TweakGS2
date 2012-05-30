@@ -93,16 +93,18 @@ public class CpuVoltageSetting extends SettingManager {
     	}
 
         String[] voltTable = getVoltageTable();
-        CpuControlSetting cpuSetting = new CpuControlSetting(mContext);
-        String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
-        for (int i = 0; i < voltTable.length; i++) {
-            String freq = String.valueOf(Integer.parseInt(availableFrequencies[i]) / 1000);
-            String volt = loadVoltage(KEY_CPU_VOLT_CTRL_BASE + freq);
-            if (!Misc.isNullOfEmpty(volt)) {
-                voltTable[i] = volt;
-            }
+        if (voltTable != null) {
+        	CpuControlSetting cpuSetting = new CpuControlSetting(mContext);
+        	String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
+        	for (int i = 0; i < voltTable.length; i++) {
+        		String freq = String.valueOf(Integer.parseInt(availableFrequencies[i]) / 1000);
+        		String volt = loadVoltage(KEY_CPU_VOLT_CTRL_BASE + freq);
+        		if (!Misc.isNullOfEmpty(volt)) {
+        			voltTable[i] = volt;
+        		}
+        	}
+        	setVoltageTable(voltTable);
         }
-        setVoltageTable(voltTable);
     }
 
     @Override
