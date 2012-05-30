@@ -113,9 +113,9 @@ public class GeneralSetting extends SettingManager {
     public void setRecommend() {
         String[] list = getIoSchedulerList();
         for (String sched : list) {
-            if ("bfq".equals(sched)) {
-                setIoScheduler("bfq");
-                saveIoScheduler("bfq");
+            if ("vr".equals(sched)) {
+                setIoScheduler("vr");
+                saveIoScheduler("vr");
             }
         }
         setGsmNetworkTweak();
