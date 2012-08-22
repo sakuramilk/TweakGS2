@@ -23,6 +23,7 @@ import java.util.Calendar;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.StatFs;
+import android.util.Log;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
@@ -37,20 +38,23 @@ public class Misc {
     public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
             // internal sdcard path is fixed /mnt/sdcard
-            //return Environment.getExternalStorageDirectory().getAbsolutePath();
             return "/mnt/sdcard";
         } else {
             // external sdcard path search
-            File file = new File("/mnt/emmc"); // aosp gingerbread
-            if (file.exists()) {
-                return "/mnt/emmc";
-            } else {
-                file = new File("/mnt/extsdcard"); // aosp ics
+            String[] externalSdCardPath = {
+                    "/mnt/emmc",      // aosp gb
+                    "/mnt/extsdcard", // aosp ics
+                    "/mnt/extSdCard", // aosp jb
+                    "/mnt/sdcard/external_sd", // samsung gb/ics
+            };
+            for (String path : externalSdCardPath) {
+                File file = new File(path);
                 if (file.exists()) {
-                    return "/mnt/extsdcard";
+                    return path;
                 }
             }
-            return "/mnt/sdcard/external_sd"; // samsung gb/ics
+            Log.e("Misc", "unmatch sdcard path");
+            return "/";
         }
     }
 

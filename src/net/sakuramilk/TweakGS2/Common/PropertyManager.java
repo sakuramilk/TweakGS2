@@ -55,8 +55,8 @@ public abstract class PropertyManager {
             while ((line = br.readLine()) != null) {
                 ret.add(line);
             }
+            br.close();
             return ret.toArray(new String[0]);
-            //return (String[])ret.toArray();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,6 +75,7 @@ public abstract class PropertyManager {
             pw = new PrintWriter(new BufferedWriter(new FileWriter(mFile)));
             pw.write(text);
             pw.flush();
+            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
