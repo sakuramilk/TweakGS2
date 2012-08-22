@@ -1,6 +1,9 @@
 package net.sakuramilk.TweakGS2.Service;
 
+import net.sakuramilk.TweakGS2.BusControl.BusControlSetting;
+import net.sakuramilk.TweakGS2.Common.Convert;
 import net.sakuramilk.TweakGS2.Common.RootProcess;
+import net.sakuramilk.TweakGS2.Common.SysFs;
 import net.sakuramilk.TweakGS2.CpuControl.CpuControlSetting;
 import net.sakuramilk.TweakGS2.Display.DisplaySetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
@@ -22,6 +25,8 @@ public class BootCompletedService extends Service {
     private static final String TAG = "TweakGS2::BootCompletedService";
     private static Context mContext;
     private static BootCompletedThread mThread;
+    private static final SysFs mSafeMode = new SysFs("/proc/sys/kernel/safe_mode");
+    private static final SysFs mBootCompleted = new SysFs("/proc/sys/kernel/boot_completed");
 
     class BootCompletedThread extends Thread {
         public void run() {
@@ -29,9 +34,22 @@ public class BootCompletedService extends Service {
             Log.d(TAG, "Root init s");
             rootProcess.init();
             Log.d(TAG, "Root init e");
-            
+
             // check safe mode
-    
+            if (mSafeMode.exists()) {
+            	if (Convert.toBoolean(mSafeMode.read(rootProcess))) {
+            		Log.i(TAG, "Safe mode");
+            		return;
+            	}
+            }
+
+            if (mBootCompleted.exists()) {
+            	if (Convert.toBoolean(mBootCompleted.read(rootProcess))) {
+            		Log.d(TAG, "Already initialized");
+            		return;
+            	}
+            }
+
             // General
             GeneralSetting generalSetting = new GeneralSetting(mContext, rootProcess);
             Log.d(TAG, "start: General Setting");
@@ -47,7 +65,12 @@ public class BootCompletedService extends Service {
             CpuControlSetting cpuControlSetting = new CpuControlSetting(mContext, rootProcess);
             Log.d(TAG, "start: CpuControl Setting");
             cpuControlSetting.setOnBoot();
-    
+
+            // BusControl
+            BusControlSetting busControlSetting = new BusControlSetting(mContext, rootProcess);
+            Log.d(TAG, "start: BusControl Setting");
+            busControlSetting.setOnBoot();
+
             // GpuControl
             GpuControlSetting gpuControlSetting = new GpuControlSetting(mContext, rootProcess);
             Log.d(TAG, "start: GpuControl Setting");
@@ -75,7 +98,11 @@ public class BootCompletedService extends Service {
             DisplaySetting displaySetting = new DisplaySetting(mContext, rootProcess);
             Log.d(TAG, "start: Display Setting");
             displaySetting.setOnBoot();
-            
+
+            if (mBootCompleted.exists()) {
+            	mBootCompleted.write("1", rootProcess);
+            }
+
             rootProcess.term();
             rootProcess = null;
         }

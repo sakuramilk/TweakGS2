@@ -25,6 +25,13 @@ public class Convert {
         return false;
     }
 
+	public static int toInt(String value) {
+        if (!Misc.isNullOfEmpty(value)) {
+            return Integer.valueOf(value);
+        }
+		return 0;
+	}
+	
     public static String toString(boolean value) {
         return value ? "1" : "0";
     }

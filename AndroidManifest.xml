@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS2"
     android:installLocation="auto"
-    android:versionName="0.7.2"
-    android:versionCode="7020">
+    android:versionName="0.8.0"
+    android:versionCode="8000">
 
     <uses-sdk android:minSdkVersion="7"
               android:targetSdkVersion="15" />
@@ -97,6 +97,9 @@
         <activity android:name=".CpuControl.CpuControlPreferenceActivity" />
         <activity android:name=".CpuControl.CpuVoltagePreferenceActivity" />
         <activity android:name=".CpuControl.CpuGovernorPreferenceActivity" />
+
+        <!-- BusControl -->
+        <activity android:name=".BusControl.BusControlPreferenceActivity" />
 
         <!-- GpuControl -->
         <activity android:name=".GpuControl.GpuControlPreferenceActivity" />

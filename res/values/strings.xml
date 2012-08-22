@@ -159,6 +159,12 @@
     <string name="cpu_voltage_value_category_title">Voltage value</string>
     <string name="cpu_asv_group_change_message">Are you sure you want the current voltage setting will be reset when you change the ASV group, even if you change the settings?</string>
 
+    <!-- Bus Control -->
+    <string name="bus_control_title">Bus control</string>
+    <string name="bus_asv_group_title">ASV group</string>
+    <string name="bus_up_threshold_title">Up threshold</string>
+    <string name="bus_down_threshold_title">Down threshold</string>
+    
     <!-- GPU Control -->
     <string name="gpu_control_title">GPU control</string>
     <string name="gpu_high_state_category">High performance state</string>
