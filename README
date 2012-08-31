@@ -1,5 +1,5 @@
 
-  *** TweakGS2 V0.8.1 ****
+  *** TweakGS2 V0.8.2 ****
 
   SC-02Cの設定アプリです
   要root
@@ -91,6 +91,8 @@
 
 
 　■更新履歴
+
+    V0.8.2    外部SDのInstall zipに失敗する不具合の修正
 
     V0.8.1    Bus control対応
               JBの外部SDパス選択対応

@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import net.sakuramilk.TweakGS2.R;
+import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
 import net.sakuramilk.TweakGS2.Parts.FilePickerActivity;
 
@@ -39,6 +40,9 @@ public class ZipFilePickerActivity extends FilePickerActivity {
         alertDialogBuilder.setMessage(R.string.do_install_zip);
         alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+            	String filePath = file.getPath();
+            	filePath = filePath.replace("\n", "").trim();
+                filePath = filePath.replace(Misc.getSdcardPath(false), "/emmc");
                 SystemCommand.install_zip(file.getPath());
                 SystemCommand.reboot("recovery");
                 //activity.finish();
