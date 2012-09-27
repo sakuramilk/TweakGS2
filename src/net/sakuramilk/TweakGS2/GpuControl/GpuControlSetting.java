@@ -32,7 +32,7 @@ public class GpuControlSetting extends SettingManager {
     public static final String KEY_GPU_SET_ON_BOOT = "gpu_set_on_boot";
 
     public static final int FREQ_MIN = 10;
-    public static final int FREQ_MAX = 450;
+    public static final int FREQ_MAX = 800;
     public static final int THRESHOLD_MAX = 100;
     public static final int THRESHOLD_MIN = 1;
     public static final int VOLT_MIN = 800000 / 1000;
