@@ -95,6 +95,10 @@ public class TextInputDialog extends AlertDialog {
 
         return view;
     }
+    
+    public EditText getInputField() {
+    	return mInputField;
+    }
 
     public void setFinishTextInputListener(FinishTextInputListener listener) {
         mListener = listener;

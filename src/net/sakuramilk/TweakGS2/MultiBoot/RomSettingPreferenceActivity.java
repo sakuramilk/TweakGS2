@@ -32,6 +32,10 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.text.InputFilter;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 public class RomSettingPreferenceActivity extends PreferenceActivity
@@ -308,6 +312,29 @@ public class RomSettingPreferenceActivity extends PreferenceActivity
     public boolean onPreferenceClick(Preference preference) {
         if (preference == mLabelText) {
             TextInputDialog dlg = new TextInputDialog(this);
+            InputFilter[] filters = new InputFilter[1];
+            filters[0] = new InputFilter() {
+				@Override
+				public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+					int length = end;
+					char c;
+					StringBuffer sb = new StringBuffer(length);
+					for (int i = 0; i < end; i++) {
+						c = source.charAt(i);
+						if (c >= 0x20 && c <= 0x7E) {
+							sb.append(c);
+						}
+					}
+					String s = sb.toString();
+					if (!Misc.isNullOfEmpty(s) && source instanceof Spanned) {
+						SpannableString sp = new SpannableString(s);
+						TextUtils.copySpansFrom((Spanned) source, start, length, null, sp, 0);
+						return sp;
+					}
+					return s;
+				}
+            };
+            dlg.getInputField().setFilters(filters);
             dlg.setFinishTextInputListener(new TextInputDialog.FinishTextInputListener() {
                 @Override
                 public void onFinishTextInput(CharSequence input) {
