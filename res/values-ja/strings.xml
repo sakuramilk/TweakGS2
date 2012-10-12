@@ -87,6 +87,9 @@
     <string name="gsm_network_tweak_title">3G通信の最適化</string>
     <string name="gsm_network_tweak_summary_on">3G通信の最適化は有効\n注意: この項目は再起動後に反映されます</string>
     <string name="gsm_network_tweak_summary_off">3G通信の最適化は無効\n注意: この項目は再起動後に反映されます</string>
+    <string name="external_sd_bind_title">外部SDカードのバインド</string>
+    <string name="external_sd_bind_summary_on">外部SDカードを/sdcard/external_sdにマウントします\n現在マウントされています</string>
+    <string name="external_sd_bind_summary_off">外部SDカードを/sdcard/external_sdにマウントします\n現在マウントされていません</string>
     <string name="sysprop_boot_sound_title">起動時のサウンド</string>
     <string name="sysprop_boot_sound_summary_on">起動時のサウンドは有効</string>
     <string name="sysprop_boot_sound_summary_off">起動時のサウンドは無効</string>

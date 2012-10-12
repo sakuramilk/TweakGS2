@@ -28,8 +28,8 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.LowMemKillerPreferenceActivity" />
-	</PreferenceScreen>
-	<PreferenceScreen
+    </PreferenceScreen>
+    <PreferenceScreen
         android:key="vm_settings"
         android:title="@string/virtual_memory_title"
         android:summary="@string/virtual_memory_summary">
@@ -37,8 +37,8 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.VirtualMemoryPreferenceActivity" />
-	</PreferenceScreen>
-	<PreferenceScreen
+    </PreferenceScreen>
+    <PreferenceScreen
         android:key="sysprop_settings"
         android:title="@string/system_property_title"
         android:summary="@string/system_property_summary">
@@ -46,8 +46,8 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS2"
             android:targetClass="net.sakuramilk.TweakGS2.General.SystemPropertyPreferenceActivity" />
-	</PreferenceScreen>
-	<ListPreference
+    </PreferenceScreen>
+    <ListPreference
         android:key="iosched_type"
         android:title="@string/io_scheduler_tite" />
     <CheckBoxPreference   
@@ -55,5 +55,11 @@
         android:title="@string/gsm_network_tweak_title"
         android:summaryOn="@string/gsm_network_tweak_summary_on"
         android:summaryOff="@string/gsm_network_tweak_summary_off" />
+    <CheckBoxPreference   
+        android:key="external_sd_bind"
+        android:enabled="false"
+        android:title="@string/external_sd_bind_title"
+        android:summaryOn="@string/external_sd_bind_summary_on"
+        android:summaryOff="@string/external_sd_bind_summary_off" />
 
 </PreferenceScreen>

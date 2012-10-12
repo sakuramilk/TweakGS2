@@ -16,6 +16,8 @@
 
 package net.sakuramilk.TweakGS2.General;
 
+import java.io.File;
+
 import android.content.Context;
 
 import net.sakuramilk.TweakGS2.Common.Misc;
@@ -28,6 +30,7 @@ public class GeneralSetting extends SettingManager {
 
     public static final String KEY_IO_SCHED = "iosched_type";
     public static final String KEY_GSM_NETWORK_TWEAK = "gsm_network_tweak";
+    public static final String KEY_EXT_SD_BIND = "external_sd_bind";
     
     private static final String PATH_IO_SCHED_MMC0_KERNEL_3_0 = "/sys/devices/platform/dw_mmc/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler";
     //private static final String PATH_IO_SCHED_MMC1_KERNEL_3_0 = "/sys/devices/platform/s3c-sdhci.2/mmc_host/mmc1/mmc1:1234/block/mmcblk1/queue/scheduler";
@@ -98,6 +101,10 @@ public class GeneralSetting extends SettingManager {
         setValue(KEY_GSM_NETWORK_TWEAK, value);
     }
 
+    public boolean loadExtSdBind() {
+        return getBooleanValue(KEY_EXT_SD_BIND, false);
+    }
+
     @Override
     public void setOnBoot() {
         String value = loadIoScheduler();
@@ -106,6 +113,17 @@ public class GeneralSetting extends SettingManager {
         }
         if (loadGsmNetworkTweak()) {
             SystemCommand.gsm_network_tweak();
+        }
+    }
+
+    public void setOnMediaMounted() {
+        if (loadExtSdBind()) {
+            String extSdBindPath = Misc.getExtSdBindPath();
+            File file = new File(extSdBindPath);
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            SystemCommand.mount(Misc.getSdcardPath(false), extSdBindPath, null, "bind");
         }
     }
 

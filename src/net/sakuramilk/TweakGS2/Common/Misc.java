@@ -58,6 +58,21 @@ public class Misc {
         }
     }
 
+    public static String getExtSdBindPath() {
+        String[] extSdBindPath = {
+                "/storage/sdcard0/external_sd", // aosp jb
+                "/mnt/sdcard/external_sd",      // aosp ics/gb
+        };
+        for (String path : extSdBindPath) {
+            File file = new File(path);
+            if (file.exists()) {
+                return path;
+            }
+        }
+        Log.e("Misc", "unmatch ext sdcard path");
+        return "/";
+    }
+
     public static String getDateString() {
         final Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);

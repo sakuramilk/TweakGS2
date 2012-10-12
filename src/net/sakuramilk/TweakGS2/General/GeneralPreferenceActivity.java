@@ -16,9 +16,13 @@
 
 package net.sakuramilk.TweakGS2.General;
 
+import java.io.File;
+
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.SystemCommand;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -30,6 +34,7 @@ public class GeneralPreferenceActivity extends PreferenceActivity implements OnP
 
     private GeneralSetting mSetting;
     private ListPreference mIoSched;
+    private CheckBoxPreference mExternalSdBind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +51,31 @@ public class GeneralPreferenceActivity extends PreferenceActivity implements OnP
         mIoSched.setValue(curValue);
         mIoSched.setOnPreferenceChangeListener(this);
         mIoSched.setSummary(Misc.getCurrentValueText(this, curValue));
+
+        mExternalSdBind = (CheckBoxPreference)findPreference(GeneralSetting.KEY_EXT_SD_BIND);
+        if (Misc.isFeatureAospEnabled()) {
+            mExternalSdBind.setEnabled(true);
+            mExternalSdBind.setChecked(SystemCommand.check_mount(Misc.getExtSdBindPath()));
+            mExternalSdBind.setOnPreferenceChangeListener(this);
+        }
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (mIoSched == preference) {
             mSetting.setIoScheduler(newValue.toString());
             mIoSched.setSummary(Misc.getCurrentValueText(this, newValue.toString()));
+            return true;
+        } else if (mExternalSdBind == preference) {
+            String extSdBindPath = Misc.getExtSdBindPath();
+            if ((Boolean)newValue) {
+                File file = new File(extSdBindPath);
+                if (!file.exists()) {
+                    file.mkdir();
+                }
+                SystemCommand.mount(Misc.getSdcardPath(false), extSdBindPath, null, "bind");
+            } else {
+                SystemCommand.umount(extSdBindPath);
+            }
             return true;
         }
         return false;

@@ -95,6 +95,9 @@
     <string name="gsm_network_tweak_title">3G network tweak</string>
     <string name="gsm_network_tweak_summary_on">3G network tweak enabled\nNotice: Take effect after reboot</string>
     <string name="gsm_network_tweak_summary_off">3G network tweak disabled\nNotice: Take effect after reboot</string>
+    <string name="external_sd_bind_title">External sdcard bind</string>
+    <string name="external_sd_bind_summary_on">External sdcard mount to /sdcard/external_sd\nCurrent state is mounted</string>
+    <string name="external_sd_bind_summary_off">External sdcard mount to /sdcard/external_sd\nCurrent state is not mounted</string>
     <string name="sysprop_boot_sound_title">Boot sound</string>
     <string name="sysprop_boot_sound_summary_on">Boot sound enabled</string>
     <string name="sysprop_boot_sound_summary_off">Boot sound disabled</string>

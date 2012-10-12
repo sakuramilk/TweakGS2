@@ -197,6 +197,22 @@ public class SystemCommand {
         process.term();
     }
 
+    public static boolean check_mount(String path) {
+    	Log.d(TAG, "execute check_mount path=" + path);
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return false;
+        }
+        String mount_list[] = RuntimeExec.execute("mount\n", true);
+        for (String mount : mount_list) {
+        	if (mount.indexOf(path) >= 0) {
+        		return true;
+        	}
+        }
+    	return false;
+    }
+
     public static void remount_system_rw() {
         Log.d(TAG, "execute remount_system_rw");
 
