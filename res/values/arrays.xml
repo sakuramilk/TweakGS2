@@ -140,7 +140,7 @@
         <item>delete</item>
     </string-array>
 
-    <string-array name="rom_kernel_img_menu_entries">
+    <string-array name="rom_kernel_img_menu_entries" translatable="false">
         <item>Modify</item>
         <item>Delete</item>
     </string-array>
@@ -150,7 +150,7 @@
         <item>delete</item>
     </string-array>
 
-    <string-array name="sysprop_usb_config_entries">
+    <string-array name="sysprop_usb_config_entries" translatable="false">
         <item>MTP</item>
         <item>MTP and ADB</item>
         <item>PTP</item>
@@ -168,7 +168,7 @@
         <item>mass_storage,adb</item>
     </string-array>
 
-    <string-array name="asv_group_entries">
+    <string-array name="asv_group_entries" translatable="false">
         <item>SS</item>
         <item>A1</item>
         <item>A2</item>
@@ -190,7 +190,7 @@
         <item>7</item>
     </string-array>
 
-    <string-array name="dualboot_rom_select_entries">
+    <string-array name="dualboot_rom_select_entries" translatable="false">
         <item>Primary</item>
         <item>Secondary</item>
     </string-array>
