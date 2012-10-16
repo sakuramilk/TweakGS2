@@ -18,15 +18,24 @@ package net.sakuramilk.TweakGS2.Notification;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.widget.Toast;
 
 public class NotificationPreferenceActivity extends PreferenceActivity
-    implements OnPreferenceChangeListener {
+    implements OnPreferenceChangeListener, OnPreferenceClickListener {
 
     private NotificationSetting mSetting;
     private ListPreference mLedTimeout;
@@ -117,6 +126,8 @@ public class NotificationPreferenceActivity extends PreferenceActivity
 
         mBlnOnIncoming = (CheckBoxPreference)findPreference(NotificationSetting.KEY_NOTIFY_BLN_ON_INCOMING);
         mBlnOnIncoming.setEnabled(true);
+
+        findPreference(NotificationSetting.KEY_NOTIFY_BLN_TEST).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -177,6 +188,37 @@ public class NotificationPreferenceActivity extends PreferenceActivity
                     Misc.getEntryFromEntryValue(mBlnBlinkOffInterval.getEntries(), mBlnBlinkOffInterval.getEntryValues(), value)));
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (NotificationSetting.KEY_NOTIFY_BLN_TEST.equals(preference.getKey())) {
+            Notification notification = new Notification(R.drawable.ic_launcher, getText(R.string.notification_bln_test_notify_title), System.currentTimeMillis());
+            Intent i = new Intent(getApplicationContext(), NotificationPreferenceActivity.class);
+            PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
+            notification.setLatestEventInfo(getApplicationContext(), getText(R.string.notification_bln_test_notify_title),
+                    getText(R.string.notification_bln_test_notify_summary), pi);
+            notification.defaults |= Notification.DEFAULT_SOUND;
+            notification.ledARGB = 0xFFFFFFFF;
+            notification.flags |= Notification.FLAG_SHOW_LIGHTS | Notification.FLAG_AUTO_CANCEL | 0x100;
+
+            NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.cancelAll();
+            notificationManager.notify(1, notification);
+
+            Toast.makeText(this, R.string.notification_bln_test_notify_summary, Toast.LENGTH_SHORT).show();
+            
+            IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+            getApplicationContext().registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.cancelAll();
+                    getApplicationContext().unregisterReceiver(this);
+                }
+            }, filter);
+        }
         return false;
     }
 }

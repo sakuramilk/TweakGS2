@@ -34,6 +34,7 @@ public class NotificationSetting extends SettingManager {
     public static final String KEY_NOTIFY_BLN_BLINK_ON_INTERVAL = "notification_bln_blink_on_interval";
     public static final String KEY_NOTIFY_BLN_BLINK_OFF_INTERVAL = "notification_bln_blink_off_interval";
     public static final String KEY_NOTIFY_BLN_ON_INCOMING = "notification_bln_on_incoming";
+    public static final String KEY_NOTIFY_BLN_TEST = "notification_bln_test";
 
     public static final String BLN_EFFECT_NONE = "0";
     public static final String BLN_EFFECT_BLINKING = "1";
@@ -55,6 +56,8 @@ public class NotificationSetting extends SettingManager {
     private final SysFs mSysFsBlnBlinkingOnInterval = new SysFs("/sys/devices/virtual/misc/notification/blinking_int_on");
     private final SysFs mSysFsBlnBlinkingOffInterval = new SysFs("/sys/devices/virtual/misc/notification/blinking_int_off");
     private final SysFs mSysFsBlnControl = new SysFs("/sys/devices/virtual/misc/melfas_touchkey/touchkey_bln_control", "0222");
+    
+    private final SysFs mSysFsTouchkeyBrightness = new SysFs("/sys/class/sec/sec_touchkey/brightness");
 
     public NotificationSetting(Context context, RootProcess rootProcess) {
         super(context, rootProcess);
@@ -74,6 +77,11 @@ public class NotificationSetting extends SettingManager {
 
     public void setLedTimeout(String value) {
         mSysFsLedTimeout.write(value, mRootProcess);
+        if ("-2".equals(value)) {
+            mSysFsTouchkeyBrightness.write("2", mRootProcess);
+        } else {
+            mSysFsTouchkeyBrightness.write("1", mRootProcess);
+        }
     }
 
     public String loadLedTimeout() {

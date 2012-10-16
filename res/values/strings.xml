@@ -231,6 +231,9 @@
     <string name="notification_bln_on_incoming_title">BLN on incoming</string>
     <string name="notification_bln_on_incoming_summary_on">BLN on incoming enabled</string>
     <string name="notification_bln_on_incoming_summary_off">BLN on incoming disabled</string>
+    <string name="notification_bln_test">Notification test</string>
+    <string name="notification_bln_test_notify_title">Notification test</string>
+    <string name="notification_bln_test_notify_summary">Please check the operation of the notification to the display OFF</string>
 
     <!-- Dock -->
     <string name="dock_title">Dock setting</string>

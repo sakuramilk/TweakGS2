@@ -76,6 +76,9 @@
             android:summaryOn="@string/notification_bln_on_incoming_summary_on"
             android:summaryOff="@string/notification_bln_on_incoming_summary_off"
             android:enabled="false" />
+        <PreferenceScreen
+            android:key="notification_bln_test"
+            android:title="@string/notification_bln_test" />
     </PreferenceCategory>
 
 </PreferenceScreen>

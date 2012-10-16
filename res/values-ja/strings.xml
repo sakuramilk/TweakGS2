@@ -221,6 +221,9 @@
     <string name="notification_bln_on_incoming_title">着信時のBLN</string>
     <string name="notification_bln_on_incoming_summary_on">着信時にBLNで通知する</string>
     <string name="notification_bln_on_incoming_summary_off">着信時にBLNで通知しない</string>
+    <string name="notification_bln_test">通知テスト</string>
+    <string name="notification_bln_test_notify_title">通知テスト</string>
+    <string name="notification_bln_test_notify_summary">ディスプレイをOFFにして通知の動作を確認してください</string>
 
     <!-- Dock -->
     <string name="dock_title">ドック設定</string>
