@@ -1,5 +1,5 @@
 
-  *** TweakGS2 V0.9.0 ****
+  *** TweakGS2 V0.9.1 ****
 
   SC-02Cの設定アプリです
   要root
@@ -91,12 +91,13 @@
 
 
 　■更新履歴
+    V0.9.1    通知テスト機能を追加
 
     V0.9.0    外部SDカードを/sdcard/external_sdにマウントする機能を追加
               ROM名に2byte文字を入力出来ないように変更
-    
+
     V0.8.3    GPUの最大Freqを800に変更
-    
+
     V0.8.2    外部SDのInstall zipに失敗する不具合の修正
 
     V0.8.1    Bus control対応
