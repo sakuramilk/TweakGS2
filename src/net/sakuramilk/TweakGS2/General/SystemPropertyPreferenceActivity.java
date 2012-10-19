@@ -40,6 +40,8 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mJ4fs;
     private ListPreference mUsbConfig;
     private CheckBoxPreference mSwitchExtarnal;
+    private SeekBarPreference mMusicVolumeSteps;
+    private CheckBoxPreference mScrollingCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,17 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mSwitchExtarnal = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SWITCH_EXTERNAL);
         mSwitchExtarnal.setChecked(value);
         mSwitchExtarnal.setOnPreferenceChangeListener(this);
+
+        String volSteps = mSetting.getMusicVolumeSteps();
+        mMusicVolumeSteps = (SeekBarPreference)findPreference(SystemPropertySetting.KEY_MUSIC_VOLUME_STEPS);
+        mMusicVolumeSteps.setValue(100, 5, Integer.valueOf(volSteps));
+        mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, volSteps));
+        mMusicVolumeSteps.setOnPreferenceDoneListener(this);
+
+        value = mSetting.getScrollingCache();
+        mScrollingCache = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SCROLLING_CACHE);
+        mScrollingCache.setChecked(value);
+        mScrollingCache.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -151,6 +164,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             mSetting.setSwitchExternal(newValue);
             mSwitchExtarnal.setChecked(newValue);
             // not return true
+        } else if (mScrollingCache == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setScrollingCache(newValue);
+            mScrollingCache.setChecked(newValue);
+            // not return true
         }
         return false;
     }
@@ -160,6 +178,10 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         if (mLcdDensity == preference) {
             mSetting.setLcdDensity(newValue);
             mLcdDensity.setSummary(Misc.getCurrentValueText(this, newValue));
+            // not return true
+        } else if (mMusicVolumeSteps == preference) {
+            mSetting.setMusicVolumeSteps(newValue);
+            mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, newValue));
             // not return true
         }
         return false;

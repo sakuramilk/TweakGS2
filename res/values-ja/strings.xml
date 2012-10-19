@@ -116,6 +116,10 @@
     <string name="sysprop_switch_external_title">SDカードマウント先の切り替え</string>
     <string name="sysprop_switch_external_summary_on">SDカードのマウント先を切り替えます</string>
     <string name="sysprop_switch_external_summary_off">SDカードのマウント先を切り替えません</string>
+    <string name="sysprop_music_volume_steps_title">音楽ボリュームのステップ</string>
+    <string name="sysprop_scrolling_cache_title">スクロールキャッシュ</string>
+    <string name="sysprop_scrolling_cache_summary_on">スクロールキャッシュは有効</string>
+    <string name="sysprop_scrolling_cache_summary_off">スクロールキャッシュは無効</string>
 
     <!-- Multi boot -->
     <string name="multi_boot_title">マルチブート設定</string>

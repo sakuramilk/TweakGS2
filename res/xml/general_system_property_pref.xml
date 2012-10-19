@@ -69,5 +69,14 @@
         android:title="@string/sysprop_switch_external_title"
         android:summaryOn="@string/sysprop_switch_external_summary_on"
         android:summaryOff="@string/sysprop_switch_external_summary_off" />
+    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        android:key="sysprop_music_volume_steps"
+        android:title="@string/sysprop_music_volume_steps_title"
+        android:dialogTitle="@string/sysprop_music_volume_steps_title" />
+    <CheckBoxPreference
+        android:key="sysprop_scrolling_cache"
+        android:title="@string/sysprop_scrolling_cache_title"
+        android:summaryOn="@string/sysprop_scrolling_cache_summary_on"
+        android:summaryOff="@string/sysprop_scrolling_cache_summary_off" />
 
 </PreferenceScreen>

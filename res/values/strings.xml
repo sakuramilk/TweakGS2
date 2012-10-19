@@ -124,6 +124,10 @@
     <string name="sysprop_switch_external_title">Switch sdcard mount point</string>
     <string name="sysprop_switch_external_summary_on">Switch dcard mount point enabled</string>
     <string name="sysprop_switch_external_summary_off">Switch dcard mount point enabled</string>
+    <string name="sysprop_music_volume_steps_title">Music volume steps</string>
+    <string name="sysprop_scrolling_cache_title">Scrolling cache</string>
+    <string name="sysprop_scrolling_cache_summary_on">scrolling cache enabled</string>
+    <string name="sysprop_scrolling_cache_summary_off">scrolling cache disabled</string>
 
     <!-- Multi Boot -->
     <string name="multi_boot_title">Multi boot setting</string>

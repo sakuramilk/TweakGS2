@@ -32,6 +32,8 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_J4FS = "sysprop_j4fs";
     public static final String KEY_USB_CONFIG = "sysprop_usb_config";
     public static final String KEY_SWITCH_EXTERNAL = "sysprop_switch_external";
+    public static final String KEY_MUSIC_VOLUME_STEPS = "sysprop_music_volume_steps";
+    public static final String KEY_SCROLLING_CACHE = "sysprop_scrolling_cache";
 
     private final TweakPropery mTweakPorp = new TweakPropery();
 
@@ -160,6 +162,24 @@ public class SystemPropertySetting extends SettingManager {
         SystemCommand.set_prop("persist.sys.vold.switchexternal", (value ? "1" : "0"));
     }
 
+    public String getMusicVolumeSteps() {
+        String ret = mTweakPorp.getValue("ro.tweak.music_vol_steps", "15");
+        return ret;
+    }
+
+    public void setMusicVolumeSteps(String value) {
+        mTweakPorp.setValue("ro.tweak.music_vol_steps", value);
+    }
+
+    public boolean getScrollingCache() {
+        String ret = mTweakPorp.getValue("ro.tweak.scrolling_cache", "1");
+        return "0".equals(ret) ? false : true;
+    }
+
+    public void setScrollingCache(boolean value) {
+    	mTweakPorp.setValue("ro.tweak.scrolling_cache", (value ? "1" : "0"));
+    }
+
     @Override
     public void setOnBoot() {
         // noop
@@ -173,12 +193,5 @@ public class SystemPropertySetting extends SettingManager {
     @Override
     public void reset() {
         mTweakPorp.delete();
-        setCrtEffect(true);
-        setLogger(false);
-        setCifs(false);
-        setNtfs(false);
-        setJ4fs(false);
-        setUsbConfig("mass_storage,adb");
-        setSwitchExternal(false);
     }
 }
