@@ -19,6 +19,7 @@ package net.sakuramilk.TweakGS2.Dock;
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
 import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import android.annotation.SuppressLint;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -40,7 +41,8 @@ public class DockPreferenceActivity extends PreferenceActivity implements
     private ListPreference mDockEmulate;
     private PreferenceScreen mDockManual;
 
-    @Override
+    @SuppressLint({ "NewApi", "NewApi" })
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -84,7 +86,8 @@ public class DockPreferenceActivity extends PreferenceActivity implements
         return false;
     }
 
-    public boolean onPreferenceClick(Preference preference) {
+    @SuppressLint({ "NewApi", "NewApi" })
+	public boolean onPreferenceClick(Preference preference) {
         if (preference == mDockManual) {
             UiModeManager uiModeManager = (UiModeManager)getSystemService(Context.UI_MODE_SERVICE);
             int mUiMode = uiModeManager.getCurrentModeType();

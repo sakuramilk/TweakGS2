@@ -42,6 +42,7 @@
     <string name="label">ラベル</string>
     <string name="up_threshold">アップしきい値</string>
     <string name="down_threshold">ダウンしきい値</string>
+    <string name="threshold">しきい値</string>
     <string name="not_rooted_message">使用中のROMはrootedではありません</string>
 
     <!-- ROM Manager -->
@@ -120,6 +121,7 @@
     <string name="sysprop_scrolling_cache_title">スクロールキャッシュ</string>
     <string name="sysprop_scrolling_cache_summary_on">スクロールキャッシュは有効</string>
     <string name="sysprop_scrolling_cache_summary_off">スクロールキャッシュは無効</string>
+    <string name="sysprop_change_reboot_message">設定が変更されました。今すぐ再起動しますか？</string>
 
     <!-- Multi boot -->
     <string name="multi_boot_title">マルチブート設定</string>

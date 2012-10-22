@@ -146,11 +146,12 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public String getUsbConfig() {
-        return mTweakPorp.getValue("ro.sys.usb.config", "mtp,adb");
+        return SystemCommand.get_prop("persist.sys.usb.config", "mtp,adb");
     }
 
     public void setUsbConfig(String value) {
         mTweakPorp.setValue("ro.sys.usb.config", value);
+        SystemCommand.set_prop("persist.sys.usb.config", value);
     }
 
     public boolean getSwitchExternal() {

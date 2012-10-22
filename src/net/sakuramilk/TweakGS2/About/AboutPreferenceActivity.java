@@ -85,6 +85,10 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     sysPropSetting.reset();
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
+
+				@Override
+				public void onCancel() {
+				}
             });
             confirmDialog.show(this, R.string.all_reset_title, R.string.all_reset_summary);
 
@@ -127,6 +131,10 @@ public class AboutPreferenceActivity extends PreferenceActivity
 
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
+
+				@Override
+				public void onCancel() {
+				}
             });
             confirmDialog.show(this, R.string.all_recommend_title, R.string.all_recommend_summary);
 

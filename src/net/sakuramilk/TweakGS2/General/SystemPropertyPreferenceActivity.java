@@ -18,6 +18,8 @@ package net.sakuramilk.TweakGS2.General;
 
 import net.sakuramilk.TweakGS2.R;
 import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
 import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.view.KeyEvent;
 
 public class SystemPropertyPreferenceActivity extends PreferenceActivity
     implements Preference.OnPreferenceChangeListener, OnSeekBarPreferenceDoneListener {
@@ -42,10 +45,13 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mSwitchExtarnal;
     private SeekBarPreference mMusicVolumeSteps;
     private CheckBoxPreference mScrollingCache;
+    private boolean mChangeValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        mChangeValue = false;
 
         addPreferencesFromResource(R.xml.general_system_property_pref);
 
@@ -170,6 +176,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             mScrollingCache.setChecked(newValue);
             // not return true
         }
+        mChangeValue = true;
         return false;
     }
 
@@ -184,6 +191,26 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, newValue));
             // not return true
         }
+        mChangeValue = true;
         return false;
+    }
+    
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(mChangeValue && keyCode == KeyEvent.KEYCODE_BACK){
+            ConfirmDialog dlg = new ConfirmDialog(this);
+            dlg.setResultListener(new ConfirmDialog.ResultListener() {
+                @Override
+                public void onYes() {
+                    SystemCommand.reboot("");
+                }
+
+                @Override
+                public void onCancel() {
+                	finish();
+                }
+             });
+            dlg.show(this, R.string.system_property_title, R.string.sysprop_change_reboot_message);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

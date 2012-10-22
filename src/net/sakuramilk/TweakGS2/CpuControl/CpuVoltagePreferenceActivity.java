@@ -186,6 +186,10 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
                             Misc.getEntryFromEntryValue(mAsvGroup.getEntries(),mAsvGroup.getEntryValues(), mSavedAsvGroup)));
                     mApplyButton.setEnabled(true);
                 }
+
+				@Override
+				public void onCancel() {
+				}
             });
             dlg.show(this, android.R.string.dialog_alert_title, R.string.cpu_asv_group_change_message);
         }

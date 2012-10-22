@@ -26,6 +26,7 @@ public class ConfirmDialog extends AlertDialog {
 
     public interface ResultListener {
         public void onYes();
+        public void onCancel();
     }
 
     public ConfirmDialog(Context context) {
@@ -41,7 +42,7 @@ public class ConfirmDialog extends AlertDialog {
         setButton(BUTTON_NEGATIVE, context.getText(android.R.string.no), new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dismiss();
+            	cancelButtonPressed();
             }
         });
     }
@@ -64,5 +65,11 @@ public class ConfirmDialog extends AlertDialog {
         dismiss();
         if (mListener != null)
                 mListener.onYes();
+    }
+    
+    private void cancelButtonPressed() {
+        dismiss();
+        if (mListener != null)
+                mListener.onCancel();
     }
 }

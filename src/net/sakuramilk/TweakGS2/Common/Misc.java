@@ -168,6 +168,10 @@ public class Misc {
             public void onYes() {
                 SystemCommand.reboot(null);
             }
+
+			@Override
+			public void onCancel() {
+			}
         });
         dlg.show(context, android.R.string.dialog_alert_title, message);
     }

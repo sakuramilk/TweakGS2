@@ -19,7 +19,7 @@
 <resources>
 
     <!-- Common -->
-    <string name="app_name">TweakGS2</string>
+    <string name="app_name" translatable="false">TweakGS2</string>
     <string name="current_value">Current:</string>
     <string name="saved_value">Saved:</string>
     <string name="go_back">Go back</string>
@@ -43,7 +43,7 @@
     <string name="label">Label</string>
     <string name="up_threshold">Up threshold</string>
     <string name="down_threshold">Down threshold</string>
-    <string name="threashold">Threashold</string>
+    <string name="threshold">Threshold</string>
     <string name="not_rooted_message">ROM is not rooted in use</string>
 
     <!-- ROM Manager -->
@@ -128,6 +128,7 @@
     <string name="sysprop_scrolling_cache_title">Scrolling cache</string>
     <string name="sysprop_scrolling_cache_summary_on">scrolling cache enabled</string>
     <string name="sysprop_scrolling_cache_summary_off">scrolling cache disabled</string>
+    <string name="sysprop_change_reboot_message">Settings have been changed. Do you want to reboot now?</string>
 
     <!-- Multi Boot -->
     <string name="multi_boot_title">Multi boot setting</string>
@@ -209,14 +210,14 @@
     <string name="vib_category">Vibrator</string>
     <string name="vib_normal_level">Normal vib level</string>
     <string name="vib_incoming_level">Incoming vib level</string>
-    <string name="avol_hp_title">(A) Headphone</string>
-    <string name="avol_hp_gain_title">(A) Headphone Gain</string>
-    <string name="avol_rc_title">(A) Receiver Value</string>
-    <string name="avol_sp_title">(A) Speaker Value</string>
-    <string name="dvol_dac_master_title">(D) DAC Master</string>
-    <string name="dvol_dac_att_title">(D) DAC ATT</string>
-    <string name="dvol_dir0_title">(D) DIR0</string>
-    <string name="dvol_dir0_att_title">(D) DIR0 ATT</string>
+    <string name="avol_hp_title" translatable="false">(A) Headphone</string>
+    <string name="avol_hp_gain_title" translatable="false">(A) Headphone Gain</string>
+    <string name="avol_rc_title" translatable="false">(A) Receiver Value</string>
+    <string name="avol_sp_title" translatable="false">(A) Speaker Value</string>
+    <string name="dvol_dac_master_title" translatable="false">(D) DAC Master</string>
+    <string name="dvol_dac_att_title" translatable="false">(D) DAC ATT</string>
+    <string name="dvol_dir0_title" translatable="false">(D) DIR0</string>
+    <string name="dvol_dir0_att_title" translatable="false">(D) DIR0 ATT</string>
 
     <!-- Notification -->
     <string name="notification_title">Notification setting</string>

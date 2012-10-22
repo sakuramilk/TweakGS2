@@ -28,7 +28,7 @@
         <item>external</item>
     </string-array>
 
-    <string-array name="ldctype_entries">
+    <string-array name="ldctype_entries" translatable="false">
         <item>SM2 (A1 line)</item>
         <item>M2</item>
         <item>SM2 (A2 line)</item>
