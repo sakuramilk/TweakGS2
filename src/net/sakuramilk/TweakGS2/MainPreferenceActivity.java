@@ -18,7 +18,7 @@ package net.sakuramilk.TweakGS2;
 
 import java.io.File;
 
-import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.util.Misc;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build.VERSION;

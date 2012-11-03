@@ -20,27 +20,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/virtual_memory_title">
 
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
                 android:key="vm_swappiness"
                 android:title="Swappiness"
                 android:dialogTitle="Swappiness" />
-	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+	<net.sakuramilk.widget.SeekBarPreference
                 android:key="vm_vfs_cache_pressure"
                 android:title="VFS Cache Pressure"
                 android:dialogTitle="VFS Cache Pressure" />
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
                 android:key="vm_dirty_expire_centisecs"
                 android:title="Dirty expire centisecs"
                 android:dialogTitle="Dirty expire centisecs" />
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
                 android:key="vm_dirty_writeback_centisecs"
                 android:title="Dirty writeback centisecs"
                 android:dialogTitle="Dirty writeback centisecs" />
-	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+	<net.sakuramilk.widget.SeekBarPreference
                 android:key="vm_dirty_ratio"
                 android:title="Dirty ratio"
                 android:dialogTitle="Dirty ratio" />
-	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+	<net.sakuramilk.widget.SeekBarPreference
                 android:key="vm_dirty_background_ratio"
                 android:title="Dirty background ratio"
                 android:dialogTitle="Dirty background ratio" />

@@ -16,7 +16,7 @@
 
 package net.sakuramilk.TweakGS2.Receiver;
 
-import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.util.Misc;
 import net.sakuramilk.TweakGS2.Notification.KeyBacklightFlashService;
 import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;

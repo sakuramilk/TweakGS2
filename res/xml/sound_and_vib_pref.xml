@@ -50,12 +50,12 @@
     <PreferenceCategory
         android:key="vib_category"
         android:title="@string/vib_category">
-        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="vib_normal_level"
             android:title="@string/vib_normal_level"
             android:dialogTitle="@string/vib_normal_level"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="vib_incoming_level"
             android:title="@string/vib_incoming_level"
             android:dialogTitle="@string/vib_incoming_level"

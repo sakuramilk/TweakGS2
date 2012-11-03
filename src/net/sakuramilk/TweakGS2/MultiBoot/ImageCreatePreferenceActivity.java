@@ -1,10 +1,10 @@
 package net.sakuramilk.TweakGS2.MultiBoot;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
-import net.sakuramilk.TweakGS2.Parts.ApplyButtonPreferenceActivity;
-import net.sakuramilk.TweakGS2.Parts.TextInputDialog;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
+import net.sakuramilk.widget.ApplyButtonPreferenceActivity;
+import net.sakuramilk.widget.TextInputDialog;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;

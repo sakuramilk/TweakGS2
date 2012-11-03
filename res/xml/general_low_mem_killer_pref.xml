@@ -20,27 +20,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/low_memory_killer_title">
 
-   	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+   	<net.sakuramilk.widget.SeekBarPreference
                 android:key="lowmem_forground_app"
                 android:title="Forground App"
                 android:dialogTitle="Forground App" />                
-	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+	<net.sakuramilk.widget.SeekBarPreference
                 android:key="lowmem_visible_app"
                 android:title="Visible App"
                 android:dialogTitle="Visible App" />
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
                 android:key="lowmem_secondary_server"
                 android:title="Secondary Server"
                 android:dialogTitle="Secondary Server" />
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
                 android:key="lowmem_hidden_app"
                 android:title="Hidden App"
                 android:dialogTitle="Hidden App" />
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
                 android:key="lowmem_content_provider"
                 android:title="Content Provider"
                 android:dialogTitle="Content Provider" />
-	<net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+	<net.sakuramilk.widget.SeekBarPreference
                 android:key="lowmem_empty_app"
                 android:title="Empty App"
                 android:dialogTitle="Empty App" />

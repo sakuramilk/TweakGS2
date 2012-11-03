@@ -1,7 +1,7 @@
 package net.sakuramilk.TweakGS2.SoundAndVib;
 
-import net.sakuramilk.TweakGS2.Common.Convert;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.Convert;
+import net.sakuramilk.util.SystemCommand;
 
 public class BootSoundSetting {
     

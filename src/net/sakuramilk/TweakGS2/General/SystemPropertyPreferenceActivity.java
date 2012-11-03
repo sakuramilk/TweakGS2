@@ -17,11 +17,11 @@
 package net.sakuramilk.TweakGS2.General;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
-import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
-import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
-import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
+import net.sakuramilk.widget.ConfirmDialog;
+import net.sakuramilk.widget.SeekBarPreference;
+import net.sakuramilk.widget.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -209,7 +209,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
                 	finish();
                 }
              });
-            dlg.show(this, R.string.system_property_title, R.string.sysprop_change_reboot_message);
+            dlg.show(R.string.system_property_title, R.string.sysprop_change_reboot_message);
         }
         return super.onKeyDown(keyCode, event);
     }

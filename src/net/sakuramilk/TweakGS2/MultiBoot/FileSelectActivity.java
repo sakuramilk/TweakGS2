@@ -16,7 +16,7 @@
 
 package net.sakuramilk.TweakGS2.MultiBoot;
 
-import net.sakuramilk.TweakGS2.Parts.FilePickerActivity;
+import net.sakuramilk.widget.FilePickerActivity;
 import android.content.Intent;
 import android.util.Log;
 

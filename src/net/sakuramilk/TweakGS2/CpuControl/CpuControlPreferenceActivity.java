@@ -17,7 +17,7 @@
 package net.sakuramilk.TweakGS2.CpuControl;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.util.Misc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;

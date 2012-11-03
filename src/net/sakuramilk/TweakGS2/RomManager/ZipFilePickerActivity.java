@@ -22,9 +22,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
-import net.sakuramilk.TweakGS2.Parts.FilePickerActivity;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
+import net.sakuramilk.widget.FilePickerActivity;
 
 public class ZipFilePickerActivity extends FilePickerActivity {
 

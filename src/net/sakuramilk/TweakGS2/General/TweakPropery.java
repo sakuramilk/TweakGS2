@@ -16,8 +16,8 @@
 
 package net.sakuramilk.TweakGS2.General;
 
-import net.sakuramilk.TweakGS2.Common.PropertyManager;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.PropertyManager;
+import net.sakuramilk.util.SystemCommand;
 
 public class TweakPropery extends PropertyManager {
 

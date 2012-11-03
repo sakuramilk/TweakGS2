@@ -16,11 +16,12 @@
 
 package net.sakuramilk.TweakGS2.RomManager;
 
+import net.sakuramilk.TweakGS2.Config;
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Constant;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
-import net.sakuramilk.TweakGS2.Parts.TextInputDialog;
+import net.sakuramilk.util.Constant;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
+import net.sakuramilk.widget.TextInputDialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -120,17 +121,17 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             this.startActivity(intent);
 
         } else if (preference == mSblBackup) {
-            String backupDir = Misc.getSdcardPath(true) + Constant.TGS2_BACKUP_DIR;
+            String backupDir = Misc.getSdcardPath(true) + Config.TGS2_BACKUP_DIR;
             String backupPath = backupDir + "/Sbl_" + Misc.getDateString() + ".bin";
             SystemCommand.mkdir(backupDir);
-            SystemCommand.sbl_backup(backupPath);
+            SystemCommand.sbl_backup_for_gs2(backupPath);
             Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
 
         } else if (preference == mEfsBackup) {
-            String backupDir = Misc.getSdcardPath(true) + Constant.TGS2_BACKUP_DIR;
+            String backupDir = Misc.getSdcardPath(true) + Config.TGS2_BACKUP_DIR;
             String backupPath = backupDir + "/efs_" + Misc.getDateString() + ".img";
             SystemCommand.mkdir(backupDir);
-            SystemCommand.efs_backup(backupPath);
+            SystemCommand.efs_backup_for_gs2(backupPath);
             Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
         }
         return false;

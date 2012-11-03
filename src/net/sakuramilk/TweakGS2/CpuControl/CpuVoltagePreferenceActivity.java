@@ -19,11 +19,11 @@ package net.sakuramilk.TweakGS2.CpuControl;
 import java.util.ArrayList;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Parts.ApplyButtonPreferenceActivity;
-import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
-import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
-import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.widget.ApplyButtonPreferenceActivity;
+import net.sakuramilk.widget.ConfirmDialog;
+import net.sakuramilk.widget.SeekBarPreference;
+import net.sakuramilk.widget.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -191,7 +191,7 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
 				public void onCancel() {
 				}
             });
-            dlg.show(this, android.R.string.dialog_alert_title, R.string.cpu_asv_group_change_message);
+            dlg.show(android.R.string.dialog_alert_title, R.string.cpu_asv_group_change_message);
         }
         return false;
     }

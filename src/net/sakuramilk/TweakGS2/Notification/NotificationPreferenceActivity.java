@@ -17,7 +17,7 @@
 package net.sakuramilk.TweakGS2.Notification;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.util.Misc;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;

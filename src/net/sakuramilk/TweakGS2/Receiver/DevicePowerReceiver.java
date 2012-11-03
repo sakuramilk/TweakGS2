@@ -16,7 +16,7 @@
 
 package net.sakuramilk.TweakGS2.Receiver;
 
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.SystemCommand;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import android.content.BroadcastReceiver;
 import android.content.Context;

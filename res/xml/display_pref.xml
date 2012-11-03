@@ -29,7 +29,7 @@
             android:entries="@array/ldctype_entries"
             android:entryValues="@array/lcdtype_values"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_lcd_gamma"
             android:title="@string/gamma_adjust"
             android:dialogTitle="@string/gamma_adjust"
@@ -51,12 +51,12 @@
             android:summaryOn="@string/mdnie_mode_on"
             android:summaryOff="@string/mdnie_mode_off"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_mdnie_color_cb"
             android:title="@string/mdnie_color_cb"
             android:dialogTitle="@string/mdnie_color_cb"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_mdnie_color_cr"
             android:title="@string/mdnie_color_cr"
             android:dialogTitle="@string/mdnie_color_cr"

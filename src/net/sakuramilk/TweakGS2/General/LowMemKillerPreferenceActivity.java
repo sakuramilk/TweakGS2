@@ -19,9 +19,9 @@ package net.sakuramilk.TweakGS2.General;
 import java.util.ArrayList;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Parts.SeekBarPreference;
-import net.sakuramilk.TweakGS2.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.widget.SeekBarPreference;
+import net.sakuramilk.widget.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;

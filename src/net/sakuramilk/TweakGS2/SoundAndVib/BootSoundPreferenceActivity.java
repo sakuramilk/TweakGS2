@@ -1,7 +1,7 @@
 package net.sakuramilk.TweakGS2.SoundAndVib;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
+import net.sakuramilk.util.Misc;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;

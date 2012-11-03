@@ -19,8 +19,8 @@ package net.sakuramilk.TweakGS2.General;
 import java.io.File;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;

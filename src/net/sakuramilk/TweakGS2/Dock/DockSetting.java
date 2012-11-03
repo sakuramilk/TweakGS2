@@ -17,9 +17,9 @@
 package net.sakuramilk.TweakGS2.Dock;
 
 import android.content.Context;
-import net.sakuramilk.TweakGS2.Common.RootProcess;
-import net.sakuramilk.TweakGS2.Common.SettingManager;
-import net.sakuramilk.TweakGS2.Common.SysFs;
+import net.sakuramilk.util.RootProcess;
+import net.sakuramilk.util.SettingManager;
+import net.sakuramilk.util.SysFs;
 
 public class DockSetting extends SettingManager {
 

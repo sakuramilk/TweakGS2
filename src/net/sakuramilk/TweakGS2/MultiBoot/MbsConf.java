@@ -16,9 +16,9 @@
 
 package net.sakuramilk.TweakGS2.MultiBoot;
 
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.PropertyManager;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.PropertyManager;
+import net.sakuramilk.util.SystemCommand;
 
 public class MbsConf extends PropertyManager {
 

@@ -17,8 +17,8 @@
 package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
-import net.sakuramilk.TweakGS2.Common.SettingManager;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.SettingManager;
+import net.sakuramilk.util.SystemCommand;
 
 public class SystemPropertySetting extends SettingManager {
 

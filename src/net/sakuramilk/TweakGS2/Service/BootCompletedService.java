@@ -1,9 +1,9 @@
 package net.sakuramilk.TweakGS2.Service;
 
 import net.sakuramilk.TweakGS2.BusControl.BusControlSetting;
-import net.sakuramilk.TweakGS2.Common.Convert;
-import net.sakuramilk.TweakGS2.Common.RootProcess;
-import net.sakuramilk.TweakGS2.Common.SysFs;
+import net.sakuramilk.util.Convert;
+import net.sakuramilk.util.RootProcess;
+import net.sakuramilk.util.SysFs;
 import net.sakuramilk.TweakGS2.CpuControl.CpuControlSetting;
 import net.sakuramilk.TweakGS2.Display.DisplaySetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;

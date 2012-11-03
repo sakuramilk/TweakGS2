@@ -19,10 +19,10 @@ package net.sakuramilk.TweakGS2.CpuControl;
 import java.io.File;
 
 import android.content.Context;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.RootProcess;
-import net.sakuramilk.TweakGS2.Common.SettingManager;
-import net.sakuramilk.TweakGS2.Common.SysFs;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.RootProcess;
+import net.sakuramilk.util.SettingManager;
+import net.sakuramilk.util.SysFs;
 
 public class CpuControlSetting extends SettingManager {
 

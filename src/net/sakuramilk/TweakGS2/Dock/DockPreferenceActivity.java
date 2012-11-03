@@ -17,8 +17,8 @@
 package net.sakuramilk.TweakGS2.Dock;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.SystemCommand;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
 import android.annotation.SuppressLint;
 import android.app.UiModeManager;
 import android.content.Context;

@@ -27,13 +27,13 @@
         android:entryValues="@array/asv_group_values"
         android:enabled="false" />
 
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
         android:key="bus_up_threshold"
         android:title="@string/bus_up_threshold_title"
         android:dialogTitle="@string/bus_up_threshold_title"
         android:enabled="false" />
 
-    <net.sakuramilk.TweakGS2.Parts.SeekBarPreference
+    <net.sakuramilk.widget.SeekBarPreference
         android:key="bus_down_threshold"
         android:title="@string/bus_down_threshold_title"
         android:dialogTitle="@string/bus_down_threshold_title"

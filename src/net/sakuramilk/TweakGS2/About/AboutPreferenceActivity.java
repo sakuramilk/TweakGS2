@@ -17,8 +17,8 @@
 package net.sakuramilk.TweakGS2.About;
 
 import net.sakuramilk.TweakGS2.R;
-import net.sakuramilk.TweakGS2.Common.Misc;
-import net.sakuramilk.TweakGS2.Common.RootProcess;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.RootProcess;
 import net.sakuramilk.TweakGS2.Display.DisplaySetting;
 import net.sakuramilk.TweakGS2.Dock.DockSetting;
 import net.sakuramilk.TweakGS2.General.GeneralSetting;
@@ -26,7 +26,7 @@ import net.sakuramilk.TweakGS2.General.LowMemKillerSetting;
 import net.sakuramilk.TweakGS2.General.SystemPropertySetting;
 import net.sakuramilk.TweakGS2.General.VirtualMemorySetting;
 import net.sakuramilk.TweakGS2.Notification.NotificationSetting;
-import net.sakuramilk.TweakGS2.Parts.ConfirmDialog;
+import net.sakuramilk.widget.ConfirmDialog;
 import net.sakuramilk.TweakGS2.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS2.SoundAndVib.SoundAndVibSetting;
 import android.content.Context;
@@ -90,7 +90,7 @@ public class AboutPreferenceActivity extends PreferenceActivity
 				public void onCancel() {
 				}
             });
-            confirmDialog.show(this, R.string.all_reset_title, R.string.all_reset_summary);
+            confirmDialog.show(R.string.all_reset_title, R.string.all_reset_summary);
 
         } else if (preference == mRecommend) {
             final ConfirmDialog confirmDialog = new ConfirmDialog(this);
@@ -136,7 +136,7 @@ public class AboutPreferenceActivity extends PreferenceActivity
 				public void onCancel() {
 				}
             });
-            confirmDialog.show(this, R.string.all_recommend_title, R.string.all_recommend_summary);
+            confirmDialog.show(R.string.all_recommend_title, R.string.all_recommend_summary);
 
         } else if (preference == mCheckUpdate) {
             Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=net.sakuramilk.TweakGS2");
