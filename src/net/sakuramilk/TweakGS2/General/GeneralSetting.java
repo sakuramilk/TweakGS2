@@ -144,5 +144,6 @@ public class GeneralSetting extends SettingManager {
     public void reset() {
         clearValue(KEY_IO_SCHED);
         clearValue(KEY_GSM_NETWORK_TWEAK);
+        clearValue(KEY_EXT_SD_BIND);
     }
 }
