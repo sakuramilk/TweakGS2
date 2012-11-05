@@ -35,6 +35,7 @@ public class GeneralPreferenceActivity extends PreferenceActivity implements OnP
     private GeneralSetting mSetting;
     private ListPreference mIoSched;
     private CheckBoxPreference mExternalSdBind;
+    private CheckBoxPreference mReplaceKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,13 @@ public class GeneralPreferenceActivity extends PreferenceActivity implements OnP
             mExternalSdBind.setChecked(SystemCommand.check_mount(Misc.getExtSdBindPath()));
             mExternalSdBind.setOnPreferenceChangeListener(this);
         }
+        
+        mReplaceKey = (CheckBoxPreference)findPreference(GeneralSetting.KEY_REPLACE_KEY);
+        if (mSetting.isEnableReplaceKey()) {
+        	mReplaceKey.setEnabled(true);
+        	mReplaceKey.setChecked(mSetting.getReplaceKey());
+        	mReplaceKey.setOnPreferenceChangeListener(this);
+        }
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -77,6 +85,10 @@ public class GeneralPreferenceActivity extends PreferenceActivity implements OnP
                 SystemCommand.umount(extSdBindPath);
             }
             return true;
+        } else if (mReplaceKey == preference) {
+        	mSetting.setReplaceKey((Boolean)newValue);
+        	mReplaceKey.setChecked((Boolean)newValue);
+        	return true;
         }
         return false;
     }

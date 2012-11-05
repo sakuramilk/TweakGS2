@@ -91,6 +91,9 @@
     <string name="external_sd_bind_title">外部SDカードのバインド</string>
     <string name="external_sd_bind_summary_on">外部SDカードを/sdcard/external_sdにマウントします\n現在マウントされています</string>
     <string name="external_sd_bind_summary_off">外部SDカードを/sdcard/external_sdにマウントします\n現在マウントされていません</string>
+    <string name="replace_key_title">バック/メニューキー入れ替え</string>
+    <string name="replace_key_summary_on">バック/メニューキー入れ替えは有効</string>
+    <string name="replace_key_summary_off">バック/メニューキー入れ替えは無効</string>
     <string name="sysprop_boot_sound_title">起動時のサウンド</string>
     <string name="sysprop_boot_sound_summary_on">起動時のサウンドは有効</string>
     <string name="sysprop_boot_sound_summary_off">起動時のサウンドは無効</string>

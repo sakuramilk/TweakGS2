@@ -61,5 +61,11 @@
         android:title="@string/external_sd_bind_title"
         android:summaryOn="@string/external_sd_bind_summary_on"
         android:summaryOff="@string/external_sd_bind_summary_off" />
+    <CheckBoxPreference   
+        android:key="replace_key"
+        android:enabled="false"
+        android:title="@string/replace_key_title"
+        android:summaryOn="@string/replace_key_summary_on"
+        android:summaryOff="@string/replace_key_summary_off" />
 
 </PreferenceScreen>
