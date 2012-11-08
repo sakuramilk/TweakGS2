@@ -17,6 +17,7 @@
 package net.sakuramilk.TweakGS2.General;
 
 import android.content.Context;
+import net.sakuramilk.util.Convert;
 import net.sakuramilk.util.SettingManager;
 import net.sakuramilk.util.SystemCommand;
 
@@ -34,6 +35,8 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_SWITCH_EXTERNAL = "sysprop_switch_external";
     public static final String KEY_MUSIC_VOLUME_STEPS = "sysprop_music_volume_steps";
     public static final String KEY_SCROLLING_CACHE = "sysprop_scrolling_cache";
+    public static final String KEY_BOTTOM_ACTION_BAR = "sysprop_bottom_action_bar";
+    public static final String KEY_STATUS_BAR_ICON_ALPHA = "sysprop_status_bar_icon_alpha";
 
     private final TweakPropery mTweakPorp = new TweakPropery();
 
@@ -164,21 +167,35 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public String getMusicVolumeSteps() {
-        String ret = mTweakPorp.getValue("ro.tweak.music_vol_steps", "15");
-        return ret;
+    	return SystemCommand.get_prop("persist.tweak.music_vol_steps", "15");
     }
 
     public void setMusicVolumeSteps(String value) {
-        mTweakPorp.setValue("ro.tweak.music_vol_steps", value);
+        SystemCommand.set_prop("persist.tweak.music_vol_steps", value);
     }
 
     public boolean getScrollingCache() {
-        String ret = mTweakPorp.getValue("ro.tweak.scrolling_cache", "1");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.scrolling_cache", "1"));
     }
 
     public void setScrollingCache(boolean value) {
-    	mTweakPorp.setValue("ro.tweak.scrolling_cache", (value ? "1" : "0"));
+    	SystemCommand.set_prop("persist.tweak.scrolling_cache", Convert.toString(value));
+    }
+
+    public boolean getBottomActionBar() {
+        return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.bottom_actionbar", "0"));
+    }
+
+    public void setBottomActionBar(boolean value) {
+    	SystemCommand.set_prop("persist.tweak.bottom_actionbar", Convert.toString(value));
+    }
+    
+    public boolean getStatusBarIconAlpha() {
+        return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.sb_icon_alpha", "1"));
+    }
+
+    public void setStatusBarIconAlpha(boolean value) {
+    	SystemCommand.set_prop("persist.tweak.sb_icon_alpha", Convert.toString(value));
     }
 
     @Override
@@ -194,5 +211,10 @@ public class SystemPropertySetting extends SettingManager {
     @Override
     public void reset() {
         mTweakPorp.delete();
+        SystemCommand.set_prop("persist.sys.vold.switchexternal", "0");
+        SystemCommand.set_prop("persist.tweak.music_vol_steps", "15");
+        SystemCommand.set_prop("persist.tweak.scrolling_cache", "1");
+        SystemCommand.set_prop("persist.tweak.bottom_actionbar", "0");
+        SystemCommand.set_prop("persist.tweak.sb_icon_alpha", "1");
     }
 }

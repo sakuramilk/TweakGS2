@@ -131,6 +131,12 @@
     <string name="sysprop_scrolling_cache_title">Scrolling cache</string>
     <string name="sysprop_scrolling_cache_summary_on">scrolling cache enabled</string>
     <string name="sysprop_scrolling_cache_summary_off">scrolling cache disabled</string>
+    <string name="sysprop_bottom_action_bar_title">Bottom action bar</string>
+    <string name="sysprop_bottom_action_bar_summary_on">Bottom action bar enabled</string>
+    <string name="sysprop_bottom_action_bar_summary_off">Bottom action bar disabled</string>
+    <string name="sysprop_status_bar_icon_alpha_title">Status bar icon aplha</string>
+    <string name="sysprop_status_bar_icon_alpha_summary_on">Status bar icon aplha enabled</string>
+    <string name="sysprop_status_bar_icon_alpha_summary_off">Status bar icon aplha disabled</string>
     <string name="sysprop_change_reboot_message">Settings have been changed. Do you want to reboot now?</string>
 
     <!-- Multi Boot -->

@@ -124,6 +124,12 @@
     <string name="sysprop_scrolling_cache_title">スクロールキャッシュ</string>
     <string name="sysprop_scrolling_cache_summary_on">スクロールキャッシュは有効</string>
     <string name="sysprop_scrolling_cache_summary_off">スクロールキャッシュは無効</string>
+    <string name="sysprop_bottom_action_bar_title">アクションバー位置</string>
+    <string name="sysprop_bottom_action_bar_summary_on">アクションバーを下部に設定</string>
+    <string name="sysprop_bottom_action_bar_summary_off">アクションバーを上部に設定</string>
+    <string name="sysprop_status_bar_icon_alpha_title">ステータスバーアイコン透過処理</string>
+    <string name="sysprop_status_bar_icon_alpha_summary_on">ステータスバーアイコン透過処理は有効</string>
+    <string name="sysprop_status_bar_icon_alpha_summary_off">ステータスバーアイコン透過処理は無効</string>
     <string name="sysprop_change_reboot_message">設定が変更されました。今すぐ再起動しますか？</string>
 
     <!-- Multi boot -->

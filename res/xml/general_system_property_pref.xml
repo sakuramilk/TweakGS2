@@ -78,5 +78,14 @@
         android:title="@string/sysprop_scrolling_cache_title"
         android:summaryOn="@string/sysprop_scrolling_cache_summary_on"
         android:summaryOff="@string/sysprop_scrolling_cache_summary_off" />
-
+    <CheckBoxPreference
+        android:key="sysprop_bottom_action_bar"
+        android:title="@string/sysprop_bottom_action_bar_title"
+        android:summaryOn="@string/sysprop_bottom_action_bar_summary_on"
+        android:summaryOff="@string/sysprop_bottom_action_bar_summary_off" />
+    <CheckBoxPreference
+        android:key="sysprop_status_bar_icon_alpha"
+        android:title="@string/sysprop_status_bar_icon_alpha_title"
+        android:summaryOn="@string/sysprop_status_bar_icon_alpha_summary_on"
+        android:summaryOff="@string/sysprop_status_bar_icon_alpha_summary_off" />
 </PreferenceScreen>

@@ -45,6 +45,8 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mSwitchExtarnal;
     private SeekBarPreference mMusicVolumeSteps;
     private CheckBoxPreference mScrollingCache;
+    private CheckBoxPreference mBottomActionBar;
+    private CheckBoxPreference mStatusBarIconAlpha;
     private boolean mChangeValue;
 
     @Override
@@ -121,6 +123,16 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mScrollingCache = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SCROLLING_CACHE);
         mScrollingCache.setChecked(value);
         mScrollingCache.setOnPreferenceChangeListener(this);
+
+        value = mSetting.getBottomActionBar();
+        mBottomActionBar = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_BOTTOM_ACTION_BAR);
+        mBottomActionBar.setChecked(value);
+        mBottomActionBar.setOnPreferenceChangeListener(this);
+        
+        value = mSetting.getStatusBarIconAlpha();
+        mStatusBarIconAlpha = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_STATUS_BAR_ICON_ALPHA);
+        mStatusBarIconAlpha.setChecked(value);
+        mStatusBarIconAlpha.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -174,6 +186,16 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             boolean newValue = (Boolean)objValue;
             mSetting.setScrollingCache(newValue);
             mScrollingCache.setChecked(newValue);
+            // not return true
+        } else if (mBottomActionBar == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setBottomActionBar(newValue);
+            mBottomActionBar.setChecked(newValue);
+            // not return true
+        } else if (mStatusBarIconAlpha == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setStatusBarIconAlpha(newValue);
+            mStatusBarIconAlpha.setChecked(newValue);
             // not return true
         }
         mChangeValue = true;
