@@ -36,6 +36,7 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_MUSIC_VOLUME_STEPS = "sysprop_music_volume_steps";
     public static final String KEY_SCROLLING_CACHE = "sysprop_scrolling_cache";
     public static final String KEY_BOTTOM_ACTION_BAR = "sysprop_bottom_action_bar";
+    public static final String KEY_BOTTOM_TITLE_BAR = "sysprop_bottom_title_bar";
     public static final String KEY_STATUS_BAR_ICON_ALPHA = "sysprop_status_bar_icon_alpha";
 
     private final TweakPropery mTweakPorp = new TweakPropery();
@@ -183,7 +184,15 @@ public class SystemPropertySetting extends SettingManager {
     public void setBottomActionBar(boolean value) {
     	SystemCommand.set_prop("persist.tweak.bottom_actionbar", Convert.toString(value));
     }
-    
+
+    public boolean getBottomTitleBar() {
+        return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.bottom_titlebar", "0"));
+    }
+
+    public void setBottomTitleBar(boolean value) {
+    	SystemCommand.set_prop("persist.tweak.bottom_titlebar", Convert.toString(value));
+    }
+
     public boolean getStatusBarIconAlpha() {
         return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.sb_icon_alpha", "1"));
     }
@@ -209,6 +218,7 @@ public class SystemPropertySetting extends SettingManager {
         SystemCommand.set_prop("persist.tweak.music_vol_steps", "15");
         SystemCommand.set_prop("persist.tweak.scrolling_cache", "1");
         SystemCommand.set_prop("persist.tweak.bottom_actionbar", "0");
+        SystemCommand.set_prop("persist.tweak.bottom_titlebar", "0");
         SystemCommand.set_prop("persist.tweak.sb_icon_alpha", "1");
     }
 }
