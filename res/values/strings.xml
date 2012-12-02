@@ -134,6 +134,9 @@
     <string name="sysprop_bottom_action_bar_title">Bottom action bar</string>
     <string name="sysprop_bottom_action_bar_summary_on">Bottom action bar enabled</string>
     <string name="sysprop_bottom_action_bar_summary_off">Bottom action bar disabled</string>
+    <string name="sysprop_bottom_title_bar_title">Bottom title bar</string>
+    <string name="sysprop_bottom_title_bar_summary_on">Bottom title bar enabled</string>
+    <string name="sysprop_bottom_title_bar_summary_off">Bottom title bar disabled</string>
     <string name="sysprop_status_bar_icon_alpha_title">Status bar icon aplha</string>
     <string name="sysprop_status_bar_icon_alpha_summary_on">Status bar icon aplha enabled</string>
     <string name="sysprop_status_bar_icon_alpha_summary_off">Status bar icon aplha disabled</string>

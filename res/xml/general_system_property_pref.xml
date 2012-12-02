@@ -84,6 +84,11 @@
         android:summaryOn="@string/sysprop_bottom_action_bar_summary_on"
         android:summaryOff="@string/sysprop_bottom_action_bar_summary_off" />
     <CheckBoxPreference
+        android:key="sysprop_bottom_title_bar"
+        android:title="@string/sysprop_bottom_title_bar_title"
+        android:summaryOn="@string/sysprop_bottom_title_bar_summary_on"
+        android:summaryOff="@string/sysprop_bottom_title_bar_summary_off" />
+    <CheckBoxPreference
         android:key="sysprop_status_bar_icon_alpha"
         android:title="@string/sysprop_status_bar_icon_alpha_title"
         android:summaryOn="@string/sysprop_status_bar_icon_alpha_summary_on"
